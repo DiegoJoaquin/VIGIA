@@ -1,0 +1,17 @@
+{
+  "name": "vigia",
+  "private": true,
+  "type": "module",
+  "workspaces": ["web", "worker"],
+  "scripts": {
+    "test": "vitest run",
+    "dev": "npm --workspace web run dev",
+    "build": "npm --workspace web run build",
+    "build:demo": "npm --workspace web run build:demo",
+    "worker:dev": "npm --workspace worker run dev"
+  },
+  "devDependencies": {
+    "typescript": "5.6.3",
+    "vitest": "2.1.8"
+  }
+}

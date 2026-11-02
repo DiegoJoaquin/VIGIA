@@ -1,0 +1,20 @@
+{
+  "name": "@vigia/worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev -c wrangler.local.toml --local --test-scheduled",
+    "deploy": "wrangler deploy",
+    "db:init": "wrangler d1 execute vigia --remote --file=schema.sql",
+    "db:init:local": "wrangler d1 execute vigia --local --file=schema.sql -c wrangler.local.toml"
+  },
+  "dependencies": {
+    "@block65/webcrypto-web-push": "1.0.2",
+    "hono": "4.6.14",
+    "unpdf": "0.12.1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "4.20241205.0",
+    "wrangler": "3.99.0"
+  }
+}
