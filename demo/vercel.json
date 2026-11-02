@@ -3,7 +3,7 @@
   "framework": null,
   "installCommand": "echo \"Demo estática: no requiere instalación\"",
   "buildCommand": "echo \"Demo estática: no requiere build\"",
-  "outputDirectory": "demo",
+  "outputDirectory": ".",
   "cleanUrls": true,
   "headers": [{ "source": "/(.*)", "headers": [{ "key": "X-Content-Type-Options", "value": "nosniff" }] }]
 }
