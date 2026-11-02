@@ -10,7 +10,7 @@ Todo corre en capas gratuitas: **costo mensual $0**.
 
 | Carpeta | Qué es |
 | --- | --- |
-| `demo/` | La demo lista para publicar (sitio estático, sin servidor). En Vercel: Root Directory = `demo`. |
+| `demo/` | La demo lista para publicar (sitio estático, sin servidor). Vercel la publica sola gracias al `vercel.json` de la raíz. |
 | `web/` | La app (React + Vite). Se instala en el celular como app (PWA). Funciona sin conexión. |
 | `worker/` | El servidor en Cloudflare Workers: API, base de datos D1, alertas diarias, calendario `.ics`, notificaciones push. |
 | `shared/` | Lógica común: modelo de datos, motor de fechas, obligaciones de Ventanilla Única, prompt de extracción y datos de demo. |
@@ -44,8 +44,10 @@ Reglas de diseño importantes:
 ## Publicar la demo en Vercel
 
 1. En vercel.com: Add New → Project → importa este repositorio.
-2. En "Root Directory" elige `demo`. Framework: Other. Sin comando de build.
+2. No cambies nada: el `vercel.json` de la raíz le indica a Vercel que publique solo la carpeta `demo/` como sitio estático.
 3. Deploy. Vercel publica cada cambio que subas a `main`.
+
+El servidor (`worker/`) no va en Vercel: se publica en Cloudflare (ver más abajo).
 
 Para regenerar la demo después de cambiar la app: `npm run build:demo` y copia `web/dist-demo/demo.html` dentro de la plantilla de `demo/index.html`.
 
