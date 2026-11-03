@@ -23,9 +23,9 @@ describe('avisos', () => {
   });
   it('agrupa varias fechas vencidas del mismo compromiso', () => {
     const d = data();
-    d.completions = d.completions.filter((c) => c.obligationId !== 'e-ph-diario' || c.due < '2026-10-01');
+    d.completions = d.completions.filter((c) => c.obligationId !== 'g-humectacion' || c.due < '2026-10-01');
     const plan = planNotifications(d, today, DEFAULT_NOTIFY, 'u1', new Set())!;
-    const ph = plan.groups[0].items.filter((o) => o.obligation.id === 'e-ph-diario');
+    const ph = plan.groups[0].items.filter((o) => o.obligation.id === 'g-humectacion');
     expect(ph).toHaveLength(1);
     expect(ph[0].obligation.title).toMatch(/fechas pendientes/);
   });

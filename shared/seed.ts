@@ -164,14 +164,14 @@ export const SEED_OBLIGATIONS: Obligation[] = [
   // ——— Viña Estampa ———
   {
     id: 'e-ril-muestra', projectId: E, source: 'rca', confirmed: true,
-    title: 'Autocontrol mensual del RIL',
-    plain: 'Tomar una muestra al mes del riego antes de aplicarlo y enviarla a un laboratorio autorizado.',
+    title: 'Monitoreo mensual del RIL',
+    plain: 'Llevar la planilla diaria de pH y caudal, y tomar una muestra al mes antes del riego para un laboratorio autorizado (caudal, pH, temperatura y parámetros químicos).',
     component: 'Agua', recipient: 'Interno',
     frequency: { kind: 'monthly', dueDay: 20 },
     quote: 'los cuales se realizarán 1 muestra puntual mensual, siendo tomada desde la válvula de monitoreo antes de salir al riego.',
     section: '4.3.2.2 Acciones · Programa de autocontrol',
-    details: ['pH', 'DBO5', 'Sólidos suspendidos biodegradables', 'Sólidos suspendidos totales', 'Aceites y grasas', 'Detergentes SAAM', 'Fenoles'],
-    evidence: 'Certificado del laboratorio',
+    details: ['Caudal', 'pH', 'Temperatura', 'DBO5', 'Sólidos suspendidos biodegradables', 'Sólidos suspendidos totales', 'Aceites y grasas', 'Detergentes SAAM', 'Fenoles'],
+    evidence: 'Certificado del laboratorio y planilla diaria de pH y caudal',
     responsible: 'Jefe de bodega',
   },
   {
@@ -184,17 +184,6 @@ export const SEED_OBLIGATIONS: Obligation[] = [
     section: '4.3.2.2 Acciones · Programa de autocontrol',
     evidence: 'Comprobante de carga en la plataforma de la SMA',
     responsible: 'Encargado ambiental',
-  },
-  {
-    id: 'e-ph-diario', projectId: E, source: 'rca', confirmed: true,
-    title: 'Registro diario de pH y caudal',
-    plain: 'Anotar cada día el pH y el caudal aplicado; respaldar la planilla cada semana.',
-    component: 'Agua', recipient: 'Interno',
-    frequency: { kind: 'weekly', weekday: 0 },
-    quote: 'Adicionalmente el pH es registrado diariamente, en la planilla de control, junto con el caudal diario dispuesto,',
-    section: '4.3.2.2 Acciones · Programa de autocontrol',
-    evidence: 'Planilla de control semanal',
-    responsible: 'Operador planta RIL',
   },
   {
     id: 'e-suelo', projectId: E, source: 'rca', confirmed: true,
@@ -311,7 +300,6 @@ const EVIDENCE_NAMES: Record<string, (due: string) => string> = {
   'g-humectacion': (d) => `Humectacion_semana_${d}.jpg`,
   'e-ril-muestra': (d) => `Certificado_ETFA_${d.slice(0, 7)}.pdf`,
   'e-ril-sma': (d) => `Comprobante_SMA_${d.slice(0, 7)}.pdf`,
-  'e-ph-diario': (d) => `Planilla_pH_${d}.xlsx`,
 };
 
 /**
