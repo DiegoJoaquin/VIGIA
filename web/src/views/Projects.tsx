@@ -245,7 +245,7 @@ function Documents({ project, onAdded }: { project: Project; onAdded: () => void
   const [error, setError] = useState<{ field?: string; text: string }>();
   const [reading, setReading] = useState<{ doc: DocumentRef; draft?: ImportDraft; error?: string }>();
   const [confirmDel, setConfirmDel] = useState<string>();
-  const { step, setStep, done } = useReadingSteps();
+  const { step, elapsed, done, start, finish, stop } = useReadingSteps(READ_STEPS.length);
 
   const upload = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -264,9 +264,9 @@ function Documents({ project, onAdded }: { project: Project; onAdded: () => void
   };
 
   const read = async (doc: DocumentRef) => {
-    setReading({ doc }); setStep(0);
-    try { setReading({ doc, draft: await s.extractDocument(doc.id) }); }
-    catch (err) { setReading({ doc, error: (err as Error).message }); setStep(-1); }
+    setReading({ doc }); start();
+    try { setReading({ doc, draft: await s.extractDocument(doc.id) }); finish(); }
+    catch (err) { setReading({ doc, error: (err as Error).message }); stop(); }
   };
 
   return (
@@ -299,11 +299,11 @@ function Documents({ project, onAdded }: { project: Project; onAdded: () => void
       {reading && (
         <section className="section" aria-live="polite">
           <div className="section-head"><h2>Leyendo {reading.doc.name}</h2>
-            <button className="icon-btn" aria-label="Cerrar lectura" onClick={() => { setReading(undefined); setStep(-1); }}><IconClose size={16} /></button></div>
-          {reading.error ? <p className="form-error" role="alert">{reading.error}</p> : <ReadingSteps step={step} steps={READ_STEPS} />}
+            <button className="icon-btn" aria-label="Cerrar lectura" onClick={() => { setReading(undefined); stop(); }}><IconClose size={16} /></button></div>
+          {reading.error ? <p className="form-error" role="alert">{reading.error}</p> : <ReadingSteps step={step} steps={READ_STEPS} elapsed={elapsed} />}
           {reading.draft && done && (
             <ReviewDraft draft={reading.draft} heading="Compromisos propuestos" sub={`${reading.draft.obligations.length}`}
-              onSave={async (keep) => { await s.saveImport(reading.draft!, keep, reading.doc.id); setReading(undefined); setStep(-1); onAdded(); }} />
+              onSave={async (keep) => { await s.saveImport(reading.draft!, keep, reading.doc.id); setReading(undefined); stop(); onAdded(); }} />
           )}
         </section>
       )}

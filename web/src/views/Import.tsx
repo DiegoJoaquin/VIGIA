@@ -6,18 +6,35 @@ import { ReviewDraft } from './Review';
 
 const STEPS = ['Descargando la RCA desde el SEA', 'Leyendo considerandos y plan de seguimiento', 'Detectando compromisos y frecuencias', 'Calculando fechas de vencimiento'];
 
-/** Animación de pasos mientras se lee un documento. */
-export function useReadingSteps() {
+/**
+ * Pasos mientras se lee un documento. Avanzan solos hasta el último y ahí esperan la respuesta real
+ * del servidor: nunca se marca como listo algo que todavía no termina.
+ */
+export function useReadingSteps(count = STEPS.length) {
   const [step, setStep] = useState(-1);
+  const [finished, setFinished] = useState(false);
+  const [elapsed, setElapsed] = useState(0);
   useEffect(() => {
-    if (step < 0 || step >= STEPS.length) return;
-    const t = setTimeout(() => setStep((n) => n + 1), 700);
+    if (step < 0 || step >= count - 1 || finished) return;
+    const t = setTimeout(() => setStep((n) => n + 1), 1100);
     return () => clearTimeout(t);
-  }, [step]);
-  return { step, setStep, done: step >= STEPS.length };
+  }, [step, finished, count]);
+  const running = step >= 0 && !finished;
+  useEffect(() => {
+    if (!running) return;
+    const t0 = Date.now();
+    const iv = setInterval(() => setElapsed(Math.round((Date.now() - t0) / 1000)), 1000);
+    return () => clearInterval(iv);
+  }, [running]);
+  return {
+    step, elapsed, done: finished,
+    start: () => { setFinished(false); setElapsed(0); setStep(0); },
+    finish: () => { setFinished(true); setStep(count); },
+    stop: () => { setFinished(false); setStep(-1); },
+  };
 }
 
-export function ReadingSteps({ step, steps = STEPS }: { step: number; steps?: string[] }) {
+export function ReadingSteps({ step, steps = STEPS, elapsed = 0 }: { step: number; steps?: string[]; elapsed?: number }) {
   return (
     <div className="steps" aria-live="polite">
       {steps.map((t, i) => (
@@ -25,6 +42,11 @@ export function ReadingSteps({ step, steps = STEPS }: { step: number; steps?: st
           <span className="step-mark">{i < step && <IconCheck size={13} />}</span><span>{t}</span>
         </div>
       ))}
+      {step < steps.length && elapsed >= 6 && (
+        <p className="faint num" style={{ fontSize: 'var(--t-meta)' }}>
+          Llevamos {elapsed} s. Una RCA larga puede tardar hasta un par de minutos: no cierres esta página.
+        </p>
+      )}
     </div>
   );
 }
@@ -34,21 +56,22 @@ const SEA_URL = /^https:\/\/(firma|infofirma|seia)\.sea\.gob\.cl\//i;
 export function Import() {
   const s = useStore();
   const [url, setUrl] = useState('https://firma.sea.gob.cl/publicaciones/df/66/2143896734.pdf');
-  const { step, setStep, done } = useReadingSteps();
+  const { step, elapsed, done, start, finish, stop } = useReadingSteps();
   const [draft, setDraft] = useState<ImportDraft>();
   const [file, setFile] = useState<File>();
   const [error, setError] = useState<{ field?: 'url' | 'file'; text: string }>();
   const urlRef = useRef<HTMLInputElement>(null);
 
   const run = async (source: string | File) => {
-    setError(undefined); setDraft(undefined); setStep(0);
+    setError(undefined); setDraft(undefined); start();
     setFile(typeof source === 'string' ? undefined : source);
     try {
       const d = typeof source === 'string' ? await s.extract(source) : await s.extractFile(source);
       setDraft(d);
+      finish();
     } catch (e) {
       setError({ field: typeof source === 'string' ? 'url' : 'file', text: (e as Error).message });
-      setStep(-1);
+      stop();
     }
   };
 
@@ -95,7 +118,7 @@ export function Import() {
         {error?.field === 'file' && <p className="form-error" role="alert">{error.text}</p>}
       </form>
 
-      {step >= 0 && <ReadingSteps step={step} />}
+      {step >= 0 && <ReadingSteps step={step} elapsed={elapsed} />}
 
       {ready && draft && (
         <>

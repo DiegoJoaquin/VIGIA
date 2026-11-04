@@ -313,12 +313,19 @@ function demoImport(url: string): ImportDraft {
 
 // —————————————————————— API ——————————————————————
 
-async function api<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(`/api${path}`, {
-    credentials: 'include',
-    headers: init?.body instanceof FormData ? undefined : { 'content-type': 'application/json' },
-    ...init,
-  });
+async function api<T>(path: string, init?: RequestInit & { timeoutMs?: number }): Promise<T> {
+  let res: Response;
+  try {
+    res = await fetch(`/api${path}`, {
+      credentials: 'include',
+      headers: init?.body instanceof FormData ? undefined : { 'content-type': 'application/json' },
+      signal: init?.timeoutMs ? AbortSignal.timeout(init.timeoutMs) : undefined,
+      ...init,
+    });
+  } catch (e) {
+    if ((e as Error).name === 'TimeoutError') throw new Error('La lectura tardó demasiado. Intenta de nuevo; si se repite, sube el PDF en partes más chicas.');
+    throw new Error('No hay conexión con Vigía. Revisa tu internet e intenta de nuevo.');
+  }
   if (res.status === 401) throw Object.assign(new Error('Necesitas iniciar sesión'), { auth: true });
   if (!res.ok) {
     const body = await res.json().catch(() => ({ error: res.statusText }));
@@ -351,11 +358,11 @@ export class ApiSource implements DataSource {
   }
   async confirm(ids: string[]) { await api('/obligations/confirm', { method: 'POST', body: JSON.stringify({ ids }) }); }
   async updateObligation(o: Obligation) { await api(`/obligations/${o.id}`, { method: 'PUT', body: JSON.stringify(o) }); }
-  extract(url: string) { return api<ImportDraft>('/import/extract', { method: 'POST', body: JSON.stringify({ url }) }); }
+  extract(url: string) { return api<ImportDraft>('/import/extract', { method: 'POST', body: JSON.stringify({ url }), timeoutMs: 240_000 }); }
   extractFile(file: File) {
     const fd = new FormData();
     fd.set('file', file);
-    return api<ImportDraft>('/import/extract-file', { method: 'POST', body: fd });
+    return api<ImportDraft>('/import/extract-file', { method: 'POST', body: fd, timeoutMs: 240_000 });
   }
   saveImport(draft: ImportDraft, keep: string[], documentId?: string) {
     return api<{ projectId: string }>('/import/save', { method: 'POST', body: JSON.stringify({ draft, keep, documentId }) });
@@ -366,7 +373,7 @@ export class ApiSource implements DataSource {
     return api<DocumentRef>('/documents', { method: 'POST', body: fd });
   }
   async deleteDocument(id: string) { await api(`/documents/${id}`, { method: 'DELETE' }); }
-  extractDocument(id: string) { return api<ImportDraft>(`/documents/${id}/extract`, { method: 'POST' }); }
+  extractDocument(id: string) { return api<ImportDraft>(`/documents/${id}/extract`, { method: 'POST', timeoutMs: 240_000 }); }
   team() { return api<TeamMember[]>('/team'); }
   invite(email: string, name: string) { return api<TeamMember & { mailed?: boolean }>('/team/invite', { method: 'POST', body: JSON.stringify({ email, name }) }); }
   async removeMember(id: string) { await api(`/team/${id}`, { method: 'DELETE' }); }

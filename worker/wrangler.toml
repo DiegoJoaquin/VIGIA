@@ -3,6 +3,7 @@
 name = "vigia"
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
 
 [assets]
 directory = "../web/dist"
@@ -21,6 +22,10 @@ database_id = "5564d0f2-83f5-4bb3-88f7-d1dd1fd60a61"
 binding = "AI"
 
 # Alertas: todos los días a las 11:00 UTC (8:00 en Chile en horario de verano, 7:00 en invierno).
+# Registros de errores y de cada solicitud, visibles en Cloudflare → vigia → Observability (gratis).
+[observability]
+enabled = true
+
 [triggers]
 crons = ["0 11 * * *"]
 
