@@ -23,7 +23,9 @@ describe('qué partes del documento se leen', () => {
       '9.1. Compromiso ambiental voluntario 1. Informe mensual a la SMA.\n\n'.repeat(400) + '\nRESUELVO:\n1°. Calificar favorablemente.';
     const { chunks, focused } = pickChunks(relleno + compromisos, 8);
     expect(focused).toBe(true);
-    expect(chunks.join('\n')).toContain('RESUELVO');
-    expect(chunks.join('\n')).toContain('condiciones o exigencias');
+    const joined = chunks.join('\n');
+    expect(joined).toContain('condiciones o exigencias');
+    expect(joined.match(/9\.1\. Compromiso/g)?.length).toBe(400); // todos los compromisos, ninguno partido
+    expect(joined).not.toContain('Calificar favorablemente'); // lo resuelto no se manda a la IA
   });
 });
