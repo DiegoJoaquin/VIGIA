@@ -322,7 +322,7 @@ async function api<T>(path: string, init?: RequestInit): Promise<T> {
   if (res.status === 401) throw Object.assign(new Error('Necesitas iniciar sesión'), { auth: true });
   if (!res.ok) {
     const body = await res.json().catch(() => ({ error: res.statusText }));
-    throw Object.assign(new Error(body.error ?? 'Error del servidor'), { field: body.field, noAccount: body.noAccount });
+    throw Object.assign(new Error(body.error ?? 'Error del servidor'), { field: body.field, exists: body.exists, noPassword: body.noPassword, expired: body.expired });
   }
   return res.json() as Promise<T>;
 }
@@ -384,9 +384,10 @@ export class ApiSource implements DataSource {
     const sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: key });
     await api('/push/subscribe', { method: 'POST', body: JSON.stringify(sub.toJSON()) });
   }
-  requestLogin(b: { email: string; mode: 'login' | 'signup'; name?: string; company?: string }) {
-    return api<{ ok: true; existing?: boolean }>('/auth/request', { method: 'POST', body: JSON.stringify(b) });
-  }
+  signup(b: { email: string; password: string; name: string; company: string }) { return api<{ ok: true }>('/auth/signup', { method: 'POST', body: JSON.stringify(b) }); }
+  login(b: { email: string; password: string }) { return api<{ ok: true }>('/auth/login', { method: 'POST', body: JSON.stringify(b) }); }
+  forgot(email: string) { return api<{ ok: true }>('/auth/forgot', { method: 'POST', body: JSON.stringify({ email }) }); }
+  reset(token: string, password: string) { return api<{ ok: true; email: string }>('/auth/reset', { method: 'POST', body: JSON.stringify({ token, password }) }); }
   sendTestEmail() { return api<{ ok: boolean; message: string }>('/settings/test-email', { method: 'POST' }); }
 }
 

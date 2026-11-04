@@ -36,6 +36,17 @@ export function Today() {
         <button className="icon-btn" onClick={() => go({ name: 'importar' })} aria-label="Importar una RCA"><IconPlus size={20} /></button>
       </header>
 
+      {snap!.projects.length === 0 ? (
+        <section className="welcome" aria-label="Primeros pasos">
+          <h2>Bienvenido{snap!.user.name ? `, ${snap!.user.name.split(' ')[0]}` : ''}. Partamos por tu primera RCA.</h2>
+          <ol className="welcome-steps">
+            <li>Pega el enlace de la RCA del SEIA o sube el PDF.</li>
+            <li>Revisa los compromisos que Vigía encuentra y confírmalos.</li>
+            <li>Desde ese día te avisamos antes de cada vencimiento.</li>
+          </ol>
+          <button className="btn" onClick={() => go({ name: 'importar' })}><IconPlus size={18} />Importar mi primera RCA</button>
+        </section>
+      ) : (
       <section className="summary" aria-label="Resumen de cumplimiento">
         <Ring value={rate.rate} label="a tiempo" />
         <div className="stats">
@@ -43,8 +54,9 @@ export function Today() {
           <button className={`stat ${week.length ? 'is-warn' : ''}`} onClick={() => jump('semana')}><strong>{week.length}</strong><span>Esta semana</span></button>
           <button className="stat" onClick={() => jump('mes')}><strong>{month.length}</strong><span>Este mes</span></button>
         </div>
-        <p className="summary-note num">Últimos 12 meses: {rate.onTime} de {rate.due} entregas a tiempo en {snap?.projects.length} proyectos.</p>
+        <p className="summary-note num">Últimos 12 meses: {rate.onTime} de {rate.due} entregas a tiempo en {snap?.projects.length} proyecto{snap?.projects.length === 1 ? '' : 's'}.</p>
       </section>
+      )}
 
       {pendingProjects.map((p) => (
         <div className="banner" key={p.id}>

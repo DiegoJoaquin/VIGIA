@@ -68,26 +68,27 @@ function button(href: string, label: string) {
   return `<a href="${href}" style="display:inline-block;background:${C.accent};color:#ffffff;text-decoration:none;font-weight:600;padding:12px 18px;border-radius:10px">${escapeHtml(label)}</a>`;
 }
 
-export function magicLinkMail(env: Env, to: string, link: string): Mail {
-  const inner = `<p style="font-size:15px;line-height:1.5;color:${C.ink2};margin:0 0 18px">Toca el botón para entrar. El enlace sirve una vez y vence en 20 minutos.</p>${button(link, 'Entrar a Vigía')}`;
+export function passwordMail(env: Env, to: string, link: string, forgot: boolean): Mail {
+  const lead = forgot ? 'Pediste cambiar tu contraseña. Toca el botón para elegir una nueva.' : 'Tu cuenta todavía no tiene contraseña. Toca el botón para crearla y entrar.';
+  const inner = `<p style="font-size:15px;line-height:1.5;color:${C.ink2};margin:0 0 18px">${lead} El enlace sirve una vez y vence en 1 hora.</p>${button(link, forgot ? 'Elegir nueva contraseña' : 'Crear mi contraseña')}`;
   return {
-    to, subject: `Tu enlace para entrar a ${env.APP_NAME}`,
-    html: layout(env, 'Entrar a Vigía', inner, 'Si no pediste este correo, puedes ignorarlo.'),
-    text: `Entra a ${env.APP_NAME} con este enlace (vence en 20 minutos): ${link}`,
+    to, subject: forgot ? `Cambia tu contraseña de ${env.APP_NAME}` : `Crea tu contraseña de ${env.APP_NAME}`,
+    html: layout(env, forgot ? 'Nueva contraseña' : 'Crea tu contraseña', inner, 'Si no pediste este correo, puedes ignorarlo: tu contraseña sigue igual.'),
+    text: `${lead} Enlace (vence en 1 hora): ${link}`,
   };
 }
 
-export function welcomeLinkMail(env: Env, to: string, link: string, company: string): Mail {
-  const inner = `<p style="font-size:15px;line-height:1.5;color:${C.ink2};margin:0 0 18px">Confirma tu correo para crear la cuenta de <strong>${escapeHtml(company)}</strong>. El enlace sirve una vez y vence en 20 minutos.</p>${button(link, 'Crear mi cuenta')}`;
+export function welcomeMail(env: Env, to: string, name: string, company: string): Mail {
+  const inner = `<p style="font-size:15px;line-height:1.5;color:${C.ink2};margin:0 0 18px">Hola ${escapeHtml(name)}, ya creaste la cuenta de <strong>${escapeHtml(company)}</strong>. El primer paso es importar la RCA de tu proyecto: Vigía arma el calendario de compromisos y te avisa antes de cada vencimiento.</p>${button(env.APP_URL, 'Abrir Vigía')}`;
   return {
-    to, subject: `Confirma tu cuenta en ${env.APP_NAME}`,
-    html: layout(env, 'Bienvenido a Vigía', inner, 'Si no pediste crear una cuenta, puedes ignorar este correo.'),
-    text: `Confirma tu cuenta de ${company} en ${env.APP_NAME} (vence en 20 minutos): ${link}`,
+    to, subject: `Bienvenido a ${env.APP_NAME}`,
+    html: layout(env, 'Tu cuenta está lista', inner, 'Recibes este correo porque creaste una cuenta en Vigía.'),
+    text: `Hola ${name}, ya creaste la cuenta de ${company} en ${env.APP_NAME}. Entra en ${env.APP_URL}`,
   };
 }
 
 export function inviteMail(env: Env, to: string, link: string, from: string, company: string): Mail {
-  const inner = `<p style="font-size:15px;line-height:1.5;color:${C.ink2};margin:0 0 18px">${escapeHtml(from)} te agregó al equipo de <strong>${escapeHtml(company)}</strong> en ${escapeHtml(env.APP_NAME)}, donde llevan los compromisos ambientales de sus proyectos. El enlace vence en 7 días.</p>${button(link, 'Entrar al equipo')}`;
+  const inner = `<p style="font-size:15px;line-height:1.5;color:${C.ink2};margin:0 0 18px">${escapeHtml(from)} te agregó al equipo de <strong>${escapeHtml(company)}</strong> en ${escapeHtml(env.APP_NAME)}, donde llevan los compromisos ambientales de sus proyectos. Para entrar, crea tu contraseña con este botón. El enlace vence en 7 días.</p>${button(link, 'Crear mi contraseña')}`;
   return {
     to, subject: `${from} te invitó a ${company} en ${env.APP_NAME}`,
     html: layout(env, `Te invitaron a ${company}`, inner, 'Si no esperabas esta invitación, puedes ignorar este correo.'),

@@ -132,21 +132,70 @@ function RcaQuote({ ob, url }: { ob: Obligation; url: string }) {
   );
 }
 
+// Proyección de Apple: dónde terminaría un gesto si siguiera con su inercia.
+const projectMomentum = (v: number, d = 0.998) => ((v / 1000) * d) / (1 - d);
+// Resistencia progresiva al tirar hacia arriba, más allá del borde.
+const rubber = (o: number, dim: number, c = 0.55) => (o * dim * c) / (dim + c * Math.abs(o));
+
 export function Sheet() {
   const s = useStore();
   const ref = useRef<HTMLDivElement>(null);
+  const scrimRef = useRef<HTMLDivElement>(null);
+  const drag = useRef<{ id: number; y0: number; hist: { y: number; t: number }[]; dy: number } | null>(null);
+  const [closing, setClosing] = useState(false);
   const occ = s.openKey ? s.occurrences.find((o) => o.key === s.openKey) : undefined;
   const ob = occ?.obligation ?? s.snap?.obligations.find((o) => o.id === s.openObligation);
   const project = ob && s.snap?.projects.find((p) => p.id === ob.projectId);
-  const close = () => { s.open(undefined); };
+  const reduced = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Sale por el mismo camino por el que entró (abajo en el celular, derecha en el computador).
+  const close = () => {
+    if (closing) return;
+    if (reduced) { s.open(undefined); return; }
+    setClosing(true);
+    setTimeout(() => { setClosing(false); s.open(undefined); }, 230);
+  };
 
   useEffect(() => {
     if (!ob) return;
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close();
     addEventListener('keydown', onKey);
-    ref.current?.focus();
     return () => removeEventListener('keydown', onKey);
   });
+  useEffect(() => { if (ob) ref.current?.focus({ preventScroll: true }); }, [ob?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Arrastrar la hoja hacia abajo para cerrarla (celular). Sigue al dedo 1:1 y respeta la inercia al soltar.
+  const onDown = (e: React.PointerEvent) => {
+    const el = ref.current;
+    const t = e.target as HTMLElement;
+    if (!el || innerWidth >= 960 || el.scrollTop > 0 || !t.closest('.grabber, .sheet-top') || t.closest('button, a, input')) return;
+    el.setPointerCapture(e.pointerId);
+    drag.current = { id: e.pointerId, y0: e.clientY, hist: [{ y: e.clientY, t: e.timeStamp }], dy: 0 };
+    el.style.transition = 'none';
+    el.style.animation = 'none';
+  };
+  const onMove = (e: React.PointerEvent) => {
+    const d = drag.current, el = ref.current;
+    if (!d || !el || e.pointerId !== d.id) return;
+    const raw = e.clientY - d.y0;
+    d.dy = raw >= 0 ? raw : rubber(raw, el.offsetHeight);
+    d.hist = [...d.hist, { y: e.clientY, t: e.timeStamp }].filter((h) => e.timeStamp - h.t < 100);
+    el.style.transform = `translateY(${d.dy}px)`;
+    if (scrimRef.current) scrimRef.current.style.opacity = String(Math.max(0, 1 - Math.max(0, d.dy) / el.offsetHeight));
+  };
+  const onUp = (e: React.PointerEvent) => {
+    const d = drag.current, el = ref.current;
+    if (!d || !el || e.pointerId !== d.id) return;
+    drag.current = null;
+    const first = d.hist[0], last = d.hist[d.hist.length - 1];
+    const v = last && first && last.t > first.t ? ((last.y - first.y) / (last.t - first.t)) * 1000 : 0; // px/s
+    const h = el.offsetHeight;
+    const dismiss = d.dy + projectMomentum(v) > h * 0.4 && v > -200;
+    el.style.transition = `transform ${dismiss ? 260 : 420}ms cubic-bezier(0.22, 1, 0.36, 1)`;
+    el.style.transform = dismiss ? `translateY(${h}px)` : 'translateY(0)';
+    if (scrimRef.current) { scrimRef.current.style.transition = 'opacity 260ms ease'; scrimRef.current.style.opacity = dismiss ? '0' : '1'; }
+    if (dismiss) setTimeout(() => s.open(undefined), 250);
+  };
 
   if (!ob || !project) return null;
   const history = s.occurrences.filter((o) => o.obligation.id === ob.id && o.due <= s.today).slice(-6).reverse();
@@ -155,9 +204,10 @@ export function Sheet() {
 
   return (
     <>
-      <div className="scrim" onClick={close} />
-      <div className="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" ref={ref} tabIndex={-1}>
-        <div className="grabber" />
+      <div className={`scrim ${closing ? 'is-closing' : ''}`} onClick={close} ref={scrimRef} />
+      <div className={`sheet ${closing ? 'is-closing' : ''}`} role="dialog" aria-modal="true" aria-labelledby="sheet-title" ref={ref} tabIndex={-1}
+        onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={onUp}>
+        <div className="grabber" aria-hidden="true" />
         <div className="sheet-inner">
           <div className="sheet-top">
             <div>
@@ -249,6 +299,21 @@ export function Toast() {
     <div className="toast" role="status">
       <span>{toast.text}</span>
       {toast.undo && <button onClick={() => { toast.undo!(); say('Deshecho'); }}>Deshacer</button>}
+    </div>
+  );
+}
+
+/** Control segmentado con un indicador que se desliza entre opciones (columnas iguales). */
+export function Segmented<T extends string>({ value, options, onChange, label, className = '' }: {
+  value: T; options: { value: T; label: string }[]; onChange: (v: T) => void; label: string; className?: string;
+}) {
+  const i = Math.max(0, options.findIndex((o) => o.value === value));
+  return (
+    <div className={`seg ${className}`} role="group" aria-label={label} style={{ '--n': options.length, '--i': i } as React.CSSProperties}>
+      <span className="seg-thumb" aria-hidden="true" />
+      {options.map((o) => (
+        <button key={o.value} type="button" aria-pressed={o.value === value} onClick={() => onChange(o.value)}>{o.label}</button>
+      ))}
     </div>
   );
 }

@@ -122,3 +122,17 @@ CREATE TABLE IF NOT EXISTS document_chunks (
   bytes BLOB NOT NULL,
   PRIMARY KEY (document_id, idx)
 );
+
+-- Contraseñas (PBKDF2-SHA256, 100.000 iteraciones, sal aleatoria). Tabla aparte para no alterar "users".
+CREATE TABLE IF NOT EXISTS credentials (
+  user_id TEXT PRIMARY KEY REFERENCES users(id),
+  hash TEXT NOT NULL,
+  updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+-- Freno a los intentos fallidos de contraseña: 5 errores bloquean ese correo 15 minutos.
+CREATE TABLE IF NOT EXISTS auth_throttle (
+  key TEXT PRIMARY KEY,
+  fails INTEGER NOT NULL DEFAULT 0,
+  locked_until INTEGER NOT NULL DEFAULT 0
+);

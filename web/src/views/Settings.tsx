@@ -70,7 +70,10 @@ export function Settings() {
           <div className="section-head"><h2>Demo</h2></div>
           <div className="group" style={{ padding: 14, display: 'flex', flexDirection: 'column', gap: 10 }}>
             <p className="muted" style={{ fontSize: 'var(--t-meta)' }}>Los datos vienen de tres RCA públicas del SEIA. Lo que marques queda guardado solo en este navegador.</p>
-            <button className="btn plain small" style={{ alignSelf: 'flex-start' }} onClick={s.resetDemo}>Restablecer la demo</button>
+            <div className="actions two">
+              <button className="btn plain small" onClick={s.resetDemo}>Restablecer la demo</button>
+              <a className="btn secondary small" href="#entrar">Ver la pantalla de inicio de sesión</a>
+            </div>
           </div>
         </section>
       )}

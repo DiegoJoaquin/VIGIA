@@ -39,12 +39,12 @@ Reglas de diseño importantes:
 - **La IA propone, una persona confirma.** Todo lo extraído entra como "por revisar" y no genera alertas hasta que alguien lo confirma.
 - **Las citas son verificables.** Si la IA no copia la frase exacta de la RCA, la cita se descarta; nunca se muestra texto inventado como si fuera de la resolución.
 - **El seguimiento parte el día que importas la RCA.** Lo anterior no aparece como vencido.
-- **Cada empresa es una isla.** Cada cuenta es una empresa con su propio equipo, proyectos y documentos. Cada correo pertenece a una sola empresa y ninguna consulta cruza empresas. La prueba `tests/e2e/islas.py` lo verifica con 42 comprobaciones (dos empresas, invitaciones, documentos, eliminación de cuenta).
+- **Cada empresa es una isla.** Cada cuenta es una empresa con su propio equipo, proyectos y documentos. Cada correo pertenece a una sola empresa y ninguna consulta cruza empresas. La prueba `tests/e2e/islas.py` lo verifica con 52 comprobaciones (contraseñas, dos empresas, invitaciones, documentos, eliminación de cuenta).
 
 ## Cuentas, equipo y documentos
 
-- **Crear cuenta:** en la pantalla de entrada, "Crear una cuenta" pide empresa, nombre y correo. El enlace que llega crea la empresa y deja a esa persona como administradora. No hay contraseñas.
-- **Equipo:** en Ajustes → Tu empresa, la administradora invita por correo (encargado ambiental, jefe de planta, consultor). Quien es invitado ve los mismos proyectos; solo la administradora puede invitar o quitar personas.
+- **Crear cuenta y entrar:** la portada pide empresa, nombre, correo y contraseña, y deja a esa persona como administradora. Se entra con correo y contraseña (PBKDF2, 100.000 iteraciones; 5 intentos fallidos bloquean ese correo 15 minutos). "¿La olvidaste?" manda un enlace de 1 hora para elegir una nueva, y cambiarla cierra las demás sesiones.
+- **Equipo:** en Ajustes → Tu empresa, la administradora invita por correo (encargado ambiental, jefe de planta, consultor). Quien es invitado recibe un enlace para crear su contraseña y ve los mismos proyectos; solo la administradora puede invitar o quitar personas.
 - **Documentos:** cada proyecto tiene la pestaña Documentos para guardar la RCA, resoluciones, adendas, programas de cumplimiento e informes (hasta 25 MB, guardados en D1 en trozos de 900 KB, sin costo). Las resoluciones y programas se pueden leer con IA para sumar sus compromisos al proyecto, siempre con revisión antes de guardar.
 - **Eliminar la cuenta:** Ajustes → Cuenta. Borra todo lo de la empresa (derecho de supresión de la Ley 21.719).
 
@@ -70,7 +70,7 @@ Para regenerar la demo después de cambiar la app: `npm run build:demo` y copia 
 npm install
 npm test                      # 17 pruebas
 npm run worker:dev            # en otra terminal, y luego:
-python3 tests/e2e/islas.py <log de wrangler>   # 42 comprobaciones de cuentas, documentos e islas
+python3 tests/e2e/islas.py <log de wrangler>   # 52 comprobaciones de cuentas, contraseñas, documentos e islas
 npm run build                 # compila la app en web/dist
 cd worker
 npm run db:init:local         # crea la base local
@@ -94,7 +94,7 @@ Para disparar las alertas diarias a mano mientras pruebas:
 5. **Notificaciones en el celular.** Genera las claves una vez: `npx web-push generate-vapid-keys`. Carga `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY` y `VAPID_SUBJECT` (por ejemplo `mailto:tu@correo.cl`) con `npx wrangler secret put`.
 6. **Token del extractor.** `npx wrangler secret put EXTRACTOR_TOKEN` con una clave larga al azar.
 7. **Publicar.** Desde la raíz: `npm run build`, luego `cd worker && npx wrangler deploy`. Te entrega una dirección `https://vigia.<tu-subdominio>.workers.dev`. Ponla en `APP_URL` dentro de `wrangler.toml` y vuelve a publicar.
-8. **Entrar.** Abre la dirección, toca "Crear una cuenta", escribe la empresa, tu nombre y tu correo, y usa el enlace que llega.
+8. **Entrar.** Abre la dirección, toca "Crear cuenta" y escribe la empresa, tu nombre, tu correo y una contraseña.
 9. **Páginas públicas con tu dirección.** Antes de `npm run build`, define `VIGIA_URL` con la misma dirección de `APP_URL` (en Windows: `set VIGIA_URL=https://...`) para que el sitemap y la imagen para compartir apunten bien.
 
 En iPhone, para recibir notificaciones: abre Vigía en Safari, toca Compartir → "Agregar a inicio", abre la app desde el ícono y activa las notificaciones en Ajustes.

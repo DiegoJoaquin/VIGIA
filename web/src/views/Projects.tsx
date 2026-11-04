@@ -6,7 +6,7 @@ import { ReviewDraft } from './Review';
 import { NotFound } from './NotFound';
 import { onTimeRate } from '../../../shared/recurrence';
 import { VENTANILLA_QUESTIONS, type VentanillaAnswers } from '../../../shared/ventanilla';
-import { MiniRing, ObligationRow, OccurrenceRow, Ring } from '../components';
+import { MiniRing, ObligationRow, OccurrenceRow, Ring, Segmented } from '../components';
 import { fileSize, longDate, relative, shortDate } from '../format';
 import { IconAlert, IconBack, IconBolt, IconChevron, IconClose, IconDoc, IconLink, IconPin, IconPlus, IconSpark, IconUpload } from '../icons';
 import { useStore } from '../store';
@@ -87,12 +87,10 @@ export function ProjectDetail({ id }: { id: string }) {
         </div>
       )}
 
-      <div className="seg" role="group" aria-label="Vista del proyecto">
-        <button aria-pressed={tab === 'proximo'} onClick={() => setTab('proximo')}>Próximo</button>
-        <button aria-pressed={tab === 'compromisos'} onClick={() => setTab('compromisos')}>Compromisos</button>
-        <button aria-pressed={tab === 'documentos'} onClick={() => setTab('documentos')}>Documentos</button>
-        <button aria-pressed={tab === 'carpeta'} onClick={() => setTab('carpeta')}>Carpeta</button>
-      </div>
+      <Segmented label="Vista del proyecto" value={tab} onChange={setTab} options={[
+        { value: 'proximo', label: 'Próximo' }, { value: 'compromisos', label: 'Compromisos' },
+        { value: 'documentos', label: 'Documentos' }, { value: 'carpeta', label: 'Carpeta' },
+      ]} />
 
       {tab === 'proximo' && <Upcoming id={id} />}
       {tab === 'compromisos' && <Commitments project={p} obs={obs} />}

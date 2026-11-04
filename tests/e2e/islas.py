@@ -46,14 +46,9 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
     def http_error_302(self, req, fp, code, msg, headers):
         return urllib.response.addinfourl(fp, headers, req.full_url, code)
 
-def link_for(email):
+def token_for(email):
     time.sleep(0.6)
-    links = re.findall(rf'\[mail\] {re.escape(email)} · .*?\n.*?(http://127\.0\.0\.1:8787/api/auth/verify\?token=\w+)', open(LOG).read(), re.S)
-    return links[-1].replace('http://127.0.0.1:8787', '')
-
-def enter(c, email):
-    code, _ = c.req('GET', link_for(email))
-    check(code in (302, 303), f'{email} entra con su enlace')
+    return re.findall(rf'\[mail\] {re.escape(email)} · [^\n]*\n[^\n]*\?clave=(\w+)', open(LOG).read())[-1]
 
 def draft(pid, n=3):
     project = {'id': pid, 'name': f'Proyecto {pid}', 'shortName': pid, 'titular': 'X', 'rubro': 'Otro', 'comuna': 'Talca', 'region': 'Maule',
@@ -62,21 +57,41 @@ def draft(pid, n=3):
             'frequency': {'kind': 'monthly'}, 'evidence': 'x', 'confirmed': False, 'source': 'rca'} for i in range(n)]
     return {'project': project, 'obligations': obs}
 
-print('Registro')
-a, b, carla = Client(), Client(), Client()
-code, r = a.req('POST', '/api/auth/request', {'email': 'nadie@ejemplo.cl', 'mode': 'login'})
-check(code == 404 and r.get('noAccount'), 'entrar con un correo sin cuenta ofrece crear una')
-code, r = a.req('POST', '/api/auth/request', {'email': 'ana@vina-a.cl', 'mode': 'signup', 'name': 'Ana', 'company': ''})
+print('Registro y contraseñas')
+a, b, carla, a2 = Client(), Client(), Client(), Client()
+SIGN = {'email': 'ana@vina-a.cl', 'password': 'viñedo de cachapoal 2026', 'name': 'Ana Pérez', 'company': 'Viña A'}
+code, r = a.req('POST', '/api/auth/signup', {**SIGN, 'company': ''})
 check(code == 400 and r.get('field') == 'company', 'crear cuenta sin empresa marca el campo empresa')
-code, r = a.req('POST', '/api/auth/request', {'email': 'ana@vina-a.cl', 'mode': 'signup', 'name': 'Ana Pérez', 'company': 'Viña A'})
-check(code == 200, 'Viña A pide su cuenta')
-enter(a, 'ana@vina-a.cl')
+code, r = a.req('POST', '/api/auth/signup', {**SIGN, 'password': '1234'})
+check(code == 400 and r.get('field') == 'password', 'una contraseña corta marca el campo contraseña')
+code, r = a.req('POST', '/api/auth/signup', SIGN)
+check(code == 200, 'Viña A crea su cuenta y queda adentro de inmediato')
 code, snap = a.req('GET', '/api/snapshot')
 check(snap['user']['org'] == 'Viña A' and snap['user']['role'] == 'owner', 'la cuenta queda con el nombre de la empresa y Ana como dueña')
-code, r = b.req('POST', '/api/auth/request', {'email': 'ana@vina-a.cl', 'mode': 'signup', 'name': 'Otra', 'company': 'Otra'})
-check(code == 200 and r.get('existing'), 'crear cuenta con un correo existente solo manda enlace para entrar')
-b.req('POST', '/api/auth/request', {'email': 'bob@aridos-b.cl', 'mode': 'signup', 'name': 'Bob', 'company': 'Áridos B'})
-enter(b, 'bob@aridos-b.cl')
+code, r = b.req('POST', '/api/auth/signup', {**SIGN, 'company': 'Otra'})
+check(code == 409 and r.get('exists'), 'no se puede crear otra cuenta con el mismo correo')
+code, r = a2.req('POST', '/api/auth/login', {'email': 'ANA@vina-a.cl ', 'password': SIGN['password']})
+check(code == 200 and a2.req('GET', '/api/snapshot')[0] == 200, 'Ana entra con correo y contraseña (sin importar mayúsculas)')
+code, r = b.req('POST', '/api/auth/login', {'email': 'ana@vina-a.cl', 'password': 'equivocada'})
+check(code == 401 and 'no coinciden' in r['error'], 'una contraseña equivocada no entra')
+code, r = b.req('POST', '/api/auth/login', {'email': 'nadie@vina-a.cl', 'password': 'loquesea123'})
+check(code == 401, 'un correo sin cuenta responde igual que una clave equivocada')
+for _ in range(4): b.req('POST', '/api/auth/login', {'email': 'ana@vina-a.cl', 'password': 'equivocada'})
+code, r = b.req('POST', '/api/auth/login', {'email': 'ana@vina-a.cl', 'password': SIGN['password']})
+check(code == 429, 'tras 5 intentos fallidos el correo queda bloqueado 15 minutos, aun con la clave correcta')
+code, r = a.req('POST', '/api/auth/forgot', {'email': 'ana@vina-a.cl'})
+check(code == 200, 'Ana pide recuperar su contraseña')
+code, r = a.req('POST', '/api/auth/forgot', {'email': 'nadie@vina-a.cl'})
+check(code == 200, 'recuperar con un correo sin cuenta responde lo mismo (no revela qué correos existen)')
+tok = token_for('ana@vina-a.cl')
+code, r = a.req('POST', '/api/auth/reset', {'token': tok, 'password': 'nueva clave del riego 2026'})
+check(code == 200 and r['email'] == 'ana@vina-a.cl', 'con el enlace elige una contraseña nueva y entra (también desbloquea)')
+check(a2.req('GET', '/api/snapshot')[0] == 401, 'cambiar la contraseña cierra las otras sesiones')
+check(a.req('POST', '/api/auth/reset', {'token': tok, 'password': 'otra clave larga 2026'})[0] == 400, 'el enlace sirve una sola vez')
+SIGN['password'] = 'nueva clave del riego 2026'
+check(a.req('GET', '/api/snapshot')[0] == 200, 'Ana sigue adentro con su sesión nueva')
+code, _ = b.req('POST', '/api/auth/signup', {'email': 'bob@aridos-b.cl', 'password': 'pozo lastrero 2026', 'name': 'Bob', 'company': 'Áridos B'})
+check(code == 200, 'Áridos B crea su cuenta')
 
 print('Proyectos e islas')
 code, r = a.req('POST', '/api/import/save', {'draft': draft('rca-1'), 'keep': ['o0', 'o1', 'o2']})
@@ -118,7 +133,10 @@ code, r = a.req('POST', '/api/team/invite', {'email': 'bob@aridos-b.cl'})
 check(code == 409, 'no se puede invitar a alguien que ya está en otra empresa')
 code, r = a.req('POST', '/api/team/invite', {'email': 'carla@vina-a.cl', 'name': 'Carla'})
 check(code == 200, 'Ana invita a Carla')
-enter(carla, 'carla@vina-a.cl')
+code, r = carla.req('POST', '/api/auth/login', {'email': 'carla@vina-a.cl', 'password': 'cualquiera123'})
+check(code == 409 and r.get('noPassword'), 'Carla aún no tiene contraseña: al intentar entrar se le reenvía el enlace')
+code, _ = carla.req('POST', '/api/auth/reset', {'token': token_for('carla@vina-a.cl'), 'password': 'laboratorio etfa 2026'})
+check(code == 200, 'Carla crea su contraseña con el enlace de la invitación')
 _, sc = carla.req('GET', '/api/snapshot')
 check([p['id'] for p in sc['projects']] == ['rca-1'] and sc['user']['role'] == 'member', 'Carla ve los proyectos de Viña A como parte del equipo')
 check(carla.req('POST', '/api/team/invite', {'email': 'x@vina-a.cl'})[0] == 403, 'Carla no puede invitar (solo la dueña)')
@@ -134,8 +152,8 @@ check(carla.req('GET', '/api/snapshot')[0] == 401, 'Carla pierde el acceso al in
 print('Eliminar cuenta')
 check(b.req('DELETE', '/api/org', {'confirm': 'otra cosa'})[0] == 400, 'eliminar pide escribir el nombre exacto')
 check(b.req('DELETE', '/api/org', {'confirm': 'Áridos B'})[0] == 200, 'Áridos B elimina su cuenta')
-code, r = b.req('POST', '/api/auth/request', {'email': 'bob@aridos-b.cl', 'mode': 'login'})
-check(code == 404, 'Bob ya no tiene cuenta')
+code, r = b.req('POST', '/api/auth/login', {'email': 'bob@aridos-b.cl', 'password': 'pozo lastrero 2026'})
+check(code == 401, 'Bob ya no puede entrar')
 _, sa = a.req('GET', '/api/snapshot')
 check(len(sa['projects']) == 1 and len(sa['documents']) == 1, 'Viña A no se ve afectada')
 

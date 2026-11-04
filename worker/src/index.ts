@@ -1,4 +1,4 @@
-import { Hono } from 'hono';
+import { Hono, type Context } from 'hono';
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie';
 import { todayInChile } from '../../shared/recurrence';
 import type { Obligation, Project } from '../../shared/types';
@@ -6,10 +6,10 @@ import { ventanillaObligations, type VentanillaAnswers } from '../../shared/vent
 import type { Env, SessionUser } from './env';
 import { extractFromPdf, fetchRca } from './extract';
 import { buildIcs } from './ics';
-import { digestMail, inviteMail, magicLinkMail, sendMail, welcomeLinkMail } from './mail';
+import { digestMail, inviteMail, passwordMail, sendMail, welcomeMail } from './mail';
 import { DEFAULT_NOTIFY, planNotifications, pushToUser, runDailyAlerts, type NotifySettings } from './notify';
 import { loadOrg, obligationOrg, putObligation, putProject } from './repo';
-import { isEmail, randomId, sha256 } from './util';
+import { hashPassword, isEmail, randomId, sha256, verifyPassword, weakPassword } from './util';
 
 type App = { Bindings: Env; Variables: { user: SessionUser } };
 const app = new Hono<App>();
@@ -27,58 +27,108 @@ async function issueToken(env: Env, email: string, ttlMs: number, signup?: { nam
   const token = randomId(24);
   await env.DB.prepare('INSERT INTO login_tokens (token_hash, email, expires_at, signup) VALUES (?, ?, ?, ?)')
     .bind(await sha256(token), email, Date.now() + ttlMs, signup ? JSON.stringify(signup) : null).run();
-  return `${env.APP_URL}/api/auth/verify?token=${token}`;
+  return token;
 }
+/** Enlace para crear o cambiar la contraseña (recuperación e invitaciones). */
+const passwordLink = (env: Env, token: string) => `${env.APP_URL}/?clave=${token}`;
 
-app.post('/api/auth/request', async (c) => {
-  const b = await c.req.json<{ email?: string; mode?: 'login' | 'signup'; name?: string; company?: string }>().catch(() => ({} as Record<string, undefined>));
-  if (!isEmail(b.email)) return c.json({ error: 'Escribe un correo válido.', field: 'email' }, 400);
-  const email = b.email.trim().toLowerCase();
-  const exists = await c.env.DB.prepare('SELECT 1 FROM users WHERE email = ?').bind(email).first();
-
-  if (b.mode === 'signup' && !exists) {
-    const company = (b.company ?? '').trim().slice(0, 120), name = (b.name ?? '').trim().slice(0, 80);
-    if (company.length < 2) return c.json({ error: 'Escribe el nombre de la empresa.', field: 'company' }, 400);
-    if (name.length < 2) return c.json({ error: 'Escribe tu nombre.', field: 'name' }, 400);
-    const link = await issueToken(c.env, email, 20 * 60_000, { name, company });
-    const res = await sendMail(c.env, welcomeLinkMail(c.env, email, link, company));
-    if (!res.ok) return c.json({ error: `No pudimos enviar el correo: ${res.detail}` }, 502);
-    return c.json({ ok: true, created: true });
-  }
-  if (!exists) return c.json({ error: 'No hay una cuenta con ese correo. Crea una cuenta nueva o pide a tu empresa que te invite.', field: 'email', noAccount: true }, 404);
-  const res = await sendMail(c.env, magicLinkMail(c.env, email, await issueToken(c.env, email, 20 * 60_000)));
-  if (!res.ok) return c.json({ error: `No pudimos enviar el correo: ${res.detail}` }, 502);
-  // Si alguien intenta crear una cuenta con un correo que ya existe, simplemente le mandamos el enlace para entrar.
-  return c.json({ ok: true, existing: b.mode === 'signup' });
-});
-
-app.get('/api/auth/verify', async (c) => {
-  const token = c.req.query('token') ?? '';
-  const hash = await sha256(token);
-  const row = await c.env.DB.prepare('SELECT email, expires_at, signup FROM login_tokens WHERE token_hash = ?')
-    .bind(hash).first<{ email: string; expires_at: number; signup: string | null }>();
-  await c.env.DB.prepare('DELETE FROM login_tokens WHERE token_hash = ? OR expires_at < ?').bind(hash, Date.now()).run();
-  if (!row || row.expires_at < Date.now()) return c.redirect('/?error=enlace');
-
-  let user = await c.env.DB.prepare('SELECT id FROM users WHERE email = ?').bind(row.email).first<{ id: string }>();
-  if (!user) {
-    if (!row.signup) return c.redirect('/?error=cuenta');
-    // Cuenta nueva: una empresa (isla) nueva con esta persona como dueña.
-    const s = JSON.parse(row.signup) as { name: string; company: string };
-    const orgId = `o-${randomId(10)}`, userId = `u-${randomId(10)}`;
-    await c.env.DB.batch([
-      c.env.DB.prepare('INSERT INTO orgs (id, name) VALUES (?, ?)').bind(orgId, s.company),
-      c.env.DB.prepare(`INSERT INTO users (id, org_id, email, name, role) VALUES (?, ?, ?, ?, 'owner')`).bind(userId, orgId, row.email, s.name),
-      c.env.DB.prepare('INSERT INTO settings (user_id, notify, calendar_token) VALUES (?, ?, ?)').bind(userId, JSON.stringify(DEFAULT_NOTIFY), randomId(16)),
-    ]);
-    user = { id: userId };
-  }
+async function startSession(c: Context<App>, userId: string) {
   const sid = randomId(32);
   await c.env.DB.prepare('INSERT INTO sessions (id_hash, user_id, expires_at) VALUES (?, ?, ?)')
-    .bind(await sha256(sid), user.id, Date.now() + 60 * 86_400_000).run();
+    .bind(await sha256(sid), userId, Date.now() + 60 * 86_400_000).run();
   setCookie(c, SESSION_COOKIE, sid, { httpOnly: true, secure: c.env.APP_URL.startsWith('https'), sameSite: 'Lax', path: '/', maxAge: 60 * 86_400 });
-  return c.redirect('/#hoy');
+}
+
+const cleanEmail = (e: unknown) => (typeof e === 'string' ? e.trim().toLowerCase() : '');
+
+// Crear cuenta: la empresa nace con esta persona como administradora y queda adentro de inmediato.
+app.post('/api/auth/signup', async (c) => {
+  const b = await c.req.json<{ email?: string; password?: string; name?: string; company?: string }>().catch(() => ({} as Record<string, undefined>));
+  const company = (b.company ?? '').trim().slice(0, 120), name = (b.name ?? '').trim().slice(0, 80), email = cleanEmail(b.email);
+  if (company.length < 2) return c.json({ error: 'Escribe el nombre de la empresa.', field: 'company' }, 400);
+  if (name.length < 2) return c.json({ error: 'Escribe tu nombre.', field: 'name' }, 400);
+  if (!isEmail(email)) return c.json({ error: 'Escribe un correo válido.', field: 'email' }, 400);
+  const weak = weakPassword(b.password);
+  if (weak) return c.json({ error: weak, field: 'password' }, 400);
+  if (await c.env.DB.prepare('SELECT 1 FROM users WHERE email = ?').bind(email).first()) {
+    return c.json({ error: 'Ya existe una cuenta con ese correo. Entra con tu contraseña o recupérala.', field: 'email', exists: true }, 409);
+  }
+  const orgId = `o-${randomId(10)}`, userId = `u-${randomId(10)}`;
+  await c.env.DB.batch([
+    c.env.DB.prepare('INSERT INTO orgs (id, name) VALUES (?, ?)').bind(orgId, company),
+    c.env.DB.prepare(`INSERT INTO users (id, org_id, email, name, role) VALUES (?, ?, ?, ?, 'owner')`).bind(userId, orgId, email, name),
+    c.env.DB.prepare('INSERT INTO credentials (user_id, hash) VALUES (?, ?)').bind(userId, await hashPassword(b.password!)),
+    c.env.DB.prepare('INSERT INTO settings (user_id, notify, calendar_token) VALUES (?, ?, ?)').bind(userId, JSON.stringify(DEFAULT_NOTIFY), randomId(16)),
+  ]);
+  await startSession(c, userId);
+  c.executionCtx.waitUntil(sendMail(c.env, welcomeMail(c.env, email, name, company)).then(() => undefined));
+  return c.json({ ok: true });
 });
+
+app.post('/api/auth/login', async (c) => {
+  const b = await c.req.json<{ email?: string; password?: string }>().catch(() => ({} as Record<string, undefined>));
+  const email = cleanEmail(b.email);
+  if (!isEmail(email)) return c.json({ error: 'Escribe un correo válido.', field: 'email' }, 400);
+  if (!b.password) return c.json({ error: 'Escribe tu contraseña.', field: 'password' }, 400);
+  const key = `login:${email}`;
+  const t = await c.env.DB.prepare('SELECT fails, locked_until FROM auth_throttle WHERE key = ?').bind(key).first<{ fails: number; locked_until: number }>();
+  if (t && t.locked_until > Date.now()) {
+    const min = Math.ceil((t.locked_until - Date.now()) / 60_000);
+    return c.json({ error: `Demasiados intentos. Espera ${min} minuto${min === 1 ? '' : 's'} o recupera tu contraseña.` }, 429);
+  }
+  const u = await c.env.DB.prepare('SELECT u.id, k.hash FROM users u LEFT JOIN credentials k ON k.user_id = u.id WHERE u.email = ?')
+    .bind(email).first<{ id: string; hash: string | null }>();
+  if (u && !u.hash) {
+    // Cuenta invitada o antigua sin contraseña: le mandamos el enlace para crearla.
+    await sendMail(c.env, passwordMail(c.env, email, passwordLink(c.env, await issueToken(c.env, email, 60 * 60_000)), false));
+    return c.json({ error: 'Tu cuenta aún no tiene contraseña. Te enviamos un correo para crearla.', noPassword: true }, 409);
+  }
+  if (!u || !(await verifyPassword(b.password, u.hash!))) {
+    const fails = (t?.fails ?? 0) + 1;
+    await c.env.DB.prepare('INSERT INTO auth_throttle (key, fails, locked_until) VALUES (?, ?, ?) ON CONFLICT(key) DO UPDATE SET fails = excluded.fails, locked_until = excluded.locked_until')
+      .bind(key, fails >= 5 ? 0 : fails, fails >= 5 ? Date.now() + 15 * 60_000 : 0).run();
+    return c.json({ error: 'El correo o la contraseña no coinciden.' }, 401);
+  }
+  if (t) await c.env.DB.prepare('DELETE FROM auth_throttle WHERE key = ?').bind(key).run();
+  await startSession(c, u.id);
+  return c.json({ ok: true });
+});
+
+// Recuperar contraseña: siempre responde lo mismo, exista o no la cuenta.
+app.post('/api/auth/forgot', async (c) => {
+  const b = await c.req.json<{ email?: string }>().catch(() => ({} as Record<string, undefined>));
+  const email = cleanEmail(b.email);
+  if (!isEmail(email)) return c.json({ error: 'Escribe un correo válido.', field: 'email' }, 400);
+  if (await c.env.DB.prepare('SELECT 1 FROM users WHERE email = ?').bind(email).first()) {
+    const r = await sendMail(c.env, passwordMail(c.env, email, passwordLink(c.env, await issueToken(c.env, email, 60 * 60_000)), true));
+    if (!r.ok) return c.json({ error: `No pudimos enviar el correo: ${r.detail}` }, 502);
+  }
+  return c.json({ ok: true });
+});
+
+// Crear o cambiar la contraseña con el enlace del correo, y entrar.
+app.post('/api/auth/reset', async (c) => {
+  const b = await c.req.json<{ token?: string; password?: string }>().catch(() => ({} as Record<string, undefined>));
+  const weak = weakPassword(b.password);
+  if (weak) return c.json({ error: weak, field: 'password' }, 400);
+  const hash = await sha256(b.token ?? '');
+  const row = await c.env.DB.prepare('SELECT email, expires_at FROM login_tokens WHERE token_hash = ?').bind(hash).first<{ email: string; expires_at: number }>();
+  if (!row || row.expires_at < Date.now()) return c.json({ error: 'Este enlace ya se usó o venció. Pide uno nuevo con "¿Olvidaste tu contraseña?".', expired: true }, 400);
+  const u = await c.env.DB.prepare('SELECT id FROM users WHERE email = ?').bind(row.email).first<{ id: string }>();
+  if (!u) return c.json({ error: 'Esa cuenta ya no existe.', expired: true }, 400);
+  await c.env.DB.batch([
+    c.env.DB.prepare('DELETE FROM login_tokens WHERE token_hash = ? OR expires_at < ?').bind(hash, Date.now()),
+    c.env.DB.prepare(`INSERT INTO credentials (user_id, hash) VALUES (?, ?) ON CONFLICT(user_id) DO UPDATE SET hash = excluded.hash, updated_at = datetime('now')`).bind(u.id, await hashPassword(b.password!)),
+    // Cambiar la contraseña cierra las demás sesiones abiertas.
+    c.env.DB.prepare('DELETE FROM sessions WHERE user_id = ?').bind(u.id),
+    c.env.DB.prepare('DELETE FROM auth_throttle WHERE key = ?').bind(`login:${row.email}`),
+  ]);
+  await startSession(c, u.id);
+  return c.json({ ok: true, email: row.email });
+});
+
+// Enlaces de correos antiguos (antes de las contraseñas): llevan a crear la contraseña.
+app.get('/api/auth/verify', (c) => c.redirect(`/?clave=${encodeURIComponent(c.req.query('token') ?? '')}`));
 
 app.post('/api/auth/logout', async (c) => {
   const sid = getCookie(c, SESSION_COOKIE);
@@ -309,7 +359,7 @@ app.post('/api/team/invite', async (c) => {
     c.env.DB.prepare('INSERT INTO settings (user_id, notify, calendar_token) VALUES (?, ?, ?)').bind(id, JSON.stringify(DEFAULT_NOTIFY), randomId(16)),
   ]);
   const org = await c.env.DB.prepare('SELECT name FROM orgs WHERE id = ?').bind(me.orgId).first<{ name: string }>();
-  const res = await sendMail(c.env, inviteMail(c.env, email, await issueToken(c.env, email, 7 * 86_400_000), me.name || me.email, org?.name ?? 'tu empresa'));
+  const res = await sendMail(c.env, inviteMail(c.env, email, passwordLink(c.env, await issueToken(c.env, email, 7 * 86_400_000)), me.name || me.email, org?.name ?? 'tu empresa'));
   return c.json({ id, name, email, role: 'member', mailed: res.ok, detail: res.ok ? undefined : res.detail });
 });
 
@@ -323,6 +373,7 @@ app.delete('/api/team/:id', async (c) => {
     c.env.DB.prepare('DELETE FROM sessions WHERE user_id = ?').bind(id),
     c.env.DB.prepare('DELETE FROM push_subs WHERE user_id = ?').bind(id),
     c.env.DB.prepare('DELETE FROM settings WHERE user_id = ?').bind(id),
+    c.env.DB.prepare('DELETE FROM credentials WHERE user_id = ?').bind(id),
     c.env.DB.prepare('DELETE FROM users WHERE id = ? AND org_id = ?').bind(id, me.orgId),
   ]);
   return c.json({ ok: true });
@@ -348,7 +399,7 @@ app.delete('/api/org', async (c) => {
   await c.env.DB.batch([
     c.env.DB.prepare(`DELETE FROM document_chunks WHERE document_id IN (SELECT id FROM documents WHERE org_id = ?)`).bind(orgId),
     ...['documents', 'evidence', 'events', 'completions', 'obligations', 'projects'].map((t) => c.env.DB.prepare(`DELETE FROM ${t} WHERE org_id = ?`).bind(orgId)),
-    ...['sessions', 'push_subs', 'settings'].map((t) => c.env.DB.prepare(`DELETE FROM ${t} WHERE user_id IN ${users}`).bind(orgId)),
+    ...['sessions', 'push_subs', 'settings', 'credentials'].map((t) => c.env.DB.prepare(`DELETE FROM ${t} WHERE user_id IN ${users}`).bind(orgId)),
     c.env.DB.prepare('DELETE FROM users WHERE org_id = ?').bind(orgId),
     c.env.DB.prepare('DELETE FROM orgs WHERE id = ?').bind(orgId),
   ]);

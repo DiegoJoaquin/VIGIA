@@ -34,7 +34,7 @@ function isActive(current: Route, r: Route) {
 
 const TITLES: Record<Route['name'], string> = {
   hoy: 'Hoy', calendario: 'Calendario', proyectos: 'Proyectos', proyecto: 'Proyecto',
-  importar: 'Importar RCA', ajustes: 'Ajustes', noencontrado: 'Página no encontrada',
+  importar: 'Importar RCA', ajustes: 'Ajustes', noencontrado: 'Página no encontrada', entrar: 'Entrar',
 };
 
 /** Título de la pestaña del navegador según la vista. */
@@ -48,7 +48,9 @@ function useTitle(s: ReturnType<typeof useStore>) {
 export function App() {
   const s = useStore();
   useTitle(s);
-  if (s.needLogin) return <Login mark={<BrandMark size={44} />} />;
+  // La portada con el inicio de sesión: sin sesión, con un enlace para crear contraseña, o en la demo (#entrar).
+  if (s.needLogin || new URLSearchParams(location.search).has('clave')) return <Login mark={<BrandMark size={40} />} />;
+  if (s.demo && s.route.name === 'entrar') return <Login mark={<BrandMark size={40} />} demo />;
   if (s.error) return <div className="page"><h1 className="title">No pudimos cargar tus datos</h1><p className="muted">{s.error}. Revisa tu conexión y vuelve a abrir la app.</p></div>;
   if (!s.ready) return <div className="page" aria-busy="true"><p className="faint">Cargando…</p></div>;
 

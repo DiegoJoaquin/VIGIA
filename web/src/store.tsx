@@ -11,12 +11,13 @@ export type Route =
   | { name: 'proyecto'; id: string }
   | { name: 'importar' }
   | { name: 'ajustes' }
-  | { name: 'noencontrado' };
+  | { name: 'noencontrado' }
+  | { name: 'entrar' };
 
 function parseHash(): Route {
   const h = location.hash.replace('#', '');
   if (h.startsWith('proyecto-')) return { name: 'proyecto', id: h.slice('proyecto-'.length) };
-  if (h === 'calendario' || h === 'proyectos' || h === 'importar' || h === 'ajustes') return { name: h };
+  if (h === 'calendario' || h === 'proyectos' || h === 'importar' || h === 'ajustes' || h === 'entrar') return { name: h };
   // Una dirección que no existe (por ejemplo /algo o #algo) muestra la página 404 en vez de "Hoy".
   const path = location.pathname.replace(/\/(index\.html|demo\.html)?$/, '');
   if (path || (h && h !== 'hoy')) return { name: 'noencontrado' };
