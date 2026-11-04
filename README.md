@@ -62,7 +62,7 @@ Analítica: la demo usa Vercel Web Analytics (sin cookies; se activa en el panel
 
 El servidor (`worker/`) no va en Vercel: se publica en Cloudflare (ver más abajo).
 
-Para regenerar la demo después de cambiar la app: `npm run build:demo` y copia `web/dist-demo/demo.html` dentro de la plantilla de `demo/index.html`. Las páginas públicas de la demo se regeneran con `node web/legal/build.mjs demo https://vigia-demo.vercel.app vercel`.
+Para regenerar la demo después de cambiar la app: `npm run build:demo` y copia `web/dist-demo/demo.html` dentro de la plantilla de `demo/index.html`. Las páginas públicas de la demo se regeneran con `node web/legal/build.mjs demo https://vigia-demo-ten.vercel.app vercel`.
 
 ## Probar en tu computador
 

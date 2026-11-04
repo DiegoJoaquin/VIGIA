@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://vigia-demo.vercel.app/sitemap.xml
+Sitemap: https://vigia-demo-ten.vercel.app/sitemap.xml
