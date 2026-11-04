@@ -1,7 +1,7 @@
 // Lectura de una RCA desde la app, usando Workers AI (capa gratuita de Cloudflare).
 // Para RCA largas o mejor calidad, usa el extractor local con Ollama (extractor/extract_rca.py).
 import { extractText, getDocumentProxy } from 'unpdf';
-import { EXTRACTION_PROMPT, chunkText, guessProjectMeta, normalizeObligations, parseModelJson } from '../../shared/extraction';
+import { EXTRACTION_PROMPT, chunkText, guessProjectMeta, normalizeObligations, parseModelJson, selectChunks } from '../../shared/extraction';
 import type { Project } from '../../shared/types';
 import type { Env } from './env';
 import { randomId } from './util';
@@ -43,8 +43,10 @@ export async function extractFromPdf(env: Env, bytes: ArrayBuffer, sourceUrl: st
   const projectId = opts.project?.id ?? `p-${randomId(6)}`;
   const hint = KIND_HINT[opts.kind ?? 'rca'] ?? KIND_HINT.rca;
   // Los trozos se leen en paralelo (de a 4) y cada consulta tiene un tiempo máximo: así una RCA larga
-  // tarda lo que tarda un trozo y no la suma de todos. Limitamos a 8 trozos por la capa gratuita diaria.
-  const chunks = chunkText(text, 10_000).slice(0, 8);
+  // tarda lo que tarda un trozo y no la suma de todos. Limitamos a 8 trozos por la capa gratuita diaria,
+  // elegidos entre todos según dónde están las obligaciones (ver selectChunks).
+  const all = chunkText(text, 10_000);
+  const chunks = selectChunks(all, 8);
   const ask = async (chunk: string): Promise<unknown[]> => {
     const run = env.AI!.run(MODEL as Parameters<Ai['run']>[0], {
       messages: [{ role: 'system', content: EXTRACTION_PROMPT }, { role: 'user', content: `${hint}\n\n${chunk}` }],
@@ -63,7 +65,7 @@ export async function extractFromPdf(env: Env, bytes: ArrayBuffer, sourceUrl: st
       else { failed++; lastError = String((r.reason as Error)?.message ?? r.reason); }
     }
   }
-  console.log('[lectura]', JSON.stringify({ chars: text.length, chunks: chunks.length, failed, found: items.length, lastError }));
+  console.log('[lectura]', JSON.stringify({ chars: text.length, chunks: `${chunks.length}/${all.length}`, failed, found: items.length, lastError }));
   if (failed === chunks.length) throw new Error(`La IA no pudo leer el documento (${lastError}). Intenta de nuevo en unos minutos.`);
   const batch = randomId(4); // los ids no chocan con compromisos ya cargados en el proyecto
   const obligations = normalizeObligations(items, projectId, text).map((o) => (opts.project ? { ...o, id: `${o.id}-${batch}` } : o));

@@ -115,3 +115,18 @@ export function guessProjectMeta(text: string): { name?: string; titular?: strin
     comuna: pick(/comuna\s+de\s+([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*)/),
   };
 }
+
+/**
+ * Cuando el documento tiene más trozos de los que se pueden leer, elige los que concentran obligaciones.
+ * Las RCA nuevas ponen los compromisos al final (condiciones, compromisos voluntarios, seguimiento),
+ * y las antiguas los mezclan con la descripción del proyecto: por eso se puntúa cada trozo en vez de
+ * leer solo los primeros. Los trozos elegidos se devuelven en su orden original.
+ */
+export function selectChunks(chunks: string[], max: number): string[] {
+  if (chunks.length <= max) return chunks;
+  const MUST = /condiciones o exigencias|compromisos? ambientales? voluntarios?|plan de seguimiento|seguimiento de las variables|medidas de (mitigaci[oó]n|reparaci[oó]n|compensaci[oó]n)|superintendencia del medio ambiente/i;
+  const WORDS = /monitoreo|informe|reporte|registro|mensual|trimestral|semestral|anual|semanal|diari[oa]|plazo|d[ií]as h[aá]biles|deber[aá]|remitir|compromiso|fiscalizaci[oó]n|SMA\b/gi;
+  const scored = chunks.map((c, i) => ({ i, score: (c.match(WORDS)?.length ?? 0) / (c.length / 1000) + (MUST.test(c) ? 100 : 0) }));
+  const keep = new Set(scored.sort((a, b) => b.score - a.score).slice(0, max).map((x) => x.i));
+  return chunks.filter((_, i) => keep.has(i));
+}
