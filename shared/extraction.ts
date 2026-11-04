@@ -173,12 +173,14 @@ const FOCUS_START = /que,?\s+para\s+ejecutar\s+el\s+proyecto\s+deben\s+cumplirse
  * condiciones, compromisos y seguimiento (hasta "RESUELVO"); el resto de los cupos se llena con los
  * trozos de la descripción que más hablan de monitoreos, informes y plazos.
  */
-export function pickChunks(text: string, max = 8, size = 10_000): { chunks: string[]; total: number; focused: boolean } {
+export function pickChunks(text: string, max = 8, size = 10_000, focusSize = 5_500): { chunks: string[]; total: number; focused: boolean } {
   const all = chunkText(text, size);
   const m = FOCUS_START.exec(text);
   const end = text.search(/\n\s*RESUELVO\s*:?/);
   if (!m || m.index < text.length * 0.2) return { chunks: selectChunks(all, max), total: all.length, focused: false };
-  const focus = chunkText(text.slice(Math.max(0, m.index - 300), end > m.index ? end + 2000 : undefined), size);
+  // La sección de compromisos se lee en trozos más chicos: el modelo encuentra más cuando lee menos a la vez.
+  const section = text.slice(Math.max(0, m.index - 300), end > m.index ? end + 2000 : undefined);
+  const focus = chunkText(section, Math.max(focusSize, Math.ceil(section.length / max)));
   if (focus.length >= max) return { chunks: focus.slice(0, max), total: all.length, focused: true };
   const before = chunkText(text.slice(0, m.index), size);
   return { chunks: [...selectChunks(before, max - focus.length), ...focus], total: all.length, focused: true };
@@ -210,4 +212,15 @@ export function standardObligations(text: string, projectId: string): Obligation
 export function dropUnquoted(obs: Obligation[]): Obligation[] {
   const quoted = obs.filter((o) => o.quote);
   return quoted.length >= 3 ? quoted : obs;
+}
+
+/** Quita repetidos: misma cita o mismo título con la misma frecuencia. Se queda con el primero. */
+export function dedupeObligations<T extends { title: string; quote?: string; frequency: { kind: string } }>(list: T[]): T[] {
+  const seen = new Set<string>();
+  return list.filter((o) => {
+    const keys = [o.quote ? `q:${norm(o.quote).slice(0, 80)}` : '', `t:${norm(o.title)}|${o.frequency.kind}`].filter(Boolean);
+    if (keys.some((k) => seen.has(k))) return false;
+    keys.forEach((k) => seen.add(k));
+    return true;
+  });
 }

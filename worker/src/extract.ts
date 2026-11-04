@@ -1,7 +1,7 @@
 // Lectura de una RCA desde la app, usando Workers AI (capa gratuita de Cloudflare).
 // Para RCA largas o mejor calidad, usa el extractor local con Ollama (extractor/extract_rca.py).
 import { extractText, getDocumentProxy } from 'unpdf';
-import { EXTRACTION_PROMPT, dropUnquoted, guessProjectMeta, normalizeObligations, parseModelJson, pickChunks, standardObligations } from '../../shared/extraction';
+import { EXTRACTION_PROMPT, dedupeObligations, dropUnquoted, guessProjectMeta, normalizeObligations, parseModelJson, pickChunks, standardObligations } from '../../shared/extraction';
 import type { Project } from '../../shared/types';
 import type { Env } from './env';
 import { randomId } from './util';
@@ -75,7 +75,7 @@ export async function extractFromPdf(env: Env, bytes: ArrayBuffer, sourceUrl: st
   console.log('[lectura]', JSON.stringify({ chars: text.length, chunks: `${chunks.length}/${total}`, focused, failed, found: items.length, lastError }));
   if (failed === chunks.length) throw new Error(`La IA no pudo leer el documento (${lastError}). Intenta de nuevo en unos minutos.`);
   const batch = randomId(4); // los ids no chocan con compromisos ya cargados en el proyecto
-  const found = dropUnquoted(normalizeObligations(items, projectId, text));
+  const found = dedupeObligations(dropUnquoted(normalizeObligations(items, projectId, text)));
   const std = standardObligations(text, projectId).filter((s) => !found.some((f) => f.quote && s.quote && f.quote.slice(0, 40) === s.quote.slice(0, 40)));
   const obligations = [...found, ...std].map((o) => (opts.project ? { ...o, id: `${o.id}-${batch}` } : o));
   if (opts.project) return { project: opts.project, obligations };
