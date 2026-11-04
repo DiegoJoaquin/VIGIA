@@ -4,27 +4,37 @@
 
 import type { Component, Frequency, FrequencyKind, Obligation, Recipient } from './types';
 
-export const EXTRACTION_PROMPT = `Eres un ingeniero ambiental chileno que revisa una Resolución de Calificación Ambiental (RCA).
-Tu tarea: listar CADA obligación que el titular debe cumplir durante la operación del proyecto.
+export const EXTRACTION_PROMPT = `Eres un ingeniero ambiental chileno que revisa una Resolución de Calificación Ambiental (RCA) o una resolución que la modifica.
+Tu tarea: listar SOLO las obligaciones que el titular DEBE cumplir y que se pueden fiscalizar.
 
-Incluye: monitoreos y su frecuencia, reportes o informes a autoridades (SMA, DOH, SEREMI, SEA, CMN),
-registros que se deben llevar, mantenciones periódicas, plazos únicos, límites permanentes y obligaciones
-que se activan si ocurre un evento (contingencias, hallazgos, cambios de titular).
+Dónde están en una RCA moderna:
+- "Condiciones o exigencias" (considerando 8° o similar): exigencias de los servicios (CMN, SEREMI, SAG...).
+- "Compromisos ambientales voluntarios": cada uno tiene "Lugar, forma y oportunidad", "Indicador que acredite su cumplimiento" y "Forma de control y seguimiento". De ahí salen informes, monitoreos, charlas, registros y sus plazos.
+- "Plan de seguimiento de las variables ambientales" y "Medidas de mitigación, reparación o compensación".
+- Considerandos finales: avisos a la SMA (inicio de obras, inicio de fases, impactos no previstos).
+En RCA antiguas también aparecen dentro de la descripción del proyecto con frases como "se realizará un monitoreo trimestral", "se informará anualmente a la SMA".
+
+NO incluyas:
+- La descripción del proyecto (viviendas, estacionamientos, áreas verdes, redes de agua o electricidad) si no dice que hay que hacer, medir o informar algo.
+- Listas de normas aplicables, permisos sectoriales, ni la lista de contingencias del plan de emergencias.
+- Nada que no esté escrito en el texto. Si en este trozo no hay obligaciones, responde {"obligations":[]}.
 
 Reglas:
-- Usa SOLO lo que dice el texto. Si no hay frecuencia explícita, usa "continuous" si es un límite o condición, o "event" si depende de que algo ocurra.
-- "quote" debe ser una frase COPIADA EXACTAMENTE del texto (máximo 220 caracteres). Si no puedes copiarla exacta, deja "".
-- "section" es el número o título de la sección donde aparece (ej. "4.3.2 Fase de Operación").
+- Un compromiso con varias acciones distintas (por ejemplo, monitoreo diario + informe mensual a la SMA) se separa en obligaciones distintas.
+- "frequency": weekly (registros diarios o semanales, se respaldan cada semana), monthly, bimonthly, quarterly, semiannual, annual, once (una sola vez), event (cada vez que ocurre algo: charlas al ingresar personal, hallazgos, avisos), continuous (condición permanente sin fecha: límites de velocidad, monitoreo permanente en obra).
+- "N días hábiles luego de terminado el mes": frequency monthly, lag_months 1, due_day 21 (15 días hábiles ≈ día 21).
+- "quote": frase COPIADA EXACTAMENTE del texto, palabra por palabra (máximo 200 caracteres). Es obligatoria: si no puedes citar, no incluyas la obligación.
+- "section": número del considerando o compromiso (ej. "9.3 Compromiso voluntario 3").
 - No inventes parámetros, plazos ni destinatarios.
-- Los registros diarios se informan como frecuencia "weekly" (se respaldan cada semana).
 
-Responde SOLO con JSON válido, sin texto adicional, con esta forma:
+Responde SOLO con JSON válido, sin texto adicional:
 {"obligations":[{
   "title": "nombre corto en español, máximo 60 caracteres",
   "plain": "qué hay que hacer, en una frase simple",
   "component": "Agua|Aire|Ruido|Residuos|Suelo y cauce|Olores|Biodiversidad|Patrimonio|Administrativo",
   "recipient": "SMA|DOH|SEA|SEREMI de Salud|CMN|Interno",
   "frequency": "weekly|monthly|bimonthly|quarterly|semiannual|annual|once|event|continuous",
+  "due_day": null,
   "due_month": null,
   "lag_months": null,
   "hours_after_event": null,
@@ -83,6 +93,7 @@ export function normalizeObligations(items: unknown[], projectId: string, source
     const frequency: Frequency = { kind };
     const num = (v: unknown, lo: number, hi: number) => (typeof v === 'number' && v >= lo && v <= hi ? Math.round(v) : undefined);
     frequency.dueMonth = num(r.due_month, 1, 12);
+    frequency.dueDay = num(r.due_day, 1, 31);
     frequency.lagMonths = num(r.lag_months, 1, 12);
     if (kind === 'event') frequency.hoursAfterEvent = num(r.hours_after_event, 1, 720) ?? 24;
     let quote = String(r.quote ?? '').trim();
@@ -129,4 +140,52 @@ export function selectChunks(chunks: string[], max: number): string[] {
   const scored = chunks.map((c, i) => ({ i, score: (c.match(WORDS)?.length ?? 0) / (c.length / 1000) + (MUST.test(c) ? 100 : 0) }));
   const keep = new Set(scored.sort((a, b) => b.score - a.score).slice(0, max).map((x) => x.i));
   return chunks.filter((_, i) => keep.has(i));
+}
+
+
+// Marcadores de la plantilla actual del SEA: desde aquí hasta "RESUELVO" están casi todas las obligaciones.
+const FOCUS_START = /que,?\s+para\s+ejecutar\s+el\s+proyecto\s+deben\s+cumplirse|condiciones\s+o\s+exigencias|compromisos?\s+ambientales?\s+voluntarios?|plan\s+de\s+seguimiento\s+de\s+las\s+variables|medidas\s+de\s+mitigaci[oó]n,?\s+reparaci[oó]n/i;
+
+/**
+ * Elige qué trozos del documento leer. En las RCA con la plantilla actual, primero la parte de
+ * condiciones, compromisos y seguimiento (hasta "RESUELVO"); el resto de los cupos se llena con los
+ * trozos de la descripción que más hablan de monitoreos, informes y plazos.
+ */
+export function pickChunks(text: string, max = 8, size = 10_000): { chunks: string[]; total: number; focused: boolean } {
+  const all = chunkText(text, size);
+  const m = FOCUS_START.exec(text);
+  const end = text.search(/\n\s*RESUELVO\s*:?/);
+  if (!m || m.index < text.length * 0.2) return { chunks: selectChunks(all, max), total: all.length, focused: false };
+  const focus = chunkText(text.slice(Math.max(0, m.index - 300), end > m.index ? end + 2000 : undefined), size);
+  if (focus.length >= max) return { chunks: focus.slice(0, max), total: all.length, focused: true };
+  const before = chunkText(text.slice(0, m.index), size);
+  return { chunks: [...selectChunks(before, max - focus.length), ...focus], total: all.length, focused: true };
+}
+
+/** Obligaciones estándar de toda RCA actual, encontradas por su texto exacto (sin IA). */
+const STANDARD: { re: RegExp; title: string; plain: string; recipient: Obligation['recipient']; frequency: Frequency; evidence: string }[] = [
+  { re: /informar\s+a\s+la\s+Superintendencia\s+del\s+Medio\s+Ambiente\s+la\s+realizaci[oó]n\s+de\s+la\s+gesti[oó]n,?\s+acto\s+o\s+faena\s+m[ií]nima[^.]{0,160}/i,
+    title: 'Avisar a la SMA el inicio de la ejecución', plain: 'Informar a la SMA cuando se realice la gestión, acto o faena mínima que marca el inicio de las obras.', recipient: 'SMA', frequency: { kind: 'event', hoursAfterEvent: 24 }, evidence: 'Comprobante de aviso a la SMA' },
+  { re: /informar\s+a\s+la\s+Superintendencia\s+del\s+Medio\s+Ambiente,?\s+al\s+menos\s+con\s+una\s+semana\s+de\s+anticipaci[oó]n,?\s+el\s+inicio\s+de\s+cada\s+una\s+de\s+las\s+fases[^.]{0,120}/i,
+    title: 'Avisar a la SMA el inicio de cada fase', plain: 'Informar a la SMA, al menos una semana antes, el inicio de cada fase del proyecto (construcción, operación, cierre).', recipient: 'SMA', frequency: { kind: 'event', hoursAfterEvent: 168 }, evidence: 'Comprobante de aviso a la SMA' },
+  { re: /informar\s+inmediatamente\s+a\s+la\s+Secretar[ií]a\s+de\s+la\s+Comisi[oó]n\s+de\s+Evaluaci[oó]n[^.]{0,200}impactos\s+ambientales\s+no\s+previstos[^.]{0,120}/i,
+    title: 'Avisar impactos ambientales no previstos', plain: 'Si ocurre un impacto ambiental no previsto, avisar de inmediato al SEA y a la SMA y tomar las acciones necesarias.', recipient: 'SMA', frequency: { kind: 'event', hoursAfterEvent: 24 }, evidence: 'Carta al SEA y a la SMA' },
+  { re: /comunicar\s+inmediatamente\s+y\s+por\s+escrito\s+a\s+la\s+Direcci[oó]n\s+Regional[^.]{0,200}cambios\s+de\s+titularidad[^.]{0,160}/i,
+    title: 'Avisar cambios de titular o de contacto', plain: 'Si cambia el titular, el representante legal, el domicilio o el correo, comunicarlo por escrito al SEA.', recipient: 'SEA', frequency: { kind: 'event', hoursAfterEvent: 24 }, evidence: 'Carta al SEA' },
+];
+
+export function standardObligations(text: string, projectId: string): Obligation[] {
+  return STANDARD.flatMap((s, i) => {
+    const m = s.re.exec(text);
+    if (!m) return [];
+    const quote = m[0].replace(/\s+/g, ' ').trim().slice(0, 200);
+    return [{ id: `${projectId}-std-${i + 1}`, projectId, title: s.title, plain: s.plain, component: 'Administrativo' as const, recipient: s.recipient,
+      frequency: s.frequency, quote, section: 'Considerandos finales', evidence: s.evidence, confirmed: false, source: 'rca' as const }];
+  });
+}
+
+/** Con un modelo que inventa, lo que no se puede citar se descarta si hay suficientes obligaciones citadas. */
+export function dropUnquoted(obs: Obligation[]): Obligation[] {
+  const quoted = obs.filter((o) => o.quote);
+  return quoted.length >= 3 ? quoted : obs;
 }

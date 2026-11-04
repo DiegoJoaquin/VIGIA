@@ -1,12 +1,14 @@
 // Lectura de una RCA desde la app, usando Workers AI (capa gratuita de Cloudflare).
 // Para RCA largas o mejor calidad, usa el extractor local con Ollama (extractor/extract_rca.py).
 import { extractText, getDocumentProxy } from 'unpdf';
-import { EXTRACTION_PROMPT, chunkText, guessProjectMeta, normalizeObligations, parseModelJson, selectChunks } from '../../shared/extraction';
+import { EXTRACTION_PROMPT, dropUnquoted, guessProjectMeta, normalizeObligations, parseModelJson, pickChunks, standardObligations } from '../../shared/extraction';
 import type { Project } from '../../shared/types';
 import type { Env } from './env';
 import { randomId } from './util';
 
-const MODEL = '@cf/meta/llama-3.1-8b-instruct-fast';
+// Modelo grande para leer bien (y citar textual); el chico solo si el grande falla.
+const MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
+const FALLBACK = '@cf/meta/llama-3.1-8b-instruct-fast';
 const ALLOWED_HOSTS = ['firma.sea.gob.cl', 'infofirma.sea.gob.cl', 'seia.sea.gob.cl'];
 
 export async function pdfText(bytes: ArrayBuffer): Promise<string> {
@@ -45,30 +47,37 @@ export async function extractFromPdf(env: Env, bytes: ArrayBuffer, sourceUrl: st
   // Los trozos se leen en paralelo (de a 4) y cada consulta tiene un tiempo máximo: así una RCA larga
   // tarda lo que tarda un trozo y no la suma de todos. Limitamos a 8 trozos por la capa gratuita diaria,
   // elegidos entre todos según dónde están las obligaciones (ver selectChunks).
-  const all = chunkText(text, 10_000);
-  const chunks = selectChunks(all, 8);
-  const ask = async (chunk: string): Promise<unknown[]> => {
-    const run = env.AI!.run(MODEL as Parameters<Ai['run']>[0], {
+  const { chunks, total, focused } = pickChunks(text, 8);
+  const ask = async (chunk: string, model = MODEL): Promise<unknown[]> => {
+    const run = env.AI!.run(model as Parameters<Ai['run']>[0], {
       messages: [{ role: 'system', content: EXTRACTION_PROMPT }, { role: 'user', content: `${hint}\n\n${chunk}` }],
       max_tokens: 2048, temperature: 0.1,
     } as never) as Promise<{ response?: string }>;
     const timeout = new Promise<never>((_, rej) => setTimeout(() => rej(new Error('tiempo agotado')), 60_000));
-    const res = await Promise.race([run, timeout]);
-    return parseModelJson(res.response ?? '').obligations ?? [];
+    try {
+      const res = await Promise.race([run, timeout]);
+      return parseModelJson(res.response ?? '').obligations ?? [];
+    } catch (e) {
+      if (model === FALLBACK) throw e;
+      console.log('[lectura] modelo grande falló, uso el chico:', String((e as Error)?.message ?? e));
+      return ask(chunk, FALLBACK);
+    }
   };
   const items: unknown[] = [];
   let failed = 0, lastError = '';
   for (let i = 0; i < chunks.length; i += 4) {
-    const results = await Promise.allSettled(chunks.slice(i, i + 4).map(ask));
+    const results = await Promise.allSettled(chunks.slice(i, i + 4).map((c) => ask(c)));
     for (const r of results) {
       if (r.status === 'fulfilled') items.push(...r.value);
       else { failed++; lastError = String((r.reason as Error)?.message ?? r.reason); }
     }
   }
-  console.log('[lectura]', JSON.stringify({ chars: text.length, chunks: `${chunks.length}/${all.length}`, failed, found: items.length, lastError }));
+  console.log('[lectura]', JSON.stringify({ chars: text.length, chunks: `${chunks.length}/${total}`, focused, failed, found: items.length, lastError }));
   if (failed === chunks.length) throw new Error(`La IA no pudo leer el documento (${lastError}). Intenta de nuevo en unos minutos.`);
   const batch = randomId(4); // los ids no chocan con compromisos ya cargados en el proyecto
-  const obligations = normalizeObligations(items, projectId, text).map((o) => (opts.project ? { ...o, id: `${o.id}-${batch}` } : o));
+  const found = dropUnquoted(normalizeObligations(items, projectId, text));
+  const std = standardObligations(text, projectId).filter((s) => !found.some((f) => f.quote && s.quote && f.quote.slice(0, 40) === s.quote.slice(0, 40)));
+  const obligations = [...found, ...std].map((o) => (opts.project ? { ...o, id: `${o.id}-${batch}` } : o));
   if (opts.project) return { project: opts.project, obligations };
   const meta = guessProjectMeta(text);
   const name = meta.name ?? 'Proyecto importado';
