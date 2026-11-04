@@ -17,10 +17,13 @@ En RCA antiguas también aparecen dentro de la descripción del proyecto con fra
 NO incluyas:
 - La descripción del proyecto (viviendas, estacionamientos, áreas verdes, redes de agua o electricidad) si no dice que hay que hacer, medir o informar algo.
 - Listas de normas aplicables, permisos sectoriales, ni la lista de contingencias del plan de emergencias.
+- Considerandos genéricos que solo dicen que el titular "deberá remitir a la SMA la información que esta requiera", que la SMA "podrá modificar el plan de seguimiento", o que "deberá cumplir todas las normas vigentes".
 - Nada que no esté escrito en el texto. Si en este trozo no hay obligaciones, responde {"obligations":[]}.
 
 Reglas:
-- Un compromiso con varias acciones distintas (por ejemplo, monitoreo diario + informe mensual a la SMA) se separa en obligaciones distintas.
+- Separa un compromiso en varias obligaciones SOLO si cambian la frecuencia o el destinatario (por ejemplo: monitoreo diario en obra + informe mensual a la SMA = 2 obligaciones).
+- Las medidas permanentes de un mismo compromiso van juntas en UNA obligación "continuous", con cada medida en "details" (por ejemplo: plan de control de emisiones = 1 obligación con revisión técnica, carga cubierta y 30 km/h en details).
+- El informe de una actividad y la actividad misma, si tienen la misma frecuencia, son UNA obligación (la charla y su informe de charla = 1).
 - "frequency": weekly (registros diarios o semanales, se respaldan cada semana), monthly, bimonthly, quarterly, semiannual, annual, once (una sola vez), event (cada vez que ocurre algo: charlas al ingresar personal, hallazgos, avisos), continuous (condición permanente sin fecha: límites de velocidad, monitoreo permanente en obra).
 - "N días hábiles luego de terminado el mes": frequency monthly, lag_months 1, due_day 21 (15 días hábiles ≈ día 21).
 - "quote": frase COPIADA EXACTAMENTE del texto, palabra por palabra (máximo 200 caracteres). Es obligatoria: si no puedes citar, no incluyas la obligación.
