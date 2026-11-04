@@ -24,6 +24,8 @@ Reglas:
 - Separa un compromiso en varias obligaciones SOLO si cambian la frecuencia o el destinatario (por ejemplo: monitoreo diario en obra + informe mensual a la SMA = 2 obligaciones).
 - Las medidas permanentes de un mismo compromiso van juntas en UNA obligación "continuous", con cada medida en "details" (por ejemplo: plan de control de emisiones = 1 obligación con revisión técnica, carga cubierta y 30 km/h en details).
 - El informe de una actividad y la actividad misma, si tienen la misma frecuencia, son UNA obligación (la charla y su informe de charla = 1).
+- Cada compromiso voluntario o condición produce normalmente 1 a 3 obligaciones; nunca más de 4.
+- "section" debe empezar con el número del compromiso o condición (ej. "9.6", "8.1"), aunque el texto venga en varios trozos.
 - "frequency": weekly (registros diarios o semanales, se respaldan cada semana), monthly, bimonthly, quarterly, semiannual, annual, once (una sola vez), event (cada vez que ocurre algo: charlas al ingresar personal, hallazgos, avisos), continuous (condición permanente sin fecha: límites de velocidad, monitoreo permanente en obra).
 - "N días hábiles luego de terminado el mes": frequency monthly, lag_months 1, due_day 21 (15 días hábiles ≈ día 21).
 - "quote": frase COPIADA EXACTAMENTE del texto, palabra por palabra (máximo 200 caracteres). Es obligatoria: si no puedes citar, no incluyas la obligación.
@@ -181,9 +183,14 @@ export function pickChunks(text: string, max = 8, size = 10_000, focusSize = 5_5
   const m = FOCUS_START.exec(text);
   const end = text.search(/\n\s*RESUELVO\s*:?/);
   if (!m || m.index < text.length * 0.2) return { chunks: selectChunks(all, max), total: all.length, focused: false };
-  // La sección de compromisos se lee en trozos más chicos: el modelo encuentra más cuando lee menos a la vez.
-  const section = text.slice(Math.max(0, m.index - 300), end > m.index ? end + 2000 : undefined);
-  const focus = chunkText(section, Math.max(focusSize, Math.ceil(section.length / max)));
+  // La sección se corta en los límites de cada compromiso o condición (9.1, 9.2…), nunca a la mitad de uno,
+  // y termina antes de los considerandos finales: los avisos estándar los detecta standardObligations sin IA.
+  const from = Math.max(0, m.index - 300);
+  const tail = text.slice(from);
+  const stop = tail.search(/\n\s*1[01]\s*[°º]?\.\s*Que,?\s+(de\s+acuerdo\s+a\s+los\s+antecedentes[^\n]{0,120}\n?[^\n]{0,120}(contingencias|emergencias)|el\s+Titular\s+deber[aá]\s+remitir)/i);
+  const endAt = stop > 0 ? stop : end > m.index ? end - from : tail.length;
+  const section = tail.slice(0, endAt);
+  const focus = packBlocks(splitBlocks(section), Math.max(focusSize, Math.ceil(section.length / max)));
   if (focus.length >= max) return { chunks: focus.slice(0, max), total: all.length, focused: true };
   const before = chunkText(text.slice(0, m.index), size);
   return { chunks: [...selectChunks(before, max - focus.length), ...focus], total: all.length, focused: true };
@@ -226,4 +233,47 @@ export function dedupeObligations<T extends { title: string; quote?: string; fre
     keys.forEach((k) => seen.add(k));
     return true;
   });
+}
+
+/** Corta en cada encabezado de compromiso o condición ("9.3. Compromiso…", "8.1 Respecto del…"). */
+export function splitBlocks(section: string): string[] {
+  const idx = [0];
+  const re = /\n\s*\d{1,2}\s*[°º]?\.\d{1,2}\.?\s+\S/g;
+  for (let r = re.exec(section); r; r = re.exec(section)) idx.push(r.index);
+  idx.push(section.length);
+  return idx.slice(0, -1).map((a, i) => section.slice(a, idx[i + 1])).filter((b) => b.trim().length > 0);
+}
+
+/** Junta bloques seguidos hasta un tamaño; un bloque muy largo se corta por párrafos. */
+export function packBlocks(blocks: string[], size: number): string[] {
+  const out: string[] = [];
+  let cur = '';
+  for (const b of blocks) {
+    if (b.length > size) { if (cur) { out.push(cur); cur = ''; } out.push(...chunkText(b, size)); continue; }
+    if (cur && cur.length + b.length > size) { out.push(cur); cur = ''; }
+    cur += b;
+  }
+  if (cur) out.push(cur);
+  return out;
+}
+
+/**
+ * Dentro de un mismo compromiso (misma sección, p. ej. "9.6"), dos obligaciones con la misma frecuencia
+ * son la misma: se dejan en una y el resto pasa a sus detalles.
+ */
+export function mergeBySection<T extends { title: string; section?: string; frequency: { kind: string }; details?: string[] }>(list: T[]): T[] {
+  const out: T[] = [];
+  const at = new Map<string, number>();
+  for (const o of list) {
+    const sec = o.section?.match(/^\s*(\d{1,2}\.\d{1,2})/)?.[1];
+    const key = sec ? `${sec}|${o.frequency.kind}` : '';
+    if (key && at.has(key)) {
+      const first = out[at.get(key)!];
+      out[at.get(key)!] = { ...first, details: [...(first.details ?? []), o.title, ...(o.details ?? [])].slice(0, 12) };
+      continue;
+    }
+    if (key) at.set(key, out.length);
+    out.push(o);
+  }
+  return out;
 }
