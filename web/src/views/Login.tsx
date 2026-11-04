@@ -3,7 +3,7 @@ import { ApiSource, source } from '../data/source';
 import { Segmented } from '../components';
 import { IconBell, IconCalendar, IconCheck, IconEye, IconEyeOff, IconFolder, IconMail, IconShield } from '../icons';
 
-type Mode = 'login' | 'signup' | 'forgot' | 'reset';
+type Mode = 'login' | 'signup' | 'forgot' | 'reset' | 'setup';
 type Field = 'email' | 'password' | 'name' | 'company';
 interface Err { field?: Field; text: string; exists?: boolean; expired?: boolean }
 
@@ -27,7 +27,14 @@ export function Login({ mark, demo = false }: { mark: React.ReactNode; demo?: bo
   const [error, setError] = useState<Err>();
   const refs = { email: useRef<HTMLInputElement>(null), password: useRef<HTMLInputElement>(null), name: useRef<HTMLInputElement>(null), company: useRef<HTMLInputElement>(null) };
 
-  useEffect(() => { document.title = `${mode === 'signup' ? 'Crear cuenta' : mode === 'reset' ? 'Nueva contraseña' : mode === 'forgot' ? 'Recuperar contraseña' : 'Entrar'} · Vigía`; }, [mode]);
+  useEffect(() => { document.title = `${mode === 'signup' ? 'Crear cuenta' : mode === 'reset' || mode === 'setup' ? 'Crea tu contraseña' : mode === 'forgot' ? 'Recuperar contraseña' : 'Entrar'} · Vigía`; }, [mode]);
+
+  const resend = async () => {
+    setBusy(true);
+    try { await (source as ApiSource).forgot(email.trim()); setError({ text: 'Listo, te lo mandamos de nuevo.' }); }
+    catch (err) { setError({ text: (err as Error).message }); }
+    finally { setBusy(false); }
+  };
 
   const go = (m: Mode) => { setMode(m); setError(undefined); setSent(false); };
   const fail = (e: Err) => { setError(e); if (e.field) refs[e.field].current?.focus(); };
@@ -53,7 +60,8 @@ export function Login({ mark, demo = false }: { mark: React.ReactNode; demo?: bo
     } catch (err) {
       const x = err as Error & { field?: Field; exists?: boolean; expired?: boolean; noPassword?: boolean };
       setBusy(false);
-      if (x.noPassword) { setSent(true); setMode('forgot'); return; }
+      // Cuenta creada antes de las contraseñas: se le explicó y ya se le mandó el correo para crearla.
+      if (x.noPassword) { setMode('setup'); setPassword(''); setSent(true); return; }
       fail({ field: x.field, text: x.message, exists: x.exists, expired: x.expired });
     }
   };
@@ -65,12 +73,13 @@ export function Login({ mark, demo = false }: { mark: React.ReactNode; demo?: bo
   );
   const fieldError = (f: Field) => error?.field === f && <p id={`auth-${f}-error`} className="field-error" role="alert">{error.text}</p>;
 
-  const heading = { login: 'Entra a tu cuenta', signup: 'Crea la cuenta de tu empresa', forgot: 'Recupera tu contraseña', reset: 'Elige tu contraseña' }[mode];
+  const heading = { login: 'Entra a tu cuenta', signup: 'Crea la cuenta de tu empresa', forgot: 'Recupera tu contraseña', reset: 'Elige tu contraseña', setup: 'Falta un paso: crea tu contraseña' }[mode];
   const lead = {
     login: 'Los compromisos de tus RCA, en un solo lugar.',
     signup: 'Gratis durante el piloto. Tus proyectos y documentos solo los ve tu equipo.',
     forgot: 'Escribe tu correo y te mandamos un enlace para elegir una contraseña nueva.',
     reset: 'Con ella entrarás desde ahora, en el computador o en el celular.',
+    setup: 'Tu cuenta se creó cuando Vigía entraba solo con enlaces por correo, así que todavía no tiene contraseña. Es un paso que se hace una sola vez.',
   }[mode];
 
   return (
@@ -105,7 +114,19 @@ export function Login({ mark, demo = false }: { mark: React.ReactNode; demo?: bo
             <p>{lead}</p>
           </header>
 
-          {sent ? (
+          {mode === 'setup' ? (
+            <div className="banner is-info" role="status">
+              <IconMail />
+              <div>
+                <p><strong>Te mandamos un correo a {email}.</strong> Ábrelo, toca «Crear mi contraseña», elige una y quedarás adentro. Desde ahí entras siempre con correo y contraseña. Si no aparece en un minuto, mira en Spam.</p>
+                {error && <p className="muted" style={{ marginTop: 6 }}>{error.text}</p>}
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                  <button className="btn small" onClick={resend} disabled={busy}>{busy ? 'Enviando…' : 'Reenviar el correo'}</button>
+                  <button className="btn small plain" onClick={() => go('login')}>Volver</button>
+                </div>
+              </div>
+            </div>
+          ) : sent ? (
             <div className="banner is-info" role="status">
               <IconMail />
               <div>
