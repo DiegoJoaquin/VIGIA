@@ -1,9 +1,11 @@
 -- Vigía · base de datos (Cloudflare D1 / SQLite)
 -- Los proyectos y compromisos se guardan como JSON para poder cambiar el modelo sin migraciones.
 
+-- Cada empresa es una isla: todo lo demás cuelga de org_id y ninguna consulta cruza empresas.
 CREATE TABLE IF NOT EXISTS orgs (
   id TEXT PRIMARY KEY,
   name TEXT NOT NULL,
+  rut TEXT,
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
@@ -19,7 +21,8 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS login_tokens (
   token_hash TEXT PRIMARY KEY,
   email TEXT NOT NULL,
-  expires_at INTEGER NOT NULL
+  expires_at INTEGER NOT NULL,
+  signup TEXT                                   -- JSON {name, company} cuando es una cuenta nueva
 );
 
 CREATE TABLE IF NOT EXISTS sessions (
@@ -94,4 +97,28 @@ CREATE TABLE IF NOT EXISTS push_subs (
 CREATE TABLE IF NOT EXISTS notification_log (
   key TEXT PRIMARY KEY,
   sent_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+-- Documentos del proyecto (RCA, resoluciones, adendas, informes). Se guardan en trozos de 900 KB
+-- dentro de la misma base gratuita: no hace falta R2 ni tarjeta de crédito.
+CREATE TABLE IF NOT EXISTS documents (
+  id TEXT PRIMARY KEY,
+  org_id TEXT NOT NULL REFERENCES orgs(id),
+  project_id TEXT NOT NULL,
+  kind TEXT NOT NULL,                           -- rca | resolucion | programa | informe | otro
+  name TEXT NOT NULL,
+  mime TEXT NOT NULL,
+  size INTEGER NOT NULL,
+  chunks INTEGER NOT NULL,
+  uploaded_by TEXT NOT NULL,
+  read_at TEXT,                                 -- cuándo se leyeron sus compromisos
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS documents_org ON documents(org_id, project_id);
+
+CREATE TABLE IF NOT EXISTS document_chunks (
+  document_id TEXT NOT NULL REFERENCES documents(id),
+  idx INTEGER NOT NULL,
+  bytes BLOB NOT NULL,
+  PRIMARY KEY (document_id, idx)
 );

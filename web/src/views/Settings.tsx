@@ -3,6 +3,7 @@ import { longDate, relative, shortDate } from '../format';
 import { IconBell, IconCalendar, IconMail, IconPhone } from '../icons';
 import { useStore } from '../store';
 import type { NotifySettings } from '../data/source';
+import { AccountSection, TeamSection } from './Team';
 
 function Switch({ id, checked, onChange, label }: { id: string; checked: boolean; onChange: (v: boolean) => void; label: string }) {
   return <span className="switch"><input id={id} type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} aria-label={label} /><span /></span>;
@@ -24,6 +25,8 @@ export function Settings() {
   return (
     <div className="page">
       <header><h1 className="large-title">Ajustes</h1></header>
+
+      <TeamSection />
 
       <section className="section">
         <div className="section-head"><h2>Avisos por correo</h2><span className="count">{s.snap!.user.email}</span></div>
@@ -59,6 +62,8 @@ export function Settings() {
           <div className="copy-field"><code id="cal-url">{s.snap!.calendarUrl}</code><button className="btn small" onClick={copy}>{copied ? 'Copiado' : 'Copiar'}</button></div>
         </div>
       </section>
+
+      <AccountSection />
 
       {s.demo && (
         <section className="section">

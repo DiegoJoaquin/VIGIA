@@ -77,6 +77,24 @@ export function magicLinkMail(env: Env, to: string, link: string): Mail {
   };
 }
 
+export function welcomeLinkMail(env: Env, to: string, link: string, company: string): Mail {
+  const inner = `<p style="font-size:15px;line-height:1.5;color:${C.ink2};margin:0 0 18px">Confirma tu correo para crear la cuenta de <strong>${escapeHtml(company)}</strong>. El enlace sirve una vez y vence en 20 minutos.</p>${button(link, 'Crear mi cuenta')}`;
+  return {
+    to, subject: `Confirma tu cuenta en ${env.APP_NAME}`,
+    html: layout(env, 'Bienvenido a Vigía', inner, 'Si no pediste crear una cuenta, puedes ignorar este correo.'),
+    text: `Confirma tu cuenta de ${company} en ${env.APP_NAME} (vence en 20 minutos): ${link}`,
+  };
+}
+
+export function inviteMail(env: Env, to: string, link: string, from: string, company: string): Mail {
+  const inner = `<p style="font-size:15px;line-height:1.5;color:${C.ink2};margin:0 0 18px">${escapeHtml(from)} te agregó al equipo de <strong>${escapeHtml(company)}</strong> en ${escapeHtml(env.APP_NAME)}, donde llevan los compromisos ambientales de sus proyectos. El enlace vence en 7 días.</p>${button(link, 'Entrar al equipo')}`;
+  return {
+    to, subject: `${from} te invitó a ${company} en ${env.APP_NAME}`,
+    html: layout(env, `Te invitaron a ${company}`, inner, 'Si no esperabas esta invitación, puedes ignorar este correo.'),
+    text: `${from} te agregó al equipo de ${company} en ${env.APP_NAME}. Entra aquí (vence en 7 días): ${link}`,
+  };
+}
+
 export interface DigestGroup { label: string; tone: 'danger' | 'warn' | 'plain'; items: Occurrence[] }
 
 export function digestMail(env: Env, to: string, subject: string, title: string, groups: DigestGroup[], why: string): Mail {

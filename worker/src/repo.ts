@@ -1,5 +1,5 @@
 // Acceso a datos de una organización.
-import type { Completion, EventLog, EvidenceRef, Obligation, Project } from '../../shared/types';
+import type { Completion, DocumentKind, DocumentRef, EventLog, EvidenceRef, Obligation, Project } from '../../shared/types';
 import type { Env } from './env';
 
 export interface OrgData {
@@ -7,15 +7,17 @@ export interface OrgData {
   obligations: Obligation[];
   completions: Completion[];
   events: EventLog[];
+  documents: DocumentRef[];
 }
 
 export async function loadOrg(env: Env, orgId: string): Promise<OrgData> {
-  const [p, o, c, e, ev] = await env.DB.batch([
+  const [p, o, c, e, ev, docs] = await env.DB.batch([
     env.DB.prepare('SELECT data FROM projects WHERE org_id = ? ORDER BY created_at').bind(orgId),
     env.DB.prepare('SELECT data FROM obligations WHERE org_id = ?').bind(orgId),
     env.DB.prepare('SELECT obligation_id, due, completed_at, by_user, note FROM completions WHERE org_id = ?').bind(orgId),
     env.DB.prepare('SELECT id, obligation_id, occurred_at, note FROM events WHERE org_id = ?').bind(orgId),
     env.DB.prepare('SELECT id, obligation_id, due, name, mime, size FROM evidence WHERE org_id = ?').bind(orgId),
+    env.DB.prepare('SELECT id, project_id, kind, name, size, uploaded_by, read_at, created_at FROM documents WHERE org_id = ? ORDER BY created_at DESC').bind(orgId),
   ]);
   const evidence = new Map<string, EvidenceRef[]>();
   for (const r of ev.results as Record<string, string | number>[]) {
@@ -36,6 +38,10 @@ export async function loadOrg(env: Env, orgId: string): Promise<OrgData> {
       note: r.note ?? undefined, evidence: evidence.get(`${r.obligation_id}|${r.due}`) ?? [],
     })),
     events: (e.results as Record<string, string>[]).map((r) => ({ id: r.id, obligationId: r.obligation_id, occurredAt: r.occurred_at, note: r.note ?? undefined })),
+    documents: (docs.results as Record<string, string | number | null>[]).map((r) => ({
+      id: String(r.id), projectId: String(r.project_id), kind: String(r.kind) as DocumentKind, name: String(r.name), size: Number(r.size),
+      uploadedBy: String(r.uploaded_by), createdAt: String(r.created_at), readAt: r.read_at ? String(r.read_at) : undefined, url: `/api/documents/${r.id}`,
+    })),
   };
 }
 

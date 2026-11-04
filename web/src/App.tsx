@@ -3,7 +3,9 @@ import { IconCalendar, IconProjects, IconSettings, IconToday } from './icons';
 import { routeHash, useStore, type Route } from './store';
 import { Calendar } from './views/Calendar';
 import { Import } from './views/Import';
+import { useEffect } from 'react';
 import { Login } from './views/Login';
+import { NotFound } from './views/NotFound';
 import { ProjectDetail, Projects } from './views/Projects';
 import { Settings } from './views/Settings';
 import { Today } from './views/Today';
@@ -30,8 +32,22 @@ function isActive(current: Route, r: Route) {
   return current.name === r.name;
 }
 
+const TITLES: Record<Route['name'], string> = {
+  hoy: 'Hoy', calendario: 'Calendario', proyectos: 'Proyectos', proyecto: 'Proyecto',
+  importar: 'Importar RCA', ajustes: 'Ajustes', noencontrado: 'Página no encontrada',
+};
+
+/** Título de la pestaña del navegador según la vista. */
+function useTitle(s: ReturnType<typeof useStore>) {
+  const r = s.route;
+  const project = r.name === 'proyecto' ? s.snap?.projects.find((p) => p.id === r.id)?.shortName : undefined;
+  const label = s.needLogin ? 'Entrar' : project ?? TITLES[r.name];
+  useEffect(() => { document.title = `${label} · Vigía`; }, [label]);
+}
+
 export function App() {
   const s = useStore();
+  useTitle(s);
   if (s.needLogin) return <Login mark={<BrandMark size={44} />} />;
   if (s.error) return <div className="page"><h1 className="title">No pudimos cargar tus datos</h1><p className="muted">{s.error}. Revisa tu conexión y vuelve a abrir la app.</p></div>;
   if (!s.ready) return <div className="page" aria-busy="true"><p className="faint">Cargando…</p></div>;
@@ -43,7 +59,8 @@ export function App() {
     r.name === 'proyectos' ? <Projects /> :
     r.name === 'proyecto' ? <ProjectDetail id={r.id} /> :
     r.name === 'importar' ? <Import /> :
-    r.name === 'ajustes' ? <Settings /> : <Today />;
+    r.name === 'ajustes' ? <Settings /> :
+    r.name === 'noencontrado' ? <NotFound /> : <Today />;
 
   return (
     <div className="app">

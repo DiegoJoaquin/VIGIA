@@ -116,3 +116,35 @@ export interface Occurrence {
   /** Para eventos: cuándo ocurrió. */
   eventAt?: string;
 }
+
+export type DocumentKind = 'rca' | 'resolucion' | 'programa' | 'informe' | 'otro';
+
+export const DOCUMENT_KINDS: { kind: DocumentKind; label: string; readable: boolean }[] = [
+  { kind: 'rca', label: 'RCA o DIA aprobada', readable: true },
+  { kind: 'resolucion', label: 'Resolución, adenda o pertinencia', readable: true },
+  { kind: 'programa', label: 'Programa de cumplimiento (SMA)', readable: true },
+  { kind: 'informe', label: 'Informe o monitoreo', readable: false },
+  { kind: 'otro', label: 'Otro documento', readable: false },
+];
+
+/** Documento guardado en un proyecto. Los de tipo "readable" se pueden leer para sacar compromisos. */
+export interface DocumentRef {
+  id: string;
+  projectId: string;
+  kind: DocumentKind;
+  name: string;
+  size: number;
+  uploadedBy: string;
+  createdAt: string;
+  /** Cuándo se leyeron sus compromisos (si se hizo). */
+  readAt?: string;
+  url?: string;
+}
+
+export interface TeamMember {
+  id: string;
+  name: string;
+  email: string;
+  role: 'owner' | 'member';
+  you?: boolean;
+}

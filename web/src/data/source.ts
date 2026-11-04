@@ -2,7 +2,7 @@
 //  - DemoSource: datos de ejemplo en el navegador (para mostrar el producto sin servidor)
 //  - ApiSource:  el Worker de Cloudflare (producción)
 
-import type { Completion, EventLog, EvidenceRef, Obligation, Project } from '../../../shared/types';
+import type { Completion, DocumentKind, DocumentRef, EventLog, EvidenceRef, Obligation, Project, TeamMember } from '../../../shared/types';
 import { SEED_OBLIGATIONS, SEED_PROJECTS, SEED_VENTANILLA, seedCompletions } from '../../../shared/seed';
 import { todayInChile } from '../../../shared/recurrence';
 import type { VentanillaAnswers } from '../../../shared/ventanilla';
@@ -18,8 +18,9 @@ export interface NotifySettings {
 
 export interface Snapshot {
   vapidPublicKey?: string | null;
-  user: { name: string; email: string; org: string };
+  user: { name: string; email: string; org: string; role?: string };
   projects: Project[];
+  documents: DocumentRef[];
   obligations: Obligation[];
   completions: Completion[];
   events: EventLog[];
@@ -43,7 +44,16 @@ export interface DataSource {
   updateObligation(o: Obligation): Promise<void>;
   extract(url: string): Promise<ImportDraft>;
   extractFile(file: File): Promise<ImportDraft>;
-  saveImport(draft: ImportDraft, keep: string[]): Promise<void>;
+  saveImport(draft: ImportDraft, keep: string[], documentId?: string): Promise<{ projectId: string }>;
+  uploadDocument(projectId: string, kind: DocumentKind, file: File): Promise<DocumentRef>;
+  deleteDocument(id: string): Promise<void>;
+  extractDocument(id: string): Promise<ImportDraft>;
+  team(): Promise<TeamMember[]>;
+  invite(email: string, name: string): Promise<TeamMember & { mailed?: boolean }>;
+  removeMember(id: string): Promise<void>;
+  renameOrg(name: string): Promise<void>;
+  deleteOrg(confirm: string): Promise<void>;
+  logout(): Promise<void>;
   setVentanilla(projectId: string, answers: VentanillaAnswers): Promise<Obligation[]>;
   setNotify(n: NotifySettings): Promise<void>;
   sendTestEmail(): Promise<{ ok: boolean; message: string }>;
@@ -61,6 +71,9 @@ interface DemoState {
   completions: Completion[];
   events: EventLog[];
   notify: NotifySettings;
+  documents: DocumentRef[];
+  team: TeamMember[];
+  org: string;
 }
 
 function freshDemo(): DemoState {
@@ -71,6 +84,15 @@ function freshDemo(): DemoState {
     obligations: [...SEED_OBLIGATIONS, ...SEED_VENTANILLA],
     completions, events,
     notify: { weeklyDigest: true, before7: true, before1: true, overdue: true, push: false },
+    documents: SEED_PROJECTS.map((p, i) => ({
+      id: `doc-${p.id}`, projectId: p.id, kind: 'rca' as const, name: `${p.rcaLabel}.pdf`, size: 1_800_000 + i * 410_000,
+      uploadedBy: 'Freddy', createdAt: `${today}T09:00:00`, readAt: `${today}T09:01:00`, url: p.sourceUrl,
+    })),
+    team: [
+      { id: 'u-demo', name: 'Freddy', email: 'tu-correo@ejemplo.cl', role: 'owner', you: true },
+      { id: 'u-demo-2', name: 'Camila Rojas', email: 'camila@ejemplo.cl', role: 'member' },
+    ],
+    org: 'Áridos y Viñas Demo',
   };
 }
 
@@ -81,7 +103,8 @@ export class DemoSource implements DataSource {
   constructor() {
     let saved: DemoState | null = null;
     try { saved = JSON.parse(localStorage.getItem(KEY) ?? 'null'); } catch { saved = null; }
-    this.s = saved ?? freshDemo();
+    // Una demo guardada por una versión anterior se completa con lo que le falte.
+    this.s = saved ? { ...freshDemo(), ...saved } : freshDemo();
   }
 
   private save() {
@@ -94,8 +117,8 @@ export class DemoSource implements DataSource {
 
   async load(): Promise<Snapshot> {
     return {
-      user: { name: 'Freddy', email: 'tu-correo@ejemplo.cl', org: 'Demo' },
-      projects: this.s.projects, obligations: this.s.obligations,
+      user: { name: 'Freddy', email: 'tu-correo@ejemplo.cl', org: this.s.org, role: 'owner' },
+      projects: this.s.projects, obligations: this.s.obligations, documents: this.s.documents,
       completions: this.s.completions, events: this.s.events, notify: this.s.notify,
       calendarUrl: 'https://vigia.example/cal/7f3k2q9x.ics',
     };
@@ -152,12 +175,62 @@ export class DemoSource implements DataSource {
 
   async extractFile(file: File) { return this.extract(file.name); }
 
-  async saveImport(draft: ImportDraft, keep: string[]) {
-    if (this.s.projects.some((p) => p.id === draft.project.id)) return;
-    this.s.projects = [...this.s.projects, draft.project];
+  async saveImport(draft: ImportDraft, keep: string[], documentId?: string) {
+    const existing = this.s.projects.some((p) => p.id === draft.project.id);
+    if (existing && !documentId) return { projectId: draft.project.id };
+    if (!existing) this.s.projects = [...this.s.projects, draft.project];
     this.s.obligations = [...this.s.obligations, ...draft.obligations.filter((o) => keep.includes(o.id)).map((o) => ({ ...o, confirmed: true }))];
+    if (documentId) this.s.documents = this.s.documents.map((d) => (d.id === documentId ? { ...d, readAt: new Date().toISOString() } : d));
+    this.save();
+    return { projectId: draft.project.id };
+  }
+
+  async uploadDocument(projectId: string, kind: DocumentKind, file: File): Promise<DocumentRef> {
+    if (file.size > 25_000_000) throw Object.assign(new Error('El archivo pesa más de 25 MB. Comprímelo o divídelo en partes.'), { field: 'file' });
+    await new Promise((r) => setTimeout(r, 500));
+    const doc: DocumentRef = { id: `doc-${uid()}`, projectId, kind, name: file.name, size: file.size, uploadedBy: 'Freddy', createdAt: new Date().toISOString() };
+    this.s.documents = [doc, ...this.s.documents];
+    this.save();
+    return doc;
+  }
+
+  async deleteDocument(id: string) {
+    this.s.documents = this.s.documents.filter((d) => d.id !== id);
     this.save();
   }
+
+  async extractDocument(id: string): Promise<ImportDraft> {
+    const doc = this.s.documents.find((d) => d.id === id);
+    const project = this.s.projects.find((p) => p.id === doc?.projectId);
+    if (!doc || !project) throw new Error('Documento no encontrado.');
+    await new Promise((r) => setTimeout(r, 400));
+    // En la demo, cualquier documento entrega los compromisos de una RCA real, asignados a este proyecto.
+    const batch = uid().slice(0, 4);
+    const obligations = demoImport('').obligations.map((o) => ({ ...o, id: `${project.id}:${o.id}-${batch}`, projectId: project.id }));
+    return { project, obligations };
+  }
+
+  async team() { return this.s.team; }
+
+  async invite(email: string, name: string) {
+    const clean = email.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean)) throw Object.assign(new Error('Escribe un correo válido.'), { field: 'email' });
+    if (this.s.team.some((m) => m.email === clean)) throw Object.assign(new Error('Esa persona ya está en tu equipo.'), { field: 'email' });
+    const m: TeamMember = { id: `u-${uid()}`, name: name.trim() || clean.split('@')[0], email: clean, role: 'member' };
+    this.s.team = [...this.s.team, m];
+    this.save();
+    return { ...m, mailed: false };
+  }
+
+  async removeMember(id: string) { this.s.team = this.s.team.filter((m) => m.id !== id || m.you); this.save(); }
+
+  async renameOrg(name: string) {
+    if (name.trim().length < 2) throw Object.assign(new Error('Escribe el nombre de la empresa.'), { field: 'name' });
+    this.s.org = name.trim(); this.save();
+  }
+
+  async deleteOrg() { throw new Error('En la demo no se puede eliminar la cuenta. Usa "Restablecer la demo".'); }
+  async logout() { /* la demo no tiene sesión */ }
 
   async setVentanilla(projectId: string, answers: VentanillaAnswers) {
     const next = ventanillaObligations(projectId, answers);
@@ -247,7 +320,10 @@ async function api<T>(path: string, init?: RequestInit): Promise<T> {
     ...init,
   });
   if (res.status === 401) throw Object.assign(new Error('Necesitas iniciar sesión'), { auth: true });
-  if (!res.ok) throw new Error((await res.json().catch(() => ({ error: res.statusText }))).error ?? 'Error del servidor');
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({ error: res.statusText }));
+    throw Object.assign(new Error(body.error ?? 'Error del servidor'), { field: body.field, noAccount: body.noAccount });
+  }
   return res.json() as Promise<T>;
 }
 
@@ -281,7 +357,22 @@ export class ApiSource implements DataSource {
     fd.set('file', file);
     return api<ImportDraft>('/import/extract-file', { method: 'POST', body: fd });
   }
-  async saveImport(draft: ImportDraft, keep: string[]) { await api('/import/save', { method: 'POST', body: JSON.stringify({ draft, keep }) }); }
+  saveImport(draft: ImportDraft, keep: string[], documentId?: string) {
+    return api<{ projectId: string }>('/import/save', { method: 'POST', body: JSON.stringify({ draft, keep, documentId }) });
+  }
+  uploadDocument(projectId: string, kind: DocumentKind, file: File) {
+    const fd = new FormData();
+    fd.set('projectId', projectId); fd.set('kind', kind); fd.set('file', file);
+    return api<DocumentRef>('/documents', { method: 'POST', body: fd });
+  }
+  async deleteDocument(id: string) { await api(`/documents/${id}`, { method: 'DELETE' }); }
+  extractDocument(id: string) { return api<ImportDraft>(`/documents/${id}/extract`, { method: 'POST' }); }
+  team() { return api<TeamMember[]>('/team'); }
+  invite(email: string, name: string) { return api<TeamMember & { mailed?: boolean }>('/team/invite', { method: 'POST', body: JSON.stringify({ email, name }) }); }
+  async removeMember(id: string) { await api(`/team/${id}`, { method: 'DELETE' }); }
+  async renameOrg(name: string) { await api('/org', { method: 'PUT', body: JSON.stringify({ name }) }); }
+  async deleteOrg(confirm: string) { await api('/org', { method: 'DELETE', body: JSON.stringify({ confirm }) }); }
+  async logout() { await api('/auth/logout', { method: 'POST' }); }
   setVentanilla(projectId: string, answers: VentanillaAnswers) {
     return api<Obligation[]>(`/projects/${projectId}/ventanilla`, { method: 'PUT', body: JSON.stringify(answers) });
   }
@@ -293,7 +384,9 @@ export class ApiSource implements DataSource {
     const sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: key });
     await api('/push/subscribe', { method: 'POST', body: JSON.stringify(sub.toJSON()) });
   }
-  async requestLogin(email: string) { await api('/auth/request', { method: 'POST', body: JSON.stringify({ email }) }); }
+  requestLogin(b: { email: string; mode: 'login' | 'signup'; name?: string; company?: string }) {
+    return api<{ ok: true; existing?: boolean }>('/auth/request', { method: 'POST', body: JSON.stringify(b) });
+  }
   sendTestEmail() { return api<{ ok: boolean; message: string }>('/settings/test-email', { method: 'POST' }); }
 }
 

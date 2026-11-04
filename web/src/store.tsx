@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
-import type { Completion, EvidenceRef, Obligation, Occurrence } from '../../shared/types';
+import type { Completion, DocumentKind, DocumentRef, EvidenceRef, Obligation, Occurrence } from '../../shared/types';
 import { addDays, buildOccurrences, todayInChile } from '../../shared/recurrence';
 import type { VentanillaAnswers } from '../../shared/ventanilla';
 import { source, ApiSource, DemoSource, type ImportDraft, type NotifySettings, type Snapshot } from './data/source';
@@ -10,12 +10,16 @@ export type Route =
   | { name: 'proyectos' }
   | { name: 'proyecto'; id: string }
   | { name: 'importar' }
-  | { name: 'ajustes' };
+  | { name: 'ajustes' }
+  | { name: 'noencontrado' };
 
 function parseHash(): Route {
   const h = location.hash.replace('#', '');
   if (h.startsWith('proyecto-')) return { name: 'proyecto', id: h.slice('proyecto-'.length) };
   if (h === 'calendario' || h === 'proyectos' || h === 'importar' || h === 'ajustes') return { name: h };
+  // Una dirección que no existe (por ejemplo /algo o #algo) muestra la página 404 en vez de "Hoy".
+  const path = location.pathname.replace(/\/(index\.html|demo\.html)?$/, '');
+  if (path || (h && h !== 'hoy')) return { name: 'noencontrado' };
   return { name: 'hoy' };
 }
 
@@ -48,7 +52,11 @@ interface Store {
   confirm: (ids: string[]) => Promise<void>;
   extract: (url: string) => Promise<ImportDraft>;
   extractFile: (file: File) => Promise<ImportDraft>;
-  saveImport: (d: ImportDraft, keep: string[]) => Promise<void>;
+  saveImport: (d: ImportDraft, keep: string[], documentId?: string) => Promise<string>;
+  uploadDocument: (projectId: string, kind: DocumentKind, file: File) => Promise<DocumentRef>;
+  deleteDocument: (d: DocumentRef) => Promise<void>;
+  extractDocument: (id: string) => Promise<ImportDraft>;
+  logout: () => Promise<void>;
   setVentanilla: (projectId: string, a: VentanillaAnswers) => Promise<void>;
   setNotify: (n: NotifySettings) => Promise<void>;
   testEmail: () => Promise<string>;
@@ -148,7 +156,25 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     },
     extract: (url) => source.extract(url),
     extractFile: (file) => source.extractFile(file),
-    saveImport: async (d, keep) => { await source.saveImport(d, keep); await reload(); say(`${keep.length} compromisos agregados`); },
+    saveImport: async (d, keep, documentId) => {
+      const { projectId } = await source.saveImport(d, keep, documentId);
+      await reload();
+      say(`${keep.length} compromisos agregados`);
+      return projectId;
+    },
+    uploadDocument: async (projectId, kind, file) => {
+      const doc = await source.uploadDocument(projectId, kind, file);
+      setSnap((s) => (s ? { ...s, documents: [doc, ...s.documents] } : s));
+      say('Documento guardado');
+      return doc;
+    },
+    deleteDocument: async (d) => {
+      setSnap((s) => (s ? { ...s, documents: s.documents.filter((x) => x.id !== d.id) } : s));
+      try { await source.deleteDocument(d.id); say('Documento eliminado'); }
+      catch (e) { setSnap((s) => (s ? { ...s, documents: [d, ...s.documents] } : s)); say((e as Error).message); }
+    },
+    extractDocument: (id) => source.extractDocument(id),
+    logout: async () => { await source.logout(); location.href = '/'; },
     setVentanilla: async (id, a) => {
       const next = await source.setVentanilla(id, a);
       setSnap((s) => (s ? { ...s, obligations: [...s.obligations.filter((o) => !(o.projectId === id && o.source === 'ventanilla')), ...next] } : s));

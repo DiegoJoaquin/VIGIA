@@ -6,7 +6,7 @@ import { ventanillaObligations, type VentanillaAnswers } from '../../shared/vent
 import type { Env, SessionUser } from './env';
 import { extractFromPdf, fetchRca } from './extract';
 import { buildIcs } from './ics';
-import { digestMail, magicLinkMail, sendMail } from './mail';
+import { digestMail, inviteMail, magicLinkMail, sendMail, welcomeLinkMail } from './mail';
 import { DEFAULT_NOTIFY, planNotifications, pushToUser, runDailyAlerts, type NotifySettings } from './notify';
 import { loadOrg, obligationOrg, putObligation, putProject } from './repo';
 import { isEmail, randomId, sha256 } from './util';
@@ -23,34 +23,52 @@ app.onError((err, c) => {
 
 // —————————— Sesión por enlace mágico (sin contraseñas) ——————————
 
-app.post('/api/auth/request', async (c) => {
-  const { email } = await c.req.json<{ email?: string }>().catch(() => ({ email: undefined }));
-  if (!isEmail(email)) return c.json({ error: 'Escribe un correo válido.' }, 400);
-  const clean = email.trim().toLowerCase();
+async function issueToken(env: Env, email: string, ttlMs: number, signup?: { name: string; company: string }) {
   const token = randomId(24);
-  await c.env.DB.prepare('INSERT INTO login_tokens (token_hash, email, expires_at) VALUES (?, ?, ?)')
-    .bind(await sha256(token), clean, Date.now() + 20 * 60_000).run();
-  const link = `${c.env.APP_URL}/api/auth/verify?token=${token}`;
-  const res = await sendMail(c.env, magicLinkMail(c.env, clean, link));
+  await env.DB.prepare('INSERT INTO login_tokens (token_hash, email, expires_at, signup) VALUES (?, ?, ?, ?)')
+    .bind(await sha256(token), email, Date.now() + ttlMs, signup ? JSON.stringify(signup) : null).run();
+  return `${env.APP_URL}/api/auth/verify?token=${token}`;
+}
+
+app.post('/api/auth/request', async (c) => {
+  const b = await c.req.json<{ email?: string; mode?: 'login' | 'signup'; name?: string; company?: string }>().catch(() => ({} as Record<string, undefined>));
+  if (!isEmail(b.email)) return c.json({ error: 'Escribe un correo válido.', field: 'email' }, 400);
+  const email = b.email.trim().toLowerCase();
+  const exists = await c.env.DB.prepare('SELECT 1 FROM users WHERE email = ?').bind(email).first();
+
+  if (b.mode === 'signup' && !exists) {
+    const company = (b.company ?? '').trim().slice(0, 120), name = (b.name ?? '').trim().slice(0, 80);
+    if (company.length < 2) return c.json({ error: 'Escribe el nombre de la empresa.', field: 'company' }, 400);
+    if (name.length < 2) return c.json({ error: 'Escribe tu nombre.', field: 'name' }, 400);
+    const link = await issueToken(c.env, email, 20 * 60_000, { name, company });
+    const res = await sendMail(c.env, welcomeLinkMail(c.env, email, link, company));
+    if (!res.ok) return c.json({ error: `No pudimos enviar el correo: ${res.detail}` }, 502);
+    return c.json({ ok: true, created: true });
+  }
+  if (!exists) return c.json({ error: 'No hay una cuenta con ese correo. Crea una cuenta nueva o pide a tu empresa que te invite.', field: 'email', noAccount: true }, 404);
+  const res = await sendMail(c.env, magicLinkMail(c.env, email, await issueToken(c.env, email, 20 * 60_000)));
   if (!res.ok) return c.json({ error: `No pudimos enviar el correo: ${res.detail}` }, 502);
-  return c.json({ ok: true });
+  // Si alguien intenta crear una cuenta con un correo que ya existe, simplemente le mandamos el enlace para entrar.
+  return c.json({ ok: true, existing: b.mode === 'signup' });
 });
 
 app.get('/api/auth/verify', async (c) => {
   const token = c.req.query('token') ?? '';
-  const row = await c.env.DB.prepare('SELECT email, expires_at FROM login_tokens WHERE token_hash = ?')
-    .bind(await sha256(token)).first<{ email: string; expires_at: number }>();
-  await c.env.DB.prepare('DELETE FROM login_tokens WHERE token_hash = ? OR expires_at < ?').bind(await sha256(token), Date.now()).run();
-  if (!row || row.expires_at < Date.now()) return c.redirect('/login?error=enlace');
+  const hash = await sha256(token);
+  const row = await c.env.DB.prepare('SELECT email, expires_at, signup FROM login_tokens WHERE token_hash = ?')
+    .bind(hash).first<{ email: string; expires_at: number; signup: string | null }>();
+  await c.env.DB.prepare('DELETE FROM login_tokens WHERE token_hash = ? OR expires_at < ?').bind(hash, Date.now()).run();
+  if (!row || row.expires_at < Date.now()) return c.redirect('/?error=enlace');
 
   let user = await c.env.DB.prepare('SELECT id FROM users WHERE email = ?').bind(row.email).first<{ id: string }>();
   if (!user) {
-    // Primer ingreso: crea la organización y el usuario dueño.
-    const orgId = `o-${randomId(8)}`, userId = `u-${randomId(8)}`;
-    const domain = row.email.split('@')[1];
+    if (!row.signup) return c.redirect('/?error=cuenta');
+    // Cuenta nueva: una empresa (isla) nueva con esta persona como dueña.
+    const s = JSON.parse(row.signup) as { name: string; company: string };
+    const orgId = `o-${randomId(10)}`, userId = `u-${randomId(10)}`;
     await c.env.DB.batch([
-      c.env.DB.prepare('INSERT INTO orgs (id, name) VALUES (?, ?)').bind(orgId, domain),
-      c.env.DB.prepare('INSERT INTO users (id, org_id, email, name) VALUES (?, ?, ?, ?)').bind(userId, orgId, row.email, row.email.split('@')[0]),
+      c.env.DB.prepare('INSERT INTO orgs (id, name) VALUES (?, ?)').bind(orgId, s.company),
+      c.env.DB.prepare(`INSERT INTO users (id, org_id, email, name, role) VALUES (?, ?, ?, ?, 'owner')`).bind(userId, orgId, row.email, s.name),
       c.env.DB.prepare('INSERT INTO settings (user_id, notify, calendar_token) VALUES (?, ?, ?)').bind(userId, JSON.stringify(DEFAULT_NOTIFY), randomId(16)),
     ]);
     user = { id: userId };
@@ -58,7 +76,7 @@ app.get('/api/auth/verify', async (c) => {
   const sid = randomId(32);
   await c.env.DB.prepare('INSERT INTO sessions (id_hash, user_id, expires_at) VALUES (?, ?, ?)')
     .bind(await sha256(sid), user.id, Date.now() + 60 * 86_400_000).run();
-  setCookie(c, SESSION_COOKIE, sid, { httpOnly: true, secure: true, sameSite: 'Lax', path: '/', maxAge: 60 * 86_400 });
+  setCookie(c, SESSION_COOKIE, sid, { httpOnly: true, secure: c.env.APP_URL.startsWith('https'), sameSite: 'Lax', path: '/', maxAge: 60 * 86_400 });
   return c.redirect('/#hoy');
 });
 
@@ -95,7 +113,7 @@ app.get('/api/snapshot', async (c) => {
     c.env.DB.prepare('SELECT name FROM orgs WHERE id = ?').bind(user.orgId).first<{ name: string }>(),
   ]);
   return c.json({
-    user: { name: user.name, email: user.email, org: org?.name ?? '' },
+    user: { name: user.name, email: user.email, org: org?.name ?? '', role: user.role },
     ...data,
     notify: { ...DEFAULT_NOTIFY, ...(s ? JSON.parse(s.notify) : {}) },
     calendarUrl: `${c.env.APP_URL}/cal/${s?.calendar_token ?? ''}.ics`,
@@ -201,9 +219,10 @@ app.post('/api/import/extract-file', async (c) => {
 });
 
 app.post('/api/import/save', async (c) => {
-  const { draft, keep } = await c.req.json<{ draft: { project: Project; obligations: Obligation[] }; keep: string[] }>();
+  const { draft, keep, documentId } = await c.req.json<{ draft: { project: Project; obligations: Obligation[] }; keep: string[]; documentId?: string }>();
   const orgId = c.get('user').orgId;
   const r = await saveDraft(c.env, orgId, draft, keep, true);
+  if (documentId) await c.env.DB.prepare(`UPDATE documents SET read_at = datetime('now') WHERE id = ? AND org_id = ?`).bind(documentId, orgId).run();
   return c.json({ ok: true, ...r });
 });
 
@@ -223,7 +242,7 @@ async function saveDraft(env: Env, orgId: string, draft: { project: Project; obl
   // Vigía empieza a vigilar desde el día en que se importa la RCA: lo anterior no se marca como vencido.
   const today = todayInChile();
   const project = mine ? { ...draft.project, id: projectId } : { ...draft.project, id: projectId, trackingStart: draft.project.trackingStart > today ? draft.project.trackingStart : today };
-  await env.DB.batch([putProject(env, orgId, project), ...obs.map((o) => putObligation(env, orgId, o))]);
+  await env.DB.batch([...(mine ? [] : [putProject(env, orgId, project)]), ...obs.map((o) => putObligation(env, orgId, o))]);
   return { projectId, count: obs.length };
 }
 
@@ -262,6 +281,158 @@ app.post('/api/push/subscribe', async (c) => {
     .bind(sub.endpoint, c.get('user').id, JSON.stringify(sub.keys)).run();
   const sent = await pushToUser(c.env, c.get('user').id, 'Notificaciones activadas', 'Aquí te avisaremos de cada vencimiento.');
   return c.json({ ok: true, sent });
+});
+
+// —————————— Empresa y equipo ——————————
+
+const isOwner = (c: { get: (k: 'user') => SessionUser }) => c.get('user').role === 'owner';
+
+app.get('/api/team', async (c) => {
+  const me = c.get('user');
+  const r = await c.env.DB.prepare('SELECT id, name, email, role FROM users WHERE org_id = ? ORDER BY created_at').bind(me.orgId).all<{ id: string; name: string; email: string; role: string }>();
+  return c.json(r.results.map((u) => ({ ...u, you: u.id === me.id })));
+});
+
+app.post('/api/team/invite', async (c) => {
+  if (!isOwner(c)) return c.json({ error: 'Solo quien creó la cuenta puede invitar.' }, 403);
+  const me = c.get('user');
+  const b = await c.req.json<{ email?: string; name?: string }>().catch(() => ({} as Record<string, undefined>));
+  if (!isEmail(b.email)) return c.json({ error: 'Escribe un correo válido.', field: 'email' }, 400);
+  const email = b.email.trim().toLowerCase();
+  const other = await c.env.DB.prepare('SELECT org_id FROM users WHERE email = ?').bind(email).first<{ org_id: string }>();
+  if (other && other.org_id !== me.orgId) return c.json({ error: 'Ese correo ya usa Vigía en otra empresa. Cada correo pertenece a una sola empresa.', field: 'email' }, 409);
+  if (other) return c.json({ error: 'Esa persona ya está en tu equipo.', field: 'email' }, 409);
+  const id = `u-${randomId(10)}`;
+  const name = (b.name ?? '').trim().slice(0, 80) || email.split('@')[0];
+  await c.env.DB.batch([
+    c.env.DB.prepare(`INSERT INTO users (id, org_id, email, name, role) VALUES (?, ?, ?, ?, 'member')`).bind(id, me.orgId, email, name),
+    c.env.DB.prepare('INSERT INTO settings (user_id, notify, calendar_token) VALUES (?, ?, ?)').bind(id, JSON.stringify(DEFAULT_NOTIFY), randomId(16)),
+  ]);
+  const org = await c.env.DB.prepare('SELECT name FROM orgs WHERE id = ?').bind(me.orgId).first<{ name: string }>();
+  const res = await sendMail(c.env, inviteMail(c.env, email, await issueToken(c.env, email, 7 * 86_400_000), me.name || me.email, org?.name ?? 'tu empresa'));
+  return c.json({ id, name, email, role: 'member', mailed: res.ok, detail: res.ok ? undefined : res.detail });
+});
+
+app.delete('/api/team/:id', async (c) => {
+  if (!isOwner(c)) return c.json({ error: 'Solo quien creó la cuenta puede quitar personas.' }, 403);
+  const me = c.get('user'), id = c.req.param('id');
+  if (id === me.id) return c.json({ error: 'No puedes quitarte a ti mismo.' }, 400);
+  const u = await c.env.DB.prepare('SELECT 1 FROM users WHERE id = ? AND org_id = ?').bind(id, me.orgId).first();
+  if (!u) return c.json({ error: 'Persona no encontrada.' }, 404);
+  await c.env.DB.batch([
+    c.env.DB.prepare('DELETE FROM sessions WHERE user_id = ?').bind(id),
+    c.env.DB.prepare('DELETE FROM push_subs WHERE user_id = ?').bind(id),
+    c.env.DB.prepare('DELETE FROM settings WHERE user_id = ?').bind(id),
+    c.env.DB.prepare('DELETE FROM users WHERE id = ? AND org_id = ?').bind(id, me.orgId),
+  ]);
+  return c.json({ ok: true });
+});
+
+app.put('/api/org', async (c) => {
+  if (!isOwner(c)) return c.json({ error: 'Solo quien creó la cuenta puede cambiar el nombre.' }, 403);
+  const { name } = await c.req.json<{ name?: string }>();
+  const clean = (name ?? '').trim().slice(0, 120);
+  if (clean.length < 2) return c.json({ error: 'Escribe el nombre de la empresa.', field: 'name' }, 400);
+  await c.env.DB.prepare('UPDATE orgs SET name = ? WHERE id = ?').bind(clean, c.get('user').orgId).run();
+  return c.json({ ok: true });
+});
+
+// Borra la empresa completa: proyectos, compromisos, evidencias, documentos y personas. No se puede deshacer.
+app.delete('/api/org', async (c) => {
+  if (!isOwner(c)) return c.json({ error: 'Solo quien creó la cuenta puede eliminarla.' }, 403);
+  const { confirm } = await c.req.json<{ confirm?: string }>().catch(() => ({ confirm: undefined }));
+  const orgId = c.get('user').orgId;
+  const org = await c.env.DB.prepare('SELECT name FROM orgs WHERE id = ?').bind(orgId).first<{ name: string }>();
+  if (!org || confirm?.trim() !== org.name) return c.json({ error: 'Escribe el nombre exacto de la empresa para confirmar.', field: 'confirm' }, 400);
+  const users = `(SELECT id FROM users WHERE org_id = ?)`;
+  await c.env.DB.batch([
+    c.env.DB.prepare(`DELETE FROM document_chunks WHERE document_id IN (SELECT id FROM documents WHERE org_id = ?)`).bind(orgId),
+    ...['documents', 'evidence', 'events', 'completions', 'obligations', 'projects'].map((t) => c.env.DB.prepare(`DELETE FROM ${t} WHERE org_id = ?`).bind(orgId)),
+    ...['sessions', 'push_subs', 'settings'].map((t) => c.env.DB.prepare(`DELETE FROM ${t} WHERE user_id IN ${users}`).bind(orgId)),
+    c.env.DB.prepare('DELETE FROM users WHERE org_id = ?').bind(orgId),
+    c.env.DB.prepare('DELETE FROM orgs WHERE id = ?').bind(orgId),
+  ]);
+  deleteCookie(c, SESSION_COOKIE, { path: '/' });
+  return c.json({ ok: true });
+});
+
+// —————————— Documentos del proyecto ——————————
+
+const CHUNK = 900_000;
+const MAX_DOC = 25_000_000;
+const DOC_KINDS = ['rca', 'resolucion', 'programa', 'informe', 'otro'];
+
+async function ownsProject(env: Env, orgId: string, projectId: string) {
+  return !!(await env.DB.prepare('SELECT 1 FROM projects WHERE id = ? AND org_id = ?').bind(projectId, orgId).first());
+}
+
+async function documentBytes(env: Env, orgId: string, id: string) {
+  const doc = await env.DB.prepare('SELECT name, mime, chunks, project_id, kind FROM documents WHERE id = ? AND org_id = ?')
+    .bind(id, orgId).first<{ name: string; mime: string; chunks: number; project_id: string; kind: string }>();
+  if (!doc) return null;
+  const rows = await env.DB.prepare('SELECT bytes FROM document_chunks WHERE document_id = ? ORDER BY idx').bind(id).all<{ bytes: ArrayBuffer }>();
+  const parts = rows.results.map((r) => new Uint8Array(r.bytes as ArrayBuffer));
+  const out = new Uint8Array(parts.reduce((n, p) => n + p.length, 0));
+  let at = 0;
+  for (const p of parts) { out.set(p, at); at += p.length; }
+  return { ...doc, bytes: out };
+}
+
+app.post('/api/documents', async (c) => {
+  const me = c.get('user');
+  const form = await c.req.formData();
+  const file = form.get('file') as unknown as File | string | null;
+  const projectId = String(form.get('projectId') ?? ''), kind = String(form.get('kind') ?? 'otro');
+  if (!file || typeof file === 'string') return c.json({ error: 'Elige un archivo.', field: 'file' }, 400);
+  if (file.size > MAX_DOC) return c.json({ error: 'El archivo pesa más de 25 MB. Comprímelo o divídelo en partes.', field: 'file' }, 413);
+  if (!DOC_KINDS.includes(kind)) return c.json({ error: 'Elige el tipo de documento.', field: 'kind' }, 400);
+  if (!(await ownsProject(c.env, me.orgId, projectId))) return c.json({ error: 'Proyecto no encontrado.' }, 404);
+  const bytes = new Uint8Array(await file.arrayBuffer());
+  const id = `d-${randomId(12)}`, chunks = Math.max(1, Math.ceil(bytes.length / CHUNK));
+  const name = file.name.slice(0, 160), mime = file.type || 'application/octet-stream';
+  // Un trozo por consulta: así ninguna supera los límites de tamaño de D1, aunque el PDF pese 25 MB.
+  await c.env.DB.prepare('INSERT INTO documents (id, org_id, project_id, kind, name, mime, size, chunks, uploaded_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)')
+    .bind(id, me.orgId, projectId, kind, name, mime, bytes.length, chunks, me.name || me.email).run();
+  try {
+    for (let i = 0; i < chunks; i++) {
+      await c.env.DB.prepare('INSERT INTO document_chunks (document_id, idx, bytes) VALUES (?, ?, ?)').bind(id, i, bytes.slice(i * CHUNK, (i + 1) * CHUNK)).run();
+    }
+  } catch (e) {
+    await c.env.DB.batch([
+      c.env.DB.prepare('DELETE FROM document_chunks WHERE document_id = ?').bind(id),
+      c.env.DB.prepare('DELETE FROM documents WHERE id = ?').bind(id),
+    ]);
+    throw e;
+  }
+  return c.json({ id, projectId, kind, name, size: bytes.length, uploadedBy: me.name || me.email, createdAt: new Date().toISOString(), url: `/api/documents/${id}` });
+});
+
+app.get('/api/documents/:id', async (c) => {
+  const d = await documentBytes(c.env, c.get('user').orgId, c.req.param('id'));
+  if (!d) return c.json({ error: 'Documento no encontrado.' }, 404);
+  return new Response(d.bytes, { headers: { 'content-type': d.mime, 'content-disposition': `inline; filename="${encodeURIComponent(d.name)}"`, 'cache-control': 'private, max-age=86400' } });
+});
+
+app.delete('/api/documents/:id', async (c) => {
+  const orgId = c.get('user').orgId, id = c.req.param('id');
+  const d = await c.env.DB.prepare('SELECT 1 FROM documents WHERE id = ? AND org_id = ?').bind(id, orgId).first();
+  if (!d) return c.json({ error: 'Documento no encontrado.' }, 404);
+  await c.env.DB.batch([
+    c.env.DB.prepare('DELETE FROM document_chunks WHERE document_id = ?').bind(id),
+    c.env.DB.prepare('DELETE FROM documents WHERE id = ? AND org_id = ?').bind(id, orgId),
+  ]);
+  return c.json({ ok: true });
+});
+
+// Lee un documento guardado y propone compromisos para su proyecto. Se revisan antes de guardarlos.
+app.post('/api/documents/:id/extract', async (c) => {
+  const orgId = c.get('user').orgId;
+  const d = await documentBytes(c.env, orgId, c.req.param('id'));
+  if (!d) return c.json({ error: 'Documento no encontrado.' }, 404);
+  if (d.mime !== 'application/pdf') return c.json({ error: 'Solo se pueden leer documentos PDF.' }, 400);
+  const p = await c.env.DB.prepare('SELECT data FROM projects WHERE id = ? AND org_id = ?').bind(d.project_id, orgId).first<{ data: string }>();
+  if (!p) return c.json({ error: 'Proyecto no encontrado.' }, 404);
+  return c.json(await extractFromPdf(c.env, d.bytes.buffer, `documento:${d.name}`, { project: JSON.parse(p.data), kind: d.kind }));
 });
 
 // —————————— Calendario público por token ——————————

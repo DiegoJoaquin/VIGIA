@@ -376,3 +376,36 @@ h1, h2, h3, p { margin: 0; }
   .dossier tr { break-inside: avoid; }
   a { color: inherit; }
 }
+
+/* —— Formularios: estados de error —— */
+.input[aria-invalid="true"] { border-color: var(--danger); }
+.input[aria-invalid="true"]:focus { box-shadow: 0 0 0 3px var(--danger-soft); }
+.field-error, .form-error { color: var(--danger); font-size: var(--t-meta); line-height: 1.4; }
+.form-error { padding-inline: 4px; }
+select.input { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--ink-3) 50%), linear-gradient(135deg, var(--ink-3) 50%, transparent 50%); background-position: calc(100% - 20px) 21px, calc(100% - 15px) 21px; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 36px; }
+.file-input { height: auto; padding: 10px 12px; font-size: var(--t-meta); }
+.file-input::file-selector-button { font: inherit; font-weight: 600; border: 0; border-radius: 8px; padding: 6px 10px; margin-right: 10px; background: var(--accent-soft); color: var(--accent); cursor: pointer; }
+.form-card { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+.form-card .btn { align-self: flex-start; }
+
+/* —— Documentos —— */
+.doc-row { flex-wrap: wrap; }
+.doc-row a.row-title { color: var(--ink); text-decoration: none; overflow-wrap: anywhere; }
+.doc-row a.row-title:hover { text-decoration: underline; }
+.doc-actions { display: flex; gap: 6px; align-items: center; margin-left: auto; }
+@media (max-width: 560px) { .doc-actions { width: 100%; justify-content: flex-end; } }
+
+/* —— Equipo —— */
+.member { display: flex; align-items: center; gap: 12px; padding: 12px 16px; }
+.member + .member { border-top: 1px solid var(--line); }
+.avatar { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); font-weight: 650; font-size: 14px; flex: none; }
+.danger-zone { border: 1px solid var(--danger-soft); }
+
+/* —— Login —— */
+.auth-switch { display: flex; gap: 4px; }
+.legal-links { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: var(--t-meta); color: var(--ink-3); padding-inline: 4px; }
+.legal-links a { color: var(--ink-2); }
+
+/* —— 404 —— */
+.not-found { padding-top: 10vh; gap: 12px; }
+@media (max-width: 480px) { .seg { display: grid; width: 100%; } .seg button { padding: 0 4px; } }
