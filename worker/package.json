@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "wrangler dev -c wrangler.local.toml --local --test-scheduled",
     "deploy": "wrangler deploy",
+    "deploy:ci": "wrangler d1 execute vigia --remote --file=schema.sql -y && wrangler deploy",
     "db:init": "wrangler d1 execute vigia --remote --file=schema.sql",
     "db:init:local": "wrangler d1 execute vigia --local --file=schema.sql -c wrangler.local.toml"
   },

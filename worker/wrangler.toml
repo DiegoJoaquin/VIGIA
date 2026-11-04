@@ -13,7 +13,7 @@ run_worker_first = false
 [[d1_databases]]
 binding = "DB"
 database_name = "vigia"
-database_id = "PEGA_AQUI_EL_ID_QUE_TE_DA_wrangler_d1_create"
+database_id = "5564d0f2-83f5-4bb3-88f7-d1dd1fd60a61"
 
 # Workers AI (gratis hasta 10.000 "neuronas" al día) para leer RCA desde la app.
 # Si prefieres usar tu propio servidor con Ollama, borra este bloque y usa extractor/extract_rca.py.
@@ -25,10 +25,10 @@ binding = "AI"
 crons = ["0 11 * * *"]
 
 [vars]
-APP_URL = "https://vigia.TU-SUBDOMINIO.workers.dev"
+APP_URL = "https://vigia.diazdiego011.workers.dev"
 APP_NAME = "Vigía"
 # brevo | resend | gas (Google Apps Script) | log (solo imprime en consola)
-MAIL_PROVIDER = "brevo"
+MAIL_PROVIDER = "gas"
 MAIL_FROM = "avisos@tudominio.cl"
 MAIL_FROM_NAME = "Vigía"
 
