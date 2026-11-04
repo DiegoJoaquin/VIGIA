@@ -64,11 +64,33 @@ export function chunkText(text: string, max = 12_000): string[] {
 }
 
 /** Saca el primer objeto JSON de una respuesta de modelo, aunque venga con texto alrededor. */
-export function parseModelJson(raw: string): { obligations?: unknown[] } {
+/**
+ * Lee la respuesta del modelo. Algunos modelos de Workers AI devuelven el JSON ya convertido en objeto;
+ * otros devuelven texto, a veces cortado si la lista es larga. En ese caso se rescatan los compromisos completos.
+ */
+export function parseModelJson(raw: unknown): { obligations?: unknown[] } {
+  if (raw && typeof raw === 'object') {
+    const o = raw as { obligations?: unknown };
+    return Array.isArray(o.obligations) ? { obligations: o.obligations } : Array.isArray(raw) ? { obligations: raw as unknown[] } : {};
+  }
+  if (typeof raw !== 'string') return {};
   const start = raw.indexOf('{');
   const end = raw.lastIndexOf('}');
-  if (start < 0 || end <= start) return {};
-  try { return JSON.parse(raw.slice(start, end + 1)); } catch { return {}; }
+  if (start >= 0 && end > start) {
+    try { return parseModelJson(JSON.parse(raw.slice(start, end + 1))); } catch { /* respuesta cortada: se rescata abajo */ }
+  }
+  const list = raw.indexOf('[', raw.indexOf('"obligations"'));
+  if (list < 0) return {};
+  const items: unknown[] = [];
+  let depth = 0, from = -1, inStr = false, esc = false;
+  for (let i = list + 1; i < raw.length; i++) {
+    const ch = raw[i];
+    if (inStr) { if (esc) esc = false; else if (ch === '\\') esc = true; else if (ch === '"') inStr = false; continue; }
+    if (ch === '"') inStr = true;
+    else if (ch === '{') { if (depth++ === 0) from = i; }
+    else if (ch === '}' && depth > 0 && --depth === 0) { try { items.push(JSON.parse(raw.slice(from, i + 1))); } catch { /* objeto incompleto */ } }
+  }
+  return { obligations: items };
 }
 
 const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim();

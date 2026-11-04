@@ -51,8 +51,8 @@ export async function extractFromPdf(env: Env, bytes: ArrayBuffer, sourceUrl: st
   const ask = async (chunk: string, model = MODEL): Promise<unknown[]> => {
     const run = env.AI!.run(model as Parameters<Ai['run']>[0], {
       messages: [{ role: 'system', content: EXTRACTION_PROMPT }, { role: 'user', content: `${hint}\n\n${chunk}` }],
-      max_tokens: 2048, temperature: 0.1,
-    } as never) as Promise<{ response?: string }>;
+      max_tokens: 4096, temperature: 0.1,
+    } as never) as Promise<{ response?: unknown }>;
     const timeout = new Promise<never>((_, rej) => setTimeout(() => rej(new Error('tiempo agotado')), 60_000));
     try {
       const res = await Promise.race([run, timeout]);
