@@ -1,0 +1,398 @@
+[
+ {
+  "key": "ACONCAGUA FOODS-BUIN",
+  "comuna": "Buin",
+  "region": "Metropolitana",
+  "subrubro": "Planta procesadora de productos agrícolas"
+ },
+ {
+  "key": "DAVID DEL CURTO S.A. (RETIRO)",
+  "comuna": "Retiro",
+  "region": "Maule",
+  "subrubro": "Planta procesadora de productos agrícolas"
+ },
+ {
+  "key": "INVERTEC FOOD - PLANTA RENGO",
+  "comuna": "Rengo",
+  "region": "O'Higgins",
+  "subrubro": "Planta procesadora de productos agrícolas"
+ },
+ {
+  "key": "CITA - RSU ECOBIO",
+  "comuna": "Chillán Viejo",
+  "region": "Ñuble",
+  "subrubro": "Relleno sanitario"
+ },
+ {
+  "key": "PLANTA RENDERING CHILE MINK",
+  "comuna": "Mostazal",
+  "region": "O'Higgins",
+  "subrubro": "Planta procesadora de productos agrícolas"
+ },
+ {
+  "key": "ALIMENTOS E INVERSIONES VALLES DE CHILE",
+  "comuna": "Til til",
+  "region": "Metropolitana",
+  "subrubro": "Otras"
+ },
+ {
+  "key": "RILES AGROINDUSTRIA SAGRADA FAMILIA",
+  "comuna": "Sagrada Familia",
+  "region": "Maule",
+  "subrubro": "Planta procesadora de productos agrícolas"
+ },
+ {
+  "key": "RELLENO SANITARIO INTERCOMUNAL ARAUCO-CURANILAHUE",
+  "comuna": "Curanilahue",
+  "region": "Biobío",
+  "subrubro": "Relleno sanitario"
+ },
+ {
+  "key": "PLANTA PLANTAE LABS",
+  "comuna": "Los Ángeles",
+  "region": "Biobío",
+  "subrubro": "Plantas procesadoras de alimentos (no agrícola)"
+ },
+ {
+  "key": "Forestal San Lorenzo - Ránquil",
+  "comuna": "Ránquil",
+  "region": "Ñuble",
+  "subrubro": "Aserradero / procesadora de madera"
+ },
+ {
+  "key": "Maestranza Maesa",
+  "comuna": "Arauco",
+  "region": "Biobío",
+  "subrubro": "Planta metalúrgica"
+ },
+ {
+  "key": "PLANTA PROCESADORA DE NUECES ANAKENA",
+  "comuna": "Paine",
+  "region": "Metropolitana",
+  "subrubro": "Planta procesadora de productos agrícolas"
+ },
+ {
+  "key": "EXTRACCION PUZOLANA MINERA RIO TENO - MELIPILLA",
+  "comuna": "Melipilla",
+  "region": "Metropolitana",
+  "subrubro": "Minera no metálica"
+ },
+ {
+  "key": "MADERAS SANTA ELISA (EX VENTURELLI PLANTA TALCA)",
+  "comuna": "Maule",
+  "region": "Maule",
+  "subrubro": "Aserradero / procesadora de madera"
+ },
+ {
+  "key": "LOURDES S.A. - ISLA DE MAIPO",
+  "comuna": "Isla de Maipo",
+  "region": "Metropolitana",
+  "subrubro": "Vinificación / producción de alcohol"
+ },
+ {
+  "key": "GEOSERVICE LTDA. (GRANEROS)",
+  "comuna": "Graneros",
+  "region": "O'Higgins",
+  "subrubro": "Planta procesadora de productos agrícolas"
+ },
+ {
+  "key": "JUCOSOL",
+  "comuna": "Curicó",
+  "region": "Maule",
+  "subrubro": "Planta procesadora de productos agrícolas"
+ },
+ {
+  "key": "FRIGORÍFICO JAIME BOSCH E HIJOS",
+  "comuna": "Talca",
+  "region": "Maule",
+  "subrubro": "Matadero / frigorífico"
+ },
+ {
+  "key": "Barraca Llaipén",
+  "comuna": "Chillán Viejo",
+  "region": "Ñuble",
+  "subrubro": "Aserradero / procesadora de madera"
+ },
+ {
+  "key": "VIÑA TUNICHE",
+  "comuna": "Rancagua",
+  "region": "O'Higgins",
+  "subrubro": "Vinificación / producción de alcohol"
+ },
+ {
+  "key": "Aridos Felix Molina Curacautin",
+  "comuna": "Curacautín",
+  "region": "Araucanía",
+  "subrubro": "Áridos"
+ },
+ {
+  "key": "FUNDO EL PEÑASCO - LA",
+  "comuna": "Los Ángeles",
+  "region": "Biobío",
+  "subrubro": "Producción agrícola / cultivos"
+ },
+ {
+  "key": "AGRICOLA SANTA LUCIA-PLANTEL PALMILLA",
+  "comuna": "Palmilla",
+  "region": "O'Higgins",
+  "subrubro": "Plantel de cerdos"
+ },
+ {
+  "key": "Barraca Villa El Lucero, Chacarillas",
+  "comuna": "Maule",
+  "region": "Maule",
+  "subrubro": "Aserradero / procesadora de madera"
+ },
+ {
+  "key": "COTELSA S.A EMBALAJES INDUSTRIALES",
+  "comuna": "San Miguel",
+  "region": "Metropolitana",
+  "subrubro": "Otras"
+ },
+ {
+  "key": "FORESTAL BUTROS-ASERRADERO",
+  "comuna": "Chillán",
+  "region": "Ñuble",
+  "subrubro": "Aserradero / procesadora de madera"
+ },
+ {
+  "key": "CURTIEMBRE RUFINO MELERO",
+  "comuna": "Curicó",
+  "region": "Maule",
+  "subrubro": "Planta de curtiembre"
+ },
+ {
+  "key": "COMPOFLEX – ESTACIÓN CENTRAL",
+  "comuna": "Estación Central",
+  "region": "Metropolitana",
+  "subrubro": "Planta de Polímeros sintéticos (Producción / tratamiento / reciclaje)"
+ },
+ {
+  "key": "ASERRADERO EXEQUIEL AROCA",
+  "comuna": "Santa Juana",
+  "region": "Biobío",
+  "subrubro": "Aserradero / procesadora de madera"
+ },
+ {
+  "key": "BODEGA FRIGORÍFICA RADAL – QUINTA NORMAL",
+  "comuna": "Quinta Normal",
+  "region": "Metropolitana",
+  "subrubro": "Matadero / frigorífico"
+ },
+ {
+  "key": "PLANTA MASISA MAPAL",
+  "comuna": "San Pedro de la Paz",
+  "region": "Biobío",
+  "subrubro": "Aserradero / procesadora de madera"
+ },
+ {
+  "key": "PLANTA ELEVADORA DE AGUAS SERVIDAS DE SAN ANTONIO",
+  "comuna": "San Antonio",
+  "region": "Valparaíso",
+  "subrubro": "Planta de Tratamiento de Aguas Servidas"
+ },
+ {
+  "key": "Aserradero Roca - Yungay",
+  "comuna": "Yungay",
+  "region": "Ñuble",
+  "subrubro": "Aserradero / procesadora de madera"
+ },
+ {
+  "key": "PLANTEL LEÑADURA - NANCAGUA",
+  "comuna": "Nancagua",
+  "region": "O'Higgins",
+  "subrubro": "Plantel de cerdos"
+ },
+ {
+  "key": "MINUTO VERDE PLANTA RENGO",
+  "comuna": "Rengo",
+  "region": "O'Higgins",
+  "subrubro": "Planta procesadora de productos agrícolas"
+ },
+ {
+  "key": "PTAS LABRANZA",
+  "comuna": "Temuco",
+  "region": "Araucanía",
+  "subrubro": "Planta de Tratamiento de Aguas Servidas"
+ },
+ {
+  "key": "Áridos San Francisco sector La Primavera - San Carlos",
+  "comuna": "San Carlos",
+  "region": "Ñuble",
+  "subrubro": "Áridos"
+ },
+ {
+  "key": "SISTEMA ANTIHELADAS HUERTO EUSKADI LOS ÁNGELES",
+  "comuna": "Los Ángeles",
+  "region": "Biobío",
+  "subrubro": "Producción agrícola / cultivos"
+ },
+ {
+  "key": "COMPAÑÍA MINERA TRIDENTE",
+  "comuna": "Hualpén",
+  "region": "Biobío",
+  "subrubro": "Minera no metálica"
+ },
+ {
+  "key": "EMBONOR S.A. (TALCA)",
+  "comuna": "Talca",
+  "region": "Maule",
+  "subrubro": "Embotelladora"
+ },
+ {
+  "key": "Áridos Placilla",
+  "comuna": "Licantén",
+  "region": "Maule",
+  "subrubro": "Áridos"
+ },
+ {
+  "key": "ÁRIDOS ESPINOZA SAN RAFAEL",
+  "comuna": "San Rafael",
+  "region": "Maule",
+  "subrubro": "Áridos"
+ },
+ {
+  "key": "PLANTA FAENADORA DE CARNES HN-TALCA",
+  "comuna": "Talca",
+  "region": "Maule",
+  "subrubro": "Matadero / frigorífico"
+ },
+ {
+  "key": "FUNDO LA HORNILLA CAMPO CHOCALÁN - MELIPILLA",
+  "comuna": "Melipilla",
+  "region": "Metropolitana",
+  "subrubro": "Producción agrícola / cultivos"
+ },
+ {
+  "key": "FABRICA DE PLASTICOS JAIME VALDIVIESO- INDEPENDENCIA",
+  "comuna": "Independencia",
+  "region": "Metropolitana",
+  "subrubro": "Planta de Polímeros sintéticos (Producción / tratamiento / reciclaje)"
+ },
+ {
+  "key": "LUCCHETTI S.A. - MACUL",
+  "comuna": "Macul",
+  "region": "Metropolitana",
+  "subrubro": "Planta procesadora de productos agrícolas"
+ },
+ {
+  "key": "PTAS Lo Valdivia, Sagrada Familia",
+  "comuna": "Sagrada Familia",
+  "region": "Maule",
+  "subrubro": "Planta de Tratamiento de Aguas Servidas"
+ },
+ {
+  "key": "Maderas San Cristóbal-LA",
+  "comuna": "Los Ángeles",
+  "region": "Biobío",
+  "subrubro": "Aserradero / procesadora de madera"
+ },
+ {
+  "key": "ALCANTARILLADOY PTAS LOCALIDAD DE VICHUQUEN",
+  "comuna": "Vichuquén",
+  "region": "Maule",
+  "subrubro": "Planta de Tratamiento de Aguas Servidas"
+ },
+ {
+  "key": "FABRICA DE ALIMENTOS SPAGNOLIA - INDEPENDENCIA",
+  "comuna": "Independencia",
+  "region": "Metropolitana",
+  "subrubro": "Plantas procesadoras de alimentos (no agrícola)"
+ },
+ {
+  "key": "PLANTA INDUSTRIAL LOS ANGELES-AGRICOLA Y LACTEOS LAS VEGAS",
+  "comuna": "Los Ángeles",
+  "region": "Biobío",
+  "subrubro": "Elaboración de productos lácteos"
+ },
+ {
+  "key": "FRUTOS RUCALHUE",
+  "comuna": "Quilaco",
+  "region": "Biobío",
+  "subrubro": "Planta procesadora de productos agrícolas"
+ },
+ {
+  "key": "CENTRO DE MANEJO DE RESIDUOS ORGANICOS - COLHUE",
+  "comuna": "Malloa",
+  "region": "O'Higgins",
+  "subrubro": "Mono relleno"
+ },
+ {
+  "key": "PLANTA SIKA - LAMPA",
+  "comuna": "Lampa",
+  "region": "Metropolitana",
+  "subrubro": "Planta procesadora de productos químicos"
+ },
+ {
+  "key": "ITI CHILE- PLANTA CORONEL",
+  "comuna": "Coronel",
+  "region": "Biobío",
+  "subrubro": "Aserradero / procesadora de madera"
+ },
+ {
+  "key": "Maderas Santa Elisa",
+  "comuna": "Maule",
+  "region": "Maule",
+  "subrubro": "Aserradero / procesadora de madera"
+ },
+ {
+  "key": "EWOS - CARGILL PLANTA CORONEL",
+  "comuna": "Coronel",
+  "region": "Biobío",
+  "subrubro": "Elaboración y procesado de recursos hidrobiológicos"
+ },
+ {
+  "key": "Extracción de áridos Marcelo González Uslar",
+  "comuna": "Temuco",
+  "region": "Araucanía",
+  "subrubro": "Áridos"
+ },
+ {
+  "key": "PROYECTO ALC Y PTAS LOCALIDAD SANTA FE- COMUNA DE LOS ANGELES",
+  "comuna": "Los Ángeles",
+  "region": "Biobío",
+  "subrubro": "Planta de Tratamiento de Aguas Servidas"
+ },
+ {
+  "key": "AGRÍCOLA HUERTO LA BRISA/AGROINDUSTRIAL AGROCOL",
+  "comuna": "Teno",
+  "region": "Maule",
+  "subrubro": "Planta procesadora de productos agrícolas"
+ },
+ {
+  "key": "AVES SANTA MARTA DE LIRAY S.A. - COLINA",
+  "comuna": "Colina",
+  "region": "Metropolitana",
+  "subrubro": "Plantel de aves"
+ },
+ {
+  "key": "VIÑA LAPOSTOLLE - BODEGUITA APALTA",
+  "comuna": "Santa Cruz",
+  "region": "O'Higgins",
+  "subrubro": "Vinificación / producción de alcohol"
+ },
+ {
+  "key": "ARIDOS GUERRICO",
+  "comuna": "Machalí",
+  "region": "O'Higgins",
+  "subrubro": "Áridos"
+ },
+ {
+  "key": "RR WINE LTDA.",
+  "comuna": "Sagrada Familia",
+  "region": "Maule",
+  "subrubro": "Vinificación / producción de alcohol"
+ },
+ {
+  "key": "Planta de Lácteos RAFULCO",
+  "comuna": "Río Negro",
+  "region": "Los Lagos",
+  "subrubro": "Elaboración de productos lácteos"
+ },
+ {
+  "key": "INDUGRAS CORONEL",
+  "comuna": "Coronel",
+  "region": "Biobío",
+  "subrubro": "Elaboración y procesado de recursos hidrobiológicos"
+ }
+]
