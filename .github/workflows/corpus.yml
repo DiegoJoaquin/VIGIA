@@ -1,8 +1,10 @@
-# Descarga RCA públicas del SEIA y guarda su texto, para medir y mejorar la lectura de compromisos.
-# Se ejecuta a mano desde la pestaña Actions (no corre en cada push).
+# Descarga RCA públicas del SEIA y guarda su texto en la rama "corpus-rca", para medir y mejorar la
+# lectura de compromisos. Se ejecuta a mano desde la pestaña Actions (no corre en cada push).
 name: Corpus de RCA
 on:
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   corpus:
     runs-on: ubuntu-latest
@@ -12,9 +14,13 @@ jobs:
         with:
           node-version: 20
       - run: npm ci --workspace worker --include-workspace-root=false --ignore-scripts
-      - run: node tests/corpus/fetch.mjs corpus-out
-      - uses: actions/upload-artifact@v4
-        with:
-          name: corpus-rca
-          path: corpus-out
-          retention-days: 7
+      - run: node tests/corpus/fetch.mjs ../corpus-out
+      - name: Guardar los textos en la rama corpus-rca
+        run: |
+          cd ../corpus-out
+          git init -q -b corpus-rca
+          git config user.name "vigia-corpus"
+          git config user.email "corpus@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Textos de RCA públicas del SEIA ($(date -u +%F))"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" corpus-rca
