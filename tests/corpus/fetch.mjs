@@ -18,8 +18,8 @@ for (const line of lines) {
     const buf = new Uint8Array(await r.arrayBuffer());
     const pdf = await getDocumentProxy(buf);
     let text = '';
-    // Solo las primeras 120 páginas: los PDF "unidos" traen anexos enormes después de la resolución.
-    for (let p = 1; p <= Math.min(pdf.numPages, 120); p++) {
+    // Solo las primeras 400 páginas: los PDF "unidos" traen anexos enormes después de la resolución.
+    for (let p = 1; p <= Math.min(pdf.numPages, 400); p++) {
       const c = await (await pdf.getPage(p)).getTextContent();
       for (const it of c.items) { if (typeof it.str !== 'string') continue; text += it.str; if (it.hasEOL) text += '\n'; }
       text += '\n\n';
