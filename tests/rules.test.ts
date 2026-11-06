@@ -62,3 +62,83 @@ describe('lectura de compromisos por reglas', () => {
     expect(ruleObligations('Descripción del proyecto. Se construirán 300 viviendas.', 'p')).toEqual([]);
   });
 });
+
+// Formatos más antiguos y EIA (textos inventados con la estructura real de esas RCA).
+const OLD = `
+7°. Que, de acuerdo a los antecedentes que constan en el expediente de evaluación, la forma de
+cumplimiento de la normativa de carácter ambiental aplicable al Proyecto es la siguiente:
+7.2 Normas de carácter general
+7.2.1 Decreto Supremo Nº 38, de 2011, del Ministerio del Medio Ambiente.
+Tabla: Decreto Supremo Nº 38, de 2011, del Ministerio del Medio Ambiente.
+Componente/materia: Ruido
+Fase del proyecto a la que
+aplica
+Operación
+Forma de cumplimiento Se instalarán barreras acústicas en el perímetro.
+Indicador que acredita su
+cumplimiento
+Informe de medición.
+Forma de control y
+seguimiento
+Programa de seguimiento acústico a través de un monitoreo semestral (marzo y noviembre)
+durante la operación del proyecto.
+7.2.2 Ley N° 19.300 sobre Bases Generales del Medio Ambiente.
+Tabla: Ley N° 19.300 sobre Bases Generales del Medio Ambiente.
+Componente/materia: Institucionalidad
+Forma de cumplimiento El proyecto se somete al SEIA.
+Forma de control y
+seguimiento
+Los antecedentes de la evaluación.
+9°. Que, durante el procedimiento de evaluación el Titular propuso los siguientes compromisos
+ambientales voluntarios:
+COMPROMISO AMBIENTAL VOLUNTARIO: MONITOREO DE CALIDAD DE AGUA
+Componente/Impacto Calidad de agua del río.
+Objetivo, descripción y
+justificación
+Descripción: Se realizarán monitoreos de calidad de agua en cuatro puntos del río.
+Lugar, forma y
+oportunidad de
+implementación
+Oportunidad: El monitoreo se desarrollará en los meses de diciembre, enero, febrero y marzo.
+12. Que, durante el procedimiento de evaluación del EIA el Titular del Proyecto propuso los siguientes
+compromisos ambientales voluntarios:
+12.1. Monitoreo de ruido en el receptor R7.
+Objetivo, descripción y
+justificación
+Descripción: Ejecución de una campaña de monitoreo de ruido en el receptor R7.
+Forma control y de
+seguimiento
+Control de la SMA: Envío del respectivo Informe de Monitoreo a la Superintendencia del Medio
+Ambiente (SMA) en un plazo no mayor a un mes posterior a la realización del monitoreo.
+13. Que, las medidas relevantes del Plan de Prevención de Contingencias y del Plan de Emergencias, son
+las siguientes:
+13.1. Riesgo de incendio.
+Se deberá mantener extintores revisados de forma mensual.
+RESUELVO:
+`;
+
+describe('lectura de RCA antiguas y EIA', () => {
+  const list = ruleObligations(OLD, 'p');
+  const titles = list.map((o) => o.title);
+
+  it('lee la forma de control de una norma solo cuando tiene frecuencia', () => {
+    const ds38 = list.find((o) => o.title.startsWith('D.S. N° 38/2011'));
+    expect(ds38?.frequency.kind).toBe('semiannual');
+    expect(titles.some((t) => t.startsWith('Ley N° 19.300'))).toBe(false);
+  });
+
+  it('reconoce compromisos sin número y la frecuencia por meses', () => {
+    const agua = list.find((o) => o.title.startsWith('Monitoreo de calidad de agua'));
+    expect(agua?.frequency.kind).toBe('monthly');
+  });
+
+  it('una campaña con informe a la SMA es una entrega única', () => {
+    const ruido = list.find((o) => o.title.startsWith('Monitoreo de ruido'));
+    expect(ruido?.frequency.kind).toBe('once');
+    expect(ruido?.recipient).toBe('SMA');
+  });
+
+  it('salta las contingencias', () => {
+    expect(list.some((o) => /extintores/i.test(o.plain))).toBe(false);
+  });
+});

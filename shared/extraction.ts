@@ -162,7 +162,7 @@ export function guessProjectMeta(text: string): { name?: string; titular?: strin
  */
 export function selectChunks(chunks: string[], max: number): string[] {
   if (chunks.length <= max) return chunks;
-  const MUST = /condiciones o exigencias|compromisos? ambientales? voluntarios?|plan de seguimiento|seguimiento de las variables|medidas de (mitigaci[oó]n|reparaci[oó]n|compensaci[oó]n)|superintendencia del medio ambiente/i;
+  const MUST = /condiciones o exigencias|compromisos? ambiental(es)? voluntarios?|plan de seguimiento|seguimiento de las variables|medidas de (mitigaci[oó]n|reparaci[oó]n|compensaci[oó]n)|superintendencia del medio ambiente/i;
   const WORDS = /monitoreo|informe|reporte|registro|mensual|trimestral|semestral|anual|semanal|diari[oa]|plazo|d[ií]as h[aá]biles|deber[aá]|remitir|compromiso|fiscalizaci[oó]n|SMA\b/gi;
   const scored = chunks.map((c, i) => ({ i, score: (c.match(WORDS)?.length ?? 0) / (c.length / 1000) + (MUST.test(c) ? 100 : 0) }));
   const keep = new Set(scored.sort((a, b) => b.score - a.score).slice(0, max).map((x) => x.i));
@@ -171,7 +171,7 @@ export function selectChunks(chunks: string[], max: number): string[] {
 
 
 // Marcadores de la plantilla actual del SEA: desde aquí hasta "RESUELVO" están casi todas las obligaciones.
-const FOCUS_START = /que,?\s+para\s+ejecutar\s+el\s+proyecto\s+deben\s+cumplirse|condiciones\s+o\s+exigencias|compromisos?\s+ambientales?\s+voluntarios?|plan\s+de\s+seguimiento\s+de\s+las\s+variables|medidas\s+de\s+mitigaci[oó]n,?\s+reparaci[oó]n/i;
+const FOCUS_START = /que,?\s+para\s+ejecutar\s+el\s+proyecto\s+deben\s+cumplirse|condiciones\s+o\s+exigencias|compromisos?\s+ambiental(es)?\s+voluntarios?|plan\s+de\s+seguimiento\s+de\s+las\s+variables|medidas\s+de\s+mitigaci[oó]n,?\s+reparaci[oó]n/i;
 
 /**
  * Elige qué trozos del documento leer. En las RCA con la plantilla actual, primero la parte de

@@ -51,7 +51,7 @@ const KIND_HINT: Record<string, string> = {
  */
 export async function extractFromPdf(env: Env, bytes: ArrayBuffer, sourceUrl: string, opts: { project?: Project; kind?: string } = {}) {
   const text = await pdfText(bytes);
-  if (text.replace(/\s/g, '').length < 2000) throw new Error('El PDF no tiene texto seleccionable (parece escaneado). Usa el extractor local con OCR.');
+  if (text.replace(/\s/g, '').length < 2000) throw new Error('Este PDF es una imagen escaneada, sin texto que leer. Descarga desde el SEIA la versión firmada digitalmente de la resolución (firma.sea.gob.cl) y vuelve a intentarlo.');
   const projectId = opts.project?.id ?? `p-${randomId(6)}`;
   const hint = KIND_HINT[opts.kind ?? 'rca'] ?? KIND_HINT.rca;
   // 1) RCA con la plantilla actual del SEA: los compromisos se leen con reglas, sin IA. Es exacto, gratis e
