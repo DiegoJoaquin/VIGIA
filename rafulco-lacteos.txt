@@ -1,0 +1,2515 @@
+REPÚBLICA DE CHILE
+COMISIÓN DE EVALUACIÓN
+REGIÓN DE LOS LAGOS
+Califica Ambientalmente el proyecto “Tratamiento y riego de riles Planta Lacteos Rafulco”
+<NUM_RES>
+Puerto Montt
+<FECHA_RESOLUCION>
+VISTOS:
+1°. La Declaración de Impacto Ambiental (DIA), su Adenda de fecha 26 de abril de 2024 y su Adenda
+Complementaria de 5 de agosto de 2024, del proyecto “Tratamiento y riego de riles Planta Lacteos
+Rafulco”, presentado por Comercial Paillahue Ltda con fecha 23 de noviembre de 2023.
+2°. Los pronunciamientos y observaciones de los órganos de la administración del Estado que, sobre
+la base de sus facultades legales y atribuciones, participaron en la evaluación de la DIA, y que se
+detallan en el Capítulo 3 del Informe Consolidado de Evaluación (ICE) de la DIA del proyecto
+“Tratamiento y riego de riles Planta Lacteos Rafulco”.
+3°. El acta de la reunión con grupos humanos pertenecientes a pueblos indígenas localizados en el
+área en que se desarrollará el proyecto “Tratamiento y riego de riles Planta Lacteos Rafulco”,
+conforme a lo previsto en el artículo 86 del D.S. Nº 40, de 2012, del Ministerio del Medio Ambiente,
+Reglamento del Sistema de Evaluación de Impacto Ambiental.
+4°. El Acta de Evaluación del Comité Técnico de la Región de Los lagos de fecha 20 de agosto de
+2024
+5°. El ICE de la DIA del proyecto “Tratamiento y riego de riles Planta Lacteos Rafulco” de 26 de
+agosto de 2024.
+6°. El Acuerdo de fecha 03 de septiembre de 2024, de la sesión de la Comisión de Evaluación de la
+Región de Los Lagos
+7°. La Resolución Exenta Nº, 20241000111 de fecha 26 de enero de 2024, del Servicio de Evaluación
+Ambiental Región de Los Lagos que dispuso la realización de un proceso de participación ciudadana,
+conforme a lo previsto en el artículo 30 bis de la Ley N° 19.300, sobre Bases Generales del Medio
+Ambiente.
+8°. Los demás antecedentes que constan en el expediente de evaluación de impacto ambiental de la DIA
+del proyecto “Tratamiento y riego de riles Planta Lacteos Rafulco”.
+9°.Lo dispuesto en la Ley Nº 19.300, sobre Bases Generales del Medio Ambiente (en adelante la “Ley
+N°19.300”); en el D.S. Nº 40, de 2012, del Ministerio del Medio Ambiente, que aprueba Reglamento
+del SEIA (en adelante “RSEIA”); en el D.F.L. Nº 1/19.653, que fija el texto refundido, coordinado y
+sistematizado de la Ley Nº 18.575, Orgánica Constitucional de Bases Generales de la Administración
+del Estado; en la Ley Nº 19.880, que establece Bases de los Procedimientos Administrativos que rigen
+los Actos de los Órganos de la Administración del Estado; La Resolución N°119046/146/2022 de
+fecha 03 de marzo de 2022 del Director Ejecutivo del Servicio de Evaluación Ambiental sobre
+nombramiento de Director Regional del Servicio para la Región de Los Lagos; y la Resolución Nº7
+del 2019, de la Contraloría General de la República que fija normas sobre exención del trámite de
+Toma de Razón.
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+CONSIDERANDO:
+1°. Que, Comercial Paillahue Ltda (en adelante, el Titular), ha sometido al Sistema de Evaluación de
+Impacto Ambiental (SEIA) la DIA del proyecto “Tratamiento y riego de riles Planta Lacteos Rafulco”
+(en adelante, el Proyecto). Los antecedentes del Titular son los siguientes:
+Nombre o razón social Comercial Paillahue Ltda
+Rut 76.067.506-4
+Domicilio Fundo Rafulco, Ruta 5 Sur km 943, Sector Chifín Alto,
+comuna de Río Negro
+Teléfono 942553161
+Nombre representante legal Rodrigo Luis Adolfo Teuber
+Rut representante legal 7056506-4
+Domicilio representante legal Planta Rafulco
+Teléfono representante legal 942553161
+Correo electrónico Titular o
+representante legal
+rodrigo.teuber@lacteosrafulco.cl,aer@isbchile.com,aellwang
+er@gmail.com
+2°. Que, conforme se indica en el ICE de fecha 26 de agosto de 2024, el Director del Servicio de
+Evaluación Ambiental X Región de Los Lagos ha recomendado aprobar/rechazar el Proyecto, por
+cuanto cumple con la normativa de carácter ambiental aplicable identificada en la sección 9 del ICE
+cumple con los requisitos de otorgamiento de carácter ambiental contenidos en los permisos
+ambientales sectoriales aplicables identificados en la sección 10 del ICE; no genera ni presenta los
+efectos, características o circunstancias del artículo 11 de la Ley N°19.300, que dan origen a la
+necesidad de evaluar un Estudio de Impacto Ambiental; y el Titular ha subsanado los errores,
+omisiones e inexactitudes planteados en los Informes Consolidados de Aclaraciones, Rectificaciones
+y Ampliaciones.
+3°. Que, en sesión de fecha 03 de septiembre de 2024 la Comisión de Evaluación de la Región de Los
+Lagos acordó calificar favorablemente el proyecto “Tratamiento y riego de riles Planta Lacteos
+Rafulco”, aprobando íntegramente el contenido del ICE de 26 de agosto de 2024, el que forma parte
+integrante de la presente Resolución. Por lo tanto, conforme a lo indicado en el artículo 60 inciso
+segundo del Reglamento del SEIA, se excluyen de la presente Resolución las consideraciones
+técnicas en que se fundamenta.
+4°. Que, según lo señalado en la DIA y sus anexos, en su Adenda, y en su Adenda Complementaria,
+los cuales forman parte integrante de la presente Resolución, la descripción del Proyecto es la que a
+continuación se indica:
+4.1. ANTECEDENTES GENERALES
+Objetivo general Tratamiento y disposición en riego de los riles generados por la
+operación de la Planta Rafulco,
+Tipología principal, así
+como las aplicables a sus
+partes, obras o acciones
+o.7) Sistemas de tratamiento y/o disposición de residuos industriales
+líquidos
+Vida útil Indefinida
+Monto de inversión USD $ 500.000,000
+Gestión, acto o faena
+mínima que da cuenta del
+inicio de la ejecución
+Puesta en marcha de la planta de tratamiento de riles (PTR) en Planta
+Rafulco
+Proyecto se desarrolla por
+etapas
+Si No El proyecto no se desarrolla por etapas
+Proyecto modifica un
+proyecto o actividad Si No Si, modifica proyecto existente
+Proyecto modifica otra(s)
+RCA
+Si No No cuenta con RCA
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+4.2. UBICACIÓN DEL PROYECTO
+División político-
+administrativa
+Región de Los Lagos, Provincia de Osorno, comuna de Río Negro,
+en sector Chifín Alto.
+Descripción de la localización El proyecto se localiza en una propiedad donde actualmente opera
+Planta de Lácteos Rafulco, empresa dedicada a la elaboración de
+productos lácteos desde mediados del año 2008, y cuenta con acceso
+permanente durante todo el año por medio de la Ruta 5.
+Superficie Tipo de superficie Unidad Área Planta 4.07 ha; Área estanques
+acopio RIL 1.5 ha; Área asperjado RIL 24.93 ha; superficie
+Construida 3.980,1 m2
+Coordenadas UTM en Datum
+WGS84
+Las coordenadas de referencia UTM (metros) Norte: 5.482.735 y
+Este: 655.427, Huso 18, Datum WGS84.
+Imagen ubicación del proyecto presentada en la DIA del proyecto
+“Tratamiento y riego de riles Planta Lacteos Rafulco”
+Caminos de acceso Los caminos de acceso a los sitios en los que se desarrollará el
+proyecto o actividad. Al proyecto se accede a través de la Ruta 5
+Sur, por el cruce Chifín, en el km 943 (ver Figura 5) de la DIA, (pág.
+25)
+Imagen caminos de acceso al proyecto de la DIA “Tratamiento y
+riego de riles Planta Lacteos Rafulco”
+Referencia al expediente de
+evaluación de los mapas,
+georreferenciación e
+información complementaria
+sobre la localización de sus
+partes, obras y acciones
+En el ICE, y en el Punto 1.3 LOCALIZACIÓN de la DIA del
+proyecto “Tratamiento y riego de riles Planta Lácteos Rafulco
+4.3. PARTES, OBRAS Y ACCIONES QUE COMPONEN EL PROYECTO
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+4.3.1. FASE DE CONSTRUCCIÓN
+Construcción de los dos
+tranques acumuladores
+Construcción
+Se habilitarán 2 tranques acumuladores del tipo mixto (excavación y
+relleno), donde con el mismo material excavado se construirán los
+muros perimetrales del estanque. Se contempla la excavación de dos
+áreas de 120 m de longitud x 30 m de ancho (3.600 m2 c/u), de 2
+metros de profundidad, con muro de peralte de 2,5 metros de altura
+con el material extraído desde el interior del estanque de
+acumulación, constituyendo el muro periférico del estanque de
+acumulación provisoria del RIL.
+Se contempla un borde libre de 30 cm, lo que otorga un volumen
+máximo de almacenamiento de 13.810 m3 por estanque acumulador
+(27.620 m3 en total). El área de intervención corresponde a una
+pradera naturalizada, donde el área de escarpe generara residuos
+inertes (piedras y tierra) los que serán utilizados para la construcción
+del muro perimetral, así como residuos biodegradables de la capa
+vegetal removida (pastos y otros restos vegetales), los que serán
+dispuestos como materia orgánica al suelo colindante Se considera
+el uso de un geotextil de 200 gr/m2 de densidad como una capa
+primaria para la separación del suelo con la membrana que se
+utilizará para la impermeabilización del estanque de acopio del RIL.
+Las geomembranas son estructuras planas producidas a partir de
+fibras de polipropileno, están elaboradas con polietileno de alta
+densidad a partir de polímero virgen.
+Sellado de geomembranas: Para asegurar la integridad de la
+instalación, y durante la operación, se utilizarán metodologías de
+sellado por cuña caliente con canal, y previo a su puesta en marcha,
+pruebas de homogeneidad de tipo no destructivas, tales como:
+Presión de aire y/o cámara de vacío, con registro de longitudes
+revisadas.
+El método de sellado por cuña caliente es el método primario para la
+unión de las geomembranas de polietileno debido a su eficiencia y
+regularidad en la calidad de las soldaduras; además provee un control
+objetivo y veraz de la estanqueidad de las uniones. Consiste en la
+unión por termofusión sin aporte de material de las zonas de traslape
+de las láminas. El procedimiento es llevado a cabo por medio de una
+máquina autopropulsada por medio de energía eléctrica, provista de
+dos rodillos tangentes a un espacio mínimo común en el cual se
+encaja el traslape de las geomembranas a unir. En el plano de traslape
+e inmediatamente antes que los rodillos, existe una cuña cuya
+temperatura de operación es seleccionada por el operador de acuerdo
+con las características de las geomembranas.
+Control de estanqueidad: La estanqueidad de la unión se determina
+siguiendo el siguiente procedimiento (Tridente, 2014)12: i) Sellado
+de ambos extremos de la línea de soldadura; ii) Inserción en un
+extremo del canal de una válvula provista de manómetro e inyectar
+aire a presión hasta alcanzar aproximadamente 200 kPa; iii) Esperar
+dos minutos aproximadamente para que el sistema se estabilice y
+tomar la lectura del manómetro, que no debe ser inferior a 170 kPa;
+iv) Esperar cinco minutos y ejecutar una segunda lectura del
+manómetro, la caída de presión debería no ser mayor a 30 kPa; v)
+Abrir el extremo opuesto al manómetro y verificar la continuidad del
+espacio de canal de aire comprobando la caída instantánea de la
+presión; y vi) Si el procedimiento es llevado a cabo en conformidad
+la línea es aprobada, de lo contrario se localiza la falla visualmente
+(interrumpiendo manualmente la continuidad del canal y verificando
+el comportamiento del manómetro) o por otro método aprobado.
+Previo a el llenado del estanque de acumulación, se realizará una
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+inspección visual de la soldadura para verificar que no existan
+defectos y que ésta esté alineada correctamente.
+Recursos naturales renovables Suelo: Se mantendrá la superficie de suelo destinada a uso agrícola,
+y a su vez no existirán pérdidas del recurso, ya que la cantidad de
+RIL aplicado no generará procesos erosivos, ni tampoco existirá
+remoción del recurso producto del riego. Es así como se mantendrá
+el 100% de la superficie del recurso, así como la profundidad del
+suelo. El proyecto no contempla la remoción de suelo en el área de
+emplazamiento, toda vez que las obras son prexistentes. Tampoco se
+contempla la corta de flora o vegetación en el área de emplazamiento
+del proyecto, por lo que se descarta la pérdida de suelo, o de su
+capacidad de sustentar biodiversidad. Los riles que serán asperjados
+sobre las plantaciones agrícolas no poseen contaminantes, sin
+embargo, lo que incluye esta solución será absorbidos por la
+vegetación alóctona existente, sin afectarla.
+Agua: Dentro de los recursos naturales renovables, el agua es el
+principal recurso sujeto a impacto. En relación con las aguas
+subterráneas, no existirán impactos negativos, ya que los nutrientes
+aplicados con el RIL serán extraídos totalmente por la pradera
+mejorada, mientras que las propiedades físicas del suelo se
+mantendrán en el tiempo, por lo que se mantendrá con ello la
+capacidad de recarga de acuíferos. La cantidad aplicada de RIL no
+impactará en aguas superficiales, ya que el cálculo del riego se hace
+en función de la cantidad de agua capaz de almacenar el suelo y
+absorber por el cultivo para no generar escurrimiento superficial o
+subsuperficial.
+Emisiones y efluentes Emisión de material particulado: Factores de emisión para la etapa
+Para la etapa de construcción, se consideran las emisiones producto
+de las actividades de: i) Escarpe, ii) Excavación, iii) Carguío y
+volteo, y iv) Resuspensión por tránsito en caminos pavimentados. Se
+considera escarpe la preparación del terreno y el retiro de la
+cobertura vegetal. El nivel de actividad (Na) está determinado por la
+superficie a escarpar, siendo el factor de actividad de 3,57 km/Há
+escarpada. El factor de emisión (Fe) está en función de la distancia
+recorrida por la maquinaria a utilizar según la superficie a escarpar
+(Na), siendo 5,7 kg/km para emisión de MP10. (Tabla 10 presentada
+en la DIA del proyecto).
+Para las faenas de excavación, se contempla el uso de excavadoras
+(maquinaria pesada) para la remoción del suelo, y la construcción
+del muro perimetral del estanque de acopio provisional del RIL. De
+acuerdo con la guía MMA (2020), se considera una capacidad de
+palada de 0,9 m3, con un rendimiento de 54,27 m3/hr. No se
+considera esponjamiento, toda vez que el material excavado se
+deposita por la misma maquinaria en el perímetro del área del
+estanque para la construcción del muro perimetral que lo conforma
+(ver Figura 10 de la DIA), por lo que no se considera el acopio y
+transporte del material excavado. Las emisiones por tránsito
+vehicular en caminos pavimentados estarán en función del nivel de
+actividad (Na), equivalente a la suma de los kilómetros recorridos
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+(VKT) en las vías para un año cronológico, y el peso promedio
+ponderado de la flota (Wp) fue calculado a partir del peso promedio
+de la flota (con y sin carga), de acuerdo con el flujo de viajes (suma
+de trayectos de ida y retorno) y de su ponderación en el total de flujos
+para la etapa. Se considera que se escarpará la totalidad de la
+superficie intervenida por el proyecto de 0,66 Há (118 x 28 m para
+cada estanque). El área por excavar corresponde a 2 metros de
+profundidad desde el nivel natural del terreno. El material excavado
+conformará el muro perimetral que dará forma al estanque de acopio
+provisional del RIL (ver 2.2.4.1). Se contempla excavar 6.318 m3 por
+cada estanque (12.636 m3 totales). El nivel de actividad para la
+excavación será de 232,83 horas de operación de maquinaria.
+El nivel de actividad por tránsito vehicular está dado por la distancia
+recorrida (ver Tabla 9 más atrás), donde se identifican los flujos de
+transporte y distancia recorrida (VKT), para flujo de ida y vuelta para
+cada vehículo. El peso ponderado de la flota para la etapa será de
+6,23 ton. La tabla a continuación muestra el peso ponderado para
+cada actividad y la suma ponderada del peso para la etapa de
+construcción.
+Residuos, productos químicos
+y otras sustancias que puedan
+afectar el medio ambiente.
+En la etapa de construcción no habrá residuos líquidos
+Ruido: En Adenda complementaria se aclara información respecto
+del componente ruido sobre los hábitats de relevancia que quedan
+fuera del área de influencia de fuentes fijas, por lo que se descarta la
+generación de impactos en ellos por las emisiones de ruido asociadas
+a la Planta.
+Residuos sólidos/escarpe: Los residuos sólidos generados en la etapa
+de construcción consisten básicamente de las obras de escarpe para
+el acondicionamiento del estanque de acumulación del RIL a riego:
+piedras, palos y ramas, todos en muy baja cantidad, así como otros
+residuos sólidos inertes, constituidos principalmente por restos de
+embalajes, plástico, maderas y otros, producto del embalaje de los
+equipos de bombeo y riego. Lo que no pueda usarse será enviado a
+un vertedero autorizado.
+Residuos no peligrosos: Para realizar el almacenamiento temporal de
+residuos generados en la fase de construcción no se requiere el uso
+de bodegas, ya que como se indica en la Tabla 19 de la DIA estos
+serán almacenados temporalmente tolvas contenedoras. La
+frecuencia de recolección de residuos al interior de la obra será
+diaria, mientras que el retiro de las tolvas desde el establecimiento
+industrial hacia el lugar de destino final cada 15 días o cuando sea
+necesario. En el proyecto contempla realizar retiros extras si se
+evidencia que la capacidad de la tolva podría ser superada antes de
+la fecha del retiro programado, solicitando a la empresa gestora de
+los residuos el cambio de tolva (los retiros de los residuos quedarán
+registrados en bitácora de portería de planta). El transporte de los
+residuos se realizará en camiones que cuenten con sus resoluciones
+sanitarias correspondientes. El lugar de destino para los residuos que
+no puedan ser reutilizados, será vertederos autorizados de la región.
+En el caso de los metales estos podrían ser derivados a empresas
+gestoras de reciclaje
+Residuos Peligrosos: No se contempla la generación de residuos
+sólidos peligrosos en etapa de construcción
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Referencia al ICE para
+mayores detalles sobre esta
+fase.
+Punto 4.6.4. Emisiones y efluentes del ICE
+4.3.2. FASE DE OPERACIÓN
+Acopiar provisionalmente el
+Ril tratado
+Una vez que los Riles son tratados estos serán mantenidos en los dos
+tranques donde acumularán para posteriormente sean asperjados en
+las 3 parcelas que se ubican dentro del predio de la Planta Rafulco.
+Asperjar el RIL tratado Para asperjar el riego del RIL tratado, se considera el uso de 6 carros
+irrigadores tipo Williams, Greenback Spider Modelo GB400S, o
+similares. Para suministrar el RIL tratado, desde el estanque de
+acopio hacia los regadores, se consideran 3 bombas Yardmaster
+Modelo RH8, de 20 HP cada una.
+Los Riles serán asperjados en 3 parcelas dentro del predio de la
+Planta Rafulco, se realizará durante la etapa de operación.
+El proyecto cuenta con un predio de 60,82 ha aproximadamente,
+donde se destinarán 24,93 ha en 3 parcelas para el riego del RIL
+generado por la Planta Rafulco:
+1)Parcela 1 con 8,653 ha
+2)Parcela 2 con 7,639 ha
+3)Parcela 3 con 8,647 ha
+Los RILES serán asperjados durante los meses de octubre a marzo.
+Control de evaporación y
+emisión de olores
+Para prevenir la evaporación del RIL almacenado se contempla la
+utilización de una membrana que se colocará encima de los tranques
+donde se acumulará los riles tratados para evitar la emanación de
+olores.
+Productos generados Productos lácteos: Quesos, mantequilla y queso crema. La principal
+materia prima es leche entera, originada por diversos productores
+locales, la cual es transportada por medio de camiones cisterna a la
+planta, donde es almacenada, estandarizada y pasteurizada, antes de
+ser utilizada en los procesos productivos.
+Recursos naturales renovables En la etapa de operación no se extraerán recursos naturales
+renovables
+Emisiones y efluentes Emisiones de olor: Para la establecer la emisión odorífera del
+proyecto se utilizaron valores de factores de emisión de literatura,
+disponibles en él SEA, y sistematizadas por Baldomero & Schwarz
+(2015)29, ya que las fuentes emisoras de olor de la planta no se
+encontraban operativas por indicación de la autoridad ambiental
+(SMA). Las fuentes de olor homologadas para la evaluación del
+impacto odorífero son aquellas relacionadas con la planta de
+tratamiento del RIL (PTR), su almacenamiento y disposición en
+riego, utilizando para ello los factores de emisión señalados para
+plantas de tratamiento de aguas servidas (PTAS), escenario
+desfavorable para la modelación, considerando que la emisión
+odorante de una PTAS es mayor, toda vez que los riles generados
+por Planta Rafulco corresponden principalmente a aguas de lavado
+(Cortez, et al., 2023)31.
+Emisiones de material particulado/ Factores de emisión de material
+particulado: Las emisiones por tránsito vehicular en caminos
+pavimentados estarán en función del nivel de actividad (Na),
+equivalente a la suma de los kilómetros recorridos (VKT) en las vías
+para un año cronológico, y el peso promedio ponderado de la flota
+(Wp) fue calculado a partir del peso promedio de la flota (con y sin
+carga), de acuerdo con el flujo de viajes (suma de trayectos de ida y
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+retorno) y de su ponderación en el total de flujos para la etapa. El
+factor de emisión (Fe) para resuspensión por tránsito en caminos
+pavimentados está determinado por la siguiente ecuación (MMA,
+2020)22 22 MMA, 2020. Guía para la estimación de emisiones
+atmosféricas en la región metropolitana. Seremi Medioambiente
+Región Metropolitana. Ministerio de Medioambiente. Santiago. Pp.
+47. Donde: Fe es el factor de emisión por kilómetro recorrido (g/km),
+k es el coeficiente MP10 (0,62), sL es ka carga superficial de finos
+(g/m2), es el peso promedio de la flota que transita por la vía (ton).
+Se considera la emisión de MP por operación del grupo electrógeno
+del proyecto. El nivel de actividad está dado por la operación en
+periodos de punta (abril a septiembre). Se considera el factor de
+emisión señalado por MMA (2020) para grupos electrógenos Diesel
+de potencia mayor a 600 HP o 447 kW, de 0,0011235 kg/. Donde: E
+es la emisión, 0,0011235 es el factor de emisión MP10 para
+generadores Diesel de potencia menor a 600 Hp, Na es el nivel de
+actividad, y Ea es la eficiencia de abatimiento.
+Se considera la emisión de MP por operación de la caldera del
+proyecto. El nivel de actividad está dado por la operación según
+requerimientos de planta. Se considera el factor de emisión señalado
+por MMA (2020) para calderas con leña como combustible
+(biomasa), de 0,00226473 kg/kg.
+Nivel de actividad El nivel de actividad del transporte está dado por
+la distancia recorrida por el flujo vehicular del proyecto, de 718.002
+km/año (VKT). La tabla a continuación muestra el número de viajes
+proyectado, el flujo ido/retorno, y los kilómetros totales recorridos
+(VKT).
+Tabla 35 de la DIA: Nivel de actividad por tránsito por caminos
+pavimentados en etapa de operación
+Emisión de gases a la atmósfera / Factores de emisión de gases a la
+atmósfera: La estimación de las emisiones atmosféricas producto del
+flujo vehicular ha sido calculada de acuerdo con la metodología
+establecida por Guía del SEA para la estimación de emisiones
+atmosféricas de en la Región Metropolitana (MMA, 2020)24. Los
+factores de emisión se calcularon de acuerdo con la clase de los
+vehículos, considerando peso, tipo de combustible y distancia
+recorrida al interior de la Comuna de Osorno. Tabla 44 de la DIA:
+Factor de emisión y de consumo por combustión de vehículos
+(gr/km)
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Generación de RILES: El RIL a tratar por la planta de tratamiento
+de riles (PTR) está conformado por las aguas de lavado de las
+distintas salas de elaboración de productos lácteos en Planta Rafulco.
+Se estima una tasa de generación de RIL que varía entre 2:1 y 2,2:1
+de acuerdo con el volumen de leche procesada. Para el proyecto, se
+considera una tasa de 2,2:1 lt RIL/lt leche procesada. La tabla a
+continuación resume la proyección mensual de generación de RIL
+para un año de plena producción. Tabla 31 de la DIA: Proyección
+diaria y mensual del RIL generado por Planta Rafulco.
+Según la Tabla 31, la generación del RIL varía entre 90 y 154 m3/d
+(120 m3/d promedio anual), con un volumen anual total de 37.358
+m3. Los riles generados serán almacenados provisionalmente para
+ser asperjados cuando haya demanda de riego sobre una pradera
+mejorada, en los predios aledaños a la Planta Rafulco.
+La planta genera una media de 120 m3/d (varía entre 90 m3/d en el
+mes de mayo, hasta 154 m3/d ya entrada la primavera). Como la
+operación de la planta es de lunes a sábado, el RIL generado
+mensualmente estará en función de cada mes, con un volumen total
+anual de RIL por asperjar de 37.358 m3/año (ver Tabla 31 de la
+DIA). La oferta hídrica es el volumen de agua total generado por la
+planta que se disipa vía riego, el cual corresponde a los riles
+derivados del proceso industrial, el aporte de las precipitaciones y la
+recirculación de las aguas de escurrimiento. Es así como la oferta
+hídrica corresponde a la suma de:
+El RIL tratado generado por Planta Rafulco tiene almacenamiento
+provisorio en dos estanques mixtos estancos, impermeabilizados
+(ver Figura 38). Cada estanque de acumulación provisional del ril
+tratado tiene una superficie de 3.600 m2, por lo que el volumen de
+agua aportado por precipitación anual para el sector sobre estos, de
+1.277,4 mm/año, será de 9.195 m3/año. Durante el periodo de
+acopio, que abarca desde marzo a noviembre, la tasa de evaporación
+combinada de ambos estanques se estima en 4.350 m3/año. El
+proyecto no contempla la recirculación de aguas de escurrimiento,
+toda vez que el RIL se almacena provisionalmente (volumen AR=0),
+dado que el método de riego por aspersión se diseña para evitar el
+escurrimiento y/o apozamiento. Entonces, la oferta hídrica
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+disponible para riego será de 42.203 m3/año, como se señala a
+continuación.
+Caracterización de los Riles: El proyecto no tiene una
+caracterización del RIL tratado, sin embargo, se realizó un muestreo
+del RIL crudo por ETFA Hidrolab (Informe 194023/2023) con fecha
+09/05/2023. La tabla a continuación muestra los resultados
+obtenidos, y su comparación con la NCh1333 Of78 Mod 1987:
+Requisitos del agua para riego. Tabla 57 de la DIA: Concentración
+máxima en agua para riego y resultados del RIL crudo
+Caracterización agroclimática/ Precipitaciones: La precipitación
+media mensual fue extraída de los registros medios diarios de la
+estación meteorológica Río Negro, en Chahuilco, de administración
+de la Dirección General de Aguas (DGA), ubicada a unos 9,9 km del
+predio en estudio. En la siguiente tabla se presentan los valores de
+precipitación medios mensuales
+Las plantas pueden utilizar la precipitación efectiva. Esto significa
+que no toda la precipitación está a disposición de los cultivos, ya que
+una parte se pierde a través de la escorrentía superficial (ES) y de la
+percolación profunda (PP), (FAO, 2006)34. Cuánta agua se infiltra
+en realidad en el suelo depende del tipo de suelo, pendiente, tipo de
+cultivos, intensidad de la precipitación, y del contenido inicial de
+agua en el suelo. El método más preciso para determinar la
+precipitación efectiva es a través de observación en campo, donde la
+lluvia es altamente efectiva cuando poco o nada se pierde por
+escorrentía superficial (ES). Bajas precipitaciones son poco
+efectivas, pues se pierden rápidamente por evaporación (FAO,
+2006)35. Para el cálculo de precipitación efectiva para este estudio,
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+se empleó la ecuación propuesta por Soil Conservación Service,
+(USDA), de acuerdo
+Donde: Pef es la precipitación efectiva (mm/d), y P es la
+precipitación media diaria para el sector (mm/d). A partir de la
+precipitación media mensual y del software CROPWAT de la FAO
+se estimó la precipitación efectiva por medio del método USDA Soil
+Conservación Service, obteniendo los siguientes resultados.
+Tabla 59 de la DIA: Precipitación efectiva según USDA/Cropwat
+Vientos: En la localidad de Purranque, para el registro del día más
+ventoso del año, la velocidad promedio diaria del viento fue de 8,8
+km/h para las bandas de percentil 25 a 75° y 10 a 90°, de acuerdo
+con lo señalado para esta localidad por Wheater Spark36. Las
+velocidades medias del viento, tienen una velocidad de 2,44 m/s
+(≈2,5) para la zona de estudio. Esta velocidad es la comúnmente
+utilizada en el diseño de riego por aspersión.
+Suelos /Serie de suelo: La serie de suelo en la zona del proyecto es
+serie Osorno (ver 3.4.3). Las propiedades físicas de la serie Osorno
+se consulta en la tabla a continuación.
+Tabla 60 de la DIA: Propiedades físicas de la serie Osorno
+Humedad aprovechable del suelo: La humedad aprovechable (Ha) es
+la altura de agua que retiene un suelo homogéneo entre los
+contenidos de agua de Capacidad de Campo y Punto de marchitez
+permanente y está dada por la siguiente expresión:
+Luego la humedad aprovechable de la serie de suelo (HA) para la
+serie de suelo del predio está dada por la sumatoria de cada estrata.
+La tabla a continuación identifica HA para cada estrata. Tabla 61 de
+la DIA: Humedad aprovechable (mm) por estrata para la serie de
+suelo Osorno.
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Entonces, se tiene que:
+De acuerdo con lo anterior, la humedad aprovechable del suelo es de
+27,1 mm.
+Velocidad de infiltración básica del suelo: Existe gran cantidad de
+modelos que buscan representar el proceso de infiltración en un
+suelo, a través de formulaciones matemáticas usando algunos
+supuestos y simplificaciones, entre los que se puede mencionar a
+Horton (1933, 1939), Green y Ampt (1911), Kostiakov (1932), como
+lo señala Morales (2020)37. Entre las fórmulas propuestas, se
+destaca el modelo de Kostiakov, que es una expresión empírica que
+predice adecuadamente el proceso de infiltración en un horizonte de
+tiempo acotado (Benitez et al., 2017)38 , (Pérez, 2008)39. Al
+disponer de datos de medición de campo, es posible ajustar los
+valores al modelo de Kostiakov, que define la ecuación de velocidad
+de infiltración (VI) como: n VI k t = ´ Donde: VI es la velocidad de
+infiltración (cm/h), k es un factor numérico adimensional que
+representa la velocidad de infiltración durante el intervalo inicial
+(cm/h) que se obtiene analítica o gráficamente, siendo el parámetro
+del ajuste de los datos de campo al modelo, y n es un exponente que
+varía entre 0 y –1. Representa la tasa de cambio de la variable
+dependiente (VI) respecto de la variable independiente (t),
+explicando la disminución de la velocidad con el tiempo. Entonces,
+cuando se grafican los datos de campo y se ajustan al modelo, la
+pendiente de la curva de ajuste obtenida representa el tiempo de
+infiltración ajustado en minutos.
+La velocidad de infiltración básica del área del proyecto se obtuvo
+mediante la utilización de un cilindro infiltrómetro doble, luego de
+saturar la porción de suelo limitado por los cilindros concéntricos del
+equipo, y medir la variación del nivel del agua en el cilindro interior,
+de acuerdo con la metodología señalado por Villavicencio (2020).
+La velocidad de infiltración se obtiene cuando la tasa de cambio,
+para un período estándar es ≤10% de la velocidad de infiltración, y
+se hace constante en el tiempo. El tiempo en el cual ocurre la
+infiltración básica (tb), y la velocidad de infiltración básica (VIb),
+están dadas por las siguientes expresiones:
+Para la zona del proyecto se realizan 8 ensayos con un cilindro
+infiltrómetro doble. La tabla a continuación identifica la ubicación
+de cada ensayo al interior del predio del proyecto. La representación
+geográfica de los ensayos se consulta en la Figura 33 de la DIA
+Tabla 62: Coordenadas de ubicación de ensayo de velocidad de
+infiltración básica
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Los resultados de los registros de campo para cada ensayo de
+velocidad de infiltración básica se presentan en las tablas siguientes:
+En la DIA se presentan las 8 tablas con los resultados de los ensayos
+de velocidad de infiltración básica (Pág. 92 a 101). Y en la Figura 25
+a la 32) de la DIA. Se presenta la velocidad de infiltración (cm/hr).
+La Tabla 71 muestra los resultados obtenidos para la velocidad
+básica de infiltración, en la serie de suelo Osorno, luego de realizado
+los ajustes del modelo para cada ensayo.
+De acuerdo con lo señalado en los resultados del ensayo de campo,
+tenemos que la mayor velocidad básica de infiltración se obtiene en
+los sectores seleccionados para asperjar el RIL, identificados como
+parcelas 1, 2 y 3 (ver Figura 36 de la DIA), con velocidades que
+varían entre 87,7 mm/hr (Parcela 3) y 58,91 mm/hr (Parcela 1). Estos
+valores de velocidad de infiltración son característicos de suelos
+trumaos, presentes en la serie de suelo Osorno. Los resultados
+obtenidos favorecen el proceso de asperjado, dado que permite
+diseñar riego con precipitaciones altas sin producir apozamiento y/o
+escurrimientos superficiales, y con ello asegurar que todo el RIL
+ingrese al suelo y sea consumido por la biomasa vegetal.
+Demanda hídrica, superficie de cultivo y capacidad de
+embalsamiento Evapotranspiración potencial: La
+evapotranspiración potencial (ETo), se obtuvo desde el Sistema de
+Información Integral del Riego (eSIIR)44, que permite estimar la
+ETo para cualquier sector del territorio nacional, calculada a partir
+del método Penman-Monteith (FAO, 1990)45. En la siguiente tabla
+se presentan los valores de Evapotranspiración Potencial o de
+referencia para el predio en estudio.
+Tabla 72 de la DIA: Evapotranspiración Potencial o de referencia
+(ETo) para predio Rafulco.
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Evapotranspiración de cultivo La Evapotranspiración de cultivo
+(ETc) se estimó a partir del producto de la evapotranspiración de
+referencia (ETo) y del coeficiente del cultivo contemplado por el
+proyecto. ET K ET C C = ´ 0 Donde: ETc es la evapotranspiración
+del cultivo (mm/día-1), Kc es el coeficiente del cultivo
+(adimensional), y ETo es la evapotranspiración del cultivo de
+referencia (mm/día-1 ). El cultivo considerado para el proyecto será
+una mezcla forrajera, donde los coeficientes de cultivo corresponden
+a los señalados por FAO (2006), como se indica en la tabla a
+continuación.
+Tabla 73: Coeficiente de Cultivo Kc para mezcla forrajera
+Demanda hídrica neta: La demanda hídrica neta (DHN) se obtiene a
+través de la diferencia entre la evapotranspiración de cultivo (ETc),
+(ver 2.3.10.6.2) y el aporte de la precipitación efectiva (Pef),), de
+acuerdo con la ecuación siguiente: DHN ET P = − C ef Donde: DHN
+es la demanda hídrica neta (mm/d), ETc es la evapotranspiración del
+cultivo (mm/d) y Pef es la precipitación efectiva (mm/d). La tabla a
+continuación muestra la proyección de la demanda de riego para el
+cultivo señalado por el proyecto.
+Tabla 75 de la DIA: Demanda de agua del cultivo para la zona de
+estudio.
+Demanda hídrica bruta La demanda hídrica bruta (DHB) se obtiene
+al dividir el valor de la demanda hídrica neta (DHN) por el valor de
+la eficiencia de aplicación (%EAP).
+El plan de riego requiere asperjar la totalidad del RIL, por lo que no
+se busca suplir la totalidad de la demanda del cultivo. Por lo anterior,
+no se considera establecer la DHB para el proyecto, toda vez que la
+superficie disponible es superior a la requerida por el volumen del
+RIL generado. El RIL tratado generado por Planta Rafulco puede ser
+asperjado sobre el predio durante los meses de octubre a marzo, que
+corresponde al periodo.
+donde existe demanda de riego sobre el cultivo como se muestra en
+la Tabla 76 de la DIA :
+Tabla Demanda hídrica para la zona del proyecto
+La superficie requerida para asperjar los 42.203 m3/año será de 15,2
+ha, lo que es un área menor a la superficie disponible de 24,93 ha
+para asperjar el RIL, lo que asegura la disposición de la totalidad de
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+la oferta hídrica del proyecto será retenida por el suelo y será
+aprovechada por completo en el crecimiento de los cultivos.
+Capacidad de embalsamiento: Determinados los antecedentes de
+oferta y demanda hídrica, y establecido que la demanda es efectiva
+entre octubre y marzo para una oferta continua, se evalúa el
+requerimiento de embalsamiento para los meses en que la oferta
+excede a la demanda. La tabla a continuación muestra la proyección
+de la oferta de RIL a riego, su demanda y el riego efectivo sobre la
+superficie disponible, para un periodo comprendido entre el inicio
+del proyecto, y la finalización de un periodo de riego (enero año 1 a
+enero año 2).
+De acuerdo con la Tabla 77, el volumen máximo de acumulación de
+ril será de 24.174 m3 (a octubre), el que será asperjado en riego junto
+con el RIL generado por Planta Rafulco, entre los meses de octubre
+a enero. A partir del mes de febrero, el RIL asperjado corresponde
+sólo al generado por la Planta, para finalizar el riego durante el mes
+de marzo, y comenzar el acopio en el mes de abril. Entonces, para el
+ciclo que se muestra en la tabla anterior, se genera una oferta hídrica
+(OH) de 42.203 m3 y se asperjan 42.203 m3, por lo que se determina
+que es posible asperjar en riego la totalidad del RIL generado por
+planta Rafulco, incluyendo el acumulado en el estanque de acopio
+provisional y el agua acumulada por precipitación sobre la superficie
+de los estanques de acopio. El gráfico a continuación ilustra el
+balance entre oferta de riego, y riego efectivo para el proyecto. En la
+Figura 37 de la DIA (pág. 113) se presenta el Ril acumulado versus
+riego efectivo y demanda hídrica neta (DHN) para 24,93 ha.
+Método de riego / Acopio provisional del RIL tratado: El RIL tratado
+será dispuesto en dos estanques de acopio provisional, del tipo mixto
+(excavación y relleno), donde con el mismo material excavado se
+construirán los muros perimetrales del estanque. Se contempla la
+excavación de dos áreas de 120 m de longitud x 30 m de ancho
+(3.600 m2), de 2 metros de profundidad, con muro de peralte de 2,5
+metros de altura con el material extraído desde el interior del
+estanque de acumulación, constituyendo el muro periférico del
+estanque de acumulación provisoria del RIL. Se contempla un borde
+libre de 30 cm, lo que otorga un volumen de almacenamiento
+proyectado de 13.530 m3 por estanque acumulador (27.060 m3 de
+capacidad de almacenamiento para un acopio máximo de 24.174 m3
+de RIL al mes de octubre). El área de intervención corresponde a una
+pradera naturalizada, donde el área de escarpe generara residuos
+inertes (piedras y tierra) los que serán utilizados para la construcción
+del muro perimetral, así como residuos biodegradables de la capa
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+vegetal removida (pastos y otros restos vegeta ales) los que serán
+dispuestos como materia orgánica al suelo colindante.
+Figura 38 de la DIA: Diagrama de estanque de almacenamiento
+provisorio del RIL
+Se considera el uso de un geotextil de 200 gr/m2 de densidad como
+una capa primaria para la separación del suelo con la membrana que
+se utilizará para la impermeabilización del estanque de acopio del
+RIL. Las geomembranas son estructuras planas producidas a partir
+de fibras de polipropileno, están elaboradas con polietileno de alta
+densidad a partir de polímero virgen menor 90% con
+permeabilidades menores 0,001 lt/m2/día (Maccaferri, 2017)48. El
+filamento usado es generalmente polipropileno, el cual le confiere al
+producto elevadas resistencias mecánicas e hidráulicas durante el
+tiempo, debido a que este material posee un punto de fusión más
+elevado y una menor fluencia en comparación a otros polímeros
+(Tridente, 2014). Desde los estanques se impulsarán los RILES
+tratados al sistema de riego, que se asperjarán en el predio por medio
+de un sistema de aspersión a través de un carro irrigador de tipo
+viajero.
+Sistema de riego: El método de riego seleccionado es por aspersión,
+a través de un carro irrigador viajero. El periodo contemplado para
+el asperjar el RIL es de lunes a sábado, en tiempos de riego de 8
+horas/día, de acuerdo con los tiempos operacionales de la Planta
+Rafulco.
+Tabla 78: de la DIA Características del carro irrigador
+La pluviometría media que el carro aporta (velocidad) que el suelo
+debe infiltrar se estima mediante la siguiente ecuación:
+Caudal de bombeo planta + el RIL en estanque de acopio + el agua
+lluvia que cae sobre la superficie de los estanques de acopio, el cual
+alcanza un mínimo de 42 m3/d para el mes de octubre, y un máximo
+de 649,2 m3/día para el mes de diciembre. La tabla a continuación
+resume el caudal de riego y el número de carros irrigadores viajeros
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+de caudal máximo de 30,12 m3/h, requeridos para el asperjado del
+RIL.
+Tabla 79 de la DIA: Sistemas de riego requeridos por caudal de riego
+a asperjar
+De acuerdo con lo señalado por la Tabla 79, se contempla la
+utilización de 3 carros Greeanback Spider Travelling Irrigator, o
+similar, con una eficiencia de aplicación de 75%. El modelo
+propuesto permite ajustar la velocidad de movimiento del carro a 5
+velocidades prestablecidas, desde 0,4 a 2,2 mt/min, con incrementos
+de 0,4 m/min (ver Figura 39 de la DIA en página 116).
+Tiempo de riego del Ril El tiempo de riego será de 8 horas diarias,
+toda vez que corresponde al tiempo de una jornada de trabajo de un
+operador de la Planta Rafulco. La velocidad del carro irrigador será
+de 1,2 m/min (ver Tabla 78) equivalente a 72 m/h (576 m/d). A la
+distancia diaria se le debe agregar la longitud del diámetro del bulbo
+de mojado, de 42 m, por lo que la distancia diaria por carro irrigador
+será de 618 m. Luego, el área de riego efectiva estará dada por la
+distancia diaria y la separación entre posiciones de riego de 31
+metros.
+Estimación de la lámina neta: (página 118 de la DIA) La lámina de
+riego estará dada por el volumen aplicado sobre la superficie de
+riego. El carro posee un caudal de descarga de 30,12 m3/h, por tanto,
+el volumen aplicado en el tiempo de riego de 8 hr será de: V Q t = ´
+Donde: V es el volumen aplicado en riego (lt/d), Q es el caudal de
+asperjado (lt/h) y t es el tiempo de riego (hr). Entonces, para un carro
+irrigador viajero, tenemos que el volumen diario asperjado será de:
+V = ´ = 30.120 8 240.960 l d Teniendo en cuenta la velocidad de 72
+m/hr (1,2 m/min), y la superficie efectiva de riego de un carro en un
+día (8 horas), la lámina de riego aplicada será de : RC V Ln S =
+Donde: Ln es la lámina de riego aplicada (mm), V es el volumen
+diario asperjado (lt), y Src es la superficie de riego diaria efectuada
+por un carro (m2). Entonces, tenemos que la lámina de riego será de:
+240.960 2 12,5 12,5 mm 193.158.
+Frecuencia de riego del RIL: La frecuencia de riego estará dada por
+la demanda del cultivo, esto significa que se regará una vez que la
+evapotranspiración acumulada desde el último riego menos la
+precipitación en dicho periodo supere los 12,5 mm. Dado que la
+superficie de riego genera una demanda de cultivo superior a la
+oferta, es que en ningún caso el riego superará la demanda, toda vez
+que la lámina aplicada (12,5 mm) es inferior a la humedad
+aprovechable (27,1 mm), y se encuentra dentro de la capacidad de
+almacenamiento de agua del suelo, asegurando su retención por parte
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+del suelo, como su absorción por parte del cultivo. Se destaca que el
+Plan de Riego responde a los requerimientos de riego, por lo que el
+calendario de riego puede modificarse según las condiciones
+agroclimáticas que determinan la necesidad de riego sobre el cultivo
+(pradera mejorada).
+Emisiones de Ruido: Para la modelación de niveles de ruido, fases
+de construcción y operación, se utilizó el software de predicción de
+niveles sonoros en exteriores Cadna/A Versión 2019 (llave:
+L43064), que utiliza el método de predicción de propagación sonora
+de la norma ISO 9613:1996 la cual calcula la atenuación del sonido
+durante la propagación en exteriores (ISO, 1996). Los parámetros
+meteorológicos se fijaron en temperatura de 10º C y humedad
+relativa en 70%, constituyendo un escenario desfavorable por la baja
+atenuación sonora debido a efectos meteorológicos. La norma
+utilizada considera viento de 3 (m/s) a favor de la propagación, o sea
+en dirección a los receptores. A su vez, la norma ISO 9613 (ISO,
+1996) indica los grados de incertidumbre al utilizarla para
+simulaciones en función de la altura de la fuente y la distancia entre
+la fuente y el receptor, tal como se observa en la tabla a continuación
+Tabla 49 de la DIA: Estimación de precisión para ruidos en banda
+ancha según ISO 9613.
+Los escenarios previstos han considerado lo que establece el Art. 18
+del DS 40/12 Reglamento del SEIA: “Cuando corresponda, la
+predicción y evaluación de los impactos ambientales se efectuará
+considerando el estado de los elementos del medio ambiente y la
+ejecución del proyecto o actividad en su condición más
+desfavorable”. Dado lo anterior, es preciso aclarar que la proyección
+de cada fase contemplada por el Proyecto se realiza bajo un escenario
+desfavorable en cuanto a emisiones de ruido, lo que implica una
+sobreestimación de niveles y por ende un control (a favor) de la
+incertidumbre generada por los modelos predictivos. Por lo anterior,
+el modelo incorpora todas las fuentes de ruido declaradas para la fase
+de construcción, funcionando simultáneamente.
+Residuos, productos químicos
+y otras sustancias que puedan
+afectar el medio ambiente.
+Residuos sólidos no peligrosos: Dependiendo del tipo de residuo,
+tendrán disposición transitoria en la bodega de residuos (peligrosos
+o no peligrosos), para posteriormente ser trasladados en un vehículo
+adecuado para su manejo y transporte hasta vertedero municipal,
+vertedero industrial y/o planta de reconversión de materiales
+residuales. Los residuos almacenados transitoriamente en el
+contenedor de residuos no peligrosos (sólidos domiciliarios,
+asimilables a domiciliarios e industriales no peligrosos) son
+básicamente los que se generan por actividades de oficina y por el
+personal del proyecto tanto en las instalaciones administrativas,
+como los generados por los empaques y aseo en planta.
+En la siguiente tabla se entrega la caracterización cuantitativa y
+cualitativa de los residuos a almacenar en los contenedores de
+residuos no peligrosos.
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Residuos peligrosos: Los RESPEL que se generan por la operación
+de la Planta Rafulco tendrán almacenamiento temporal en la bodega
+de residuos peligrosos de la Planta. No se contempla alterar la
+estructura de los residuos peligrosos generados por el proyecto, por
+lo que una vez que termine su vida útil, se almacenará en os mismos
+envoltorios originales. Por las características propias de los residuos,
+su uso y manipulación adecuada no representan riesgo o impactos
+sobre el medio ambiente o la salud de las personas. En la siguiente
+tabla se entrega la caracterización cuantitativa y cualitativa de los
+residuos a almacenar en la bodega de residuos peligrosos del
+proyecto.
+Riles de la Planta de tratamiento_: El RIL a tratar por la planta de
+tratamiento de riles (PTR) está conformado por las aguas de lavado
+de las distintas salas de elaboración de productos lácteos en Planta
+Rafulco. Se estima una tasa de generación de RIL que varía entre 2:1
+y 2,2:1 de acuerdo con el volumen de leche procesada. Para el
+proyecto, se considera una tasa de 2,2:1 lt RIL/lt leche procesada. La
+tabla a continuación resume la proyección mensual de generación de
+RIL para un año de plena producción. la generación del RIL varía
+entre 90 y 154 m3/d (120 m3/d promedio anual), con un volumen
+anual total de 37.358 m3. Los riles generados serán almacenados
+provisionalmente para ser asperjados cuando haya demanda de riego
+sobre una pradera mejorada, en los predios aledaños a la Planta
+Rafulco.
+Referencia al ICE para
+mayores detalles sobre esta
+fase.
+Punto 4.7 del ICE
+4.3.3. FASE DE CIERRE
+Fase de cierre El proyecto no contempla etapa de abandono, toda vez que Planta
+Rafulco contempla la realización de mantenciones periódicas a su
+infraestructura, equipos y su reemplazo al término de su vida útil,
+por lo que el proyecto tiene carácter indefinido y no contempla cierre
+o abandono en los términos señalados en el Art. 19, literal a.7) del
+DS 40/12 MMA.
+Tabla ¡Error! No se encuentra el origen de la referencia. Cronología de las fases del proyecto o
+actividad
+4.4.1 Fase de Construcción
+Fecha estimada de inicio Octubre 2024
+Parte, obra o acción que
+establece el inicio
+Implementación y equipamiento planta tratamiento de riles,
+construcción de tranques de acopio de ril y riego
+Fecha estimada de término 4 meses aproximadamente
+Parte, obra o acción que
+establece el término
+Término de la construcción de los tranques de acopio de Riles
+4.4.2 Fase de Operación
+Fecha estimada de inicio Diciembre 2024
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Parte, obra o acción que
+establece el inicio
+El inicio de la fase de operación se da por la acumulación de Riles o el
+riego de estos dependiendo de la época del año en que finalice la fase de
+construcción.
+Fecha estimada de término Indefinido
+Parte, obra o acción que
+establece el término
+No aplica
+4.4.3 Fase de Cierre
+El proyecto presenta una vida útil indefinida, y no contempla cierre o abandono en los términos
+señalados en el Art. 19, literal a.7) del DS 40/2012 MMA.
+5°. Que, durante el proceso de evaluación se han presentado antecedentes que justifican la
+inexistencia de los siguientes efectos, características y circunstancias del artículo 11 de la Ley N°
+19.300
+5.1. RIESGO PARA LA SALUD DE LA POBLACIÓN, DEBIDO A LA CANTIDAD Y
+CALIDAD DE EFLUENTES, EMISIONES Y RESIDUOS
+Impacto ambiental Posible afectación a la salud de las personas por la Calidad
+del aire.
+Parte, obra o acción que lo genera Los dos tranques de acopio para los riles que salen del
+sistema de tratamiento.
+Fase en que se presenta Operación
+Impacto ambiental Posible afectación a la salud de las personas por Emisiones
+de ruido
+Parte, obra o acción que lo genera La planta Rafulco
+Fase en que se presenta Operación
+Referencia al ICE para mayores
+detalles sobre este impacto específico
+Capítulo 5 del ICE
+Durante la evaluación ambiental del Proyecto se logró descartar afectación a la salud de las personas
+en relación con las emisiones, efluentes olor, y emisiones de ruido.
+5.2. EFECTOS ADVERSOS SIGNIFICATIVOS SOBRE LA CANTIDAD Y CALIDAD DE LOS
+RECURSOS NATURALES RENOVABLES, INCLUIDOS EL SUELO, AGUA Y AIRE
+Impacto ambiental Posible afectación al recurso suelo.
+Componente ambiental afectado Suelo
+Parte, obra o acción que lo genera Cuando se realice la excavación para hacer los dos tranques
+de acopio de riles.
+Fase en que se presenta Operación.
+Impacto ambiental Posible afectación a las aguas superficiales y subterráneas
+Componente(s) ambiental(es)
+afectado(s)
+Agua
+Parte, obra o acción que lo genera Riego de los riles
+Fase en que se presenta Operación
+Impacto ambiental Posible afectación a la fauna adyacente al proyecto
+Componente ambiental afectado Fauna
+Parte, obra o acción que lo genera operación
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Referencia al ICE para mayores
+detalles sobre este impacto específico
+Capítulo 5 y 6 del ICE
+Durante la evaluación ambiental del Proyecto se logró descartar afectación al recurso suelo y a las
+aguas superficiales y subterráneas de acuerdo con el emplazamiento del proyecto.
+5.3. REASENTAMIENTO DE COMUNIDADES HUMANAS O ALTERACIÓN SIGNIFICATIVA
+DE LOS SISTEMAS DE VIDA Y COSTUMBRES DE GRUPOS HUMANOS
+Impacto ambiental Posible afectación al Sistema de vida y costumbres de los
+grupos humanos
+Parte, obra o acción que lo genera Riego de Riles
+Fase en que se presenta Operación
+Referencia al ICE para mayores
+detalles sobre este impacto específico
+Capítulo5 y 6 del ICE
+Durante la evaluación ambiental del Proyecto se logró descartar afectación los grupos humanos
+cercanos a las actividades del proyecto.
+5.4. LOCALIZACIÓN EN O PRÓXIMA A POBLACIONES, RECURSOS Y ÁREAS
+PROTEGIDAS, SITIOS PRIORITARIOS PARA LA CONSERVACIÓN, HUMEDALES
+PROTEGIDOS Y GLACIARES, SUSCEPTIBLES DE SER AFECTADOS, ASÍ COMO EL
+VALOR AMBIENTAL DEL TERRITORIO EN QUE SE PRETENDE EMPLAZAR
+Impacto ambiental Posible afectación a la Comunidad Indígena Río Chifín
+Componente ambiental afectado Comunidad Indígena Río Chifín
+Parte, obra o acción que lo genera Riego de Riles
+Fase en que se presenta Operación
+Impacto ambiental Posible afectación al valor ambiental del Río Chifín
+Componente(s) ambiental(es)
+afectado(s)
+Río Chifín
+Parte, obra o acción que lo genera Riego de Riles
+Fase en que se presenta operación
+Referencia al ICE para mayores
+detalles sobre este impacto específico
+Capítulo 5 y 6 del ICE
+Durante la evaluación ambiental del Proyecto se logró descartar afectación los grupos humanos
+cercanos a las actividades del proyecto. (Comunidad Indígena Río Chifín.
+5.5. ALTERACIÓN SIGNIFICATIVA, EN TÉRMINOS DE MAGNITUD O DURACIÓN, DEL
+VALOR PAISAJÍSTICO O TURÍSTICO DE UNA ZONA
+Impacto ambiental Posible afectación al paisaje
+Componente(s) ambiental(es)
+afectado(s)
+Paisaje
+Parte, obra o acción que lo genera Planta Rafulco
+Fase en que se presenta Operación
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Impacto ambiental Posible afectación al turismo
+Componente(s) ambiental(es)
+afectado(s)
+Turismo
+Parte, obra o acción que lo genera Planta Rafulco
+Fase en que se presenta Operación
+Referencia al ICE para mayores
+detalles sobre este impacto específico
+Capítulo 5 y 6 del ICE
+Durante el proceso de evaluación ambiental se logró descartar la afectación al paisaje y al turismo.
+5.6. ALTERACIÓN DE MONUMENTOS, SITIOS CON VALOR ANTROPOLÓGICO,
+ARQUEOLÓGICO, HISTÓRICO Y, EN GENERAL, LOS PERTENECIENTES AL PATRIMONIO
+CULTURAL
+Impacto ambiental Posible afectación al patrimonio arqueológico y
+paleontológico
+Parte, obra o acción que lo genera Los dos tranques de acopio para Riles
+Fase en que se presenta Construcción
+Referencia al ICE para mayores
+detalles sobre este impacto específico
+Capítulo 5 y 6del ICE
+Durante el proceso de evaluación ambiental se logró descartar la afectación al valor antropológico
+6°. Que resultan aplicables al Proyecto los siguientes permisos ambientales sectoriales, asociados a
+las correspondientes partes, obras o acciones que se señalan a continuación:
+Tabla 6.1. Permiso para la construcción, reparación, modificación y ampliación de cualquier obra
+pública o particular destinado a la evacuación, tratamiento o disposición final de desagües, aguas
+servidas de cualquier naturaleza, del artículo 138 del Reglamento del SEIA
+Fase del Proyecto a la
+cual corresponde
+Construcción y operación
+Parte, obra o acción a
+la que aplica
+Sistema de alcantarillado particular del proyecto
+Condiciones o
+exigencias
+específicas para su
+otorgamiento
+El requisito para su otorgamiento consiste en que la disposición de aguas
+servidas no amenace la salud de la población. (Resolución Exenta N°
+231054220 de fecha 26 de abril de 2023, Seremi de Salud. (anexo 13 de la
+Adenda.
+Pronunciamiento del
+órgano competente
+Seremi de Salud, Ordinario 8682 del 13 de mayo de 2024, se pronuncia
+conforme con la información presentada en la Adenda.
+Referencia al ICE
+para mayores detalles
+Capítulo 10 del ICE
+Tabla 6.2. Permiso para la construcción, reparación, modificación y ampliación de cualquier obra
+pública o particular destinada a la evacuación, tratamiento o disposición final de residuos industriales
+o mineros, del artículo 139 del Reglamento del SEIA
+Fase del Proyecto a la
+cual corresponde
+Construcción y operación
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Parte, obra o acción a
+la que aplica
+Sistema de tratamiento de Riles
+Condiciones o
+exigencias
+específicas para su
+otorgamiento
+El requisito para su otorgamiento consiste en que la calidad del suelo las
+aguas superficiales y subterráneas no ponga en riesgo la salud de la población
+Pronunciamiento del
+órgano competente
+Seremi de Salud Ordinario 8682 del 13 de mayo de 2024, se pronuncia
+conforme con la información presentada en la Adenda.
+Referencia al ICE
+para mayores detalles
+Capítulo 10 del ICE
+Tabla 6.3. Permiso para la construcción, reparación, modificación y ampliación de cualquier planta
+de tratamiento de basuras y desperdicios de cualquier clase o para la instalación de todo lugar
+destinado a la acumulación, selección, industrialización, comercio o disposición final de basuras y
+desperdicios de cualquier clase, del artículo 140 del Reglamento del SEIA.
+Fase del Proyecto a la
+cual corresponde
+Operación
+Parte, obra o acción a
+la que aplica
+Almacenamiento de los residuos sólidos
+Condiciones o
+exigencias
+específicas para su
+otorgamiento
+El requisito para su otorgamiento consiste en que las condiciones de
+saneamiento y seguridad eviten un riesgo a la salud de la población.
+Resolución sanitaria para el almacenamiento transitorio de residuos
+industriales no peligrosos y otros N° O-R/246 del 24 de febrero de 2017,
+presentada en Adenda
+Pronunciamiento del
+órgano competente
+Seremi de Salud Ordinario 8682 del 13 de mayo de 2024, se pronuncia
+conforme con la información presentada en la Adenda.
+Referencia al ICE
+para mayores detalles
+Capítulo 10 del ICE
+Tabla 6.4. Permiso para todo sitio destinado al almacenamiento de sustancias o residuos peligrosos,
+del artículo 142 del Reglamento del SEIA.
+Fase del Proyecto a la
+cual corresponde
+Operación
+Parte, obra o acción a
+la que aplica
+Bodega de almacenamiento de SUSPEL y RESPEL
+Condiciones o
+exigencias
+específicas para su
+otorgamiento
+El requisito para su otorgamiento consiste en que el almacenamiento de
+residuos en un sitio no afecte la calidad de las aguas, suelo y aire que pueda
+poner en riesgo la salud de la población. Resolución sanitaria para el
+almacenamiento transitorio de residuos peligrosos N° O-R/245 del 24 de
+febrero de 2017, presentada en Adenda
+Pronunciamiento del
+órgano competente
+Seremi de Salud Ordinario 8682 del 13 de mayo de 2024, se pronuncia
+conforme con la información presentada en la Adenda.
+Referencia al ICE
+para mayores detalles
+Capítulo 10 del ICE
+Tabla 6.5. Permiso para subdividir y urbanizar terrenos rurales o para construcciones fuera de los
+límites urbanos, del artículo 160 del Reglamento del SEIA
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Fase del Proyecto a la
+cual corresponde
+Construcción y operación
+Parte, obra o acción a
+la que aplica
+Emplazamiento de los dos tranques de acumulación de riles
+Condiciones o
+exigencias
+específicas para su
+otorgamiento
+Los requisitos para su otorgamiento consisten en no originar nuevos núcleos
+urbanos al margen de la planificación urbana y no generar pérdida o
+degradación del recurso natural suelo.
+Pronunciamiento del
+órgano competente
+Seremi de Agricultura Región de Los Lagos, en Ordinario N° 96 de fecha 13
+de mayo de 2024 se pronuncia conforme con la información presentada en
+Adenda.
+SAG Región de Los Lagos en Ordinario N° 749 de fecha 03 de junio de 2026
+se pronuncia conforme con los antecedentes presentados en la Adenda.
+Referencia al ICE
+para mayores detalles
+Capítulo 10 del ICE
+7°. Que, de acuerdo a los antecedentes que constan en el expediente de evaluación, la forma de
+cumplimiento de la normativa de carácter ambiental aplicable al Proyecto es la siguiente. La
+normativa de carácter ambiental aplicable al proyecto y su forma de cumplimiento es la siguiente:
+7.1. Normas relacionadas al emplazamiento del proyecto
+7.1.1. Norma Ley General de Bases del Medio Ambiente [Ley 19.300/1994 MINSEGPRES]
+Tabla 7.1.1. Norma Ley General de Bases del Medio Ambiente [Ley 19.300/1994 MINSEGPRES]
+Componente/materia: La Ley BGMA establece que los proyectos o actividades que son susceptibles
+de causar impacto ambiental, en cualquiera de sus fases, deberán someterse al
+Sistema de Evaluación de Impacto Ambiental.
+Otros cuerpos legales
+DS 40/13 Ministerio del medio Ambiente, Reglamento SEIA. Decreto N°
+31/2013 Ministerio del medio ambiente, reglamento del SNIFA
+Fase del proyecto a la que
+aplica o en la que se dará
+cumplimiento
+Todas las fases
+Parte, obra, acción, emisión,
+residuo o sustancias a la que
+aplica
+Evaluación ambiental del proyecto
+Forma de cumplimiento El proyecto ingresa al SEIA mediante una DIA, ante el servicio de evaluación
+ambiental de la región de los lagos. El proyecto ingresa al SEIA con los
+contenidos mínimos para la DIA, incluyendo los contenidos de los PAS, y los
+antecedentes necesarios que justifiquen la inexistencia de aquellos efectos,
+características o circunstancias del artículo 11 de la Ley 19.300.
+Indicador que acredita su
+cumplimiento
+Resolución de Calificación Ambiental
+Forma de control y
+seguimiento
+El proyecto ingresa al SEIA con los contenidos mínimos para la DIA,
+incluyendo los contenidos de los PAS, y los antecedentes necesarios que
+justifiquen la inexistencia de aquellos efectos, características o circunstancias
+del artículo 11 de la Ley 19.300.
+7.1.2. Norma Decreto Supremo N°40/2012 RSEIA
+Tabla 7.1.2. Norma Decreto Supremo N°40/2012 RSEIA
+Componente/materia: Este determina cuales son los proyectos que deben someterse al SEIA, el
+contenido mínimo, PAS aplicable, y otras materias
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Otros cuerpos legales
+asociados
+Ley 19.300/1994 MINSEGPRES con sus modificaciones
+Fase del proyecto a la que
+aplica o en la que se dará
+cumplimiento
+Todas las fases
+Parte, obra, acción, emisión,
+residuo o sustancias a la que
+aplica
+Evaluación ambiental del proyecto
+Forma de cumplimiento El proyecto ingresa al SEIA con los contenidos mínimos para la DIA,
+incluyendo los contenidos de los PAS, y los antecedentes necesarios que
+justifiquen la inexistencia de aquellos efectos, características o circunstancias
+del artículo 11 de la Ley 19.300.
+Indicador que acredita su
+cumplimiento
+Resolución de Calificación Ambiental
+Forma de control y
+seguimiento
+El proyecto ingresa al SEIA con los contenidos mínimos para la DIA,
+incluyendo los contenidos de los PAS, y los antecedentes necesarios que
+justifiquen la inexistencia de aquellos efectos, características o circunstancias
+del artículo 11 de la Ley 19.300.
+7.2. Normas relacionadas con las partes, obras, actividades o acciones, emisiones, residuos y
+sustancias peligrosas del proyecto
+7.2.1. Norma Establece norma de emisión de ruidos generados por fuentes que indica, elaborada a
+partir de la revisión del Decreto N°146, del 1997, del Ministerio secretaría General de la
+Presidencia. [D.S. 38/2011 MMA]
+Tabla 7.2.1. Norma Establece norma de emisión de ruidos generados por fuentes que indica, elaborada a
+partir de la revisión del Decreto N°146, del 1997, del Ministerio secretaría General de la Presidencia. [D.S.
+38/2011 MMA]
+Componente/materia: Establece niveles máximos permisibles de presión sonora corregidos para la
+emisión hacia la comunidad, de ruidos molestos generados por fuentes fijas.
+Otros cuerpos legales
+No aplica
+Fase del proyecto a la que
+aplica o en la que se dará
+cumplimiento
+En la fase de construcción y operación
+Parte, obra, acción, emisión,
+residuo o sustancias a la que
+aplica
+En la Planta Rafulco, en la construcción de los 2 tranques donde se acopiarán
+los Riles
+Forma de cumplimiento La evaluación realizada estableció que proyecto cumple con la normativa legal
+Indicador que acredita su
+cumplimiento
+El cumplimiento de la normativa
+Forma de control y
+seguimiento Obtención de Resolución de Calificación Ambiental Favorable.Informe de
+impacto acústico del proyecto presentado en la evaluación ambiental
+7.2.2. Norma Aprueba Reglamento sanitario de manejo de residuos peligrosos. [D.S. 148/2003
+Ministerio de Salud]
+Tabla 7.2.2. Norma Aprueba Reglamento sanitario de manejo de residuos peligrosos. [D.S. 148/2003
+Ministerio de Salud]
+Componente/materia: Establece las condiciones sanitarias y de seguridad mínimas respecto al manejo
+de residuos peligrosos, de forma de garantizar la salud de las personas y el
+derecho de vivir en un medio ambiente libre de contaminación.
+Otros cuerpos legales
+asociados
+No aplica
+Fase del proyecto a la que
+aplica o en la que se dará
+cumplimiento
+Construcción y operación
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Parte, obra, acción, emisión,
+residuo o sustancias a la que
+aplica
+Aplica a los residuos peligrosos en cuanto a su almacenamiento temporal en
+una bodega dentro de las instalaciones de la planta, como a la disposición final.
+Forma de cumplimiento El cumplimiento a esta normativa se realizará manteniendo los residuos
+peligrosos en bodega para este tipo de residuos y su permanencia será de 6
+meses, luego de eso se traslada a un lugar de disposición final autorizado.
+Indicador que acredita su
+cumplimiento
+Documentación que acredita la disposición final de estos residuos como
+certificados.
+Forma de control y
+seguimiento
+La documentación que acredite la disposición final deberá estar siempre
+disponible y actualizada en la Planta Rafulco.
+7.2.3. Establece condiciones para el transporte de carga que indica. Decreto N°75/1987 Ministerio
+de Transporte y Telecomunicaciones
+Tabla 7.2.3. Norma Establece condiciones para el transporte de carga que indica. Decreto N°75/1987
+Ministerio de Transporte y Telecomunicaciones
+Componente/materia: Establece condiciones para realizar transporte de carga.
+Otros cuerpos legales
+asociados
+Decreto 90 Modifica D.S. 75/1987, del ministerio de transporte y
+telecomunicaciones
+Fase del proyecto a la que
+aplica o en la que se dará
+cumplimiento
+Construcción y operación
+Parte, obra, acción, emisión,
+residuo o sustancias a la que
+aplica
+Transportes de materiales, materia prima, residuos. Forma de
+Forma de cumplimiento
+El transporte del proyecto considera el uso de camiones cerrados, tipo aljibe, o
+estancos, para el suministro y transporte de insumos y producción, los que
+cuentan con las autorizaciones respectivas.
+Para todos los casos, el transporte se realiza en camiones cerrados, resistentes
+e impermeables, por lo que no habrá filtraciones o mayor emisión de material
+particulado.
+Indicador que acredita su
+cumplimiento
+Elaboración de un sistema de registro a vehículos encargados del transporte de
+sustancias, productos u otros materiales disponibles a la autoridad
+Forma de control y
+seguimiento
+Seguimiento y fiscalización de la RCA por parte de la Superintendencia del
+Medio Ambiente.
+7.2.4. Fija texto refundido, coordinado y sistematizado de la ley de tránsito N°18.290. Decreto
+fuerza Ley 1/2009 Ministerio de Transporte y telecomunicaciones
+Tabla 7.2.4. Norma Fija texto refundido, coordinado y sistematizado de la ley de tránsito N°18.290. Decreto
+fuerza Ley 1/2009 Ministerio de Transporte y telecomunicaciones
+Componente/materia: Establece reglas para todas las personas que, como peatones, pasajeros o
+conductores de cualquiera clase de vehículos, usen o transiten por los caminos,
+calles, ciclovías y demás vías públicas, rurales o urbanas, caminos vecinales o
+particulares destinados al uso público, de todo el territorio de la República
+Otros cuerpos legales
+asociados
+Ley 21.601 Modifica Ley de tránsito par aprevenir la venta de vehículos
+motorizados robados y sancionar conductas que indica. (texto sistematizado en
+DFL 1/2009 modificado)
+Fase del proyecto a la que
+aplica o en la que se dará
+cumplimiento
+Construcción y operación
+Parte, obra, acción, emisión,
+residuo o sustancias a la que
+aplica
+Tránsito de vehículos de carga
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Forma de cumplimiento
+El titular adoptará todas las medidas necesarias para que las cargas no superen
+los pesos máximos establecidos por Ley, y que durante el transporte de estas
+se encuentren debidamente aseguradas, de modo que no generen riesgos de
+accidentes.
+Titular exigirá a todos los conductores y vehículos que participen de cualquier
+forma para con el proyecto todas las certificaciones y licencias
+correspondientes.
+Se controlará que el retiro de escombros se realice con la carga cubierta, de tal
+forma de evitar dispersión de materiales o polvo.
+Controlar revisiones técnicas de los vehículos relacionados con el proyecto.
+Indicador que acredita su
+cumplimiento
+Cumplimiento a la normativa
+Forma de control y
+seguimiento
+Seguimiento y fiscalización de la RCA por parte de la Superintendencia del
+Medio Ambiente.
+7.2.5. Establece normas de emisión aplicables a vehículos motorizados pesados que indica. [Decreto
+N° 55/1994 Ministerio de Transporte y Telecomunicaciones]
+Tabla 7.2.5. Establece normas de emisión aplicables a vehículos motorizados pesados que indica. [Decreto
+N° 55/1994 Ministerio de Transporte y Telecomunicaciones]
+Componente/materia: Establece normas de emisión aplicables a vehículos motorizados pesados.
+Otros cuerpos legales
+asociados
+No aplica
+Fase del proyecto a la que
+aplica o en la que se dará
+cumplimiento
+Construcción y operación
+Parte, obra, acción, emisión,
+residuo o sustancias a la que
+aplica
+Tránsito de vehículos de carga, pasajeros asociados al proyecto
+Forma de cumplimiento Se exigirá al contratista, así como a los vehículos de la misma empresa la
+utilización de vehículos motorizados pesados que cumplan con lo señalado en
+esta norma. Con revisiones técnicas al día.
+Indicador que acredita su
+cumplimiento
+Registro de vehículos que participasen en labores para el proyecto, disponible
+Forma de control y
+seguimiento
+Seguimiento y fiscalización de la RCA por parte de la Superintendencia del
+Medio Ambiente.
+7.2.6. Aprueba norma básica para la implementación de modificación al reglamento del registro de
+emisiones y transferencia de contaminantes, RETC [Resolución exenta N°144/2020 Ministerio del
+Medio Ambiente]
+Tabla 7.2.6. Aprueba norma básica para la implementación de modificación al reglamento del registro de
+emisiones y transferencia de contaminantes, RETC [Resolución exenta N°144/2020 Ministerio del Medio
+Ambiente]
+Componente/materia: Entrega lineamientos para realizar adecuadamente, a través del sistema de
+Ventanilla única del RETC, la actualización de razón social, cambio de
+titularidad, cese de funciones o cierre de establecimiento y envío de
+documentación en formato digital.
+Otros cuerpos legales
+asociados
+No aplica
+Fase del proyecto a la que
+aplica o en la que se dará
+cumplimiento
+Construcción y operación
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Parte, obra, acción, emisión,
+residuo o sustancias a la que
+aplica
+Actualización de información en Ventanilla única.
+Forma de cumplimiento
+El titular del proyecto mantendrá actualizada la información del
+establecimiento, así como su representante legal, y encargado de
+establecimiento de acuerdo a lo señalado en la presente norma.
+Además, se reportará en el Sistema nacional de declaración de residuos
+(SINADER) en forma mensual y anual.
+Una vez al año se realizará la declaración Jurada y Desempeño ambiental
+empresarial
+Indicador que acredita su
+cumplimiento
+Certificados de declaración den el sistema SINADER
+Forma de control y
+seguimiento Revisión de plataforma de VU-RETC
+Fiscalizaciones en terreno.
+7.3. Normas relacionadas con componentes ambientales (fauna, vegetación y flora, suelo, agua,
+patrimonio cultural)
+7.3.1. Norma sobre monumentos nacionales; Modifica las leyes 16.617 y 16.719; deroga decreto ley
+651, de 17 de octubre de 1925. [Ley N° 17.288/1970 Ministerio de Educación Pública]
+Tabla 7.3.1. Legisla sobre monumentos nacionales; Modifica las leyes 16.617 y 16.719; deroga decreto ley
+651, de 17 de octubre de 1925. [Ley N° 17.288/1970 Ministerio de Educación Pública]
+Componente/materia: Protección de Monumentos Nacionales
+Otros cuerpos legales Ley 21.215/2020 modifica ley 17.288, sobre monumentos nacionales, en lo
+relativo a los objetos paleontológicos.
+Decreto N° 23/2020 Reglamento para la designación de barrios y zonas
+patrimoniales.
+Decreto N° 223/2017 Reglamento sobre zonas típicas o pintorescas.
+Decreto N° 484/1991 Sobre excavaciones y/o Prospecciones arqueológicas,
+antropológicas y Paleontológicas.
+Fase del proyecto a la que
+aplica o en la que se dará
+cumplimiento
+Construcción
+Parte, obra, acción, emisión,
+residuo o sustancias a la que
+aplica
+En la excavación para la construcción de los 2 tranques para acopio de Riles
+de la Planta Rafulco
+Forma de cumplimiento En caso de producirse un hallazgo, de ruinas, yacimientos, piezas u objetos de
+carácter histórico, antropológico, arqueológico o paleontológico, se informará
+inmediatamente al Gobernador provincial y Carabineros para su custodia, hasta
+que el Consejo de Monumentos Nacionales se haga cargo de él.
+Indicador que acredita su
+cumplimiento
+Informe y registro de actividades realizadas; y compromiso de reporte a las
+autoridades pertinentes en caso de encontrar hallazgos.
+Forma de control y
+seguimiento Seguimiento y fiscalización de la RCA por parte de la Superintendencia del
+Medio Ambiente.
+Fiscalizaciones sectoriales
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+7.3.2. Establece disposiciones sobre protección agrícola. [Ley N° 3.557/1981 Ministerio de
+Agricultura
+Tabla 7.3.2. Establece disposiciones sobre protección agrícola. [Ley N° 3.557/1981 Ministerio de
+Agricultura]
+Componente/materia: Establece regulaciones para actividades industriales que ocasionen daño al
+agro.
+Otros cuerpos legales Ley 21.349/2022 Establece normas sobre composición, etiquetado y
+comercialización de los fertilizantes y bioestimulantes.
+Decreto N°61/2023 Aprueba reglamento de la Ley N° 21.349.
+Fase del proyecto a la que
+aplica o en la que se dará
+cumplimiento
+Construcción y operación
+Parte, obra, acción, emisión,
+residuo o sustancias a la que
+aplica
+Residuos líquidos, residuos no peligrosos y residuos peligrosos
+Forma de cumplimiento Como forma de evitar posibles daños a la actividad agrícola, el titular
+dispondrá de todos los residuos líquidos o sólidos que se generen durante la
+etapa de operación en sitios autorizados por la Autoridad Sanitaria.
+Indicador que acredita su
+cumplimiento Resolución de Calificación Ambiental Favorable.
+Certificados de traslados y/o recepción de residuos.
+Forma de control y
+seguimiento
+Seguimiento y fiscalización de la RCA por parte de la Superintendencia del
+Medio Ambiente.
+7.3.3. Aprueba reglamento del sistema nacional de información de fiscalización ambiental y de los
+registros públicos de resoluciones de calificación ambiental y de sanciones [Decreto N° 31/2013
+Ministerio del medio Ambiente]
+Tabla 7.3.3. Aprueba reglamento del sistema nacional de información de fiscalización ambiental y de los
+registros públicos de resoluciones de calificación ambiental y de sanciones [Decreto N° 31/2013 Ministerio
+del medio Ambiente]
+Componente/materia: Establece la obligación de remitir a la Superintendencia del Medio Ambiente
+la Resolución de Calificación Ambiental obtenida, así como todos sus
+antecedentes y las modificaciones y aclaraciones de que sean objeto.
+Otros cuerpos legales
+No aplica
+Fase del proyecto a la que
+aplica o en la que se dará
+cumplimiento
+Operación
+Parte, obra, acción, emisión,
+residuo o sustancias a la que
+aplica
+Emisiones atmosféricas, emisiones de olor, emisiones de ruido
+Forma de cumplimiento
+El titular del proyecto cargará la RCA obtenida en la plataforma digital del
+sistema de Resoluciones de calificación ambiental. Para lo cual previamente
+solicitará los accesos respectivos a través del sistema de administración de
+regulados.
+Además, se reportarán cambios en las representaciones legales, se ingresarán
+resoluciones que hagan referencia a la RCA ingresada, como por ejemplo
+respuestas a cartas de pertinencia, entre otros.
+Indicador que acredita su
+cumplimiento
+Comprobante de carga de la RCA al sistema de resoluciones de calificación
+ambiental
+Forma de control y
+seguimiento
+Seguimiento y fiscalización de la RCA por parte de la Superintendencia del
+Medio Ambiente.
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+7.3.4. Dicta instrucciones generales sobre la elaboración del plan de seguimiento de las variables
+ambientales, los informes de seguimiento ambiental y la remisión de información al sistema
+electrónico de seguimiento ambiental Resolución exenta N° 223/2015 Ministerio del medio Ambiente
+Tabla 7.3.4. Dicta instrucciones generales sobre la elaboración del plan de seguimiento de las variables
+ambientales, los informes de seguimiento ambiental y la remisión de información al sistema electrónico de
+seguimiento ambiental [Resolución exenta N° 223/2015 Ministerio del medio Ambiente]
+Componente/materia: Establece las instrucciones para la elaboración de los planes de seguimiento
+ambiental y el contenido y forma de los informes ambientales y cómo se debe
+remitir esta información al sistema de seguimiento.
+Otros cuerpos legales
+Resolución exenta 844/2012 Derogada por la norma presente
+Fase del proyecto a la que
+aplica o en la que se dará
+cumplimiento
+Construcción, operación y/o cierre
+Parte, obra, acción, emisión,
+residuo o sustancias a la que
+aplica
+Reporte de Seguimiento Ambiental.
+Forma de cumplimiento
+El titular del proyecto dará cumplimiento a la presente norma elaborando los
+informes de seguimiento ambiental que se puedan derivar de la presente
+evaluación ambiental cumpliendo con los contenidos mínimos solicitados en la
+presente norma.
+Se realizará la carga de los informes en el sistema de seguimiento ambiental,
+cumpliendo con los plazos que sean establecidos
+Indicador que acredita su
+cumplimiento Comprobante de carga de seguimientos ambientales
+Informes de seguimiento ambiental en formato Res 223/2015
+Forma de control y
+seguimiento
+Seguimiento y fiscalización de la RCA por parte de la Superintendencia del
+Medio Ambiente.
+8°. Que, para ejecutar el Proyecto deben cumplirse las siguientes condiciones o exigencias, en
+concordancia con el artículo 25 de la Ley N° 19.300:
+En pronunciamiento de la Seremi de Medio Ambiente en Ordinario N° 168 de fecha 14 de agosto de
+2024 a la Adenda Complementaria, del proyecto “Tratamiento y riego de riles Planta Lacteos
+Rafulco” si bien se pronuncia conforme, expresa la siguiente condición respecto a la “Compensación
+de Emisiones Atmosféricas”,
+• En los puntos N° 2.1 y 5.2 de la Adenda Complementaria, el Titular indica que, “La Res Ex
+1473/2023 MMA, señala en la propuesta N°6, que se deberá compensar las emisiones
+superiores a 1 ton/año de MP10, y de 0,5 ton/año de MP2.5, en un 120%. El inventario de
+emisiones calculado para el proyecto estima una generación de MP superior a estos límites
+señalados en el anteproyecto del PDA para la macrozona centro norte de la Región de Los
+Lagos (Res Ex 1473/2023 MMA), por lo que correspondería compensar la cantidad de
+emisión de MP que supera estos límites de 1 y 0,5 ton/año de MP10 o MP2.5,
+respectivamente. De acuerdo con lo anterior, tenemos que las emisiones por compensar será
+la mayor obtenida entre MP10 vs MP2.5. La Tabla 9 muestra que la emisión a compensar
+de MP10 (4,77 ton) es mayor a la de MP2.5 (4,14 ton), por lo que compensación de emisiones
+será la generada por MP10, con 5,73 ton” (énfasis agregado). En la Tabla 9 de la respuesta
+2.1, se presentan los valores de emisiones totales de MP10: 5,77 ton/año y MP2,5: 4,64
+ton/año que generará el proyecto. A estos valores, el Titular le resta 1 ton/año y 0,5 ton/año
+respectivamente, para obtener los valores de emisión a compensar, según se indica en el
+párrafo textual de la Adenda indicado anteriormente. Lo anterior es incorrecto, ya que los
+valores de emisión a compensar se deben calcular sobre el valor de emisiones totales que
+generará el proyecto y no sobre el valor excedente de lo indicado en el anteproyecto. Por
+consiguiente, el valor a compensar será de 6,9 ton/año, que corresponde al 120% de la mayor
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+emisión indicada por el Titular (5,77 ton/año). Este valor deberá ser el utilizado en el Plan
+de Compensación de Emisiones a presentar ante la SEREMI del Medio Ambiente, previo a
+la puesta en marcha del proyecto.
+Junto a lo anterior, con respecto al método de compensación de emisiones propuesto por el
+Titular relacionado a la creación de áreas verdes, se considera que no es el más indicado
+para el caso específico de este proyecto, ya que dicho mecanismo es utilizado principalmente
+para compensar emisiones provenientes de fuentes de emisión por resuspensión. Las
+emisiones del proyecto son generadas mayormente por fuentes de combustión,
+específicamente de la fuente “Caldera” (según se observa en las Tablas N°27 y 28 de la
+Adenda 1). De acuerdo con lo anterior, se solicita que las medidas de compensación a
+presentar se relacionen a mecanismos que se traduzcan en reducción de emisiones desde
+fuentes de combustión. Para lo anterior, el Titular deberá presentar para su aprobación ante
+la SEREMI del Medio Ambiente de la Región de Los Lagos, la propuesta de Plan de
+Compensación de Emisiones (PCE) previo a la puesta en marcha del proyecto y en formato
+digital, en el cual se establezca la cantidad y forma de compensación a realizar,
+considerando lo indicado anteriormente.
+9. Que, durante el procedimiento de evaluación de la DIA el Titular del Proyecto propuso los
+siguientes compromisos ambientales voluntarios:
+9.1. Compromiso ambiental voluntario “Plan de Gestión de Ruido”
+Tabla 9.1. Compromiso ambiental voluntario “Plan de Gestión de Ruido”
+Impacto asociado Ruido
+Fase del Proyecto a la
+que aplica
+Construcción y operación
+Objetivo, descripción y
+justificación
+Objetivo: Difusión de la información asociada a la emisión de ruido del Proyecto a
+la comunidad
+Descripción: Se sostendrán reuniones con la comunidad, pudiendo ser a través de la
+Junta de Vecinos del sector para informar y/o presentar avances del proyecto, entre
+otros.
+Se crea un canal de comunicación directa y permanente con la comunidad cercana,
+mediante el cual se entregue información de forma previa y durante todo el desarrollo
+del proceso constructivo y operacional del proyecto.
+Para llevar a cabo lo anterior, se sugiere informar, como mínimo, lo siguiente: Fechas
+de inicio y término de la obra, días y horarios regulares de trabajo, programación de
+faenas ruidosas, señalando los días y horarios en que se realizarán, descripción de
+las medidas de control y gestión de ruido adoptadas y programación y estado de
+avance general de la obra.
+Adicionalmente, se habilitará un sistema de recepción, gestión y resolución de
+reclamos de la comunidad, el cual sea de fácil acceso para los receptores
+potencialmente afectados.
+Justificación: Registro de las reuniones con la comunidad y el registro del sistema
+de recepción, gestión y solución de los reclamos de la comunidad.
+Lugar, forma y
+oportunidad de
+implementación
+Lugar: Junta de vecinos (JJVV)
+Forma: Se establecerá un canal de comunicación para la recepción de reclamos,
+comentarios de los vecinos, el cual estará en todo momento disponible para la
+recepción de quejas/reclamos, pero además para la información por parte de la
+empresa hacia los vecinos y de parte de los vecinos hacia la empresa.
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Oportunidad: Se realizará durante la etapa de construcción y también en la etapa de
+operación ante los eventos de ruido.
+Indicador que acredite
+su cumplimiento
+Se establecerá una planilla o documento de recepción y gestión de reclamos recibidos
+de parte de los vecinos.
+Forma de control y
+seguimiento
+Se genera un reporte con los resultados de la difusión de la información de la emisión
+sonora del Proyecto el que estará disponible también para la comunidad.
+9.2. Compromiso ambiental voluntario “Plan de gestión de Olores”
+Tabla 9.2. Compromiso ambiental voluntario “Plan de gestión de olores”
+Impacto asociado Molestia por Malos olores
+Fase del Proyecto a la
+que aplica
+Operación
+Objetivo, descripción y
+justificación
+Objetivo: es establecer y detallar una secuencia de acciones que permitan identificar,
+prevenir y controlar la presencia de olores y su emisión.
+Descripción: El alcance del actual Plan de Gestión de Olores (PGO), es indicar las
+acciones y medidas a coordinar, destinados a controlar y mitigar la emisión de olores,
+evitando la generación de episodios molestos en los posibles receptores sensibles,
+así como definir a los responsables y las acciones a implementar en caso de quejas
+y/o reclamos por olores provenientes de las instalaciones de su planta situada en la
+comuna de Rio Negro.
+Justificación: El plan de gestión de olores es atingencte puesto que habrá olores en
+los tranques donde se acumulará los RILES y también cuando se realice el riego de
+estos en las 3 parcelas.
+Lugar, forma y
+oportunidad de
+implementación
+Lugar: El plan de gestión aplica para todos los receptores que se encuentran dentro
+del área que ha sido de finida como áreas de influencia.
+Forma: Se establecerá un canal de comunicación para la recepción de comentarios
+de los vecinos, el cual estará en todo momento disponible para la recepción de
+quejas/reclamos, pero además para la información por parte de la empresa hacia los
+vecinos. Este canal estará disponible desde el inicio de la fase de operación del
+proyecto.
+Oportunidad: Una vez que se ha recibido alguna queja/reclamo se debe alertar al
+personal, identificar si las causas son originadas por el proyecto, evaluar y establecer
+medidas de control de contingencias odorantes (establecidas en el Plan) hasta
+controlar la causa del origen de la queja/reclamo.
+Indicador que acredite
+su cumplimiento
+Formularios de recepción de quejas/reclamos atendidos
+Registros de ejecución de medidas preventivas de control de olores.
+Forma de control y
+seguimiento
+Fiscalizaciones de la autoridad y revisión en terreno de los registros indicados en el
+Plan de Control de Olores y por reclamos de la comunidad los que deberán estar
+registrados de acuerdo con el evento de olor.
+9.3. Compromiso ambiental voluntario “Plan de control de emisiones de material particulado en
+etapa de operación”
+Tabla 9.3. Compromiso ambiental voluntario “Plan de control de emisiones de material particulado en etapa
+de operación”
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Impacto asociado Calidad del aire
+Fase del Proyecto a la
+que aplica
+operación
+Objetivo, descripción y
+justificación
+Objetivo:
+La medida pretende evitar el aumento de la concentración ambiental de MP mediante
+la reducción y captura de las emisiones de material particulado
+Descripción: Se implementarán un estimado de 4.500 m2 de superficie con paneles
+fotovoltaicos, lo que permitirá reducir en un 58% el consumo de energía
+proveniente de sistemas de distribución, lo que contribuirá a la reducción de unas
+169 ton/año de CO2, equivalente a una superficie de 3,51 Há de árboles que
+permitirán capturar 1,63 ton/año de MP emitido a la atmósfera.
+Se mantendrán las cortinas existentes de árboles alrededor de la infraestructura y
+predios del proyecto, equivalente a unas 1,34 Há de superficie de árboles.
+Se realizará la humectación de la carpeta de rodado con agua, para reducir la
+suspensión de polvo provocada por el tránsito de vehículos en las carpetas de
+rodado no pavimentadas al interior del área de la Planta Rafulco.
+Justificación: Para reducir las emisiones atmosféricas desde la planta y el sistema
+de de trta,miento de Riles.
+Lugar, forma y
+oportunidad de
+implementación
+La medida aplica a la Planta Rafulco respecto a las fuentes generadoras de energía,
+de las actividades propias del transporte y operación de vehículos al interior del área
+de la Planta, y, además, se vincula a los caminos con carpeta de tierra o ripio,
+ubicados al interior del emplazamiento de la Planta Rafulco, y que son transitados
+por vehículos asociados a las actividades propias de la Planta Rafulco.
+Indicador que acredite
+su cumplimiento
+Superficie con paneles fotovoltaicos instalados. Cortinas de árboles existentes.
+Registro fotográfico de humectación de carpetas de rodado de tierra o ripio del área
+de la Planta Rafulco. Bitácora de registro de horas de operación del sistema de
+aspersión.
+Forma de control y
+seguimiento
+Registro fotográfico (o fotogramétrico) de las superficies comprometidas (árboles y
+paneles fotovoltaicos) Registro documentado de la bitácora de horas de operación
+del sistema de aspersión que realiza el riego.
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+9.4. Compromiso ambiental voluntario Plan de control de emisiones de material particulado en
+etapa de construcción
+Tabla 9.4. Compromiso ambiental voluntario Plan de control de emisiones de material particulado en etapa
+de construcción
+Impacto asociado Calidad de aire
+Fase del Proyecto a la
+que aplica
+Construcción
+Objetivo, descripción y
+justificación
+Objetivo: Disminuir las emisiones atmosféricas tanto de la planta como del sistema
+de detratamiento de riles
+Descripción: Se mantendrán las cortinas existentes de árboles alrededor del predio
+donde se implementan los estanques de acopio, coadyuvando a la captura de la
+resuspensión de material particulado generado por las acciones de la etapa de
+construcción.
+La humectación de la carpeta de caminos de tierra o ripio con agua tiene por objetivo
+evitar o reducir la suspensión de polvo provocada por el tránsito de vehículos y
+maquinarias.
+La medida de mantener los vehículos de combustión interna con el motor apagado
+cuando no sean utilizados activamente tiene por objetivo evitar la emisión de gases
+por combustión cuando los vehículos no estén siendo utilizados.
+Justificación: Con la humectación de caminos de tierra, mantener los vehículos
+apagados cuando no se estén ocupando.
+Lugar, forma y
+oportunidad de
+implementación
+Lugar: Caminos de tierra ubicados al interior del emplazamiento del proyecto
+Forma: Los vehículos de combustión interna estarán con motor apagado mientras no
+sean utilizados activamente en alguna actividad propia de la etapa de construcción
+Oportunidad: durante la etapa de construcción de los estanques de acopio de Riles
+Indicador que acredite
+su cumplimiento
+Registro fotográfico de humectación de carpetas de rodado de tierra o ripio durante
+la etapa de construcción.
+Forma de control y
+seguimiento
+Revisiones técnicas al día de los vehículos y maquinarias
+9.5. Compromiso Ambiental Voluntario Seguimiento de calidad de agua de escorrentía superficial
+Tabla 9.5. Compromiso ambiental voluntario Seguimiento de calidad de agua de escorrentía superficial
+Impacto asociado
+Calidad de aguas superficiales terrestres
+Fase del Proyecto a la
+que aplica
+Operación
+Objetivo, descripción y
+justificación
+Objetivo: Identificar el arrastre de contaminantes producto de la escorrentía
+superficial que puedan atribuirse al asperjado de los RILES generados por Planta
+Rafulco.
+Descripción: Se realizarán muestreos estacionales de la calidad de las aguas
+proveniente de los drenes prediales, a fin de establecer los estadígrafos que permitan
+identificar la presencia de RILES generados por Planta Rafulco, que puedan ser
+considerados un riesgo de afectación a las aguas superficiales.
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Justificación: El CAV busca establecer las acciones conducentes a prevenir la
+afectación de las aguas superficiales producto de las acciones del riego de los RILES.
+Lugar, forma y
+oportunidad de
+implementación
+Lugar: Se realizará un muestreo estacional de calidad del agua que fluye desde la
+alcantarilla que recibe los drenes del predio, en la coordenada Este (m) 655.158 y
+Norte (m) 5.482.622 del Datum WGS84 H18.
+Forma: Se realizará un muestreo estacional de calidad del agua del Rio Chifín, aguas
+arriba y aguas abajo del punto de descarga de los drenes prediales en el río.
+El muestreo y la analítica serán conducidos por una entidad ETFA, acreditada para
+el análisis de aguas residuales.
+Oportunidad: Los resultados serán reportados en un único informe anual con los
+registros estacionales consolidados.
+Indicador que acredite
+su cumplimiento
+Registro ETFA del muestreo estacional de los puntos identificados (4 muestreos
+anuales).
+Forma de control y
+seguimiento
+Informe anual de seguimiento ambiental de la calidad de las aguas del sistema de
+drenaje predial y del río Chifín para el periodo, elaborado en formato según Res Ex
+223/15 SMA y reportado al SRCA del proyecto.
+9.6. Compromiso ambiental voluntario Plan de seguimiento de calidad de aguas subterráneas
+Tabla 9.6. Compromiso ambiental voluntario Plan de seguimiento de calidad de aguas subterráneas
+Impacto asociado
+Agua subterránea
+Fase del Proyecto a la
+que aplica
+Operación
+Objetivo, descripción y
+justificación
+Objetivo: Descartar la contaminación del acuífero producto del asperjado de los
+RILES generados por Planta Rafulco.
+Descripción: Se realizarán monitoreos ETFA del pozo control (ND-1002-5667) y
+pozo seguimiento (ND-1002-5447), antes de iniciar el riego de los riles, y finalizado
+el periodo de riego. Los parámetros controlados serán los señalados por DGA (2021)
+en el diagnóstico de la calidad de las aguas subterráneas de la Región de Los Lagos:
+Cloruro, Sulfato, Calcio, Sodio, Magnesio, Nitrato, Níquel y Manganeso. Los
+valores máximos de cumplimiento serán los identificados como valor de corte para
+calidad de agua Buena (VC2).
+Justificación: El seguimiento se justifica en prever la ocurrencia de afectación
+significativa sobre las aguas subterráneas en la zona del proyecto, a fin de no generar
+afectación a potenciales usos del agua subterránea para consumo humano.
+Lugar, forma y
+oportunidad de
+implementación
+Lugar: El muestreo y la analítica serán conducidos por una entidad ETFA, acreditada
+para el análisis de aguas residuales. Se muestreará la calidad del agua del pozo
+control ubicado en la coordenada Este (m) 655.455 y Norte (m) 5.483.946 del Datum
+WGS84 H18; y el pozo de la Planta Rafulco, ubicado en la coordenada Este (m)
+655.101 y Norte (m) 5.482.814 del Datum WGS84 H18.
+Forma: Se muestreará la calidad del agua del pozo control ubicado en la coordenada
+Este (m) 655.455 y Norte (m) 5.483.946 del Datum WGS84 H18; y el pozo de la
+Planta Rafulco, ubicado en la coordenada Este (m) 655.101 y Norte (m) 5.482.814
+del Datum WGS84 H18.
+Oportunidad: El registro se realizará antes de iniciar el riego del RIL y finalizado
+este. Los resultados serán reportados en un único informe anual
+Indicador que acredite
+su cumplimiento
+Registro ETFA del muestreo bianual de los pozos identificados para el periodo
+señalado
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Forma de control y
+seguimiento
+Informe de seguimiento ambiental del riego del RIL para el periodo, elaborado en
+formato según Res Ex 223/15 SMA, y reportado al SRCA del proyecto.
+9.7. Inducción arqueológica para el equipo de construcción de estanques de acopio del RIL
+Tabla 9.7. Compromiso ambiental voluntario Inducción arqueológica para el equipo de construcción de
+estanques de acopio del RIL
+Impacto asociado Patrimonio arqueológico
+Fase del Proyecto a la
+que aplica
+Construcción y Operación
+Objetivo, descripción y
+justificación
+Objetivo: Instruir al equipo de construcción de los estanques de acopio de RIL,
+acerca del marco legal de protección y procedimientos a seguir en caso de hallazgo
+arqueológico no previsto.
+Descripción: Para lograr el objetivo, el personal de la etapa de construcción será
+capacitado mediante clases impartidas por un/a arqueólogo/a o licenciado/a en
+arqueología, respecto del componente arqueológico que se podría encontrar en el
+área del proyecto, marco legal de protección y procedimientos a seguir en caso de
+hallazgo arqueológico no previsto.
+Justificación: El CAV se justifica debido a las deficientes condiciones de visibilidad
+durante la inspección visual arqueológica del área proyectada para escarpes y
+excavaciones de las obras del proyecto.
+Lugar, forma y
+oportunidad de
+implementación
+Lugar Esta se realizará en dependencias de Planta Rafulco, previo a la construcción
+del estanque de acopio de RIL.
+Forma: La charla será conducida por un arqueólogo o licenciado en arqueología
+respecto del componente arqueológico que se podría encontrar en el área del
+proyecto, marco legal de protección y procedimientos a seguir en caso de hallazgo
+arqueológico no previsto.
+Oportunidad: En la etapa de construcción se realizará capacitación al personal.
+Indicador que acredite
+su cumplimiento
+Informe de charla de inducción, conteniendo, a lo menos, la siguiente información.
+a) Nombre y firma del/de la arqueólogo/a o licenciado/a en arqueología que
+realizó la charla de inducción.
+b) Contenidos de la inducción y copia del material gráfico presentado.
+c) Registro fotográfico y/o audiovisual de la actividad.
+d) Síntesis de comentarios, observaciones y preguntas efectuada por las/los
+asistentes.
+e) Constancia de asistencia a la charla, indicando nombre, cargo, RUT, fecha
+de ingreso a la obra y firma de cada asistente.
+Forma de control y
+seguimiento
+Se remitirá al CMN del informe de la charla de inducción ante hallazgos
+arqueológicos no previstos, y se subirá copia del informe al Sistema de Seguimiento
+Ambiental (SSA) de la Superintendencia del Medio Ambiente, en un plazo máximo
+de 15 días hábiles desde realizada la capacitación.
+9.8. Compromiso Ambiental Voluntario Plan de seguimiento por derrame de SUSPEL, RESPEL y/o
+RIL a aguas superficial o subterránea (CAV)
+Tabla 9.8 Compromiso ambiental voluntario Plan de seguimiento por derrame de SUSPEL, RESPEL y/o RIL
+a aguas superficial o subterránea (CAV)
+Impacto asociado Calidad de aguas superficiales terrestres
+Fase del Proyecto a la
+que aplica
+Operación
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Objetivo, descripción y
+justificación
+Objetivo: El objetivo del presente compromiso ambiental es evaluar la posible
+afectación del componente ambiental, mediante la toma de muestras de aguas
+superficiales y/o subterráneas, en caso de que estos sean afectados por derrames de
+sustancias peligrosas, RESPEL o RILes.
+Descripción: Para lograr el objetivo, ante la ocurrencia de una emergencia por
+derrame de sustancias peligrosas, RESPEL y/o RILes que haya podido afectar
+fuentes de agua, se coordinará la toma de muestra del componente afectado, su
+despacho a laboratorio y análisis de los parámetros definidos.
+En el caso que el riesgo de contaminación se produzca por derrame de sustancias
+peligrosas o RESPEL, los parámetros a medir serán los componentes activos de
+dichas sustancias los cuales se encuentran descritos en sus respectivas fichas técnicas
+o bien en las hojas de seguridad. En el caso de que se trate de un derrame de RILes
+los parámetros a analizar serán DBO5, Fósforo, Nitrógeno Total, Aceites y Grasas.
+Las muestras, en los cuerpos de agua superficiales, serán tomadas por una entidad
+técnica de Fiscalización Ambiental (ETFA), considerando una muestra 25 metros
+aguas arriba del derrame, en el lugar en que se produjo el derrame, y 25 metros aguas
+abajo del derrame.
+En el caso de muestras de agua subterráneas se realizarán en pozos profundos que se
+encuentren habilitados y que considere una muestra aguas arriba del gradiente
+hidráulico y otra agua abajo, considerando el punto donde ocurrió el derrame.
+En todos los casos, el análisis de las muestras se deberá realizar con un laboratorio
+ETFA o por un laboratorio certificado por el Instituto Nacional de Normalización
+(INN) si no existe ETFA para ese alcance.
+Justificación: El CAV se justifica debido al riesgo de contaminación que existe en
+caso de que un derrame alcance el componente agua.
+Lugar, forma y
+oportunidad de
+implementación
+Lugar: Las muestras se realizarán en el cuerpo de agua que se vea afectado, según lo
+indicado en el punto anterior.
+Forma: Para el efecto se contactará inmediatamente ocurrida la emergencia a una
+entidad de fiscalización técnica Ambiental para que tome las muestras y luego las
+derive al laboratorio que tenga dentro de su alcance el análisis del parámetro
+determinado.
+Oportunidad: Las muestras se deben realizar dentro de las primeras 24 horas desde
+ocurrido el derrame. Además, se contempla la realización de un segundo muestreo
+48 horas después del primer muestreo.
+Indicador que acredite
+su cumplimiento
+a) Registro de contacto con Entidad Técnica de fiscalización Ambiental
+(ETFA) para realizar el muestreo de las aguas afectadas.
+b) Acta de toma de muestras tomadas por el inspector técnico de la ETFA
+c) Copia de la cadena de custodia de las muestras.
+d) Informe de análisis emitido por un laboratorio ETFA o por un laboratorio
+certificado por el Instituto Nacional de Normalización (INN) si no existe ETFA para
+ese alcance.
+e) Registro de envío de los resultados a la autoridad.
+Forma de control y
+seguimiento
+Se remitirá a la Superintendencia del Medio Ambiente y la DGA, vía email los
+resultados de los análisis de las muestras, y además se subirá copia del informe al
+Sistema de Seguimiento Ambiental (SSA) de la Superintendencia del Medio
+Ambiente, en un plazo máximo de 25 días hábiles desde realizado el muestreo. (lo
+anterior considerando el tiempo de respuesta de los laboratorios ETFA)
+9.9. Plan de seguimiento de aplicación del RIL al suelo
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Tabla 9.9. Compromiso ambiental voluntario “Plan de seguimiento de aplicación del RIL al suelo”
+Impacto asociado Calidad de aguas superficiales terrestres
+Fase del Proyecto a la
+que aplica
+Operación
+Objetivo, descripción y
+justificación
+Objetivo: La medida pretende evitar el aumento de la concentración de nutrientes y
+contaminantes en el suelo receptor del RIL.
+Descripción: Se realizarán muestreos al inicio y al final de cada periodo de riego, a
+fin de establecer si las condiciones de aplicación del RIL se ejecutan de acuerdo con
+la planificación prevista.
+Justificación: Dada las características del RIL, se establece el seguimiento del aporte
+de nutrientes presentes en el agua a riego, para prevenir la contaminación del suelo.
+Lugar, forma y
+oportunidad de
+implementación
+Lugar: El muestreo se realizará cada potrero donde el RIL sea asperjado en riego, de
+acuerdo con lo señalado en el Plan de Aplicación del RIL en Riego.
+Forma: De acuerdo con lo indiaco en el Plan de Aplicación del Ril en riego
+Oportunidad: Se contempla 1 calicata por potrero a riego, con muestras de suelo a
+20 cm, para las siguientes frecuencias:
+a) Anual: Humedad aprovechable (HA) al inicio del periodo de riego.
+b) Bianual: Materia orgánica (%MO), nitrógeno disponible (mg N/kg), fósforo
+disponible (mg P/kg), pH. Conductividad eléctrica (dS/m), suma de bases de
+intercambio (meq/100g) y aluminio intercambiable (meq/100g). Muestreo antes del
+inicio del riego, y finalizado el periodo de riego.
+Además, se contempla un registro del aporte de DBO por hectárea finalizado el
+periodo de riego, a partir del registro ETFA de calidad del RIL.
+La duración de los seguimientos se mantendrá cada año que se realice el asperjado
+de riles en riego
+Indicador que acredite
+su cumplimiento
+Muestreo realizado y reportado al SSA dentro de un plazo de 120 dias de finalizado
+el asperjado de los RILES
+Forma de control y
+seguimiento
+Reporte al Sistema de Seguimiento Ambiental (SSA) para la RCA del proyecto en
+un informa técnico en formato Res 223/15 SMA
+10. Que, las medidas relevantes del Plan de Prevención de Contingencias y del Plan de Emergencias,
+son las siguientes
+10.1. Riesgo o contingencia “Plan de contingencia ante incendios
+Tabla 10.1. Riesgo o contingencia “Plan de contingencia ante incendios”
+Fase del proyecto a la que aplica Construcción y operación
+Emplazamiento, parte, obra o acción
+asociada
+Construcción de los tranques para acumulación de riles
+Acciones o medidas a implementar para
+prevenir la contingencia
+Todo el personal de la Planta será debidamente capacitado por
+especialistas en prevención de riesgos acerca de cómo actuar ante
+incendios. Los insumos e instalaciones que sean susceptibles de
+inflamarse con facilidad estarán debidamente rotulados o
+aislados. Las zonas de alto riesgo de incendio contarán con
+extintores y o mangueras.
+Forma de control y seguimiento Programas de capacitación al personal Revisión de las
+instalaciones, equipos, señalizaciones y elementos de seguridad
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Referencia a documentos del expediente
+de evaluación que contenga la descripción
+detallada
+En DIA Punto 2.2.8 y 2.3.11.
+Acciones o medida a implementar para
+controlar la emergencia
+Tratar de extinguir el amago de incendio solo si está capacitado
+en el uso de los extintores, de lo contrario pida ayuda. Si el amago
+no es controlado evacuar hacia la zona de seguridad, definida por
+la Planta. Si existen personas lesionadas ubíquelas en un lugar
+seguro, entregue los primeros auxilios y gestione traslado a centro
+asistencial No se podrá volver al lugar amagado hasta persona
+responsable de la Planta o algún organismo especializado
+determine que la emergencia ha terminado. Pasada la emergencia
+y la situación haya vuelto a la normalidad, se deben enviar a
+mantención todos los extintores ocupados en la emergencia.
+Emergencias adicionales que se presenten, tales como: Derrame
+de RESPEL, incendios, etc., aplicarán los respectivos planes de
+emergencias.
+Oportunidad y vías de comunicación a la
+SMA de la activación del Plan de
+Emergencia
+Cualquier emergencia debe ser informada de manera inmediata a
+la jefatura directa, por las personas que se encuentren más
+próximas al lugar de la contingencia, utilizando el recurso radio
+(si existe), teléfono, o en forma verbal. La información debe ser
+canalizada a través de la jefatura de la instalación, quienes
+comunicarán a la gerencia de lo acontecido en los términos ya
+señalados. La gerencia será quien determine el plan de acción
+asociado, incluyendo la generación del aviso a la autoridad
+ambiental competente en caso de ser requerido. La comunicación
+a la SMA se realizará mediante el módulo de aviso de
+contingencia del sistema de seguimiento ambiental
+(www.ssa.sma.gob.cl) y será responsabilidad del encargado de
+gestión ambiental.
+Referencia a documentos del expediente
+de evaluación que contenga la descripción
+detallada
+En la DIA punto 2.2.9 y 2.3.12.
+10.2. Riesgo o contingencia “Plan de contingencia para el manejo de Residuos industriales sólidos”
+Tabla 10.2. riesgo o contingencia Plan de contingencia para el manejo de Residuos industriales sólidos
+Fase del proyecto a la que aplica Operación
+Emplazamiento, parte, obra o acción
+asociada
+Aplica a la totalidad del proyecto y Planta en General
+Acciones o medidas a implementar para
+prevenir la contingencia
+Para los residuos no peligrosos, tales como sólidos domiciliarios
+y asimilables a sólidos domiciliarios, los cuales son básicamente
+generados por el trabajo de oficina y por el personal del proyecto
+(tanto en las instalaciones del comedor como en los baños), se
+dispondrán contenedores plásticos con tapas en las distintas
+dependencias del proyecto, recubiertas con bolsas plásticas.
+Forma de control y seguimiento Revisión permanente de estado de los contenedores utilizados
+para acopio transitorio de RISES.
+Referencia a documentos del expediente
+de evaluación que contenga la descripción
+detallada
+En DIA Punto 2.2.8 y 2.3.11.
+Acciones o medida a implementar para
+controlar la emergencia
+Cualquier emergencia debe ser informada de manera inmediata a
+la jefatura directa, por las personas que se encuentren más
+próximas al lugar de la contingencia, utilizando el recurso radio
+(si existe), teléfono, o en forma verbal. Reparación o reemplazo
+inmediato del contenedor afectado. En caso de no contar con un
+servicio disponible en la región para el retiro y disposición de los
+RISES, se programará la actividad con una empresa autorizada
+de la región más próxima a la instalación.
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Oportunidad y vías de comunicación a la
+SMA de la activación del Plan
+Cualquier emergencia debe ser informada de manera inmediata a
+la jefatura directa, por las personas que se encuentren más
+próximas al lugar de la contingencia, utilizando el recurso radio
+(si existe), teléfono, o en forma verbal. La información debe ser
+canalizada a través de la jefatura de la instalación, quienes
+comunicarán a la gerencia de lo acontecido en los términos ya
+señalados. La gerencia será quien determine el plan de acción
+asociado, incluyendo la generación del aviso a la autoridad
+ambiental competente en caso de ser requerido. La comunicación
+a la SMA se realizará mediante el módulo de aviso de
+contingencia del sistema de seguimiento ambiental
+(www.ssa.sma.gob.cl) y será responsabilidad del encargado de
+gestión ambiental.
+Referencia a documentos del expediente
+de evaluación que contenga la descripción
+detallada
+En la DIA punto 2.2.9 y 2.3.12.
+10.3. Riesgo o contingencia Plan de contingencia para el manejo de Residuos Peligrosos
+Tabla 10.3. riesgo o contingencia Plan de contingencia para el manejo de Residuos Peligrosos
+Fase del proyecto a la que aplica Operación
+Emplazamiento, parte, obra o acción
+asociada
+Planta y el sistema de tratamiento de Riles
+Acciones o medidas a implementar para
+prevenir la contingencia
+Estos residuos tendrán almacenamiento temporal en la bodega de
+residuos peligrosos del proyecto. Los residuos peligrosos serán
+almacenados dentro de contenedores cerrados y en buen estado,
+adecuados para el tipo de residuos. Los retiros de los residuos
+peligrosos serán realizados por una empresa de servicio externa
+que cuente con las autorizaciones sanitarias y ambientales
+respectivas. Utilización de elementos de protección personal
+adecuados al residuo en manipulación.
+Forma de control y seguimiento Estos residuos tendrán almacenamiento temporal en la bodega de
+residuos peligrosos del proyecto. Los retiros de los residuos
+peligrosos serán realizados por una empresa de servicio externa
+que cuente con las autorizaciones sanitarias y ambientales
+respectivas. Registros de ingresos y salidas de residuos
+peligrosos Certificados Sidrep de ventanilla única.
+Referencia a documentos del expediente
+de evaluación que contenga la descripción
+detallada
+En DIA 2.3.11
+Acciones o medida a implementar para
+controlar la emergencia
+Se deberá alejar del sitio de contingencia a todo el personal no
+relacionado con la contingencia o contención del derrame, y se
+debe eliminar toda fuente de ignición y corte los servicios de luz
+y gas del área. El derrame debe ser contenido. La jefatura deberá
+supervisar que se aplique correctamente el material absorbente
+(aserrín, arena, u otro) sobre el material derramado, verificando
+que el personal que participe en la faena use los elementos de
+protección personal. Para derrames dentro del pretil, recoger los
+residuos con paños absorbentes o mezclando con arena, de esta
+manera poder recoger, almacenar y retirar en contenedores
+cerrados.
+Ante derrame de sobre suelo permeable, cavar alrededor del
+derrame, comenzando sobre la menor cota del suelo en caso de
+pendiente y trabajando a favor del viento. Se cava hasta rodear
+completamente el derrame. Realizar limpieza del lugar de
+derrame, se procederá a recoger con pala el material afectado
+incluyendo el suelo y se dispondrá en bolsa plástica resistente
+con cierre y/o en contenedor hermético, el residuo resultante será
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+depositado en un relleno de seguridad en calidad de residuo
+peligroso.
+Oportunidad y vías de comunicación a la
+SMA de la activación del Plan
+Cualquier emergencia debe ser informada de manera inmediata
+jefe de Planta, por las personas que se encuentren más próximas
+al lugar de la contingencia, utilizando el recurso radio (si existe),
+teléfono, o en forma verbal. La información debe ser canalizada
+a través de la jefatura de la Planta, quien comunicará a la gerencia
+de lo acontecido en los términos ya señalados. La gerencia será
+quien determine el plan de acción asociado, incluyendo la
+generación del aviso a la autoridad ambiental competente en caso
+de ser requerido. La comunicación a la SMA se realizará
+mediante el módulo de aviso de contingencia del sistema de
+seguimiento ambiental (www.ssa.sma.gob.cl) y será
+responsabilidad del encargado de gestión ambiental.
+Referencia a documentos del expediente
+de evaluación que contenga la descripción
+detallada
+En la DIA punto 2.3.12.
+10.4. riesgo o contingencia Plan de contingencia ante terremotos
+Tabla 10.4. Situación de riesgo o contingencia ante terremotos
+Fase del proyecto a la que aplica Aplicable a todas las fases
+Emplazamiento, parte, obra o acción
+asociada
+Aplica a la totalidad del proyecto y Planta en General
+Acciones o medidas a implementar para
+prevenir la contingencia
+Se cuenta con zona de seguridad y vías de evacuación claramente
+señalizadas. Zona de seguridad y vías de evacuación son
+conocidas por el personal que labora en la Planta. Se cuenta con
+elementos de primeros auxilios y extintores. El personal se
+encuentra capacitado para enfrentar una situación de emergencia
+por terremoto. En una de las bodegas u oficina de administración
+se mantendrá un stock necesario de materiales y elementos para
+abordar la contingencia conforme a la ejecución del protocolo de
+acción. Dichos materiales y elementos son los siguientes: i)
+Elementos de primeros auxilios, ii) Extintores, iii) Materiales
+absorbentes. Contingencias adicionales que se presenten, tales
+como: Derrame de RESPEL, incendios, etc., aplicarán los
+respectivos planes de contingencias y emergencias. Los sistemas
+de comunicación serán los disponibles en las oficinas de
+administración de la Planta.
+Forma de control y seguimiento Programas de capacitación al personal Revisión de las
+instalaciones, equipos, señalizaciones y elementos de seguridad.
+Referencia a documentos del expediente
+de evaluación que contenga la descripción
+detallada
+En DIA Punto 2.2.8 y 2.3.11.
+Acciones o medida a implementar para
+controlar la emergencia
+Suspender todas las faenas de producción, se mantendrá la calma,
+y de ser posible, desconectar o apagar artefactos encendidos.
+Permanecer bajo vigas, pilares, muebles o lugares de seguridad
+preestablecidos. Una vez que haya pasado el movimiento,
+dirigirse a la zona de seguridad. Se trata de un lugar
+preestablecido con antelación, debidamente señalizado y
+conocido por todo el personal. Se deberá tener en consideración
+el tránsito por las vías de evacuación. Si se está en el exterior,
+alejarse de murallas altas, torres de agua, postes de alumbrado
+eléctrico, árboles altos y/o en general de objetos que pudieran
+caer desde las alturas. Se podrá volver al lugar habitado una vez
+que el movimiento telúrico haya pasado y no exista peligro de
+derrumbe que ponga en riesgo la vida y salud del personal,
+situación que deberá ser evaluada por el jefe de planta o asistente.
+En caso de ser necesario se requerirá el apoyo de bomberos y/o
+servicio de salud. El personal de turno (Jefe de Planta o asistente)
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+informará por vía telefónica o correo electrónico, en un tiempo
+no mayor a 24 horas, de la magnitud de la situación, y de las
+contingencias presentes, a la gerencia. Emergencias adicionales
+que se presenten, tales como: Derrame de RESPEL, incendios,
+etc., aplicarán los respectivos planes de emergencias.
+Oportunidad y vías de comunicación a la
+SMA de la activación del Plan
+La comunicación a la SMA se realizará mediante el módulo de
+aviso de contingencia del sistema de seguimiento ambiental
+(www.ssa.sma.gob.cl) y será responsabilidad del encargado de
+gestión ambiental.
+Referencia a documentos del expediente
+de evaluación que contenga la descripción
+detallada
+En la DIA punto 2.2.9 Planes de acción ante emergencias
+de la etapa de construcción.
+En Adenda N°1 anexo 9 Planes de prevención de
+contingencias y acción ante emergencias
+10.5. Riesgo o contingencia Filtración estanque de acopio de ril
+Tabla 10.5. Riesgo o contingencia Filtración estanque de acopio de ril
+Fase del proyecto a la que aplica Operación
+Emplazamiento, parte, obra o acción
+asociada
+Acopio de Ril previo al riego
+Acciones o medidas a implementar para
+prevenir la contingencia
+Con la finalidad de reducir el riesgo de contingencias ante la
+filtración del estanque de acopio del RIL y sus posibles efectos
+sobre el medio ambiente, se implementarán interior de la Planta
+Rafulco durante el periodo que dure la fase de operación, las
+siguientes medidas de prevención:
+1.El estanque de acopio ha sido diseñado utilizando materiales de
+gran resistencia al RIL que se va a acopiar (geotextil de 200 gr/m2
+y posterior geomembrana).
+2.Se prohíbe el acceso al estanque de acopio de personas no
+autorizadas, además el posible acceso de animales está limitado,
+de forma de evitar daños generados a la membrana del estanque
+acumulador de ril tratado.
+3.Se realizarán limpiezas anuales del estanque para evitar posible
+acumulación de sedimentos, además durante este proceso se
+podrá revisar la estanquidad del acopio y será posible reparar en
+caso de ser necesario.
+4.Se mantendrá zonas aledañas al estanque libres de piedras,
+ramas o cualquier materia que pueda caer al estanque de acopio y
+afectar la membrana que lo recubre.
+Los indicadores de cumplimiento de cada una de las acciones
+estarán dados por los registros que se puedan obtener de cada una
+de las actividades desarrolladas.
+Forma de control y seguimiento Para el seguimiento de las acciones o medidas implementadas
+para la prevención de contingencias se tendrá respaldo de:
+1.Bitácoras de mantenimiento: Se llevará un registro detallado de
+las actividades de limpieza anual del estanque de acopio de Riles.
+Esto incluye fechas, descripción de las tareas realizadas, estado
+de la geo geomembrana y cualquier problema detectado y
+solucionado que implique el estanque de acopio
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+2.Revisiones periódicas: Se efectuarán revisiones periódicas del
+plan de contingencias y su implementación.
+Además, la autoridad respectiva podrá realizar una revisión de las
+instalaciones, señalizaciones condición de limpieza en los
+sectores aledaños, etc.
+Referencia a documentos del expediente
+de evaluación que contenga la descripción
+detallada
+En Adenda N°1 anexo 9 Planes de prevención de contingencias y
+acción ante emergencias
+Acciones o medida a implementar para
+controlar la emergencia
+Con la finalidad de controlar una posible emergencia producto de
+la ocurrencia de filtración del estanque de acopio del RIL y sus
+posibles efectos sobre el medio ambiente, se implementarán
+interior de la Planta Rafulco durante el periodo que dure la fase
+de operación, las siguientes medidas de emergencia:
+1.Una vez que se haya detectado una filtración de riles al medio
+de uno de los estanques de acumulación se dejará de acumular
+riles en el estanque que se encuentre filtrando.
+2.Priorización de Riego: Se privilegiará el riego desde el estanque
+afectado.
+3.Vaciado de estanque afectado: de ser posible se vaciará ril desde
+el estanque afectado al no afectado.
+4.Reparación y restablecimiento del funcionamiento: Se pondrá
+en contacto con empresa especialista en tratamiento de geotextil
+para poder realizar la reparación a la brevedad. Se realizarán
+pruebas de calidad de las reparaciones realizadas para asegurar la
+calidad del trabajo efectuado.
+5.Se aprovechará el vaciado del estanque para identificar posibles
+puntos débiles de la membrana que puedan generar filtraciones y
+se reforzará de forma inmediata (reparación)
+6.Verificar el correcto funcionamiento: Una vez realizada las
+reparaciones se realizarán pruebas de calidad de las reparaciones
+realizadas para asegurar la calidad del trabajo efectuado.
+Los indicadores de cumplimiento de cada una de las acciones se
+podrán encontrar en el informe que se deberá desarrollar una vez
+que la emergencia sea controlada.
+Oportunidad y vías de comunicación a la
+SMA de la activación del Plan
+La gerencia será quien determine el plan de acción asociado a la
+emergencia. Este plan de acción incluirá el aviso a la autoridad
+ambiental competente (SMA) a través de su página Web. Este
+reporte de contingencia-emergencia se deberá concretar en menos
+de 24 horas de ocurrida la emergencia, y en este se debe informar
+de las acciones que se implementaran o implementaron para
+abordar la emergencia.
+Referencia a documentos del expediente
+de evaluación que contenga la descripción
+detallada
+En Adenda N°1 anexo 9 Planes de prevención de contingencias y
+acción ante emergencias
+10.6. Riesgo o contingencia Escurrimiento del RIL por lluvia intensa
+Tabla 10.6. Riesgo o contingencia Escurrimiento del ril por lluvia intensa
+Fase del proyecto a la que aplica Operación
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+Emplazamiento, parte, obra o acción
+asociada
+Riego del RIL
+Acciones o medidas a implementar para
+prevenir la contingencia
+Con la finalidad de reducir el riesgo de contingencias ante la
+percolación del RIL producto de lluvia intensa y sus posibles
+efectos sobre el medio ambiente, se implementarán interior de la
+Planta Rafulco durante el periodo que dure la fase de operación,
+las siguientes medidas de prevención:
+1.Capacitación del personal: Se capacitará al personal encargado
+de operar y mantener el sistema de riego en técnicas de
+prevención y manejo de lluvias intensas. Enseñarles a identificar
+signos de escurrimiento o percolación del ril y a tomar medidas
+preventivas adecuadas.
+2.Programación de riego: Se llevará una programación del riego
+semanal considerando el pronóstico meteorológico semanal. En
+caso de un pronóstico de lluvia, se debe adecuar el riego a fin de
+no regar en eventos de lluvia. La programación considera que el
+riego nunca superará la demanda del cultivo ni la capacidad de
+almacenamiento de agua del suelo.
+3.Establecer protocolos claros de actuación en caso de lluvias
+intensas, incluyendo la suspensión temporal del riego y la
+implementación de técnicas de drenaje o contención adicionales.
+4.Detención del riego: En evento de lluvias que superen la
+evapotranspiración de cultivo, se suspenderá el riego y el ril será
+acumulado en los tranques de acopio.
+Los indicadores de cumplimiento de cada una de las acciones
+estarán dados por los registros que se puedan obtener de cada una
+de las actividades desarrolladas.
+Forma de control y seguimiento Para el seguimiento de las acciones o medidas implementadas
+para la prevención de contingencias se tendrá respaldo de:
+1.Las medidas implementadas y evaluar su efectividad en la
+prevención de escurrimientos o percolaciones del ril durante
+lluvias intensas.
+2.Registros de capacitación al personal.
+3.Protocolo de actuación en caso de lluvias intensas.
+4.Registro de programación semanal del Riego de riles.
+Referencia a documentos del expediente
+de evaluación que contenga la descripción
+detallada
+En la DIA punto 2.3.11 Planes de prevención de contingencias de
+la etapa de operación.
+En Adenda N°1 anexo 9 Planes de prevención de contingencias y
+acción ante emergencias
+Acciones o medida a implementar para
+controlar la emergencia
+Con la finalidad de controlar una posible emergencia producto de
+la ocurrencia de escurrimiento o percolación del RIL por lluvias
+intensas y sus posibles efectos sobre el medio ambiente, se
+implementarán interior de la Planta Rafulco durante el periodo
+que dure la fase de operación, las siguientes medidas de
+emergencia:
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+1.Detener el suministro de agua: En caso de lluvias intensas
+extremas que superen la demanda de agua del cultivo habrá que
+suspender el riego.
+2.Determinar la profundidad del frente húmedo en el suelo para
+establecer si fue superado la capacidad máxima de
+almacenamiento de agua del perfil de suelo, antes de recomenzar
+el riego.
+Los indicadores de cumplimiento de cada una de las acciones se
+podrán encontrar en el informe que se deberá desarrollar una vez
+que la emergencia sea controlada.
+Oportunidad y vías de comunicación a la
+SMA de la activación del Plan
+La gerencia será quien determine el plan de acción asociado a la
+emergencia. Este plan de acción incluirá el aviso a la autoridad
+ambiental competente (SMA) a través de su página Web. Este
+reporte de contingencia-emergencia se deberá concretar en menos
+de 24 horas de ocurrida la emergencia, y en este se debe informar
+de las acciones que se implementaran o implementaron para
+abordar la emergencia.
+Referencia a documentos del expediente
+de evaluación que contenga la descripción
+detallada
+En Adenda N°1 anexo 9 Planes de prevención de contingencias y
+acción ante emergencias
+11. Que, se ha podido establecer que el Proyecto no genera o presenta los efectos, características o
+circunstancias a que se refiere el artículo 85 del Reglamento del SEIA, en base al contenido del acta
+de la reunión realizada con grupos humanos pertenecientes a pueblos indígenas localizados en el área
+en que se desarrollará el Proyecto.
+12. Que, durante el proceso de participación ciudadana, desarrollado conforme a lo dispuesto en el
+artículo 30 bis de la Ley N° 19.300, se formularon observaciones por parte de la comunidad respecto
+del Proyecto, las que han sido consideradas en el proceso de evaluación El detalle del proceso de
+participación ciudadana de la DIA del proyecto Tratamiento y riego de riles Planta Lacteos
+Rafulco, se encuentra en el Anexo 1 de la presente Resolución Exenta.
+13. Que, el Titular deberá remitir a la Superintendencia del Medio Ambiente la información respecto
+de las condiciones, compromisos o medidas, ya sea por medio de monitoreos, mediciones, reportes,
+análisis, informes de emisiones, estudios, auditorías, cumplimiento de metas o plazos, y en general
+cualquier otra información destinada al seguimiento ambiental del Proyecto, según las obligaciones
+establecidas en la presente Resolución de Calificación Ambiental y las Resoluciones Exentas que al
+respecto dicte la Superintendencia del Medio Ambiente. De igual forma, y a objeto de conformar el
+Sistema Nacional de Información de Fiscalización Ambiental (SNIFA), el Registro Público de
+Resoluciones de Calificación Ambiental y registrar los domicilios de los sujetos sometidos a su
+fiscalización en conformidad con la ley, el Titular deberá remitir en tiempo y forma toda aquella
+información que sea requerida por la Superintendencia del Medio Ambiente a través de las
+Resoluciones Exentas que al respecto ésta dicte.
+14. Que, el Titular deberá informar a la Superintendencia del Medio Ambiente la realización de la
+gestión, acto o faena mínima que da cuenta del inicio de la ejecución de obras, a que se refiere el
+Considerando 4 de la presente Resolución.
+15. Que, con el objeto de dar adecuado seguimiento a la ejecución del Proyecto, el Titular deberá
+informar a la Superintendencia del Medio Ambiente, al menos con una semana de anticipación, el
+inicio de cada una de las fases del Proyecto, de acuerdo con lo indicado en la descripción del mismo.
+16. Que, la Superintendencia del Medio Ambiente, de oficio o a petición de parte o de algún
+organismo sectorial, podrá aprobar, modificar o complementar el contenido del plan de seguimiento
+de las variables ambientales y, en general, cualquier otro mecanismo establecido en la respectiva
+resolución de calificación ambiental que tenga dicho objeto, con el fin de asegurar, en el transcurso
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+del tiempo, que el seguimiento de las variables ambientales cumpla con su objetivo de forma eficiente
+y eficaz
+17. Que, para que el proyecto “Tratamiento y riego de riles Planta Lacteos Rafulco” pueda ejecutarse,
+deberá cumplir con todas las normas vigentes que le sean aplicables.
+18. Que, el Titular deberá informar inmediatamente a la Secretaría de la Comisión de Evaluación de
+la Región de Los Lagos y a la Superintendencia del Medio Ambiente, la ocurrencia de impactos
+ambientales no previstos en la DIA, asumiendo inmediatamente las acciones necesarias para
+abordarlos.
+19. Que, el Titular del Proyecto deberá comunicar inmediatamente y por escrito a la Dirección
+Regional del SEA Servicio de Evaluación Ambiental X Región de Los Lagos la ocurrencia de
+cambios de titularidad, representante legal, domicilio y correo electrónico, de acuerdo a lo establecido
+en el inciso tercero del artículo 162 y artículo 163, ambos del Reglamento del SEIA.
+20. Que, se hace presente al Titular que cualquier modificación al Proyecto que constituya un cambio
+de consideración, en los términos definidos en el artículo 2° letra g) del Reglamento del SEIA, deberá
+someterse al SEIA.
+21. Que, todas las medidas, condiciones, exigencias y disposiciones establecidas en la presente
+Resolución son de responsabilidad del Titular, sean implementadas por éste directamente o a través
+de un tercero.
+RESUELVO:
+1°. Calificar favorablemente la Declaración de Impacto Ambiental del proyecto “Tratamiento y riego
+de riles Planta Lacteos Rafulco”, de Comercial Paillahue Ltda.
+2°. Certificar que el proyecto “Tratamiento y riego de riles Planta Lacteos Rafulco” cumple con la
+normativa de carácter ambiental aplicable.
+3°. Certificar que el proyecto “Tratamiento y riego de riles Planta Lacteos Rafulco” cumple con los
+requisitos de carácter ambiental contenidos en los permisos ambientales sectoriales que se señalan en
+los artículos 138, 139, 140, 142 y 160 del D.S. Nº 40/2012 del Ministerio del Medio Ambiente,
+Reglamento del Sistema de Evaluación de Impacto Ambiental.
+4°. Certificar que el proyecto “Tratamiento y riego de riles Planta Lacteos Rafulco” no genera los
+efectos, características o circunstancias del artículo 11 de la Ley N° 19.300, que dan origen a la
+necesidad de elaborar un Estudio de Impacto Ambiental.
+5°. Definir como gestión, acto o faena mínima del Proyecto, para dar cuenta del inicio de su ejecución
+de modo sistemático y permanente, a los mencionados en el considerando 4 del presente acto.
+6°. Hacer presente que contra esta Resolución es procedente el recurso de reclamación de acuerdo a
+lo dispuesto en el artículo 30 bis de la Ley Nº 19.300, ante la Directora Ejecutiva del Servicio de
+Evaluación Ambiental. El plazo para interponer este recurso es de treinta días contados desde la
+notificación del presente acto.
+Notifíquese y Archívese
+<FIRMA_INTEN>
+Giovanna Moreira Almonacid
+Delegado Presidencial
+Presidente Comisión de Evaluación
+Región de Los Lagos
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+https://validador.sea.gob.cl/validar/2163282025
+
+<FIRMA_DIREC>
+Sergio Ernesto Sanhueza Triviño
+Director Regional Servicio de Evaluación Ambiental
+Secretario Comisión de Evaluación
+Región de Los Lagos
+JHS/MSA/MAAM
+Distribución:
+Para validar las firmas de este documento usted debe ingresar a la siguiente url
+Rodrigo Luis Adolfo Teuber <rodrigo.teuber@lacteosrafulco.cl,aer@isbchile.com,aellwanger@gmail.com>
+Superintendencia del Medio Ambiente <contactorca@sma.gob.cl>
+SERNAGEOMIN, Zona Sur <hugo.zamorano@sernageomin.cl>
+CONADI, Región de Los Lagos <murbano@conadi.gob.cl>
+CONAF, Región de Los Lagos <marco.inarejo@conaf.cl>
+DGA, Región de Los Lagos <fabiola.pizarro@mop.gov.cl>
+DOH, Región de Los Lagos <rodrigo.valenzuela@mop.gov.cl>
+Gobierno Regional, Región de Los Lagos <gobernador@goreloslagos.cl>
+Ilustre Municipalidad de Río Negro <sebastian.cruzat@hotmail.com>
+SAG, Región de Los Lagos <cristian.andrade@sag.gob.cl>
+SEREMI de Agricultura, Región de Los Lagos <tania.salas@minagri.gob.cl>
+SEREMI de Desarrollo Social y Familia, Región de Los Lagos <ejaramillo@desarrollosocial.cl>
+SEREMI de Salud, Región de Los Lagos <sofia.torres@redsalud.gov.cl, carlos.herrera@redsalud.gov.cl>
+SEREMI de Transportes y Telecomunicaciones, Región de Los Lagos <pjoost@mtt.gob.cl>
+SEREMI de Vivienda y Urbanismo, Región de Los Lagos <fnail@minvu.cl>
+SEREMI Medio Ambiente, Región de Los Lagos <adelafuente@mma.gob.cl>
+SEREMI MOP, Región de Los Lagos <fernando.alvarado@mop.gov.cl>
+Servicio Evaluación Ambiental, X Región de Los Lagos <ssanhueza.11@sea.gob.cl>
+Servicio Nacional Turismo, Región de Los Lagos <lhurtado@sernatur.cl>
+Consejo de Monumentos Nacionales <ssdg@monumentos.gob.cl>
+Subsecretaría de Pesca y Acuicultura <eanderson@subpesca.cl,cristianac@subpesca.cl,
+rgarciam@subpesca.cl,rhager@subpesca.cl>
+CC:
+Encargado/a de PAC <Carmen.Larraguibel@sea.gob.cl>
+https://validador.sea.gob.cl/validar/2163282025
+
