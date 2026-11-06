@@ -1,0 +1,27 @@
+# RCA públicas del SEIA para medir la lectura de compromisos. Formato: nombre url
+tepual https://firma.sea.gob.cl/publicaciones/2026/08/21/1788180200_2169372799
+comfrut-agroindustria https://seia.sea.gob.cl/archivos/2024/10/28/RCA_Comfrut.PDF
+lapostolle-riles https://seia.sea.gob.cl/archivos/2024/05/02/dd2_1714677859_2162025484_CLOS_DE_APALTA.pdf
+quillem-aridos https://seia.sea.gob.cl/archivos/2025/07/25/RCA_Ampliacion_Pozo_Extraccion_de_Aridos_Cantera_Quillen.pdf
+larotunda-plantel https://firma.sea.gob.cl/publicaciones/2026/09/22/1790075154_2169524808
+elpeumo-avicola https://firma.sea.gob.cl/publicaciones/b7/85/2155510443
+casadonoso-riles https://seia.sea.gob.cl/archivos/2023/02/16/c77_RCA_Vina_Casa_Donoso.PDF
+georogu-aridos https://seia.sea.gob.cl/archivos/2026/07/10/RCA_Aridos_Georogu.pdf
+cariola-compostaje https://firma.sea.gob.cl/publicaciones/2024/06/18/1718740968_2162383318
+liray-aves https://firma.sea.gob.cl/publicaciones/2024/12/18/1734550864_2163960444
+indugras-riles https://seia.sea.gob.cl/archivos/2025/11/14/RCA_202508001114_PLANTA_DE_TRATAMIENTO_DE_RILES_INDUGRAS_unida.pdf
+losboldos-riles https://firma.sea.gob.cl/publicaciones/fa/8a/2156927730
+sanvicente-aridos https://seia.sea.gob.cl/archivos/2022/04/29/RCA_Aridos_San_Vicente.pdf
+polambiente-neumaticos https://firma.sea.gob.cl/publicaciones/2026/06/02/1780441181_2168648271
+rafulco-lacteos https://seia.sea.gob.cl/archivos/2024/10/01/RCA_N_20241001187__Lacteos_Rafulco__FIRMADA.pdf
+loscastanos-plantel https://seia.sea.gob.cl/archivos/2023/09/21/f11_SEIA_RCA_Los_Castanos_firmada.PDF
+villarrica-relleno-eia https://seia.sea.gob.cl/archivos/2026/02/04/c45_RCA_Nivelacion_y_Cierre_Relleno_Sanitario_de_Villarrica.pdf
+alerces-inmobiliario-eia https://firma.sea.gob.cl/publicaciones/2026/10/08/1791495822_2169804776
+chascon-solar-eia https://firma.sea.gob.cl/publicaciones/2026/06/30/1782829602_2168905540
+tovaku-minero-eia https://seia.sea.gob.cl/archivos/2026/11/05/RCA_PROYECTO_MINERO_TOVAKU.pdf
+guerrico-aridos-2019 https://firma.sea.gob.cl/publicaciones/09/cf/2146153249.pdf
+estampa-riles-2019 https://firma.sea.gob.cl/publicaciones/eb/39/2145128410.pdf
+tablada-bodega-2018 https://firma.sea.gob.cl/publicaciones/d6/19/2143717915.pdf
+rrwine-2018 https://firma.sea.gob.cl/publicaciones/df/66/2143896734.pdf
+huequecura-aridos-2017 https://firma.sea.gob.cl/publicaciones/79/ec/2142595684.pdf
+lasaguilas-vinificacion-2020 https://firma.sea.gob.cl/publicaciones/92/f1/2146805518.pdf
