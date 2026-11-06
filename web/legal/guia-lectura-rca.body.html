@@ -1,0 +1,68 @@
+<h1>Cómo leer una RCA y armar su matriz de compromisos</h1>
+<p class="updated">Método estándar de Vigía · versión 1, noviembre de 2026</p>
+<div class="card">
+<p>Este es el mismo criterio que usa la lectura automática de Vigía. Si dos personas lo siguen con la misma RCA, deben llegar a la misma matriz. La <a href="/plantilla-compromisos-vigia.xlsx" download>planilla modelo</a> trae las columnas y las listas de valores; al terminar se carga en Vigía con <em>Importar RCA → Cárgala aquí</em>.</p>
+
+<h2>1. Junta los documentos correctos</h2>
+<ul>
+<li>La RCA vigente, en su versión <strong>firmada digitalmente</strong> desde el expediente del SEIA (firma.sea.gob.cl). Las versiones escaneadas no tienen texto que se pueda copiar ni buscar.</li>
+<li>Todo lo que la modifica: pertinencias, revisiones de RCA y, si existe, el Programa de Cumplimiento aprobado por la SMA. Cada uno se carga como documento del mismo proyecto.</li>
+</ul>
+
+<h2>2. Ubica las secciones que obligan</h2>
+<p>Las obligaciones están en los considerandos finales, antes del <strong>RESUELVO</strong>. El número del considerando cambia según el año y el tipo de evaluación:</p>
+<table>
+<tr><th>Qué buscar</th><th>DIA reciente</th><th>DIA 2017–2022</th><th>EIA</th></tr>
+<tr><td>Forma de cumplimiento de cada norma (tablas con "Forma de control y seguimiento")</td><td>7</td><td>7 u 8</td><td>10</td></tr>
+<tr><td>Condiciones o exigencias</td><td>8</td><td>8</td><td>11</td></tr>
+<tr><td>Compromisos ambientales voluntarios</td><td>9</td><td>9 (a veces sin número)</td><td>12</td></tr>
+<tr><td>Medidas de mitigación, reparación y compensación</td><td>—</td><td>—</td><td>7 (a menudo agrupadas por fase)</td></tr>
+<tr><td>Plan de seguimiento de variables ambientales</td><td>—</td><td>—</td><td>8</td></tr>
+</table>
+<p><strong>No se levantan:</strong> la descripción del proyecto, la participación ciudadana, los permisos ambientales sectoriales, el plan de contingencias y emergencias, ni los anexos después del RESUELVO.</p>
+
+<h2>3. Decide si una frase es una obligación</h2>
+<p>Es obligación cuando dice que alguien <em>debe</em> hacer algo verificable: "deberá", "se realizará", "se remitirá", "se mantendrá", "se instalará", "se prohíbe". La justificación ("con el objeto de…", "para verificar…") explica por qué y no se levanta.</p>
+<p>En las tablas de normas solo se levanta lo que tiene <strong>frecuencia o plazo escrito</strong> y algo concreto que hacer (monitoreo semestral, declaración anual en el RETC, registro mensual de residuos, aviso en 24 horas). "El proyecto cumplirá la norma" no genera una fila.</p>
+
+<h2>4. Una fila por cada frecuencia</h2>
+<p>Un mismo compromiso puede tener varias fechas. Ejemplo: "monitoreo arqueológico permanente, con informes mensuales al CMN y un informe final" son <strong>tres filas</strong>: permanente, mensual y una vez. Las tres llevan el mismo numeral y la misma cita.</p>
+
+<h2>5. Traduce la frase a una frecuencia</h2>
+<table>
+<tr><th>La RCA dice</th><th>Frecuencia en la matriz</th></tr>
+<tr><td>mensual, cada mes, N días hábiles de terminado el mes</td><td>Mensual (con día de vencimiento)</td></tr>
+<tr><td>bimestral, cada 2 meses, periodicidad de 2 meses</td><td>Bimestral</td></tr>
+<tr><td>trimestral</td><td>Trimestral</td></tr>
+<tr><td>semestral; dos meses nombrados al año ("marzo y noviembre")</td><td>Semestral (mes = primero del ciclo)</td></tr>
+<tr><td>anual, cada año, una campaña anual, cada temporada estival</td><td>Anual (con mes si lo dice)</td></tr>
+<tr><td>tres o más meses nombrados ("diciembre a marzo")</td><td>Mensual</td></tr>
+<tr><td>semanal</td><td>Semanal</td></tr>
+<tr><td>diario, permanente, en todo momento, N veces al día</td><td>Permanente</td></tr>
+<tr><td>cada vez que, en caso de, ante un hallazgo, previo a cada frente</td><td>Cada vez que ocurra (con plazo en horas)</td></tr>
+<tr><td>una vez, informe final, previo al inicio de obras, una vez obtenida la RCA</td><td>Una vez (con fecha)</td></tr>
+</table>
+<p>Cuidado con "una vez recibido el reclamo" o "una vez que se implemente": significan "después de", no "una sola vez".</p>
+
+<h2>6. A quién y con qué se prueba</h2>
+<ul>
+<li><strong>Destinatario</strong>: SMA, SEA, CMN, SEREMI de Salud o DOH, el primero que nombra la frase del informe. Si solo hay que guardar un registro, es "Interno".</li>
+<li><strong>Evidencia</strong>: lo que dice el campo "Indicador que acredite su cumplimiento". Si no lo dice: informe y comprobante de envío (si va a una autoridad) o registro fechado con fotos.</li>
+<li><strong>Cita textual</strong>: copia el párrafo exacto. Es lo que se muestra al fiscalizador y lo que permite revisar después.</li>
+</ul>
+
+<h2>7. Agrega los avisos que trae toda RCA</h2>
+<ul>
+<li>Informar a la SMA el inicio de cada fase (construcción, operación, cierre).</li>
+<li>Informar la gestión, acto o faena mínima que da inicio al proyecto.</li>
+<li>Avisar impactos no previstos y cambios de titularidad.</li>
+</ul>
+<p>Vigía los agrega solo cuando lee la RCA; si levantas la matriz a mano, inclúyelos como "Aviso a la autoridad".</p>
+
+<h2>8. Control de calidad</h2>
+<ul>
+<li>Otra persona revisa la matriz contra la RCA y marca "Revisado: Sí" en cada fila confirmada.</li>
+<li>Al cargar la planilla, Vigía avisa fila por fila lo que no entiende (una frecuencia escrita distinto, una fecha mal puesta) y no inventa datos.</li>
+<li>Cuando la lectura automática y la matriz manual no coinciden, manda la RCA: corrige en la revisión y Vigía aprende de esa corrección.</li>
+</ul>
+</div>

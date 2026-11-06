@@ -1,0 +1,16 @@
+{ "doc": "tepual", "tipo": "DIA 2026 (plantilla actual), revisada a mano con Diego",
+  "items": [
+  { "num": ["8.1", "9.6"], "kind": "continuous", "que": "Monitoreo paleontológico permanente" },
+  { "num": ["8.1", "9.6"], "kind": "monthly", "que": "Informe mensual de monitoreo paleontológico al CMN y SMA" },
+  { "num": ["8.1", "9.5"], "kind": "event", "que": "Charlas de inducción paleontológica" },
+  { "num": ["9.1"], "kind": "event", "que": "Charlas arqueológicas antes de cada obra" },
+  { "num": ["9.2"], "kind": "once", "que": "Informe de inspección visual arqueológica post RCA" },
+  { "num": ["9.2", "9.3"], "kind": "event", "que": "Hallazgo arqueológico" },
+  { "num": ["9.3"], "kind": "continuous", "que": "Monitoreo arqueológico permanente" },
+  { "num": ["9.3"], "kind": "monthly", "que": "Informe mensual de monitoreo arqueológico" },
+  { "num": ["9.3"], "kind": "once", "que": "Informe final de monitoreo arqueológico" },
+  { "num": ["9.4"], "kind": "continuous", "que": "Plan comunicacional" },
+  { "num": ["9.5"], "kind": "monthly", "que": "Informe mensual de charlas paleontológicas" },
+  { "num": ["9.7"], "kind": "continuous", "que": "Plan de control de emisiones" },
+  { "num": ["9.8"], "kind": "continuous", "que": "Plan de humectación" }
+]}

@@ -17,6 +17,7 @@ if (!flags.includes('vercel')) foot = foot.split('\n').filter((l) => !l.includes
 const pages = {
   privacidad: ['Política de privacidad', 'Qué datos trata Vigía, para qué y cómo ejercer tus derechos.', '/privacidad'],
   terminos: ['Términos de uso', 'Las condiciones para usar Vigía.', '/terminos'],
+  'guia-lectura-rca': ['Cómo leer una RCA', 'Método estándar para levantar la matriz de compromisos de una RCA del SEIA.', '/guia-lectura-rca'],
   404: ['Página no encontrada', 'Esta página no existe.', '/404'],
 };
 for (const [name, [title, desc, path]] of Object.entries(pages)) {
@@ -25,6 +26,6 @@ for (const [name, [title, desc, path]] of Object.entries(pages)) {
   writeFileSync(join(out, `${name}.html`), h + read(`${name}.body.html`) + foot);
 }
 writeFileSync(join(out, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: ${site}/sitemap.xml\n`);
-const urls = ['/', '/privacidad', '/terminos'];
+const urls = ['/', '/privacidad', '/terminos', '/guia-lectura-rca'];
 writeFileSync(join(out, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${site}${u}</loc><lastmod>2026-11-03</lastmod></url>`).join('\n')}\n</urlset>\n`);
 console.log(`Páginas públicas listas en ${out} para ${site}`);

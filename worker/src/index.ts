@@ -5,6 +5,7 @@ import type { Obligation, Project } from '../../shared/types';
 import { ventanillaObligations, type VentanillaAnswers } from '../../shared/ventanilla';
 import type { Env, SessionUser } from './env';
 import { extractFromPdf, fetchRca } from './extract';
+import type { FeedbackItem } from '../../shared/learning';
 import { buildIcs } from './ics';
 import { digestMail, inviteMail, passwordMail, sendMail, welcomeMail } from './mail';
 import { DEFAULT_NOTIFY, planNotifications, pushToUser, runDailyAlerts, type NotifySettings } from './notify';
@@ -269,9 +270,19 @@ app.post('/api/import/extract-file', async (c) => {
 });
 
 app.post('/api/import/save', async (c) => {
-  const { draft, keep, documentId } = await c.req.json<{ draft: { project: Project; obligations: Obligation[] }; keep: string[]; documentId?: string }>();
+  const { draft, keep, documentId, feedback } = await c.req.json<{ draft: { project: Project; obligations: Obligation[] }; keep: string[]; documentId?: string; feedback?: FeedbackItem[] }>();
   const orgId = c.get('user').orgId;
+  draft.obligations = draft.obligations.map(({ learned: _l, ...o }) => o);
   const r = await saveDraft(c.env, orgId, draft, keep, true);
+  // Lo que la persona corrigió en la revisión enseña a la próxima lectura (ver shared/learning.ts).
+  if (Array.isArray(feedback) && feedback.length) {
+    const ok = (x: FeedbackItem) => ['kept', 'removed', 'edited', 'added'].includes(x.action) && typeof x.quoteKey === 'string' && x.quoteKey.length >= 20;
+    const rows = feedback.filter(ok).slice(0, 300).map((x) => c.env.DB.prepare(
+      'INSERT INTO reading_feedback (id, org_id, project_id, action, quote_key, quote, section, before_json, after_json) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    ).bind(randomId(12), orgId, r.projectId, x.action, x.quoteKey.slice(0, 160), String(x.quote ?? '').slice(0, 400), x.section ? String(x.section).slice(0, 120) : null,
+      x.before ? JSON.stringify(x.before) : null, x.after ? JSON.stringify(x.after) : null));
+    for (let i = 0; i < rows.length; i += 50) await c.env.DB.batch(rows.slice(i, i + 50)).catch((e) => console.log('[aprendizaje]', String(e)));
+  }
   if (documentId) await c.env.DB.prepare(`UPDATE documents SET read_at = datetime('now') WHERE id = ? AND org_id = ?`).bind(documentId, orgId).run();
   return c.json({ ok: true, ...r });
 });
@@ -295,6 +306,15 @@ async function saveDraft(env: Env, orgId: string, draft: { project: Project; obl
   await env.DB.batch([...(mine ? [] : [putProject(env, orgId, project)]), ...obs.map((o) => putObligation(env, orgId, o))]);
   return { projectId, count: obs.length };
 }
+
+// Correcciones acumuladas, para sumar casos al set de referencia (tests/eval/gold). Solo con el token del operador.
+app.get('/api/extractor/feedback', async (c) => {
+  if (!c.env.EXTRACTOR_TOKEN || c.req.header('authorization') !== `Bearer ${c.env.EXTRACTOR_TOKEN}`) return c.json({ error: 'Token inválido.' }, 401);
+  const { results } = await c.env.DB.prepare(
+    `SELECT action, quote_key, quote, section, before_json, after_json, created_at FROM reading_feedback WHERE action != 'kept' ORDER BY created_at DESC LIMIT 1000`,
+  ).all();
+  return c.json(results);
+});
 
 // El extractor local (tu servidor con Ollama) sube RCA ya leídas con un token propio.
 app.post('/api/extractor/upload', async (c) => {
@@ -398,7 +418,7 @@ app.delete('/api/org', async (c) => {
   const users = `(SELECT id FROM users WHERE org_id = ?)`;
   await c.env.DB.batch([
     c.env.DB.prepare(`DELETE FROM document_chunks WHERE document_id IN (SELECT id FROM documents WHERE org_id = ?)`).bind(orgId),
-    ...['documents', 'evidence', 'events', 'completions', 'obligations', 'projects'].map((t) => c.env.DB.prepare(`DELETE FROM ${t} WHERE org_id = ?`).bind(orgId)),
+    ...['reading_feedback', 'documents', 'evidence', 'events', 'completions', 'obligations', 'projects'].map((t) => c.env.DB.prepare(`DELETE FROM ${t} WHERE org_id = ?`).bind(orgId)),
     ...['sessions', 'push_subs', 'settings', 'credentials'].map((t) => c.env.DB.prepare(`DELETE FROM ${t} WHERE user_id IN ${users}`).bind(orgId)),
     c.env.DB.prepare('DELETE FROM users WHERE org_id = ?').bind(orgId),
     c.env.DB.prepare('DELETE FROM orgs WHERE id = ?').bind(orgId),

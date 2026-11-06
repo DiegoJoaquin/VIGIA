@@ -6,6 +6,8 @@ import { ReviewDraft } from './Review';
 import { NotFound } from './NotFound';
 import { onTimeRate } from '../../../shared/recurrence';
 import { VENTANILLA_QUESTIONS, type VentanillaAnswers } from '../../../shared/ventanilla';
+import { downloadText } from '../data/sheet';
+import { toCsv } from '../../../shared/standard';
 import { MiniRing, ObligationRow, OccurrenceRow, Ring, Segmented } from '../components';
 import { fileSize, longDate, relative, shortDate } from '../format';
 import { IconAlert, IconBack, IconBolt, IconChevron, IconClose, IconDoc, IconLink, IconPin, IconPlus, IconSpark, IconUpload } from '../icons';
@@ -134,8 +136,14 @@ function Commitments({ project, obs }: { project: Project; obs: Obligation[] }) 
   const vu = obs.filter((o) => o.source === 'ventanilla' && o.frequency.kind !== 'event');
   const groups = ORDER.map((c) => ({ c, list: dated.filter((o) => o.component === c) })).filter((g) => g.list.length);
 
+  // Exporta la matriz en la ficha estándar: la misma que se carga a mano o se entrega a la consultora.
+  const exportSheet = () => downloadText(`compromisos-${project.shortName.replace(/[^\w-]+/g, '-').toLowerCase()}.csv`, toCsv(project, obs.filter((o) => o.source === 'rca')));
+
   return (
     <>
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <button className="btn small secondary" onClick={exportSheet}>Descargar matriz (Excel)</button>
+      </div>
       {groups.map(({ c, list }) => (
         <section className="section" key={c}>
           <div className="section-head"><h2>{c}</h2><span className="count">{list.length}</span></div>
@@ -303,7 +311,7 @@ function Documents({ project, onAdded }: { project: Project; onAdded: () => void
           {reading.error ? <p className="form-error" role="alert">{reading.error}</p> : <ReadingSteps step={step} steps={READ_STEPS} elapsed={elapsed} />}
           {reading.draft && done && (
             <ReviewDraft draft={reading.draft} heading="Compromisos propuestos" sub={`${reading.draft.obligations.length}`}
-              onSave={async (keep) => { await s.saveImport(reading.draft!, keep, reading.doc.id); setReading(undefined); stop(); onAdded(); }} />
+              onSave={async (keep, final, feedback) => { await s.saveImport({ ...reading.draft!, obligations: final }, keep, reading.doc.id, feedback); setReading(undefined); stop(); onAdded(); }} />
           )}
         </section>
       )}

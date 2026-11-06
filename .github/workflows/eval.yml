@@ -1,0 +1,23 @@
+# Mide la lectura de RCA contra las RCA revisadas a mano (tests/eval/gold) cada vez que cambia el lector.
+# Si la cobertura o la precisión bajan del mínimo, el check queda en rojo antes de que llegue a producción.
+name: Calidad de lectura
+on:
+  push:
+    paths: ['shared/rules.ts', 'shared/extraction.ts', 'tests/eval/**']
+  workflow_dispatch:
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: corpus-rca
+          path: corpus
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci --ignore-scripts
+      - run: npm run eval
+        env:
+          CORPUS_DIR: corpus

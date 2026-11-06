@@ -3,6 +3,9 @@ import type { ImportDraft } from '../data/source';
 import { IconBack, IconCheck, IconDoc, IconLink } from '../icons';
 import { useStore } from '../store';
 import { ReviewDraft } from './Review';
+import { fromSheet, type SheetIssue } from '../../../shared/standard';
+import type { Project } from '../../../shared/types';
+import { readSheetFile } from '../data/sheet';
 
 const STEPS = ['Descargando la RCA desde el SEA', 'Leyendo considerandos y plan de seguimiento', 'Detectando compromisos y frecuencias', 'Calculando fechas de vencimiento'];
 
@@ -60,6 +63,7 @@ export function Import() {
   const [draft, setDraft] = useState<ImportDraft>();
   const [file, setFile] = useState<File>();
   const [error, setError] = useState<{ field?: 'url' | 'file'; text: string }>();
+  const [issues, setIssues] = useState<SheetIssue[]>([]);
   const urlRef = useRef<HTMLInputElement>(null);
 
   const run = async (source: string | File) => {
@@ -90,6 +94,26 @@ export function Import() {
     run(f);
   };
 
+  // Vía manual: una planilla con la ficha estándar (levantada a mano o por la consultora).
+  const pickSheet = async (f?: File) => {
+    if (!f) return;
+    setError(undefined); setDraft(undefined); setIssues([]); setFile(undefined);
+    try {
+      const id = `plan-${Math.random().toString(36).slice(2, 8)}`;
+      const r = fromSheet(await readSheetFile(f), id);
+      setIssues(r.issues);
+      if (!r.obligations.length) { setError({ field: 'file', text: r.issues[0]?.message ?? 'La planilla no tiene obligaciones.' }); return; }
+      const name = r.project.name || f.name.replace(/\.(xlsx|csv)$/i, '');
+      const project: Project = {
+        id, name, shortName: name.length > 34 ? `${name.slice(0, 32)}…` : name, titular: r.project.titular || 'Titular por confirmar',
+        rubro: 'Otro', comuna: r.project.comuna || 'Por confirmar', region: '', instrument: 'DIA', rcaLabel: r.project.rcaLabel || 'RCA cargada desde planilla',
+        sourceUrl: '', phase: 'Operación', trackingStart: new Date().toISOString().slice(0, 8) + '01',
+      };
+      setDraft({ project, obligations: r.obligations });
+      start(); finish();
+    } catch (e) { setError({ field: 'file', text: (e as Error).message }); }
+  };
+
   const ready = draft && done;
   const already = draft && s.snap!.projects.some((p) => p.id === draft.project.id);
 
@@ -116,17 +140,35 @@ export function Import() {
           </label>
         </div>
         {error?.field === 'file' && <p className="form-error" role="alert">{error.text}</p>}
+        <p className="faint" style={{ fontSize: 'var(--t-meta)', marginTop: 4 }}>
+          ¿Ya tienes la matriz de compromisos en Excel?{' '}
+          <label htmlFor="rca-sheet" className="link-btn" style={{ cursor: 'pointer', display: 'inline' }}>Cárgala aquí</label>
+          <input id="rca-sheet" type="file" accept=".xlsx,.csv,text/csv" className="sr" onChange={(e) => { pickSheet(e.target.files?.[0]); e.target.value = ''; }} />
+          {' '}· <a href="/plantilla-compromisos-vigia.xlsx" download>Descargar planilla modelo</a>
+          {' '}· <a href="/guia-lectura-rca" target="_blank" rel="noopener">Cómo leer una RCA</a>
+        </p>
       </form>
 
-      {step >= 0 && <ReadingSteps step={step} elapsed={elapsed} />}
+      {issues.length > 0 && (
+        <div className="group" role="status" style={{ padding: '12px 16px' }}>
+          <p style={{ fontWeight: 600, marginBottom: 6 }}>Revisa la planilla ({issues.length} {issues.length === 1 ? 'aviso' : 'avisos'})</p>
+          <ul className="muted" style={{ fontSize: 'var(--t-meta)', paddingLeft: 18, display: 'grid', gap: 4 }}>
+            {issues.slice(0, 12).map((i, k) => <li key={k}>Fila {i.row}{i.column ? `, ${i.column}` : ''}: {i.message}</li>)}
+          </ul>
+        </div>
+      )}
+
+      {step >= 0 && !(ready && draft?.project.id.startsWith('plan-')) && <ReadingSteps step={step} elapsed={elapsed} />}
 
       {ready && draft && (
         <>
           <p className="muted" style={{ paddingInline: 4 }}><strong>{draft.project.shortName}</strong> · {draft.project.name} · {draft.project.titular}, {draft.project.comuna}</p>
           <ReviewDraft draft={draft} heading="Compromisos encontrados" sub={`${draft.obligations.length}`}
             disabledText={already ? 'Este proyecto ya está agregado' : undefined}
-            onSave={async (keep) => {
-              const projectId = await s.saveImport(draft, keep);
+            onSave={async (keep, final, feedback) => {
+              // Una planilla ya es una revisión humana: no se usa como corrección de la lectura automática.
+              const fromPlan = draft.project.id.startsWith('plan-');
+              const projectId = await s.saveImport({ ...draft, obligations: final }, keep, undefined, fromPlan ? undefined : feedback);
               // El PDF subido queda guardado en los documentos del proyecto.
               if (file) await s.uploadDocument(projectId, 'rca', file).catch(() => undefined);
               s.go({ name: 'proyecto', id: projectId });

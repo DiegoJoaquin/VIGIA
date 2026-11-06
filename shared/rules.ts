@@ -26,19 +26,19 @@ const SECTION_END = /\n\s*1[0-9]\s*[°º]?\.\s*Que,?\s+(Que,?\s+)?(de\s+acuerdo\
 // palabra se escribe (?![a-záéíóúñ\d]).
 const DUTY = /\bdeber[aá]n?(?![a-záéíóúñ\d])|\bdebe(n|r[aá])?(?![a-záéíóúñ\d])|\bse\s+(realizar[aá]n?|implementar[aá]n?|instalar[aá]n?|mantendr[aá]n?|efectuar[aá]n?|ejecutar[aá]n?|dispondr[aá]n?|proceder[aá]|llevar[aá]n?|aplicar[aá]n?|contar[aá])(?![a-záéíóúñ\d])|\bser[aá]n?\s+(realizad|remitid|dictad|entregad|informad|instalad)|\bsolicita\s+que(?![a-záéíóúñ\d])|\bse\s+humectar[aá]n?(?![a-záéíóúñ\d])|\bcontar[aá]\s+con(?![a-záéíóúñ\d])|\bse\s+exigir[aá](?![a-záéíóúñ\d])|\bse\s+prohib|\bel\s+titular\s+(realizar|efectuar|implementar|instalar|remitir|entregar|mantendr|ejecutar)[aá]n?(?![a-záéíóúñ\d])/i;
 const TO_AUTHORITY = /\b(a|al|ante)\s+(la\s+)?(SMA|Superintendencia|CMN|Consejo\s+de\s+Monumentos|SEREMI)/;
-const MONITOR = /monitoreo|medici[oó]n|muestreo|registro|informe|reporte|declaraci[oó]n|declarar|frecuencia|inspecci[oó]n|campa[nñ]a|charla|capacitaci[oó]n|an[aá]lisis|caracterizaci[oó]n|auditor[ií]a/i;
+const MONITOR = /monitoreo|medici[oó]n|muestreo|registro|informe|reporte|declaraci[oó]n|declarar|frecuencia|inspecci[oó]n|campa[nñ]a|charla|capacitaci[oó]n|an[aá]lisis|caracterizaci[oó]n|auditor[ií]a|autorizaci[oó]n|permiso|tramit|humectaci[oó]n|aviso|avis(ar|o)|inform(en|ar)/i;
 const REPORT = /\bremiti(r|do|da|dos|das|rse|r[aá]n?)(?![a-záéíóúñ\d])|\binforme(s)?(?![a-záéíóúñ\d])|\breporte(s)?(?![a-záéíóúñ\d])|\binformar(se|[aá]n?)?(?![a-záéíóúñ\d])|\benviar(se|[aá]n?)?(?![a-záéíóúñ\d])|\bentregar(se|[aá]n?)?(?![a-záéíóúñ\d])/i;
 
 const FREQ: { kind: FrequencyKind; re: RegExp; adj: string }[] = [
   { kind: 'monthly', re: /mensual|cada\s+mes(?![a-záéíóúñ\d])|una\s+vez\s+al\s+mes|d[ií]as\s+h[aá]biles\s+(luego|despu[eé]s)\s+de\s+terminado\s+el\s+mes/i, adj: 'mensual' },
-  { kind: 'bimonthly', re: /bimestral|cada\s+dos\s+meses/i, adj: 'bimestral' },
+  { kind: 'bimonthly', re: /bimestral|bimensual|cada\s+(dos|2)\s+meses|periodicidad\s+de\s+(dos|2)\s+meses/i, adj: 'bimestral' },
   { kind: 'quarterly', re: /trimestral|cada\s+tres\s+meses/i, adj: 'trimestral' },
   { kind: 'semiannual', re: /semestral|cada\s+seis\s+meses/i, adj: 'semestral' },
-  { kind: 'annual', re: /\banual(mente)?(?![a-záéíóúñ\d])|cada\s+a[nñ]o(?![a-záéíóúñ\d])|una\s+vez\s+al\s+a[nñ]o/i, adj: 'anual' },
+  { kind: 'annual', re: /\banual(mente)?(?![a-záéíóúñ\d])|cada\s+a[nñ]o(?![a-záéíóúñ\d])|una\s+vez\s+al\s+a[nñ]o|cada\s+uno\s+de\s+los\s+\d+\s+a[nñ]os|(la|cada)\s+(temporada|[eé]poca)\s+estival/i, adj: 'anual' },
   { kind: 'weekly', re: /semanal(mente)?|cada\s+semana/i, adj: 'semanal' },
-  { kind: 'event', re: /cada\s+vez\s+que|en\s+caso\s+de|previo\s+al\s+inicio\s+de\s+cada|se\s+incorpore\s+personal|ante\s+(la|el|un|una)\s+(ocurrencia|hallazgo|reclamo)|frente\s+a\s+(un|una)\s+hallazgo/i, adj: 'cada vez' },
-  { kind: 'continuous', re: /permanente(mente)?|\(diario\)|diariamente|\bdiari[oa]s?(?![a-záéíóúñ\d])|todos\s+los\s+d[ií]as|en\s+todo\s+momento|durante\s+toda\s+la\s+(fase|etapa)|una\s+vez\s+al\s+d[ií]a|\bkm\/h(?![a-záéíóúñ\d])|en\s+buen\s+estado/i, adj: 'permanente' },
-  { kind: 'once', re: /una\s+(sola\s+)?vez(?!\s+al\s+(mes|a[nñ]o|d[ií]a|semestre|trimestre|semana))|al\s+(t[eé]rmino|finalizar|final\s+de)|informe\s+final|previo\s+al\s+inicio\s+de\s+(las\s+)?obras|antes\s+del\s+inicio|posterior\s+a\s+la\s+(obtenci[oó]n\s+de\s+la\s+)?RCA|luego\s+del\s+despeje|\buna\s+(\(1\)\s+)?(campa[nñ]a|medici[oó]n|muestra)\b/i, adj: 'una vez' },
+  { kind: 'event', re: /cada\s+vez\s+que|en\s+caso\s+de|previo\s+al\s+inicio\s+de\s+cada|se\s+incorpore\s+personal|ante\s+(la|el|un|una)\s+(ocurrencia|hallazgo|reclamo)|frente\s+a\s+(un|una)\s+hallazgo|(desde|de)\s+(la\s+)?ocurr(encia|ido)\s+(de\s+)?(un|el)\s+evento|antes\s+de\s+iniciar\s+cualquier|previo\s+a\s+(cada|cualquier)\s/i, adj: 'cada vez' },
+  { kind: 'continuous', re: /permanente(mente)?|\(diario\)|diariamente|\bdiari[oa]s?(?![a-záéíóúñ\d])|todos\s+los\s+d[ií]as|en\s+todo\s+momento|durante\s+toda\s+la\s+(fase|etapa)|una\s+vez\s+al\s+d[ií]a|\d+\s+veces\s+al\s+d[ií]a|\bkm\/h(?![a-záéíóúñ\d])|en\s+buen\s+estado/i, adj: 'permanente' },
+  { kind: 'once', re: /una\s+(sola\s+)?vez(?!\s+(al\s+(mes|a[nñ]o|d[ií]a|semestre|trimestre|semana)|que|[a-záéíóúñ]+(ad|id)[oa]s?(?![a-záéíóúñ])))|al\s+(t[eé]rmino|finalizar|final\s+de)|informe\s+final|previo\s+al\s+inicio\s+de\s+(las?\s+)?(obras|operaci[oó]n|construcci[oó]n|faenas)|antes\s+del\s+inicio|posterior\s+a\s+la\s+(obtenci[oó]n\s+de\s+la\s+)?RCA|luego\s+del\s+despeje|una\s+vez\s+(obtenida|aprobada|notificada|otorgada)\s+(la\s+)?(RCA|resoluci)|\buna\s+(\(1\)\s+)?(campa[nñ]a|medici[oó]n|muestra)\b(?!\s+(anual|semestral|mensual|trimestral))/i, adj: 'una vez' },
 ];
 
 const RECIPIENTS: [RegExp, Recipient][] = [
@@ -236,13 +236,20 @@ function kindsOf(s: string) {
   s = s.replace(/\(\s*\d+\s+anuales\s*\)/gi, '');
   const ks = FREQ.filter((f) => f.re.test(s) || (f.kind === 'monthly' && /\b(\d+|una)\s+(muestras?|mediciones|medici[oó]n|monitoreos?|an[aá]lisis)\s+al\s+mes\b/i.test(s)));
   // "en los meses de diciembre, enero, febrero y marzo": tantas veces al año como meses nombrados.
-  if (!ks.some((k) => !['event', 'continuous', 'once'].includes(k.kind)) && /\b(meses|mes)\s+de\s/i.test(s)) {
-    const n = new Set((s.match(MONTHS) ?? []).map((m) => m.toLowerCase())).size;
+  const months = new Set((s.match(MONTHS) ?? []).map((m) => m.toLowerCase())).size;
+  // "durante los meses de noviembre y marzo de cada año" son dos veces al año, no una.
+  const yearly = ks.length === 1 && ks[0].kind === 'annual' && months >= 2 && /de\s+cada\s+a[nñ]o/i.test(s);
+  if ((yearly || !ks.some((k) => !['event', 'continuous', 'once'].includes(k.kind))) && /\b(meses|mes)\s+de\s/i.test(s)) {
+    const n = months;
     const k = n >= 3 ? 'monthly' : n === 2 ? 'semiannual' : n === 1 ? 'annual' : undefined;
     if (k) return [FREQ.find((f) => f.kind === k)!, ...ks.filter((x) => x.kind !== 'continuous' && x.kind !== 'once')];
   }
   // "previo al inicio de obras y cada vez que se incorpore personal" es un evento, no "una vez".
-  return ks.some((k) => k.kind === 'event') ? ks.filter((k) => k.kind !== 'once') : ks;
+  if (ks.some((k) => k.kind === 'event')) return ks.filter((k) => k.kind !== 'once');
+  // "una campaña anual", "al término de cada año": lo periódico manda sobre un "una vez" débil.
+  const periodic = ks.some((k) => !['event', 'continuous', 'once'].includes(k.kind));
+  const strongOnce = /una\s+sola\s+vez|informe\s+final|previo\s+al\s+inicio|antes\s+del\s+inicio|posterior\s+a\s+la/i.test(s);
+  return periodic && !strongOnce ? ks.filter((k) => k.kind !== 'once') : ks;
 }
 
 const DUE_DAY = /(\d{1,2})\s*d[ií]as\s+h[aá]biles\s+(luego|despu[eé]s)\s+de\s+terminado\s+el\s+mes/i;
@@ -286,7 +293,7 @@ export function ruleObligations(text: string, projectId: string): Obligation[] {
     const norma = b.kind === 'norma';
     const duties = all
       // En una tabla de norma solo cuenta lo que tiene frecuencia y es un control concreto ("monitoreo semestral").
-      .filter((s) => norma ? (frequencyOf(s) && MONITOR.test(s) && !/^continuous$/.test(frequencyOf(s)!.kind)) : (DUTY.test(s) || (REPORT.test(s) && (frequencyOf(s) || TO_AUTHORITY.test(s))) || (b.kind === 'seguimiento' && frequencyOf(s))))
+      .filter((s) => norma ? (frequencyOf(s) && MONITOR.test(s) && (frequencyOf(s)!.kind !== 'continuous' || /\d+\s+veces\s+al\s+d[ií]a|diariamente/i.test(s))) : (DUTY.test(s) || (REPORT.test(s) && (frequencyOf(s) || TO_AUTHORITY.test(s))) || ((b.kind === 'seguimiento' || b.kind === 'medida') && frequencyOf(s))))
       .filter((s) => !/^(Objetivo:|Oportunidad:)/i.test(s))
       // Los ítems de una lista de contenidos ("a) Superficie prospectada…") describen el informe, no son tareas.
       .filter((s) => norma || !/^([a-h]\)|[-•])/.test(s) || /\bdeber[aá]n?\b/i.test(s) || (REPORT.test(s) && /remitid|Superintendencia|SMA\b|CMN\b|SEREMI/.test(s)))
@@ -308,7 +315,7 @@ export function ruleObligations(text: string, projectId: string): Obligation[] {
       if (target === 'once' && groups.get('continuous')?.every((d) => !d.re)) groups.delete('continuous');
     }
     // Si el nombre del compromiso ya dice su frecuencia ("Monitoreo arqueológico permanente"), esa obligación existe.
-    const titleKind = norma ? undefined : kindsOf(b.title)[0];
+    const titleKind = norma ? undefined : /^manten(er|ci[oó]n)\b/i.test(b.title) ? FREQ.find((f) => f.kind === 'continuous') : kindsOf(b.title)[0];
     if (titleKind && !groups.has(titleKind.kind)) {
       const d = duties.find((x) => !x.report) ?? duties[0];
       if (d) groups.set(titleKind.kind, [{ s: d.s, report: false }]);
@@ -322,7 +329,7 @@ export function ruleObligations(text: string, projectId: string): Obligation[] {
 
     let n = 0;
     for (const [kind, ds] of groups) {
-      if (n >= 4) break;
+      if (n >= 6) break;
       const lead = ds.find((d) => d.report && kind !== 'continuous') ?? ds.find((d) => d.re) ?? ds[0];
       // Destinatario: el primero que nombra la frase del informe ("al CMN y SMA" → CMN).
       const reportText = (ds.find((d) => d.report) ?? lead).s;

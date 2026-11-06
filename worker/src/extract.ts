@@ -3,6 +3,7 @@
 import { getDocumentProxy } from 'unpdf';
 import { EXTRACTION_PROMPT, dedupeObligations, dropUnquoted, mergeBySection, guessProjectMeta, normalizeObligations, parseModelJson, pickChunks, standardObligations } from '../../shared/extraction';
 import { ruleObligations } from '../../shared/rules';
+import { applyMemory, quoteKey, summarize, type FeedbackItem, type Memory } from '../../shared/learning';
 import type { Obligation, Project } from '../../shared/types';
 import type { Env } from './env';
 import { randomId } from './util';
@@ -96,6 +97,8 @@ export async function extractFromPdf(env: Env, bytes: ArrayBuffer, sourceUrl: st
     if (failed === chunks.length) throw new Error(`La IA no pudo leer el documento (${lastError}). Intenta de nuevo en unos minutos.`);
     found = mergeBySection(dedupeObligations(dropUnquoted(normalizeObligations(items, projectId, text))));
   }
+  // 3) Lo aprendido de revisiones anteriores (de cualquier empresa, sobre frases públicas de RCA).
+  found = applyMemory(found, await loadMemories(env, found), text, projectId);
   const batch = randomId(4); // los ids no chocan con compromisos ya cargados en el proyecto
   const std = standardObligations(text, projectId).filter((s) => !found.some((f) => f.quote && s.quote && f.quote.slice(0, 40) === s.quote.slice(0, 40)));
   const obligations = [...found, ...std].map((o) => (opts.project ? { ...o, id: `${o.id}-${batch}` } : o));
@@ -110,4 +113,22 @@ export async function extractFromPdf(env: Env, bytes: ArrayBuffer, sourceUrl: st
     trackingStart: new Date().toISOString().slice(0, 8) + '01',
   };
   return { project, obligations };
+}
+
+/** Memorias de las frases de esta lectura, más las frases que alguien agregó a mano (pueden estar en esta RCA). */
+async function loadMemories(env: Env, found: Obligation[]): Promise<Memory[]> {
+  try {
+    const keys = [...new Set(found.map((o) => quoteKey(o.quote)).filter((k) => k.length >= 20))].slice(0, 90);
+    const q = keys.length
+      ? `SELECT action, quote_key, quote, section, before_json, after_json FROM reading_feedback WHERE quote_key IN (${keys.map(() => '?').join(',')}) OR action = 'added' ORDER BY created_at DESC LIMIT 2000`
+      : `SELECT action, quote_key, quote, section, before_json, after_json FROM reading_feedback WHERE action = 'added' ORDER BY created_at DESC LIMIT 2000`;
+    const { results } = await env.DB.prepare(q).bind(...keys).all<{ action: FeedbackItem['action']; quote_key: string; quote: string; section: string | null; before_json: string | null; after_json: string | null }>();
+    return summarize(results.map((r) => ({
+      action: r.action, quoteKey: r.quote_key, quote: r.quote, section: r.section ?? undefined,
+      before: r.before_json ? JSON.parse(r.before_json) : undefined, after: r.after_json ? JSON.parse(r.after_json) : undefined,
+    })));
+  } catch (e) {
+    console.log('[lectura] sin memoria:', String((e as Error)?.message ?? e)); // nunca bloquea la lectura
+    return [];
+  }
 }

@@ -1,3 +1,4 @@
+import type { FeedbackItem } from '../../shared/learning';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import type { Completion, DocumentKind, DocumentRef, EvidenceRef, Obligation, Occurrence } from '../../shared/types';
 import { addDays, buildOccurrences, todayInChile } from '../../shared/recurrence';
@@ -53,7 +54,7 @@ interface Store {
   confirm: (ids: string[]) => Promise<void>;
   extract: (url: string) => Promise<ImportDraft>;
   extractFile: (file: File) => Promise<ImportDraft>;
-  saveImport: (d: ImportDraft, keep: string[], documentId?: string) => Promise<string>;
+  saveImport: (d: ImportDraft, keep: string[], documentId?: string, feedback?: FeedbackItem[]) => Promise<string>;
   uploadDocument: (projectId: string, kind: DocumentKind, file: File) => Promise<DocumentRef>;
   deleteDocument: (d: DocumentRef) => Promise<void>;
   extractDocument: (id: string) => Promise<ImportDraft>;
@@ -157,8 +158,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     },
     extract: (url) => source.extract(url),
     extractFile: (file) => source.extractFile(file),
-    saveImport: async (d, keep, documentId) => {
-      const { projectId } = await source.saveImport(d, keep, documentId);
+    saveImport: async (d, keep, documentId, feedback) => {
+      const { projectId } = await source.saveImport(d, keep, documentId, feedback);
       await reload();
       say(`${keep.length} compromisos agregados`);
       return projectId;

@@ -2,6 +2,7 @@
 //  - DemoSource: datos de ejemplo en el navegador (para mostrar el producto sin servidor)
 //  - ApiSource:  el Worker de Cloudflare (producción)
 
+import type { FeedbackItem } from '../../../shared/learning';
 import type { Completion, DocumentKind, DocumentRef, EventLog, EvidenceRef, Obligation, Project, TeamMember } from '../../../shared/types';
 import { SEED_OBLIGATIONS, SEED_PROJECTS, SEED_VENTANILLA, seedCompletions } from '../../../shared/seed';
 import { todayInChile } from '../../../shared/recurrence';
@@ -44,7 +45,7 @@ export interface DataSource {
   updateObligation(o: Obligation): Promise<void>;
   extract(url: string): Promise<ImportDraft>;
   extractFile(file: File): Promise<ImportDraft>;
-  saveImport(draft: ImportDraft, keep: string[], documentId?: string): Promise<{ projectId: string }>;
+  saveImport(draft: ImportDraft, keep: string[], documentId?: string, feedback?: FeedbackItem[]): Promise<{ projectId: string }>;
   uploadDocument(projectId: string, kind: DocumentKind, file: File): Promise<DocumentRef>;
   deleteDocument(id: string): Promise<void>;
   extractDocument(id: string): Promise<ImportDraft>;
@@ -364,8 +365,8 @@ export class ApiSource implements DataSource {
     fd.set('file', file);
     return api<ImportDraft>('/import/extract-file', { method: 'POST', body: fd, timeoutMs: 240_000 });
   }
-  saveImport(draft: ImportDraft, keep: string[], documentId?: string) {
-    return api<{ projectId: string }>('/import/save', { method: 'POST', body: JSON.stringify({ draft, keep, documentId }) });
+  saveImport(draft: ImportDraft, keep: string[], documentId?: string, feedback?: FeedbackItem[]) {
+    return api<{ projectId: string }>('/import/save', { method: 'POST', body: JSON.stringify({ draft, keep, documentId, feedback }) });
   }
   uploadDocument(projectId: string, kind: DocumentKind, file: File) {
     const fd = new FormData();

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cómo leer una RCA · Vigía</title>
+<meta name="description" content="Método estándar para levantar la matriz de compromisos de una RCA del SEIA.">
+<link rel="canonical" href="https://vigia-demo-ten.vercel.app/guia-lectura-rca">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vigía">
+<meta property="og:title" content="Cómo leer una RCA · Vigía">
+<meta property="og:description" content="Método estándar para levantar la matriz de compromisos de una RCA del SEIA.">
+<meta property="og:url" content="https://vigia-demo-ten.vercel.app/guia-lectura-rca">
+<meta property="og:image" content="https://vigia-demo-ten.vercel.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Vigía: los compromisos de tu RCA, a tiempo">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f2f4f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d1110" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<style>
+:root{--bg:#f2f4f3;--surface:#fff;--ink:#141918;--ink-2:#56605c;--ink-3:#89928e;--line:rgba(20,25,24,.09);--accent:#0c6b5c;--accent-soft:#dcefea;
+--font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1110;--surface:#161b1a;--ink:#eef2f0;--ink-2:#a9b3af;--ink-3:#7c8783;--line:rgba(238,242,240,.1);--accent:#4fc2aa;--accent-soft:#163a33}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--font)}
+.wrap{max-width:720px;margin:0 auto;padding:28px max(16px,env(safe-area-inset-left)) 64px max(16px,env(safe-area-inset-right))}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:28px;text-decoration:none;color:var(--ink);font-weight:700;font-size:17px}
+.mark{width:28px;height:28px;border-radius:8px;background:var(--accent);color:#fff;display:grid;place-items:center}
+h1{font-size:clamp(28px,6vw,36px);line-height:1.15;letter-spacing:-.02em;margin:0 0 8px}
+h2{font-size:20px;line-height:1.3;margin:36px 0 8px;letter-spacing:-.01em}
+p,li{color:var(--ink-2)}strong{color:var(--ink)}
+.updated{color:var(--ink-3);font-size:14px;margin-bottom:24px}
+.card{background:var(--surface);border-radius:16px;padding:4px 20px 20px;box-shadow:0 0 0 .5px var(--line)}
+a{color:var(--accent)}ul{padding-left:20px}li{margin:4px 0}
+table{width:100%;border-collapse:collapse;font-size:15px}@media (max-width:520px){table{display:block;overflow-x:auto;font-size:13.5px}td,th{min-width:84px}}td,th{text-align:left;padding:10px 8px;border-top:1px solid var(--line);vertical-align:top}th{color:var(--ink);font-weight:600}
+.foot{margin-top:40px;font-size:14px;color:var(--ink-3);display:flex;gap:16px;flex-wrap:wrap}
+.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;padding:12px 18px;border-radius:12px}
+@media (prefers-color-scheme:dark){.btn{color:#062019}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<a class="top" href="/"><span class="mark" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5 10.5 19 20 4.5"/></svg></span>Vigía</a>
+<h1>Cómo leer una RCA y armar su matriz de compromisos</h1>
+<p class="updated">Método estándar de Vigía · versión 1, noviembre de 2026</p>
+<div class="card">
+<p>Este es el mismo criterio que usa la lectura automática de Vigía. Si dos personas lo siguen con la misma RCA, deben llegar a la misma matriz. La <a href="/plantilla-compromisos-vigia.xlsx" download>planilla modelo</a> trae las columnas y las listas de valores; al terminar se carga en Vigía con <em>Importar RCA → Cárgala aquí</em>.</p>
+
+<h2>1. Junta los documentos correctos</h2>
+<ul>
+<li>La RCA vigente, en su versión <strong>firmada digitalmente</strong> desde el expediente del SEIA (firma.sea.gob.cl). Las versiones escaneadas no tienen texto que se pueda copiar ni buscar.</li>
+<li>Todo lo que la modifica: pertinencias, revisiones de RCA y, si existe, el Programa de Cumplimiento aprobado por la SMA. Cada uno se carga como documento del mismo proyecto.</li>
+</ul>
+
+<h2>2. Ubica las secciones que obligan</h2>
+<p>Las obligaciones están en los considerandos finales, antes del <strong>RESUELVO</strong>. El número del considerando cambia según el año y el tipo de evaluación:</p>
+<table>
+<tr><th>Qué buscar</th><th>DIA reciente</th><th>DIA 2017–2022</th><th>EIA</th></tr>
+<tr><td>Forma de cumplimiento de cada norma (tablas con "Forma de control y seguimiento")</td><td>7</td><td>7 u 8</td><td>10</td></tr>
+<tr><td>Condiciones o exigencias</td><td>8</td><td>8</td><td>11</td></tr>
+<tr><td>Compromisos ambientales voluntarios</td><td>9</td><td>9 (a veces sin número)</td><td>12</td></tr>
+<tr><td>Medidas de mitigación, reparación y compensación</td><td>—</td><td>—</td><td>7 (a menudo agrupadas por fase)</td></tr>
+<tr><td>Plan de seguimiento de variables ambientales</td><td>—</td><td>—</td><td>8</td></tr>
+</table>
+<p><strong>No se levantan:</strong> la descripción del proyecto, la participación ciudadana, los permisos ambientales sectoriales, el plan de contingencias y emergencias, ni los anexos después del RESUELVO.</p>
+
+<h2>3. Decide si una frase es una obligación</h2>
+<p>Es obligación cuando dice que alguien <em>debe</em> hacer algo verificable: "deberá", "se realizará", "se remitirá", "se mantendrá", "se instalará", "se prohíbe". La justificación ("con el objeto de…", "para verificar…") explica por qué y no se levanta.</p>
+<p>En las tablas de normas solo se levanta lo que tiene <strong>frecuencia o plazo escrito</strong> y algo concreto que hacer (monitoreo semestral, declaración anual en el RETC, registro mensual de residuos, aviso en 24 horas). "El proyecto cumplirá la norma" no genera una fila.</p>
+
+<h2>4. Una fila por cada frecuencia</h2>
+<p>Un mismo compromiso puede tener varias fechas. Ejemplo: "monitoreo arqueológico permanente, con informes mensuales al CMN y un informe final" son <strong>tres filas</strong>: permanente, mensual y una vez. Las tres llevan el mismo numeral y la misma cita.</p>
+
+<h2>5. Traduce la frase a una frecuencia</h2>
+<table>
+<tr><th>La RCA dice</th><th>Frecuencia en la matriz</th></tr>
+<tr><td>mensual, cada mes, N días hábiles de terminado el mes</td><td>Mensual (con día de vencimiento)</td></tr>
+<tr><td>bimestral, cada 2 meses, periodicidad de 2 meses</td><td>Bimestral</td></tr>
+<tr><td>trimestral</td><td>Trimestral</td></tr>
+<tr><td>semestral; dos meses nombrados al año ("marzo y noviembre")</td><td>Semestral (mes = primero del ciclo)</td></tr>
+<tr><td>anual, cada año, una campaña anual, cada temporada estival</td><td>Anual (con mes si lo dice)</td></tr>
+<tr><td>tres o más meses nombrados ("diciembre a marzo")</td><td>Mensual</td></tr>
+<tr><td>semanal</td><td>Semanal</td></tr>
+<tr><td>diario, permanente, en todo momento, N veces al día</td><td>Permanente</td></tr>
+<tr><td>cada vez que, en caso de, ante un hallazgo, previo a cada frente</td><td>Cada vez que ocurra (con plazo en horas)</td></tr>
+<tr><td>una vez, informe final, previo al inicio de obras, una vez obtenida la RCA</td><td>Una vez (con fecha)</td></tr>
+</table>
+<p>Cuidado con "una vez recibido el reclamo" o "una vez que se implemente": significan "después de", no "una sola vez".</p>
+
+<h2>6. A quién y con qué se prueba</h2>
+<ul>
+<li><strong>Destinatario</strong>: SMA, SEA, CMN, SEREMI de Salud o DOH, el primero que nombra la frase del informe. Si solo hay que guardar un registro, es "Interno".</li>
+<li><strong>Evidencia</strong>: lo que dice el campo "Indicador que acredite su cumplimiento". Si no lo dice: informe y comprobante de envío (si va a una autoridad) o registro fechado con fotos.</li>
+<li><strong>Cita textual</strong>: copia el párrafo exacto. Es lo que se muestra al fiscalizador y lo que permite revisar después.</li>
+</ul>
+
+<h2>7. Agrega los avisos que trae toda RCA</h2>
+<ul>
+<li>Informar a la SMA el inicio de cada fase (construcción, operación, cierre).</li>
+<li>Informar la gestión, acto o faena mínima que da inicio al proyecto.</li>
+<li>Avisar impactos no previstos y cambios de titularidad.</li>
+</ul>
+<p>Vigía los agrega solo cuando lee la RCA; si levantas la matriz a mano, inclúyelos como "Aviso a la autoridad".</p>
+
+<h2>8. Control de calidad</h2>
+<ul>
+<li>Otra persona revisa la matriz contra la RCA y marca "Revisado: Sí" en cada fila confirmada.</li>
+<li>Al cargar la planilla, Vigía avisa fila por fila lo que no entiende (una frecuencia escrita distinto, una fecha mal puesta) y no inventa datos.</li>
+<li>Cuando la lectura automática y la matriz manual no coinciden, manda la RCA: corrige en la revisión y Vigía aprende de esa corrección.</li>
+</ul>
+</div>
+<nav class="foot" aria-label="Información legal"><a href="/">Volver a Vigía</a><a href="/privacidad">Privacidad</a><a href="/terminos">Términos</a></nav>
+</main>
+<!-- Analítica sin cookies: solo se activa si está habilitada en el hosting. -->
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

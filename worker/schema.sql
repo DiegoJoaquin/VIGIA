@@ -136,3 +136,20 @@ CREATE TABLE IF NOT EXISTS auth_throttle (
   fails INTEGER NOT NULL DEFAULT 0,
   locked_until INTEGER NOT NULL DEFAULT 0
 );
+
+-- Correcciones hechas al revisar una lectura automática: enseñan a las próximas lecturas.
+-- Se guarda la frase pública de la RCA y la decisión, sin fechas ni evidencias de la empresa.
+CREATE TABLE IF NOT EXISTS reading_feedback (
+  id TEXT PRIMARY KEY,
+  org_id TEXT NOT NULL,
+  project_id TEXT,
+  action TEXT NOT NULL,
+  quote_key TEXT NOT NULL,
+  quote TEXT NOT NULL,
+  section TEXT,
+  before_json TEXT,
+  after_json TEXT,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS reading_feedback_key ON reading_feedback (quote_key);
+CREATE INDEX IF NOT EXISTS reading_feedback_action ON reading_feedback (action, created_at);

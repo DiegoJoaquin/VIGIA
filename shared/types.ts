@@ -57,6 +57,8 @@ export interface Obligation {
   confirmed: boolean;
   /** Origen: la RCA o una obligación general de la Ventanilla Única. */
   source: 'rca' | 'ventanilla';
+  /** Solo en una lectura sin guardar: qué aplicó Vigía de lo aprendido en revisiones anteriores. */
+  learned?: 'removed' | 'edited' | 'added';
 }
 
 export interface Project {
