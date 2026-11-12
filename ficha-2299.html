@@ -1,0 +1,1210 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" ">
+    <title>SNIFA - Sistema Nacional de Información de Fiscalización Ambiental</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Content/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/Content/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/Content/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/Content/jquery.multiselect.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/snifa.css">
+    <link rel="stylesheet" type="text/css" href="/Content/color.css">
+    <link rel="stylesheet" type="text/css" href="/Content/estilos.css">
+    <link rel="stylesheet" type="text/css" href="/Content/mytable_estilos.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/head-footer.css">
+    <link rel="stylesheet" type="text/css" href="/Content/clases-nuevas.css">
+    <link rel="stylesheet" type="text/css" href="/Scripts/bootstrap-select-1.12.4/css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="/Content/loading.css">
+
+    <link rel="stylesheet" href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css" type="text/css">
+    <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
+    <style>
+        *:focus, *:active {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    </style>
+
+
+    
+    <script src="/Scripts/jquery/jquery-2.2.4.js"></script>
+    <script src="/Scripts/jquery-ui.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/jquery.dataTables.editable.js"></script>
+    <script src="/Scripts/jquery.dataTables.columnFilter.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="/Scripts/funciones.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.multiselect.js"></script>
+    <script type="text/javascript" src="/Scripts/responsive-tabs.js"></script>
+
+
+    <script src="/Scripts/export/tableExport.js"></script>
+    <script src="/Scripts/export/jquery.base64.js"></script>
+    <script src="/Scripts/export/jspdf/libs/sprintf.js"></script>
+    <script src="/Scripts/export/jspdf/jspdf.js"></script>
+    <script src="/Scripts/export/jspdf/libs/base64.js"></script>
+
+    <script type="text/javascript" src="/Scripts/bootstrap-select-1.12.4/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="/Scripts/bootstrap-select-1.12.4/js/i18n/defaults-es_CL.js"></script>
+    <script src="/Scripts/jquery.fileDownload.js" type="text/javascript"></script>
+
+
+    <!-- Hotjar Tracking Code for SNIFA -->    
+    <script>
+        (function (h, o, t, j, a, r) {
+            h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
+            h._hjSettings = { hjid: 6514256, hjsv: 6 };
+            a = o.getElementsByTagName('head')[0];
+            r = o.createElement('script'); r.async = 1;
+            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+    </script>
+
+    
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H7DTM3S58G"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-H7DTM3S58G');
+    </script>
+
+
+</head>
+
+<body onload="InitMap()">
+    <div id="cargandoInformacionPdC" class="modal" style="z-index: 999999999;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div style="text-align: center; margin: 20px;">
+                        <div style="position: relative;  margin: auto; padding: 10px; height: 100px; width: 120px;">
+                            <div style="padding: 20px; width: 100px;">
+                                <img src="/Images/icono-sma.svg" class="ld ld-bounce" />
+                            </div>
+                        </div>
+                        <b>Cargando información ...</b><br />
+                        Esta descarga podría demorar dependiendo de la cantidad de archivos reportados, favor espere.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="cargandoInformacion" class="modal" style="z-index: 999999999;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div style="text-align: center; margin: 20px;">
+                        <div style="position: relative;  margin: auto; padding: 10px; height: 100px; width: 120px;">
+                            <div style="padding: 20px; width: 100px;">
+                                <img src="/Images/icono-sma.svg" class="ld ld-bounce" />
+                            </div>
+                        </div>
+                        <b>Cargando información ...</b>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="sombra"></div>
+    <div class="menu-mobile">
+        <div class="cerrar-menu-mobile">
+            <i class="fa fa-times"></i>
+        </div>
+        <ul>
+            <li><a href="/">Inicio</a></li>
+            <li class="active"><a href="/Fiscalizacion">Fiscalizaciones</a></li>
+            <li><a href="/Sancionatorio">Procedimientos sancionatorios</a></li>
+            <li><a href="/MedidaProvisional">Medidas provisionales</a></li>
+            <li><a href="/RequerimientoIngreso">Requerimientos de Ingreso</a></li>
+            <li><a href="/RegistroPublico">Registro Sanciones</a></li>
+            <li><a href="/UnidadFiscalizable">Catastro Unidades fiscalizables</a></li>
+            
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Normativa Ambiental <i class="fa fa-angle-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/Instrumento/Index/1">Resoluciones de Calificación Ambiental</a></li>
+                    <li><a href="/Instrumento/Tipo/4">Planes de Prevención y Descontaminación Ambiental</a></li>
+                    <li><a href="/Instrumento/Tipo/2">Normas de Emisión</a></li>
+                    <li><a href="/Instrumento/Tipo/3">Normas de Calidad</a></li>
+                    <li><a href="/ProgramaCumplimiento">Programas de Cumplimiento</a></li>
+                    <li><a href="/Instrumento/NormativaAmbiental">Otros Instrumentos</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Otros Documentos<i class="fa fa-angle-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/Resolucion/Programa">Programas y subprogramas de fiscalización</a></li>
+                    <li><a href="/Resolucion/Instruccion">Instrucciones y requerimientos de caracter general</a></li>
+
+                    
+                    <li><a href="/PlanReparacion">Planes de Reparación</a></li>
+
+                    <li><a href="/DictamenContraloria/Contraloria">Dictámenes de Contraloría</a></li>
+                    <li><a href="/SentenciaTribunal/Tribunal">Sentencias de Tribunales</a></li>
+                    
+                    <li><a href="/CaducidadRCA">Caducidad y acreditación de vigencia de RCA</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Seguimiento & Datos <i class="fa fa-angle-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/SeguimientoAmbiental">Seguimiento Ambiental</a></li>
+                    <li><a href="/Estadisticas">Estadísticas</a></li>
+                    <li><a href="/DatosAbiertos">Datos Abiertos</a></li>
+                </ul>
+            </li>
+            
+            <li><a href="http://www.sma.gob.cl">Ir al sitio SMA</a></li>
+        </ul>
+    </div><!-- /.navbar-collapse -->
+    <!-- /.container-fluid -->
+    <header>
+        <div class="container">
+            <div class="boton-menu-mobile">
+                <i class="fa fa-bars"></i>
+            </div>
+            <div class="logo">
+                <a href="/"><img src="/images/snifa-logo.png" alt="" /></a>
+            </div>
+        </div>    
+        <nav class="navbar navbar-default snifamenu">
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header container">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="textmenu">MENÚ PRINCIPAL</span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Inicio</a></li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="uno"><a href="/Fiscalizacion">Fiscalizaciones</a></li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="dos"><a href="/Sancionatorio">Procedimientos<br /> sancionatorios</a></li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="tres"><a href="/MedidaProvisional">Medidas<br /> provisionales</a></li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="nueve"><a href="/RequerimientoIngreso">Requerimientos<br /> de Ingreso</a></li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="cuatro"><a href="/RegistroPublico">Registro<br /> sanciones</a></li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="cinco"><a href="/UnidadFiscalizable">Catastro Unidades<br /> fiscalizables</a></li>
+                    
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="seis" class="dropdown-submenu">
+                        <a href="/Instrumento/NormativaAmbiental" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Normativa<br /> Ambiental<i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Instrumento">Resoluciones de Calificación Ambiental</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Instrumento/Tipo/4">Planes de Prevención y Descontaminación Ambiental</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Instrumento/Tipo/2">Normas de Emisión</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Instrumento/Tipo/3">Normas de Calidad</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/ProgramaCumplimiento">Programas de cumplimiento</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Instrumento/NormativaAmbiental">Otros Instrumentos</a></li>
+                        </ul>
+                    </li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="siete" class="dropdown-submenu">
+                        <a href="/Resolucion/Programa" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Otros<br /> documentos <i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Resolucion/Programa">Programas y subprogramas de fiscalización</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Resolucion/Instruccion">Instrucciones y requerimientos de caracter general</a></li>
+                            
+                            
+                            <li class="divider"></li>
+                            <li><a href="/PlanReparacion">Planes de Reparación</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/DictamenContraloria/Contraloria">Dictámenes de Contraloría</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/SentenciaTribunal/Tribunal">Sentencias de Tribunales</a></li>
+                            
+                            <li class="divider"></li>
+                            <li><a href="/CaducidadRCA">Caducidad y acreditación de vigencia de RCA</a></li>
+                        </ul>
+                    </li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="ocho" class="dropdown-submenu">
+                        <a href="#" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Seguimiento &<br /> Datos <i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/SeguimientoAmbiental">Seguimiento Ambiental</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Estadisticas">Estadísticas</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/DatosAbiertos">Datos Abiertos</a></li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+            </div><!-- /.navbar-collapse -->
+            <!-- /.container-fluid -->
+        </nav>
+    </header>
+
+    <div class="clearfix"></div>
+
+    <div class="container contenido">
+
+       
+
+
+<script>
+    $("#cargandoInformacion").modal({
+        backdrop: 'static',
+        show: false
+    });
+    var $modal = $("#cargandoInformacion");
+    $modal.modal('show');
+</script>
+
+<!--CAMBIO LFI-->
+<div class="volver-busqueda tipo-ps">
+    <a href="/Sancionatorio"><img src="/images/f-ps.png" /> Volver a la Búsqueda</a>
+</div>
+<!--FIN CAMBIO LFI-->
+<div class="categoria3">
+    <div class="row">
+        <div class="col-md-12">
+            <!--CAMBIO LFI class titulo-->
+            <div class="hidden-mobile panel titulo panel-default">
+                <div class="panel-body">
+                    <div class="titulo-categoria">
+                        <img src="/images/ic3.png" /> Procedimientos Sancionatorios
+                    </div>
+                </div>
+            </div>
+            <div class="item-mobile item3 titulo-interior hidden-desktop">
+                <a href="/Sancionatorio">
+                    <div>
+                        <img src="/images/ic3b.png" />
+                        <span>Procedimientos Sancionatorios</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--CAMBIO LFI-->
+<div class="tipo-ps">
+
+
+
+<div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default panel-expediente panel-expediente1">
+                <div class="panel-body sin-padding">
+                    <h3>Expediente: D-125-2020</h3>
+                    <h4><i class='fa fa-calendar'></i> <b>Fecha Inicio :</b> <i>25-08-2021</i></h4>
+                    <h4><i class='fa fa-calendar-check-o'></i> <b>Fecha Término: </b> <i></i></h4>
+                    <h4><i class='fa fa-signal'></i> <b>Estado: </b> <i>Programa de Cumplimiento en ejecución</i></h4>
+                    <h4></h4>
+                    <h4></h4>
+                    <h4><i class='fa fa-check'></i> <b>PdC:</b> <i><a href='http://snifa.sma.gob.cl/ProgramaCumplimiento/Ficha/1023'>Enlace</a></i></h4>
+                    <h4></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="panel panel-default panel-expediente">
+                <div class="panel-body panel-u-f">
+                    <div class="row">
+                        <div class="col-md-6 hidden-mobile">
+                            <div class="box-unidad-fiscalizable">
+                                <h4><i class="fa fa-building"></i> Unidad fiscalizable</h4>
+                                <ul>
+                                        <li>
+                                            <i class="fa fa-caret-right"></i> <a href="/UnidadFiscalizable/Ficha/10793">ARIDOS GUERRICO</a><br />
+                                            Machal&#237; - Regi&#243;n del Libertador General Bernardo O&#39;Higgins
+                                        </li>
+                                        <input type="hidden" id="tLat_10793" value="-34.213143" />
+                                        <input type="hidden" id="tLng_10793" value="-70.716328" />
+                                        <input type="hidden" id="tNombre_10793" value="ARIDOS GUERRICO" />
+                                </ul>
+                            </div>
+
+                                <div class="box-unidad-fiscalizable">
+                                    <h4><i class="fa fa-user"></i> Titular</h4>
+                                    <ul>
+                                            <li>
+                                                <i class="fa fa-caret-right"></i>ARIDOS GUERRICO CHILE LIMITADA<br />
+                                            </li>
+                                    </ul>
+                                </div>
+
+                        </div>
+
+                        
+                        <div class="col-md-6 hidden-mobile">
+                            <div class="mapa-expediente">
+                                <div id="dMapa" style="height: 250px;">
+                                        <img src="/MapasCache/10793.png" style="width:100%; height:250px; object-fit:cover; border:1px solid #CCC;" alt="Mapa de ubicacion" />                                 </div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="col-md-6 hidden-desktop">
+                            <!--CAMBIO LFI-->
+                            <div class="btn-ver-mapa">
+                                <i class="fa fa-map-marker"></i> Ver mapa
+                            </div>
+                            <div class="clear"></div>
+                            <!--FIN CAMBIO-->
+                            <div class="mapa-expediente">
+                                <div id="dMapa-mobile" style="height: 250px;">
+                                        <img src="/MapasCache/10793.png" style="width:100%; height:250px; object-fit:cover; border:1px solid #CCC;" alt="Mapa de ubicacion" />                                 </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="col-md-6 hidden-desktop">
+                            <div class="box-unidad-fiscalizable">
+                                <h4><i class="fa fa-building"></i> Unidad fiscalizable</h4>
+                                <ul>
+                                        <li>
+                                            <i class="fa fa-caret-right"></i> <a href="/UnidadFiscalizable/Ficha/10793">ARIDOS GUERRICO</a><br />
+                                            Machal&#237; - Regi&#243;n del Libertador General Bernardo O&#39;Higgins
+                                        </li>
+                                        <input type="hidden" id="tLat_10793" value="-34.213143" />
+                                        <input type="hidden" id="tLng_10793" value="-70.716328" />
+                                        <input type="hidden" id="tNombre_10793" value="ARIDOS GUERRICO" />
+                                </ul>
+                            </div>
+
+                                <div class="box-unidad-fiscalizable">
+                                    <h4><i class="fa fa-user"></i> Titular</h4>
+                                    <ul>
+                                            <li>
+                                                <i class="fa fa-caret-right"></i>ARIDOS GUERRICO CHILE LIMITADA<br />
+                                            </li>
+
+                                    </ul>
+                                </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+
+
+
+
+</div>
+<!--FIN CAMBIO-->
+<div class="row">
+    <div class="col-md-12">
+        <!--CAMBIO LFI-->
+        <div class="panel-ficha tipo-ps">
+        <!--FIN CAMBIO LFI -->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="nav nav-tabs responsive">
+                            <li class="active"><a data-toggle="tab" href="#documentos"><i class="fa fa-file-text-o"></i> Documentos (51)</a></li>
+                            <li><a data-toggle="tab" href="#instrumentos-considerados"><i class="fa fa-clipboard"></i> Hechos considerados (9)</a></li>
+                            <li><a data-toggle="tab" href="#fiscalizaciones-asociadas"><i class="fa fa-search"></i> Fiscalizaciones asociadas (2)</a></li>
+                            <li><a data-toggle="tab" href="#medidas-provisionales-asociadas"><i class="fa fa-hourglass-end"></i> Medidas provisionales<br /> asociadas (0)</a></li>
+                            <li><a data-toggle="tab" href="#sanciones"><i class="fa fa-eye"></i> Sanciones (0)</a></li>
+                        </ul>
+                        <div class="tab-content responsive">
+                            <div id="documentos" class="tab-pane fade in active">
+                                <table class="conBorde tabla-resultado-busqueda"> 
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10%;">#</th>
+                                            <th>Nombre Documento</th>
+                                            <th style="width: 30%;">Tipo Documento</th>
+                                            <th style="width: 10%;">Fecha</th>
+                                            <th style="width: 10%;">Link</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr>
+                                                <td data-label="#">1</td>
+                                                <td data-label="Nombre Documento">Formulaci&#243;n de Cargos</td>
+                                                <td data-label="Tipo Documento">Formulaci&#243;n de Cargos</td>
+                                                <td data-label="Fecha">09-09-2020</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2060100038164" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">2</td>
+                                                <td data-label="Nombre Documento">Antecedentes</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">09-09-2020</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200038163" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">3</td>
+                                                <td data-label="Nombre Documento">Notificaci&#243;n personal Guerrico</td>
+                                                <td data-label="Tipo Documento">Notificaci&#243;n Formulaci&#243;n de Cargos</td>
+                                                <td data-label="Fecha">10-09-2020</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2063400038139" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">4</td>
+                                                <td data-label="Nombre Documento">Escrito &#193;ridos Guerrico</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">21-09-2020</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200038317" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">5</td>
+                                                <td data-label="Nombre Documento">Res. N 2. Resuelve ampliaci&#243;n de plazo &#193;ridos Guerrico</td>
+                                                <td data-label="Tipo Documento">Resuelve Solicitud Ampliaci&#243;n de Plazos (Descargos y PDC Presentaci&#243;n)</td>
+                                                <td data-label="Fecha">23-09-2020</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2064800038316" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">6</td>
+                                                <td data-label="Nombre Documento">Carta &#193;ridos Guerrico</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">24-09-2020</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200038743" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">7</td>
+                                                <td data-label="Nombre Documento">Solicitud de asistencia Guerrico</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">25-09-2020</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200038434" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">8</td>
+                                                <td data-label="Nombre Documento">Memo 613. Designa fiscal instructor</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">28-09-2020</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200038491" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">9</td>
+                                                <td data-label="Nombre Documento">Acta reuni&#243;n de asistencia</td>
+                                                <td data-label="Tipo Documento">Registro de Asistencia al Cumplimiento</td>
+                                                <td data-label="Fecha">01-10-2020</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2065000038490" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">10</td>
+                                                <td data-label="Nombre Documento">Programa de Cumplimiento</td>
+                                                <td data-label="Tipo Documento">PDC Presentaci&#243;n</td>
+                                                <td data-label="Fecha">02-10-2020</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2060200038757" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">11</td>
+                                                <td data-label="Nombre Documento">Presentaci&#243;n &#193;ridos Guerrico</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">10-11-2020</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200040889" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">12</td>
+                                                <td data-label="Nombre Documento">&#193;ridos Guerrico complementa PdC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">10-12-2020</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200040295" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">13</td>
+                                                <td data-label="Nombre Documento">Res N&#176; 3. Rechazo PdC</td>
+                                                <td data-label="Tipo Documento">PDC Rechazo</td>
+                                                <td data-label="Fecha">30-12-2020</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2060400040667" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">14</td>
+                                                <td data-label="Nombre Documento">Notificaci&#243;n Res. N&#176; 3 por correo electr&#243;nico</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">11-01-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200040669" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">15</td>
+                                                <td data-label="Nombre Documento">Escrito &#193;ridos Guerrico</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">14-01-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200040890" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">16</td>
+                                                <td data-label="Nombre Documento">Escrito &#193;ridos Guerrico. Mandato</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">14-01-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200040891" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">17</td>
+                                                <td data-label="Nombre Documento">Recursos &#193;ridos Guerrico</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">18-01-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200040892" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">18</td>
+                                                <td data-label="Nombre Documento">Recursos &#193;ridos Guerrico. Anexos</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">18-01-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200040893" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">19</td>
+                                                <td data-label="Nombre Documento">Res. N&#176; 4. Admite a tr&#225;mite y resuelve solicitudes</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">19-01-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200040894" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">20</td>
+                                                <td data-label="Nombre Documento">Notifica Res. N&#176; 4 por correo electr&#243;nico</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">19-01-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200040895" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">21</td>
+                                                <td data-label="Nombre Documento">Reposici&#243;n Res. N&#176; 4 &#193;ridos Guerrico</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">22-01-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200041206" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">22</td>
+                                                <td data-label="Nombre Documento">Guerrico se&#241;ala correos</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">11-02-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200042072" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">23</td>
+                                                <td data-label="Nombre Documento">Reformulaci&#243;n de Cargos</td>
+                                                <td data-label="Tipo Documento">Reformulaci&#243;n de Cargos</td>
+                                                <td data-label="Fecha">25-08-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2060900046083" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">24</td>
+                                                <td data-label="Nombre Documento">Notificaci&#243;n por correo electr&#243;nico Res. N&#176; 5. Guerrico</td>
+                                                <td data-label="Tipo Documento">Notificaci&#243;n Formulaci&#243;n de Cargos</td>
+                                                <td data-label="Fecha">26-08-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2063400046085" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">25</td>
+                                                <td data-label="Nombre Documento">Notificaci&#243;n por correo electr&#243;nico Res. N&#176; 5. Guerrico 02</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">26-08-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200046016" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">26</td>
+                                                <td data-label="Nombre Documento">Seguimiento Correos de Chile Res. N&#176; 5</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">30-08-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200046197" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">27</td>
+                                                <td data-label="Nombre Documento">Solicitud ampliaci&#243;n de plazos. Guerrico</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">03-09-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200046198" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">28</td>
+                                                <td data-label="Nombre Documento">Res. N&#176; 6. Resuelve ampliaci&#243;n de plazos</td>
+                                                <td data-label="Tipo Documento">Resuelve Solicitud Ampliaci&#243;n de Plazos (Descargos y PDC Presentaci&#243;n)</td>
+                                                <td data-label="Fecha">06-09-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2064800046222" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">29</td>
+                                                <td data-label="Nombre Documento">Notificaci&#243;n Res. N&#176; 6 correo electr&#243;nico. Guerrico</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">06-09-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200046228" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">30</td>
+                                                <td data-label="Nombre Documento">Acta Reuni&#243;n de Asistencia</td>
+                                                <td data-label="Tipo Documento">Registro de Asistencia al Cumplimiento</td>
+                                                <td data-label="Fecha">14-09-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2065000046500" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">31</td>
+                                                <td data-label="Nombre Documento">PdC &#193;ridos Guerrico</td>
+                                                <td data-label="Tipo Documento">PDC Presentaci&#243;n</td>
+                                                <td data-label="Fecha">16-09-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2060200047443" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">32</td>
+                                                <td data-label="Nombre Documento">PdC &#193;ridos Guerrico. Anexos</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">16-09-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200047448" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">33</td>
+                                                <td data-label="Nombre Documento">Memor&#225;ndum deriva PdC a Fiscal</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">02-11-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200047608" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">34</td>
+                                                <td data-label="Nombre Documento">Memor&#225;ndum N&#176; 48170. Solicita aclaraci&#243;n</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">03-11-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200047651" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">35</td>
+                                                <td data-label="Nombre Documento">Memor&#225;ndum LGBO N&#176; 14. Respuesta requerimiento</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">08-11-2021</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200048427" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">36</td>
+                                                <td data-label="Nombre Documento">Res. N&#176; 7. Observaciones PdC</td>
+                                                <td data-label="Tipo Documento">PDC - Observaciones de la SMA</td>
+                                                <td data-label="Fecha">04-01-2022</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061400049195" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">37</td>
+                                                <td data-label="Nombre Documento">Notificaci&#243;n correo electr&#243;nico Res. N&#176; 7. Guerrico</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">04-01-2022</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200049200" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">38</td>
+                                                <td data-label="Nombre Documento">Guerrico solicita ampliaci&#243;n de plazo</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">10-01-2022</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200049315" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">39</td>
+                                                <td data-label="Nombre Documento">Res. N&#176; 8. Resuelve ampliaci&#243;n de plazos Guerrico</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">11-01-2022</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200049316" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">40</td>
+                                                <td data-label="Nombre Documento">Notificaci&#243;n correo electr&#243;nico. Res. N&#176; 8</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">11-01-2022</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200049318" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">41</td>
+                                                <td data-label="Nombre Documento">PdC Refundido</td>
+                                                <td data-label="Tipo Documento">PDC Refundido </td>
+                                                <td data-label="Fecha">25-01-2022</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061300050629" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">42</td>
+                                                <td data-label="Nombre Documento">PdC Refundido. Anexos</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">25-01-2022</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200050630" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">43</td>
+                                                <td data-label="Nombre Documento">Renuncia patrocinio</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">09-03-2022</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200050631" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">44</td>
+                                                <td data-label="Nombre Documento">Res. N&#176; 9. Se tiene presente</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">30-12-2022</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200056919" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">45</td>
+                                                <td data-label="Nombre Documento">Notificaci&#243;n correo electr&#243;nico Guerrico. Res. N&#176; 9</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">03-01-2023</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200056925" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">46</td>
+                                                <td data-label="Nombre Documento">Res. N&#176; 10. Aprueba PdC Guerrico</td>
+                                                <td data-label="Tipo Documento">PDC Aprobaci&#243;n</td>
+                                                <td data-label="Fecha">06-01-2023</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2060300057062" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">47</td>
+                                                <td data-label="Nombre Documento">Notificaci&#243;n por correo electr&#243;nico Res. N&#176; 10. Guerrico</td>
+                                                <td data-label="Tipo Documento">Notificaci&#243;n de Aprobaci&#243;n de PDC</td>
+                                                <td data-label="Fecha">06-01-2023</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2064000057063" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">48</td>
+                                                <td data-label="Nombre Documento">Seguimiento Correos de Chile. Res. N&#176; 9. MCPB</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">06-01-2023</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200057220" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">49</td>
+                                                <td data-label="Nombre Documento">Memo DSC 389 2024 Designa instructor Aridos Guerrico D 125 2020</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">05-08-2024</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200073554" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">50</td>
+                                                <td data-label="Nombre Documento">Res. Ex. 11 D 125 2020 Resuelve solicitudes Aridos Guerrico</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">07-08-2024</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200073555" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">51</td>
+                                                <td data-label="Nombre Documento">Notificacion Res. Ex. 11 D 125 2020</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">07-08-2024</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200073573" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="instrumentos-considerados" class="tab-pane fade in">
+                                    <table class="conBorde tabla-resultado-busqueda">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 2%">#</th>
+                                                <th style="width: 50%">Hecho</th>
+                                                
+                                                <th style="width: 18%">Instrumento Infringido</th>
+                                                <th style="width: 17%">Infracción<br />(Art.35 LOSMA)</th>
+                                                <th style="width: 13%">Clasificación<br />(Art. 36 LOSMA)</th>                                                
+
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                    
+
+                                                    <td data-label="#">1</td>
+                                                    <td data-label="Hecho">Modificar un proyecto de extracci&#243;n industrial de &#225;ridos regulado por la RCA N&#176; 26/2014 eludiendo el Sistema de Evaluaci&#243;n de Impacto Ambiental, extrayendo fuera del &#225;rea autorizada un volumen total de material que supera los 50.000 m&#179; durante la vida &#250;til del proyecto, sin contar con una Resoluci&#243;n de Calificaci&#243;n Ambiental que lo autorice.</td>
+                                                    
+                                                    <td data-label="Instrumento Infringido" >
+Elusión                                                    </td>
+
+                                                    <td data-label="Infracción (Art.35 LOSMA)">
+b) La ejecuci&#243;n de proyectos y el desarrollo de actividades para los que la ley exige Resoluci&#243;n de Calificaci&#243;n Ambiental, sin contar con ella. Asimismo, el incumplimiento del requerimiento efectuado por la Superintendencia seg&#250;n lo previsto en las letras i), j) y k) del art&#237;culo 3&#176;                                                    </td>
+                                                    <td data-label="Clasificación (Art. 36 LOSMA)"><b>Graves</b><br /><i style="font-size: small">
+d) Involucren la ejecuci&#243;n de proyectos  o actividades del art&#237;culo 10 de la ley N&#176; 19.300 al margen del Sistema de Evaluaci&#243;n de Impacto Ambiental, si no est&#225;n comprendidos en los supuestos de la letra F) del n&#250;mero anterior.                                                    </i></td>
+                                                </tr>
+                                                <tr>
+                                                    
+
+                                                    <td data-label="#">2</td>
+                                                    <td data-label="Hecho">Incumplir el requerimiento de informaci&#243;n dictado por esta Superintendencia, contenido en la Res. Ex. D.S.C. N.&#186; 1356, de 5 de agosto de 2020.</td>
+                                                    
+                                                    <td data-label="Instrumento Infringido" >
+Requerimientos de Información                                                    </td>
+
+                                                    <td data-label="Infracción (Art.35 LOSMA)">
+j) El incumplimiento de los requerimientos de informaci&#243;n que la Superintendencia dirija a los sujetos fiscalizados, de conformidad a esta ley                                                    </td>
+                                                    <td data-label="Clasificación (Art. 36 LOSMA)"><b>Grav&#237;simas</b><br /><i style="font-size: small">
+e) Hayan impedido deliberadamente la fiscalizaci&#243;n, encubierto una infracci&#243;n o evitado el ejercicio de las atribuciones de la Superintendencia.                                                    </i></td>
+                                                </tr>
+                                                <tr>
+                                                    
+
+                                                    <td data-label="#">3</td>
+                                                    <td data-label="Hecho">No reportar trimestralmente a esta SMA la Ficha de Registro de Extracci&#243;n de &#193;ridos, desde el inicio de la etapa de operaci&#243;n hasta la fecha.</td>
+                                                    
+                                                    <td data-label="Instrumento Infringido" >
+RCA:26/2014<br/><a href="http://seia.sea.gob.cl/expediente/ficha/fichaPrincipal.php?id_expediente=7754796" target="_blank" title="Link SEIA"><i class="fa fa-globe"></i>Link Detalle </a><br/>                                                    </td>
+
+                                                    <td data-label="Infracción (Art.35 LOSMA)">
+a) El incumplimiento de las condiciones, normas y medidas establecidas en las resoluciones de calificaci&#243;n ambiental                                                    </td>
+                                                    <td data-label="Clasificación (Art. 36 LOSMA)"><b>Leves</b><br /><i style="font-size: small">
+Hecho, actos u omisiones que contravengan cualquier precepto o medida obligatorios y que no constituyan infracci&#243;n grav&#237;sima o grave, de acuerdo con lo previsto en los n&#250;meros anteriores.                                                    </i></td>
+                                                </tr>
+                                                <tr>
+                                                    
+
+                                                    <td data-label="#">4</td>
+                                                    <td data-label="Hecho">No ejecutar la reforestaci&#243;n comprometida en el Plan de Compensaci&#243;n de emisiones atmosf&#233;ricas, desde el inicio de la etapa de operaci&#243;n, hasta la fecha.</td>
+                                                    
+                                                    <td data-label="Instrumento Infringido" >
+RCA:26/2014<br/><a href="http://seia.sea.gob.cl/expediente/ficha/fichaPrincipal.php?id_expediente=7754796" target="_blank" title="Link SEIA"><i class="fa fa-globe"></i>Link Detalle </a><br/>                                                    </td>
+
+                                                    <td data-label="Infracción (Art.35 LOSMA)">
+a) El incumplimiento de las condiciones, normas y medidas establecidas en las resoluciones de calificaci&#243;n ambiental                                                    </td>
+                                                    <td data-label="Clasificación (Art. 36 LOSMA)"><b>Graves</b><br /><i style="font-size: small">
+e) Incumplan gravemente las medidas para eliminar o minimizar los efectos adversos de un proyecto o actividad, de acuerdo a lo previsto en la respectiva Resoluci&#243;n de Calificaci&#243;n Ambiental.                                                    </i></td>
+                                                </tr>
+                                                <tr>
+                                                    
+
+                                                    <td data-label="#">5</td>
+                                                    <td data-label="Hecho">No implementar medidas de manejo de residuos industriales l&#237;quidos, lo que se expresa en:
+
+a. No adecuar la zona de lavado de camiones.
+b. No construir una Planta de Tratamiento de RILes.
+c. Acumulaci&#243;n de aguas provenientes de la humectaci&#243;n del material de los camiones en suelo descubierto y descarga no autorizada de su exceso al r&#237;o Cachapoal.
+d. Construcci&#243;n de dos piscinas de acumulaci&#243;n, a las cuales se reconducen los RILes generados por el proyecto, las cuales no han sido evaluadas ambientalmente.</td>
+                                                    
+                                                    <td data-label="Instrumento Infringido" >
+RCA:26/2014<br/><a href="http://seia.sea.gob.cl/expediente/ficha/fichaPrincipal.php?id_expediente=7754796" target="_blank" title="Link SEIA"><i class="fa fa-globe"></i>Link Detalle </a><br/>                                                    </td>
+
+                                                    <td data-label="Infracción (Art.35 LOSMA)">
+a) El incumplimiento de las condiciones, normas y medidas establecidas en las resoluciones de calificaci&#243;n ambiental                                                    </td>
+                                                    <td data-label="Clasificación (Art. 36 LOSMA)"><b>Graves</b><br /><i style="font-size: small">
+e) Incumplan gravemente las medidas para eliminar o minimizar los efectos adversos de un proyecto o actividad, de acuerdo a lo previsto en la respectiva Resoluci&#243;n de Calificaci&#243;n Ambiental.                                                    </i></td>
+                                                </tr>
+                                                <tr>
+                                                    
+
+                                                    <td data-label="#">6</td>
+                                                    <td data-label="Hecho">No implementar medidas de monitoreo de fauna, desde el inicio de la etapa de operaci&#243;n, hasta la fecha, lo que se expresa en:
+
+a. No ejecutar 2 campa&#241;as anuales y una campa&#241;a anual de monitoreo de ejemplares de la especie vulnerable trichomycterus aereolatus (bagre chico, bagre pintado).
+b. No ejecutar el programa de monitoreo de la calidad de las aguas.</td>
+                                                    
+                                                    <td data-label="Instrumento Infringido" >
+RCA:26/2014<br/><a href="http://seia.sea.gob.cl/expediente/ficha/fichaPrincipal.php?id_expediente=7754796" target="_blank" title="Link SEIA"><i class="fa fa-globe"></i>Link Detalle </a><br/>                                                    </td>
+
+                                                    <td data-label="Infracción (Art.35 LOSMA)">
+a) El incumplimiento de las condiciones, normas y medidas establecidas en las resoluciones de calificaci&#243;n ambiental                                                    </td>
+                                                    <td data-label="Clasificación (Art. 36 LOSMA)"><b>Graves</b><br /><i style="font-size: small">
+e) Incumplan gravemente las medidas para eliminar o minimizar los efectos adversos de un proyecto o actividad, de acuerdo a lo previsto en la respectiva Resoluci&#243;n de Calificaci&#243;n Ambiental.                                                    </i></td>
+                                                </tr>
+                                                <tr>
+                                                    
+
+                                                    <td data-label="#">7</td>
+                                                    <td data-label="Hecho">Construir una alcantarilla para el cruce de camiones por sobre un canal, en contravenci&#243;n a la RCA N&#176; 11/2020, lo que se refleja en:
+
+a. Instalar la obra incumpliendo las especificaciones t&#233;cnicas aprobadas en la RCA N&#176; 11/2020, constatado con fecha 12 de febrero de 2021.
+b. No contar con el Permiso Ambiental Sectorial 156, requerido previamente a la construcci&#243;n de la misma.</td>
+                                                    
+                                                    <td data-label="Instrumento Infringido" >
+RCA:11/2020<br/><a href="http://seia.sea.gob.cl/expediente/ficha/fichaPrincipal.php?id_expediente=2143001388" target="_blank" title="Link SEIA"><i class="fa fa-globe"></i>Link Detalle </a><br/>                                                    </td>
+
+                                                    <td data-label="Infracción (Art.35 LOSMA)">
+a) El incumplimiento de las condiciones, normas y medidas establecidas en las resoluciones de calificaci&#243;n ambiental                                                    </td>
+                                                    <td data-label="Clasificación (Art. 36 LOSMA)"><b>Leves</b><br /><i style="font-size: small">
+Hecho, actos u omisiones que contravengan cualquier precepto o medida obligatorios y que no constituyan infracci&#243;n grav&#237;sima o grave, de acuerdo con lo previsto en los n&#250;meros anteriores.                                                    </i></td>
+                                                </tr>
+                                                <tr>
+                                                    
+
+                                                    <td data-label="#">8</td>
+                                                    <td data-label="Hecho">No ejecutar la campa&#241;a de rescate y relocalizaci&#243;n de dos especies de anfibios (Rhinella spinolosus y Pleurodema thaul) y de dos especies de reptiles (Liolaemus lemniscatus y Philodryas chamissonis) antes de ingresar con maquinaria a la zona de extracci&#243;n.</td>
+                                                    
+                                                    <td data-label="Instrumento Infringido" >
+RCA:11/2020<br/><a href="http://seia.sea.gob.cl/expediente/ficha/fichaPrincipal.php?id_expediente=2143001388" target="_blank" title="Link SEIA"><i class="fa fa-globe"></i>Link Detalle </a><br/>                                                    </td>
+
+                                                    <td data-label="Infracción (Art.35 LOSMA)">
+a) El incumplimiento de las condiciones, normas y medidas establecidas en las resoluciones de calificaci&#243;n ambiental                                                    </td>
+                                                    <td data-label="Clasificación (Art. 36 LOSMA)"><b>Graves</b><br /><i style="font-size: small">
+e) Incumplan gravemente las medidas para eliminar o minimizar los efectos adversos de un proyecto o actividad, de acuerdo a lo previsto en la respectiva Resoluci&#243;n de Calificaci&#243;n Ambiental.                                                    </i></td>
+                                                </tr>
+                                                <tr>
+                                                    
+
+                                                    <td data-label="#">9</td>
+                                                    <td data-label="Hecho">Incumplir la RCA N&#176; 11/2020 en lo relativo al Programa de Compensaci&#243;n de Emisiones, lo que se refleja en:
+
+a. No entregar el Programa de Compensaci&#243;n de Emisiones un mes despu&#233;s de obtenida la RCA (3 de abril de 2020).
+b. Iniciar las actividades del proyecto sin contar con la aprobaci&#243;n del Plan de Compensaci&#243;n de Emisiones, por parte de la SEREMI del Medio Ambiente de la regi&#243;n de O&#39;Higgins.</td>
+                                                    
+                                                    <td data-label="Instrumento Infringido" >
+RCA:11/2020<br/><a href="http://seia.sea.gob.cl/expediente/ficha/fichaPrincipal.php?id_expediente=2143001388" target="_blank" title="Link SEIA"><i class="fa fa-globe"></i>Link Detalle </a><br/>                                                    </td>
+
+                                                    <td data-label="Infracción (Art.35 LOSMA)">
+a) El incumplimiento de las condiciones, normas y medidas establecidas en las resoluciones de calificaci&#243;n ambiental                                                    </td>
+                                                    <td data-label="Clasificación (Art. 36 LOSMA)"><b>Leves</b><br /><i style="font-size: small">
+Hecho, actos u omisiones que contravengan cualquier precepto o medida obligatorios y que no constituyan infracci&#243;n grav&#237;sima o grave, de acuerdo con lo previsto en los n&#250;meros anteriores.                                                    </i></td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div id="fiscalizaciones-asociadas" class="tab-pane fade in">
+                                    <table class="conBorde tabla-resultado-busqueda">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Expediente de fiscalización</th>
+                                                <th>Año actividad</th>
+                                                
+                                                <th style="width: 10%;">Detalle</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr>
+                                                <td class="td-contador" data-label="#">1</td>
+                                                <td data-label="Expediente de fiscalización">DFZ-2017-5666-VI-RCA-IA</td>
+                                                <td data-label="Año actividad">2017</td>
+                                                
+                                                <td data-label="Detalle">
+                                                    <span></span>
+                                                    <a href="/Fiscalizacion/Ficha/1005292"><i class="fa fa-plus-circle"></i> Ver detalle</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-contador" data-label="#">2</td>
+                                                <td data-label="Expediente de fiscalización">DFZ-2021-1860-VI-RCA</td>
+                                                <td data-label="Año actividad">2021</td>
+                                                
+                                                <td data-label="Detalle">
+                                                    <span></span>
+                                                    <a href="/Fiscalizacion/Ficha/1050914"><i class="fa fa-plus-circle"></i> Ver detalle</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div id="medidas-provisionales-asociadas" class="tab-pane fade in">
+                                    <div class="alert alert-info" role="alert">
+                                        No se registran medidas provisionales asociadas.
+                                    </div>
+                            </div>
+                            <div id="sanciones" class="tab-pane fade in">
+                                    <div class="alert alert-info" role="alert">
+                                        No se registran sanciones.
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--CAMBIO LFI-->
+        </div>
+        <!--FIN CAMBIO LFI-->
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function() {
+        setTimeout(function() {
+            $modal.modal('hide');
+            menuActivo("dos");
+        }, 1000);
+    });
+</script>
+    </div> <!--termina container principal-->
+
+   
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 datos-pie">
+                    <img src="/images/logo-pie.png" alt="" class="logo-pie" />
+                    <div class="info-pie">
+                        <span>Superintendencia del Medio Ambiente Gobierno de Chile</span>
+                        <p>
+                            Teatinos 280, pisos 7, 8 y 9, Santiago, Chile<br />
+                            Tel: +56 2 2617 1800
+                        </p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-6 nav_footer hidden-mobile">
+                    <ul>
+                        <li>
+                            <a href="https://transparencia.sma.gob.cl/doc/ssi/PoliticaGeneraldeSeguridadInformacion.pdf" target="_blank">
+                                <i class="fa fa-lock fa-2x hidden-xs"></i>
+                                Política de seguridad de la información
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="https://portal.sma.gob.cl" class="ir-sma" target="_blank">
+                                <i class="fa fa-home fa-2x hidden-xs"></i>
+                                Portal SMA
+                            </a>
+                        </li>
+                        <li>
+                            
+                            <a href="/Home/Novedades">
+                                <i class="fa fa-info-circle fa-2x hidden-xs"></i>
+                                Últimas novedades SNIFA
+                            </a>
+                        </li>
+                        <li>
+                            
+                            <a href="/Home/PreguntasFrecuentes">
+                                <i class="fa fa-question-circle fa-2x hidden-xs"></i>
+                                Preguntas frecuentes
+                            </a>
+                        </li>
+                    </ul>
+
+                        
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-12 hidden-desktop">
+                    <a href="http://www.sma.gob.cl" class="ir-sma" target="_blank">
+                        <i class="fa fa-home fa-2x"></i> Ir al sitio SMA
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </footer>
+    <script type="text/javascript">
+        (function ($) {
+            fakewaffle.responsiveTabs(['md', 'sm', 'xs']);
+        })(jQuery);
+    </script>
+
+</body>
+</html>

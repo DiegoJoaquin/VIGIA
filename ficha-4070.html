@@ -1,0 +1,993 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" ">
+    <title>SNIFA - Sistema Nacional de Información de Fiscalización Ambiental</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Content/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/Content/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/Content/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/Content/jquery.multiselect.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/snifa.css">
+    <link rel="stylesheet" type="text/css" href="/Content/color.css">
+    <link rel="stylesheet" type="text/css" href="/Content/estilos.css">
+    <link rel="stylesheet" type="text/css" href="/Content/mytable_estilos.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/head-footer.css">
+    <link rel="stylesheet" type="text/css" href="/Content/clases-nuevas.css">
+    <link rel="stylesheet" type="text/css" href="/Scripts/bootstrap-select-1.12.4/css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="/Content/loading.css">
+
+    <link rel="stylesheet" href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css" type="text/css">
+    <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
+    <style>
+        *:focus, *:active {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    </style>
+
+
+    
+    <script src="/Scripts/jquery/jquery-2.2.4.js"></script>
+    <script src="/Scripts/jquery-ui.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/jquery.dataTables.editable.js"></script>
+    <script src="/Scripts/jquery.dataTables.columnFilter.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="/Scripts/funciones.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.multiselect.js"></script>
+    <script type="text/javascript" src="/Scripts/responsive-tabs.js"></script>
+
+
+    <script src="/Scripts/export/tableExport.js"></script>
+    <script src="/Scripts/export/jquery.base64.js"></script>
+    <script src="/Scripts/export/jspdf/libs/sprintf.js"></script>
+    <script src="/Scripts/export/jspdf/jspdf.js"></script>
+    <script src="/Scripts/export/jspdf/libs/base64.js"></script>
+
+    <script type="text/javascript" src="/Scripts/bootstrap-select-1.12.4/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="/Scripts/bootstrap-select-1.12.4/js/i18n/defaults-es_CL.js"></script>
+    <script src="/Scripts/jquery.fileDownload.js" type="text/javascript"></script>
+
+
+    <!-- Hotjar Tracking Code for SNIFA -->    
+    <script>
+        (function (h, o, t, j, a, r) {
+            h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
+            h._hjSettings = { hjid: 6514256, hjsv: 6 };
+            a = o.getElementsByTagName('head')[0];
+            r = o.createElement('script'); r.async = 1;
+            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+    </script>
+
+    
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H7DTM3S58G"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-H7DTM3S58G');
+    </script>
+
+
+</head>
+
+<body onload="InitMap()">
+    <div id="cargandoInformacionPdC" class="modal" style="z-index: 999999999;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div style="text-align: center; margin: 20px;">
+                        <div style="position: relative;  margin: auto; padding: 10px; height: 100px; width: 120px;">
+                            <div style="padding: 20px; width: 100px;">
+                                <img src="/Images/icono-sma.svg" class="ld ld-bounce" />
+                            </div>
+                        </div>
+                        <b>Cargando información ...</b><br />
+                        Esta descarga podría demorar dependiendo de la cantidad de archivos reportados, favor espere.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="cargandoInformacion" class="modal" style="z-index: 999999999;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div style="text-align: center; margin: 20px;">
+                        <div style="position: relative;  margin: auto; padding: 10px; height: 100px; width: 120px;">
+                            <div style="padding: 20px; width: 100px;">
+                                <img src="/Images/icono-sma.svg" class="ld ld-bounce" />
+                            </div>
+                        </div>
+                        <b>Cargando información ...</b>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="sombra"></div>
+    <div class="menu-mobile">
+        <div class="cerrar-menu-mobile">
+            <i class="fa fa-times"></i>
+        </div>
+        <ul>
+            <li><a href="/">Inicio</a></li>
+            <li class="active"><a href="/Fiscalizacion">Fiscalizaciones</a></li>
+            <li><a href="/Sancionatorio">Procedimientos sancionatorios</a></li>
+            <li><a href="/MedidaProvisional">Medidas provisionales</a></li>
+            <li><a href="/RequerimientoIngreso">Requerimientos de Ingreso</a></li>
+            <li><a href="/RegistroPublico">Registro Sanciones</a></li>
+            <li><a href="/UnidadFiscalizable">Catastro Unidades fiscalizables</a></li>
+            
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Normativa Ambiental <i class="fa fa-angle-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/Instrumento/Index/1">Resoluciones de Calificación Ambiental</a></li>
+                    <li><a href="/Instrumento/Tipo/4">Planes de Prevención y Descontaminación Ambiental</a></li>
+                    <li><a href="/Instrumento/Tipo/2">Normas de Emisión</a></li>
+                    <li><a href="/Instrumento/Tipo/3">Normas de Calidad</a></li>
+                    <li><a href="/ProgramaCumplimiento">Programas de Cumplimiento</a></li>
+                    <li><a href="/Instrumento/NormativaAmbiental">Otros Instrumentos</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Otros Documentos<i class="fa fa-angle-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/Resolucion/Programa">Programas y subprogramas de fiscalización</a></li>
+                    <li><a href="/Resolucion/Instruccion">Instrucciones y requerimientos de caracter general</a></li>
+
+                    
+                    <li><a href="/PlanReparacion">Planes de Reparación</a></li>
+
+                    <li><a href="/DictamenContraloria/Contraloria">Dictámenes de Contraloría</a></li>
+                    <li><a href="/SentenciaTribunal/Tribunal">Sentencias de Tribunales</a></li>
+                    
+                    <li><a href="/CaducidadRCA">Caducidad y acreditación de vigencia de RCA</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Seguimiento & Datos <i class="fa fa-angle-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/SeguimientoAmbiental">Seguimiento Ambiental</a></li>
+                    <li><a href="/Estadisticas">Estadísticas</a></li>
+                    <li><a href="/DatosAbiertos">Datos Abiertos</a></li>
+                </ul>
+            </li>
+            
+            <li><a href="http://www.sma.gob.cl">Ir al sitio SMA</a></li>
+        </ul>
+    </div><!-- /.navbar-collapse -->
+    <!-- /.container-fluid -->
+    <header>
+        <div class="container">
+            <div class="boton-menu-mobile">
+                <i class="fa fa-bars"></i>
+            </div>
+            <div class="logo">
+                <a href="/"><img src="/images/snifa-logo.png" alt="" /></a>
+            </div>
+        </div>    
+        <nav class="navbar navbar-default snifamenu">
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header container">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="textmenu">MENÚ PRINCIPAL</span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Inicio</a></li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="uno"><a href="/Fiscalizacion">Fiscalizaciones</a></li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="dos"><a href="/Sancionatorio">Procedimientos<br /> sancionatorios</a></li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="tres"><a href="/MedidaProvisional">Medidas<br /> provisionales</a></li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="nueve"><a href="/RequerimientoIngreso">Requerimientos<br /> de Ingreso</a></li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="cuatro"><a href="/RegistroPublico">Registro<br /> sanciones</a></li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="cinco"><a href="/UnidadFiscalizable">Catastro Unidades<br /> fiscalizables</a></li>
+                    
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="seis" class="dropdown-submenu">
+                        <a href="/Instrumento/NormativaAmbiental" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Normativa<br /> Ambiental<i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Instrumento">Resoluciones de Calificación Ambiental</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Instrumento/Tipo/4">Planes de Prevención y Descontaminación Ambiental</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Instrumento/Tipo/2">Normas de Emisión</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Instrumento/Tipo/3">Normas de Calidad</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/ProgramaCumplimiento">Programas de cumplimiento</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Instrumento/NormativaAmbiental">Otros Instrumentos</a></li>
+                        </ul>
+                    </li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="siete" class="dropdown-submenu">
+                        <a href="/Resolucion/Programa" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Otros<br /> documentos <i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Resolucion/Programa">Programas y subprogramas de fiscalización</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Resolucion/Instruccion">Instrucciones y requerimientos de caracter general</a></li>
+                            
+                            
+                            <li class="divider"></li>
+                            <li><a href="/PlanReparacion">Planes de Reparación</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/DictamenContraloria/Contraloria">Dictámenes de Contraloría</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/SentenciaTribunal/Tribunal">Sentencias de Tribunales</a></li>
+                            
+                            <li class="divider"></li>
+                            <li><a href="/CaducidadRCA">Caducidad y acreditación de vigencia de RCA</a></li>
+                        </ul>
+                    </li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="ocho" class="dropdown-submenu">
+                        <a href="#" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Seguimiento &<br /> Datos <i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/SeguimientoAmbiental">Seguimiento Ambiental</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Estadisticas">Estadísticas</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/DatosAbiertos">Datos Abiertos</a></li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+            </div><!-- /.navbar-collapse -->
+            <!-- /.container-fluid -->
+        </nav>
+    </header>
+
+    <div class="clearfix"></div>
+
+    <div class="container contenido">
+
+       
+
+
+<script>
+    $("#cargandoInformacion").modal({
+        backdrop: 'static',
+        show: false
+    });
+    var $modal = $("#cargandoInformacion");
+    $modal.modal('show');
+</script>
+
+<!--CAMBIO LFI-->
+<div class="volver-busqueda tipo-ps">
+    <a href="/Sancionatorio"><img src="/images/f-ps.png" /> Volver a la Búsqueda</a>
+</div>
+<!--FIN CAMBIO LFI-->
+<div class="categoria3">
+    <div class="row">
+        <div class="col-md-12">
+            <!--CAMBIO LFI class titulo-->
+            <div class="hidden-mobile panel titulo panel-default">
+                <div class="panel-body">
+                    <div class="titulo-categoria">
+                        <img src="/images/ic3.png" /> Procedimientos Sancionatorios
+                    </div>
+                </div>
+            </div>
+            <div class="item-mobile item3 titulo-interior hidden-desktop">
+                <a href="/Sancionatorio">
+                    <div>
+                        <img src="/images/ic3b.png" />
+                        <span>Procedimientos Sancionatorios</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--CAMBIO LFI-->
+<div class="tipo-ps">
+
+
+
+<div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default panel-expediente panel-expediente1">
+                <div class="panel-body sin-padding">
+                    <h3>Expediente: D-079-2025</h3>
+                    <h4><i class='fa fa-calendar'></i> <b>Fecha Inicio :</b> <i>18-08-2025</i></h4>
+                    <h4><i class='fa fa-calendar-check-o'></i> <b>Fecha Término: </b> <i></i></h4>
+                    <h4><i class='fa fa-signal'></i> <b>Estado: </b> <i>Programa de Cumplimiento en ejecución</i></h4>
+                    <h4></h4>
+                    <h4></h4>
+                    <h4><i class='fa fa-check'></i> <b>PdC:</b> <i><a href='http://snifa.sma.gob.cl/ProgramaCumplimiento/Ficha/1663'>Enlace</a></i></h4>
+                    <h4></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="panel panel-default panel-expediente">
+                <div class="panel-body panel-u-f">
+                    <div class="row">
+                        <div class="col-md-6 hidden-mobile">
+                            <div class="box-unidad-fiscalizable">
+                                <h4><i class="fa fa-building"></i> Unidad fiscalizable</h4>
+                                <ul>
+                                        <li>
+                                            <i class="fa fa-caret-right"></i> <a href="/UnidadFiscalizable/Ficha/2628">PLANTA MASISA MAPAL</a><br />
+                                            San Pedro de la Paz - Regi&#243;n del Biob&#237;o
+                                        </li>
+                                        <input type="hidden" id="tLat_2628" value="-36.8708515" />
+                                        <input type="hidden" id="tLng_2628" value="-73.144411" />
+                                        <input type="hidden" id="tNombre_2628" value="PLANTA MASISA MAPAL" />
+                                </ul>
+                            </div>
+
+                                <div class="box-unidad-fiscalizable">
+                                    <h4><i class="fa fa-user"></i> Titular</h4>
+                                    <ul>
+                                            <li>
+                                                <i class="fa fa-caret-right"></i>MASISA S.A                                                                                          <br />
+                                            </li>
+                                    </ul>
+                                </div>
+
+                        </div>
+
+                        
+                        <div class="col-md-6 hidden-mobile">
+                            <div class="mapa-expediente">
+                                <div id="dMapa" style="height: 250px;">
+                                        <img src="/MapasCache/2628.png" style="width:100%; height:250px; object-fit:cover; border:1px solid #CCC;" alt="Mapa de ubicacion" />                                 </div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="col-md-6 hidden-desktop">
+                            <!--CAMBIO LFI-->
+                            <div class="btn-ver-mapa">
+                                <i class="fa fa-map-marker"></i> Ver mapa
+                            </div>
+                            <div class="clear"></div>
+                            <!--FIN CAMBIO-->
+                            <div class="mapa-expediente">
+                                <div id="dMapa-mobile" style="height: 250px;">
+                                        <img src="/MapasCache/2628.png" style="width:100%; height:250px; object-fit:cover; border:1px solid #CCC;" alt="Mapa de ubicacion" />                                 </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="col-md-6 hidden-desktop">
+                            <div class="box-unidad-fiscalizable">
+                                <h4><i class="fa fa-building"></i> Unidad fiscalizable</h4>
+                                <ul>
+                                        <li>
+                                            <i class="fa fa-caret-right"></i> <a href="/UnidadFiscalizable/Ficha/2628">PLANTA MASISA MAPAL</a><br />
+                                            San Pedro de la Paz - Regi&#243;n del Biob&#237;o
+                                        </li>
+                                        <input type="hidden" id="tLat_2628" value="-36.8708515" />
+                                        <input type="hidden" id="tLng_2628" value="-73.144411" />
+                                        <input type="hidden" id="tNombre_2628" value="PLANTA MASISA MAPAL" />
+                                </ul>
+                            </div>
+
+                                <div class="box-unidad-fiscalizable">
+                                    <h4><i class="fa fa-user"></i> Titular</h4>
+                                    <ul>
+                                            <li>
+                                                <i class="fa fa-caret-right"></i>MASISA S.A                                                                                          <br />
+                                            </li>
+
+                                    </ul>
+                                </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+
+
+
+
+</div>
+<!--FIN CAMBIO-->
+<div class="row">
+    <div class="col-md-12">
+        <!--CAMBIO LFI-->
+        <div class="panel-ficha tipo-ps">
+        <!--FIN CAMBIO LFI -->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="nav nav-tabs responsive">
+                            <li class="active"><a data-toggle="tab" href="#documentos"><i class="fa fa-file-text-o"></i> Documentos (42)</a></li>
+                            <li><a data-toggle="tab" href="#instrumentos-considerados"><i class="fa fa-clipboard"></i> Hechos considerados (1)</a></li>
+                            <li><a data-toggle="tab" href="#fiscalizaciones-asociadas"><i class="fa fa-search"></i> Fiscalizaciones asociadas (1)</a></li>
+                            <li><a data-toggle="tab" href="#medidas-provisionales-asociadas"><i class="fa fa-hourglass-end"></i> Medidas provisionales<br /> asociadas (0)</a></li>
+                            <li><a data-toggle="tab" href="#sanciones"><i class="fa fa-eye"></i> Sanciones (0)</a></li>
+                        </ul>
+                        <div class="tab-content responsive">
+                            <div id="documentos" class="tab-pane fade in active">
+                                <table class="conBorde tabla-resultado-busqueda"> 
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10%;">#</th>
+                                            <th>Nombre Documento</th>
+                                            <th style="width: 30%;">Tipo Documento</th>
+                                            <th style="width: 10%;">Fecha</th>
+                                            <th style="width: 10%;">Link</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr>
+                                                <td data-label="#">1</td>
+                                                <td data-label="Nombre Documento">Formulaci&#243;n de Cargos</td>
+                                                <td data-label="Tipo Documento">Formulaci&#243;n de Cargos</td>
+                                                <td data-label="Fecha">16-04-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2060100082117" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">2</td>
+                                                <td data-label="Nombre Documento">Memo designa Fiscal Instructora</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">16-04-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200082118" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">3</td>
+                                                <td data-label="Nombre Documento">Acta notificaci&#243;n personal</td>
+                                                <td data-label="Tipo Documento">Notificaci&#243;n Formulaci&#243;n de Cargos</td>
+                                                <td data-label="Fecha">22-04-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2063400082315" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">4</td>
+                                                <td data-label="Nombre Documento">Acta reuni&#243;n de asistencia</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">06-05-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200082711" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">5</td>
+                                                <td data-label="Nombre Documento">Programa de cumplimiento</td>
+                                                <td data-label="Tipo Documento">PDC Presentaci&#243;n</td>
+                                                <td data-label="Fecha">14-05-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2060200083210" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">6</td>
+                                                <td data-label="Nombre Documento">Anexo PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">14-05-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200083211" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">7</td>
+                                                <td data-label="Nombre Documento">Anexo PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">14-05-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200083212" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">8</td>
+                                                <td data-label="Nombre Documento">Anexo PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">14-05-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200083213" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">9</td>
+                                                <td data-label="Nombre Documento">Anexo PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">14-05-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200083214" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">10</td>
+                                                <td data-label="Nombre Documento">Anexo PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">14-05-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200083215" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">11</td>
+                                                <td data-label="Nombre Documento">Anexo PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">14-05-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200083216" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">12</td>
+                                                <td data-label="Nombre Documento">Anexo PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">14-05-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200083217" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">13</td>
+                                                <td data-label="Nombre Documento">Anexo PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">14-05-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200083218" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">14</td>
+                                                <td data-label="Nombre Documento">Anexo PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">14-05-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200083219" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">15</td>
+                                                <td data-label="Nombre Documento">Anexo PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">14-05-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200083220" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">16</td>
+                                                <td data-label="Nombre Documento">Anexo PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">14-05-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200083221" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">17</td>
+                                                <td data-label="Nombre Documento">Anexo PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">14-05-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200083222" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">18</td>
+                                                <td data-label="Nombre Documento">Otros antecedentes titular</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">17-06-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200084178" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">19</td>
+                                                <td data-label="Nombre Documento">Otros antecedentes titular</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">17-06-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200084179" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">20</td>
+                                                <td data-label="Nombre Documento">Escrito Masisa</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">25-07-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200085392" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">21</td>
+                                                <td data-label="Nombre Documento">Reformulaci&#243;n de Cargos</td>
+                                                <td data-label="Tipo Documento">Reformulaci&#243;n de Cargos</td>
+                                                <td data-label="Fecha">18-08-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2060900085799" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">22</td>
+                                                <td data-label="Nombre Documento">Seguimiento notificaci&#243;n</td>
+                                                <td data-label="Tipo Documento">Notificaci&#243;n Formulaci&#243;n de Cargos</td>
+                                                <td data-label="Fecha">20-08-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2063400088171" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">23</td>
+                                                <td data-label="Nombre Documento">PROGRAMA DE CUMPLIMIENTO</td>
+                                                <td data-label="Tipo Documento">PDC Presentaci&#243;n</td>
+                                                <td data-label="Fecha">08-09-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2060200088174" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">24</td>
+                                                <td data-label="Nombre Documento">Solicitud asistencia</td>
+                                                <td data-label="Tipo Documento">Solicitud de Asistencia al Cumplimiento</td>
+                                                <td data-label="Fecha">14-11-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2066100088717" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">25</td>
+                                                <td data-label="Nombre Documento">Acta reuni&#243;n asistencia</td>
+                                                <td data-label="Tipo Documento">Registro de Asistencia al Cumplimiento</td>
+                                                <td data-label="Fecha">17-11-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2065000088716" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">26</td>
+                                                <td data-label="Nombre Documento">Escrito complementario PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">24-11-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200089124" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">27</td>
+                                                <td data-label="Nombre Documento">Escrito complementario PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">24-11-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200089125" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">28</td>
+                                                <td data-label="Nombre Documento">Escrito complementario PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">24-11-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200089126" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">29</td>
+                                                <td data-label="Nombre Documento">Escrito complementario PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">24-11-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200089127" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">30</td>
+                                                <td data-label="Nombre Documento">Escrito complementario PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">24-11-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200089128" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">31</td>
+                                                <td data-label="Nombre Documento">Escrito complementario PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">24-11-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200089131" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">32</td>
+                                                <td data-label="Nombre Documento">Escrito complementario PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">24-11-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200089132" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">33</td>
+                                                <td data-label="Nombre Documento">Escrito complementario PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">24-11-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200089133" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">34</td>
+                                                <td data-label="Nombre Documento">Escrito complementario PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">24-11-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200089130" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">35</td>
+                                                <td data-label="Nombre Documento">Escrito complementario PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">24-11-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200089134" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">36</td>
+                                                <td data-label="Nombre Documento">Escrito complementario PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">24-11-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200089135" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">37</td>
+                                                <td data-label="Nombre Documento">Escrito complementario PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">24-11-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200089136" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">38</td>
+                                                <td data-label="Nombre Documento">Escrito complementario PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">24-11-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200089137" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">39</td>
+                                                <td data-label="Nombre Documento">Escrito complementario PDC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">27-11-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200089129" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">40</td>
+                                                <td data-label="Nombre Documento">Resoluci&#243;n Exenta N&#176;3 Aprueba PdC</td>
+                                                <td data-label="Tipo Documento">PDC Aprobaci&#243;n</td>
+                                                <td data-label="Fecha">23-01-2026</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2060300090853" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">41</td>
+                                                <td data-label="Nombre Documento">Notificaci&#243;n Res. Ex. N&#176;3 Titular</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">27-01-2026</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200091393" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">42</td>
+                                                <td data-label="Nombre Documento">Notificaci&#243;n Res. Ex. N&#176;3 Interesados</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">25-02-2026</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200098838" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="instrumentos-considerados" class="tab-pane fade in">
+                                    <table class="conBorde tabla-resultado-busqueda">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 2%">#</th>
+                                                <th style="width: 50%">Hecho</th>
+                                                
+                                                <th style="width: 18%">Instrumento Infringido</th>
+                                                <th style="width: 17%">Infracción<br />(Art.35 LOSMA)</th>
+                                                <th style="width: 13%">Clasificación<br />(Art. 36 LOSMA)</th>                                                
+
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                    
+
+                                                    <td data-label="#">1</td>
+                                                    <td data-label="Hecho">La obtenci&#243;n, con fecha 26 de mayo de 2022, de un Nivel de Presi&#243;n Sonora Corregido (NPC) de 57 dB(A), medici&#243;n efectuada en horario nocturno, en condici&#243;n externa en un receptor sensible ubicado en Zona III.</td>
+                                                    
+                                                    <td data-label="Instrumento Infringido" >
+NE:38/2011<br/><a href="http://bcn.cl/lmkm" target="_blank" title="Link SEIA"><i class="fa fa-globe"></i>Link Detalle </a><br/>                                                    </td>
+
+                                                    <td data-label="Infracción (Art.35 LOSMA)">
+h) El incumplimiento de las Normas de Emisi&#243;n, cuando corresponda                                                    </td>
+                                                    <td data-label="Clasificación (Art. 36 LOSMA)"><b>Leves</b><br /><i style="font-size: small">
+Hecho, actos u omisiones que contravengan cualquier precepto o medida obligatorios y que no constituyan infracci&#243;n grav&#237;sima o grave, de acuerdo con lo previsto en los n&#250;meros anteriores.                                                    </i></td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div id="fiscalizaciones-asociadas" class="tab-pane fade in">
+                                    <table class="conBorde tabla-resultado-busqueda">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Expediente de fiscalización</th>
+                                                <th>Año actividad</th>
+                                                
+                                                <th style="width: 10%;">Detalle</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr>
+                                                <td class="td-contador" data-label="#">1</td>
+                                                <td data-label="Expediente de fiscalización">DFZ-2022-1702-VIII-NE</td>
+                                                <td data-label="Año actividad">2022</td>
+                                                
+                                                <td data-label="Detalle">
+                                                    <span></span>
+                                                    <a href="/Fiscalizacion/Ficha/1055455"><i class="fa fa-plus-circle"></i> Ver detalle</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div id="medidas-provisionales-asociadas" class="tab-pane fade in">
+                                    <div class="alert alert-info" role="alert">
+                                        No se registran medidas provisionales asociadas.
+                                    </div>
+                            </div>
+                            <div id="sanciones" class="tab-pane fade in">
+                                    <div class="alert alert-info" role="alert">
+                                        No se registran sanciones.
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--CAMBIO LFI-->
+        </div>
+        <!--FIN CAMBIO LFI-->
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function() {
+        setTimeout(function() {
+            $modal.modal('hide');
+            menuActivo("dos");
+        }, 1000);
+    });
+</script>
+    </div> <!--termina container principal-->
+
+   
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 datos-pie">
+                    <img src="/images/logo-pie.png" alt="" class="logo-pie" />
+                    <div class="info-pie">
+                        <span>Superintendencia del Medio Ambiente Gobierno de Chile</span>
+                        <p>
+                            Teatinos 280, pisos 7, 8 y 9, Santiago, Chile<br />
+                            Tel: +56 2 2617 1800
+                        </p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-6 nav_footer hidden-mobile">
+                    <ul>
+                        <li>
+                            <a href="https://transparencia.sma.gob.cl/doc/ssi/PoliticaGeneraldeSeguridadInformacion.pdf" target="_blank">
+                                <i class="fa fa-lock fa-2x hidden-xs"></i>
+                                Política de seguridad de la información
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="https://portal.sma.gob.cl" class="ir-sma" target="_blank">
+                                <i class="fa fa-home fa-2x hidden-xs"></i>
+                                Portal SMA
+                            </a>
+                        </li>
+                        <li>
+                            
+                            <a href="/Home/Novedades">
+                                <i class="fa fa-info-circle fa-2x hidden-xs"></i>
+                                Últimas novedades SNIFA
+                            </a>
+                        </li>
+                        <li>
+                            
+                            <a href="/Home/PreguntasFrecuentes">
+                                <i class="fa fa-question-circle fa-2x hidden-xs"></i>
+                                Preguntas frecuentes
+                            </a>
+                        </li>
+                    </ul>
+
+                        
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-12 hidden-desktop">
+                    <a href="http://www.sma.gob.cl" class="ir-sma" target="_blank">
+                        <i class="fa fa-home fa-2x"></i> Ir al sitio SMA
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </footer>
+    <script type="text/javascript">
+        (function ($) {
+            fakewaffle.responsiveTabs(['md', 'sm', 'xs']);
+        })(jQuery);
+    </script>
+
+</body>
+</html>

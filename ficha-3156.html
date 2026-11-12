@@ -1,0 +1,915 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" ">
+    <title>SNIFA - Sistema Nacional de Información de Fiscalización Ambiental</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Content/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/Content/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/Content/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/Content/jquery.multiselect.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/snifa.css">
+    <link rel="stylesheet" type="text/css" href="/Content/color.css">
+    <link rel="stylesheet" type="text/css" href="/Content/estilos.css">
+    <link rel="stylesheet" type="text/css" href="/Content/mytable_estilos.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/head-footer.css">
+    <link rel="stylesheet" type="text/css" href="/Content/clases-nuevas.css">
+    <link rel="stylesheet" type="text/css" href="/Scripts/bootstrap-select-1.12.4/css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="/Content/loading.css">
+
+    <link rel="stylesheet" href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css" type="text/css">
+    <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
+    <style>
+        *:focus, *:active {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    </style>
+
+
+    
+    <script src="/Scripts/jquery/jquery-2.2.4.js"></script>
+    <script src="/Scripts/jquery-ui.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/jquery.dataTables.editable.js"></script>
+    <script src="/Scripts/jquery.dataTables.columnFilter.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="/Scripts/funciones.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.multiselect.js"></script>
+    <script type="text/javascript" src="/Scripts/responsive-tabs.js"></script>
+
+
+    <script src="/Scripts/export/tableExport.js"></script>
+    <script src="/Scripts/export/jquery.base64.js"></script>
+    <script src="/Scripts/export/jspdf/libs/sprintf.js"></script>
+    <script src="/Scripts/export/jspdf/jspdf.js"></script>
+    <script src="/Scripts/export/jspdf/libs/base64.js"></script>
+
+    <script type="text/javascript" src="/Scripts/bootstrap-select-1.12.4/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="/Scripts/bootstrap-select-1.12.4/js/i18n/defaults-es_CL.js"></script>
+    <script src="/Scripts/jquery.fileDownload.js" type="text/javascript"></script>
+
+
+    <!-- Hotjar Tracking Code for SNIFA -->    
+    <script>
+        (function (h, o, t, j, a, r) {
+            h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
+            h._hjSettings = { hjid: 6514256, hjsv: 6 };
+            a = o.getElementsByTagName('head')[0];
+            r = o.createElement('script'); r.async = 1;
+            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+    </script>
+
+    
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H7DTM3S58G"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-H7DTM3S58G');
+    </script>
+
+
+</head>
+
+<body onload="InitMap()">
+    <div id="cargandoInformacionPdC" class="modal" style="z-index: 999999999;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div style="text-align: center; margin: 20px;">
+                        <div style="position: relative;  margin: auto; padding: 10px; height: 100px; width: 120px;">
+                            <div style="padding: 20px; width: 100px;">
+                                <img src="/Images/icono-sma.svg" class="ld ld-bounce" />
+                            </div>
+                        </div>
+                        <b>Cargando información ...</b><br />
+                        Esta descarga podría demorar dependiendo de la cantidad de archivos reportados, favor espere.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="cargandoInformacion" class="modal" style="z-index: 999999999;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div style="text-align: center; margin: 20px;">
+                        <div style="position: relative;  margin: auto; padding: 10px; height: 100px; width: 120px;">
+                            <div style="padding: 20px; width: 100px;">
+                                <img src="/Images/icono-sma.svg" class="ld ld-bounce" />
+                            </div>
+                        </div>
+                        <b>Cargando información ...</b>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="sombra"></div>
+    <div class="menu-mobile">
+        <div class="cerrar-menu-mobile">
+            <i class="fa fa-times"></i>
+        </div>
+        <ul>
+            <li><a href="/">Inicio</a></li>
+            <li class="active"><a href="/Fiscalizacion">Fiscalizaciones</a></li>
+            <li><a href="/Sancionatorio">Procedimientos sancionatorios</a></li>
+            <li><a href="/MedidaProvisional">Medidas provisionales</a></li>
+            <li><a href="/RequerimientoIngreso">Requerimientos de Ingreso</a></li>
+            <li><a href="/RegistroPublico">Registro Sanciones</a></li>
+            <li><a href="/UnidadFiscalizable">Catastro Unidades fiscalizables</a></li>
+            
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Normativa Ambiental <i class="fa fa-angle-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/Instrumento/Index/1">Resoluciones de Calificación Ambiental</a></li>
+                    <li><a href="/Instrumento/Tipo/4">Planes de Prevención y Descontaminación Ambiental</a></li>
+                    <li><a href="/Instrumento/Tipo/2">Normas de Emisión</a></li>
+                    <li><a href="/Instrumento/Tipo/3">Normas de Calidad</a></li>
+                    <li><a href="/ProgramaCumplimiento">Programas de Cumplimiento</a></li>
+                    <li><a href="/Instrumento/NormativaAmbiental">Otros Instrumentos</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Otros Documentos<i class="fa fa-angle-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/Resolucion/Programa">Programas y subprogramas de fiscalización</a></li>
+                    <li><a href="/Resolucion/Instruccion">Instrucciones y requerimientos de caracter general</a></li>
+
+                    
+                    <li><a href="/PlanReparacion">Planes de Reparación</a></li>
+
+                    <li><a href="/DictamenContraloria/Contraloria">Dictámenes de Contraloría</a></li>
+                    <li><a href="/SentenciaTribunal/Tribunal">Sentencias de Tribunales</a></li>
+                    
+                    <li><a href="/CaducidadRCA">Caducidad y acreditación de vigencia de RCA</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Seguimiento & Datos <i class="fa fa-angle-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/SeguimientoAmbiental">Seguimiento Ambiental</a></li>
+                    <li><a href="/Estadisticas">Estadísticas</a></li>
+                    <li><a href="/DatosAbiertos">Datos Abiertos</a></li>
+                </ul>
+            </li>
+            
+            <li><a href="http://www.sma.gob.cl">Ir al sitio SMA</a></li>
+        </ul>
+    </div><!-- /.navbar-collapse -->
+    <!-- /.container-fluid -->
+    <header>
+        <div class="container">
+            <div class="boton-menu-mobile">
+                <i class="fa fa-bars"></i>
+            </div>
+            <div class="logo">
+                <a href="/"><img src="/images/snifa-logo.png" alt="" /></a>
+            </div>
+        </div>    
+        <nav class="navbar navbar-default snifamenu">
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header container">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="textmenu">MENÚ PRINCIPAL</span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Inicio</a></li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="uno"><a href="/Fiscalizacion">Fiscalizaciones</a></li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="dos"><a href="/Sancionatorio">Procedimientos<br /> sancionatorios</a></li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="tres"><a href="/MedidaProvisional">Medidas<br /> provisionales</a></li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="nueve"><a href="/RequerimientoIngreso">Requerimientos<br /> de Ingreso</a></li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="cuatro"><a href="/RegistroPublico">Registro<br /> sanciones</a></li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="cinco"><a href="/UnidadFiscalizable">Catastro Unidades<br /> fiscalizables</a></li>
+                    
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="seis" class="dropdown-submenu">
+                        <a href="/Instrumento/NormativaAmbiental" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Normativa<br /> Ambiental<i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Instrumento">Resoluciones de Calificación Ambiental</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Instrumento/Tipo/4">Planes de Prevención y Descontaminación Ambiental</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Instrumento/Tipo/2">Normas de Emisión</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Instrumento/Tipo/3">Normas de Calidad</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/ProgramaCumplimiento">Programas de cumplimiento</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Instrumento/NormativaAmbiental">Otros Instrumentos</a></li>
+                        </ul>
+                    </li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="siete" class="dropdown-submenu">
+                        <a href="/Resolucion/Programa" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Otros<br /> documentos <i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Resolucion/Programa">Programas y subprogramas de fiscalización</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Resolucion/Instruccion">Instrucciones y requerimientos de caracter general</a></li>
+                            
+                            
+                            <li class="divider"></li>
+                            <li><a href="/PlanReparacion">Planes de Reparación</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/DictamenContraloria/Contraloria">Dictámenes de Contraloría</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/SentenciaTribunal/Tribunal">Sentencias de Tribunales</a></li>
+                            
+                            <li class="divider"></li>
+                            <li><a href="/CaducidadRCA">Caducidad y acreditación de vigencia de RCA</a></li>
+                        </ul>
+                    </li>
+                    <li class="separador"><i class="fa fa-circle"></i></li>
+                    <li id="ocho" class="dropdown-submenu">
+                        <a href="#" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Seguimiento &<br /> Datos <i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/SeguimientoAmbiental">Seguimiento Ambiental</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Estadisticas">Estadísticas</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/DatosAbiertos">Datos Abiertos</a></li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+            </div><!-- /.navbar-collapse -->
+            <!-- /.container-fluid -->
+        </nav>
+    </header>
+
+    <div class="clearfix"></div>
+
+    <div class="container contenido">
+
+       
+
+
+<script>
+    $("#cargandoInformacion").modal({
+        backdrop: 'static',
+        show: false
+    });
+    var $modal = $("#cargandoInformacion");
+    $modal.modal('show');
+</script>
+
+<!--CAMBIO LFI-->
+<div class="volver-busqueda tipo-ps">
+    <a href="/Sancionatorio"><img src="/images/f-ps.png" /> Volver a la Búsqueda</a>
+</div>
+<!--FIN CAMBIO LFI-->
+<div class="categoria3">
+    <div class="row">
+        <div class="col-md-12">
+            <!--CAMBIO LFI class titulo-->
+            <div class="hidden-mobile panel titulo panel-default">
+                <div class="panel-body">
+                    <div class="titulo-categoria">
+                        <img src="/images/ic3.png" /> Procedimientos Sancionatorios
+                    </div>
+                </div>
+            </div>
+            <div class="item-mobile item3 titulo-interior hidden-desktop">
+                <a href="/Sancionatorio">
+                    <div>
+                        <img src="/images/ic3b.png" />
+                        <span>Procedimientos Sancionatorios</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--CAMBIO LFI-->
+<div class="tipo-ps">
+
+
+
+<div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default panel-expediente panel-expediente1">
+                <div class="panel-body sin-padding">
+                    <h3>Expediente: F-101-2022</h3>
+                    <h4><i class='fa fa-calendar'></i> <b>Fecha Inicio :</b> <i>20-12-2022</i></h4>
+                    <h4><i class='fa fa-calendar-check-o'></i> <b>Fecha Término: </b> <i></i></h4>
+                    <h4><i class='fa fa-signal'></i> <b>Estado: </b> <i>Programa de Cumplimiento en ejecución</i></h4>
+                    <h4></h4>
+                    <h4></h4>
+                    <h4><i class='fa fa-check'></i> <b>PdC:</b> <i><a href='http://snifa.sma.gob.cl/ProgramaCumplimiento/Ficha/1478'>Enlace</a></i></h4>
+                    <h4></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="panel panel-default panel-expediente">
+                <div class="panel-body panel-u-f">
+                    <div class="row">
+                        <div class="col-md-6 hidden-mobile">
+                            <div class="box-unidad-fiscalizable">
+                                <h4><i class="fa fa-building"></i> Unidad fiscalizable</h4>
+                                <ul>
+                                        <li>
+                                            <i class="fa fa-caret-right"></i> <a href="/UnidadFiscalizable/Ficha/2064">VI&#209;A LAPOSTOLLE - BODEGUITA APALTA</a><br />
+                                            Santa Cruz - Regi&#243;n del Libertador General Bernardo O&#39;Higgins
+                                        </li>
+                                        <input type="hidden" id="tLat_2064" value="-34.593804" />
+                                        <input type="hidden" id="tLng_2064" value="-71.290871" />
+                                        <input type="hidden" id="tNombre_2064" value="VI&#209;A LAPOSTOLLE - BODEGUITA APALTA" />
+                                </ul>
+                            </div>
+
+                                <div class="box-unidad-fiscalizable">
+                                    <h4><i class="fa fa-user"></i> Titular</h4>
+                                    <ul>
+                                            <li>
+                                                <i class="fa fa-caret-right"></i>CLOS APALTA SPA<br />
+                                            </li>
+                                    </ul>
+                                </div>
+
+                        </div>
+
+                        
+                        <div class="col-md-6 hidden-mobile">
+                            <div class="mapa-expediente">
+                                <div id="dMapa" style="height: 250px;">
+                                        <img src="/MapasCache/2064.png" style="width:100%; height:250px; object-fit:cover; border:1px solid #CCC;" alt="Mapa de ubicacion" />                                 </div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="col-md-6 hidden-desktop">
+                            <!--CAMBIO LFI-->
+                            <div class="btn-ver-mapa">
+                                <i class="fa fa-map-marker"></i> Ver mapa
+                            </div>
+                            <div class="clear"></div>
+                            <!--FIN CAMBIO-->
+                            <div class="mapa-expediente">
+                                <div id="dMapa-mobile" style="height: 250px;">
+                                        <img src="/MapasCache/2064.png" style="width:100%; height:250px; object-fit:cover; border:1px solid #CCC;" alt="Mapa de ubicacion" />                                 </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="col-md-6 hidden-desktop">
+                            <div class="box-unidad-fiscalizable">
+                                <h4><i class="fa fa-building"></i> Unidad fiscalizable</h4>
+                                <ul>
+                                        <li>
+                                            <i class="fa fa-caret-right"></i> <a href="/UnidadFiscalizable/Ficha/2064">VI&#209;A LAPOSTOLLE - BODEGUITA APALTA</a><br />
+                                            Santa Cruz - Regi&#243;n del Libertador General Bernardo O&#39;Higgins
+                                        </li>
+                                        <input type="hidden" id="tLat_2064" value="-34.593804" />
+                                        <input type="hidden" id="tLng_2064" value="-71.290871" />
+                                        <input type="hidden" id="tNombre_2064" value="VI&#209;A LAPOSTOLLE - BODEGUITA APALTA" />
+                                </ul>
+                            </div>
+
+                                <div class="box-unidad-fiscalizable">
+                                    <h4><i class="fa fa-user"></i> Titular</h4>
+                                    <ul>
+                                            <li>
+                                                <i class="fa fa-caret-right"></i>CLOS APALTA SPA<br />
+                                            </li>
+
+                                    </ul>
+                                </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+
+
+
+
+</div>
+<!--FIN CAMBIO-->
+<div class="row">
+    <div class="col-md-12">
+        <!--CAMBIO LFI-->
+        <div class="panel-ficha tipo-ps">
+        <!--FIN CAMBIO LFI -->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="nav nav-tabs responsive">
+                            <li class="active"><a data-toggle="tab" href="#documentos"><i class="fa fa-file-text-o"></i> Documentos (18)</a></li>
+                            <li><a data-toggle="tab" href="#instrumentos-considerados"><i class="fa fa-clipboard"></i> Hechos considerados (3)</a></li>
+                            <li><a data-toggle="tab" href="#fiscalizaciones-asociadas"><i class="fa fa-search"></i> Fiscalizaciones asociadas (12)</a></li>
+                            <li><a data-toggle="tab" href="#medidas-provisionales-asociadas"><i class="fa fa-hourglass-end"></i> Medidas provisionales<br /> asociadas (0)</a></li>
+                            <li><a data-toggle="tab" href="#sanciones"><i class="fa fa-eye"></i> Sanciones (0)</a></li>
+                        </ul>
+                        <div class="tab-content responsive">
+                            <div id="documentos" class="tab-pane fade in active">
+                                <table class="conBorde tabla-resultado-busqueda"> 
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10%;">#</th>
+                                            <th>Nombre Documento</th>
+                                            <th style="width: 30%;">Tipo Documento</th>
+                                            <th style="width: 10%;">Fecha</th>
+                                            <th style="width: 10%;">Link</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr>
+                                                <td data-label="#">1</td>
+                                                <td data-label="Nombre Documento">Memo 508_ designa Fiscal Instructora</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">22-11-2022</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200065148" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">2</td>
+                                                <td data-label="Nombre Documento">Formulaci&#243;n de Cargos</td>
+                                                <td data-label="Tipo Documento">Formulaci&#243;n de Cargos</td>
+                                                <td data-label="Fecha">20-12-2022</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2060100056602" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">3</td>
+                                                <td data-label="Nombre Documento">Notifica res. Ex. N&#176;1_Titular</td>
+                                                <td data-label="Tipo Documento">Notificaci&#243;n Formulaci&#243;n de Cargos</td>
+                                                <td data-label="Fecha">23-03-2023</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2063400059154" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">4</td>
+                                                <td data-label="Nombre Documento">Programa de Cumplimiento</td>
+                                                <td data-label="Tipo Documento">PDC Presentaci&#243;n</td>
+                                                <td data-label="Fecha">12-04-2023</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2060200062384" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">5</td>
+                                                <td data-label="Nombre Documento">Memor&#225;ndum de derivaci&#243;n de PdC</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">03-07-2023</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200062389" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">6</td>
+                                                <td data-label="Nombre Documento">Res. Ex. N&#176; 2_Observaciones PdC</td>
+                                                <td data-label="Tipo Documento">PDC - Observaciones de la SMA</td>
+                                                <td data-label="Fecha">10-07-2023</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061400062398" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">7</td>
+                                                <td data-label="Nombre Documento">Memor&#225;ndum designaci&#243;n Fiscal Instructora Suplente</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">14-07-2023</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200062390" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">8</td>
+                                                <td data-label="Nombre Documento">Notifica Res. Ex. N&#176;2_Titular</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">31-07-2023</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200062967" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">9</td>
+                                                <td data-label="Nombre Documento">Programa de Cumplimiento Refundido</td>
+                                                <td data-label="Tipo Documento">PDC Refundido </td>
+                                                <td data-label="Fecha">09-08-2023</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061300065958" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">10</td>
+                                                <td data-label="Nombre Documento">Memo 38_2024_Reasigna Fiscal Instructor Suplente</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">26-01-2024</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200068441" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">11</td>
+                                                <td data-label="Nombre Documento">Memor&#225;ndum N&#176; 186 2024 Designa FIT y FIS para casos que indica</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">10-05-2024</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200071016" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">12</td>
+                                                <td data-label="Nombre Documento">Memor&#225;ndum 419/2024 reasignaci&#243;n de fiscal instructor</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">16-08-2024</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200074439" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">13</td>
+                                                <td data-label="Nombre Documento">Resoluci&#243;n N&#176; 3 / Rol F 101 2022</td>
+                                                <td data-label="Tipo Documento">PDC - Observaciones de la SMA</td>
+                                                <td data-label="Fecha">03-01-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061400078798" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">14</td>
+                                                <td data-label="Nombre Documento">Notificaci&#243;n por correo electr&#243;nico</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">06-01-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200078969" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">15</td>
+                                                <td data-label="Nombre Documento">Programa de cumplimiento refundido</td>
+                                                <td data-label="Tipo Documento">PDC Refundido </td>
+                                                <td data-label="Fecha">14-01-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061300079235" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">16</td>
+                                                <td data-label="Nombre Documento">Res. Ex. N 4 Rol F 101 2022_Aprueba</td>
+                                                <td data-label="Tipo Documento">PDC Aprobaci&#243;n</td>
+                                                <td data-label="Fecha">11-04-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2060300082114" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">17</td>
+                                                <td data-label="Nombre Documento">Notificaci&#243;n por correo electr&#243;nico_rramirez</td>
+                                                <td data-label="Tipo Documento">Notificaci&#243;n de Aprobaci&#243;n de PDC</td>
+                                                <td data-label="Fecha">16-04-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2064000082115" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="#">18</td>
+                                                <td data-label="Nombre Documento">Notificaci&#243;n por correo electr&#243;nico_brodriguez</td>
+                                                <td data-label="Tipo Documento">Otros</td>
+                                                <td data-label="Fecha">16-04-2025</td>
+                                                <td data-label="Link">
+                                                    <a href="/General/Descargar/2061200082116" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                                                </td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="instrumentos-considerados" class="tab-pane fade in">
+                                    <table class="conBorde tabla-resultado-busqueda">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 2%">#</th>
+                                                <th style="width: 50%">Hecho</th>
+                                                
+                                                <th style="width: 18%">Instrumento Infringido</th>
+                                                <th style="width: 17%">Infracción<br />(Art.35 LOSMA)</th>
+                                                <th style="width: 13%">Clasificación<br />(Art. 36 LOSMA)</th>                                                
+
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                    
+
+                                                    <td data-label="#">1</td>
+                                                    <td data-label="Hecho">El establecimiento industrial no report&#243; la frecuencia de monitoreo exigida en su Programa de Monitoreo [Resoluci&#243;n Exenta SISS N&#176;368, de fecha 8 de febrero de 2010], para los par&#225;metros pH y Temperatura, en septiembre de 2021, seg&#250;n se detalla en la Tabla N&#176; 1.1 del Anexo 1 de la presente Resoluci&#243;n.</td>
+                                                    
+                                                    <td data-label="Instrumento Infringido" >
+NE:90/2000<br/><a href="http://bcn.cl/4r47" target="_blank" title="Link SEIA"><i class="fa fa-globe"></i>Link Detalle </a><br/>                                                    </td>
+
+                                                    <td data-label="Infracción (Art.35 LOSMA)">
+g) El incumplimiento de las leyes, reglamento y dem&#225;s normas relacionadas con las descargas de residuos l&#237;quidos industriales                                                    </td>
+                                                    <td data-label="Clasificación (Art. 36 LOSMA)"><b>Leves</b><br /><i style="font-size: small">
+Hecho, actos u omisiones que contravengan cualquier precepto o medida obligatorios y que no constituyan infracci&#243;n grav&#237;sima o grave, de acuerdo con lo previsto en los n&#250;meros anteriores.                                                    </i></td>
+                                                </tr>
+                                                <tr>
+                                                    
+
+                                                    <td data-label="#">2</td>
+                                                    <td data-label="Hecho">El establecimiento industrial present&#243; superaci&#243;n del l&#237;mite m&#225;ximo permitido por la Tabla N&#176; 1 del art&#237;culo 1 numeral 4.2. del D.S. N&#176; 90/2000, para los par&#225;metros Nitr&#243;geno Total Kjeldahl y pH, en septiembre de 2021, seg&#250;n se detalla en la Tabla N&#176; 1.2 del Anexo 1 de esta Resoluci&#243;n; no configur&#225;ndose los supuestos se&#241;alados en el numeral 6.4.2 del D.S. N&#176; 90/2000.</td>
+                                                    
+                                                    <td data-label="Instrumento Infringido" >
+NE:90/2000<br/><a href="http://bcn.cl/4r47" target="_blank" title="Link SEIA"><i class="fa fa-globe"></i>Link Detalle </a><br/>                                                    </td>
+
+                                                    <td data-label="Infracción (Art.35 LOSMA)">
+g) El incumplimiento de las leyes, reglamento y dem&#225;s normas relacionadas con las descargas de residuos l&#237;quidos industriales                                                    </td>
+                                                    <td data-label="Clasificación (Art. 36 LOSMA)"><b>Leves</b><br /><i style="font-size: small">
+Hecho, actos u omisiones que contravengan cualquier precepto o medida obligatorios y que no constituyan infracci&#243;n grav&#237;sima o grave, de acuerdo con lo previsto en los n&#250;meros anteriores.                                                    </i></td>
+                                                </tr>
+                                                <tr>
+                                                    
+
+                                                    <td data-label="#">3</td>
+                                                    <td data-label="Hecho">El establecimiento industrial excedi&#243; el l&#237;mite de volumen de descarga exigido en su Programa de Monitoreo [Resoluci&#243;n Exenta SISS N&#176;368, de fecha 8 de febrero de 2010] durante los meses de abril y mayo de 2020; y julio y septiembre de 2021, seg&#250;n se detallan en la Tabla N&#176; 1.3 del Anexo de la presente Resoluci&#243;n.</td>
+                                                    
+                                                    <td data-label="Instrumento Infringido" >
+NE:90/2000<br/><a href="http://bcn.cl/4r47" target="_blank" title="Link SEIA"><i class="fa fa-globe"></i>Link Detalle </a><br/>                                                    </td>
+
+                                                    <td data-label="Infracción (Art.35 LOSMA)">
+g) El incumplimiento de las leyes, reglamento y dem&#225;s normas relacionadas con las descargas de residuos l&#237;quidos industriales                                                    </td>
+                                                    <td data-label="Clasificación (Art. 36 LOSMA)"><b>Leves</b><br /><i style="font-size: small">
+Hecho, actos u omisiones que contravengan cualquier precepto o medida obligatorios y que no constituyan infracci&#243;n grav&#237;sima o grave, de acuerdo con lo previsto en los n&#250;meros anteriores.                                                    </i></td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div id="fiscalizaciones-asociadas" class="tab-pane fade in">
+                                    <table class="conBorde tabla-resultado-busqueda">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Expediente de fiscalización</th>
+                                                <th>Año actividad</th>
+                                                
+                                                <th style="width: 10%;">Detalle</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr>
+                                                <td class="td-contador" data-label="#">1</td>
+                                                <td data-label="Expediente de fiscalización">DFZ-2014-4660-VI-NE-EI</td>
+                                                <td data-label="Año actividad">2014</td>
+                                                
+                                                <td data-label="Detalle">
+                                                    <span></span>
+                                                    <a href="/Fiscalizacion/Ficha/2031570"><i class="fa fa-plus-circle"></i> Ver detalle</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-contador" data-label="#">2</td>
+                                                <td data-label="Expediente de fiscalización">DFZ-2020-966-VI-NE</td>
+                                                <td data-label="Año actividad">2020</td>
+                                                
+                                                <td data-label="Detalle">
+                                                    <span></span>
+                                                    <a href="/Fiscalizacion/Ficha/1046213"><i class="fa fa-plus-circle"></i> Ver detalle</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-contador" data-label="#">3</td>
+                                                <td data-label="Expediente de fiscalización">DFZ-2016-5973-VI-NE-EI</td>
+                                                <td data-label="Año actividad">2016</td>
+                                                
+                                                <td data-label="Detalle">
+                                                    <span></span>
+                                                    <a href="/Fiscalizacion/Ficha/2028522"><i class="fa fa-plus-circle"></i> Ver detalle</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-contador" data-label="#">4</td>
+                                                <td data-label="Expediente de fiscalización">DFZ-2022-869-VI-NE</td>
+                                                <td data-label="Año actividad">2022</td>
+                                                
+                                                <td data-label="Detalle">
+                                                    <span></span>
+                                                    <a href="/Fiscalizacion/Ficha/1054682"><i class="fa fa-plus-circle"></i> Ver detalle</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-contador" data-label="#">5</td>
+                                                <td data-label="Expediente de fiscalización">DFZ-2021-228-VI-NE</td>
+                                                <td data-label="Año actividad">2021</td>
+                                                
+                                                <td data-label="Detalle">
+                                                    <span></span>
+                                                    <a href="/Fiscalizacion/Ficha/1049321"><i class="fa fa-plus-circle"></i> Ver detalle</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-contador" data-label="#">6</td>
+                                                <td data-label="Expediente de fiscalización">DFZ-2020-968-VI-NE</td>
+                                                <td data-label="Año actividad">2020</td>
+                                                
+                                                <td data-label="Detalle">
+                                                    <span></span>
+                                                    <a href="/Fiscalizacion/Ficha/1046215"><i class="fa fa-plus-circle"></i> Ver detalle</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-contador" data-label="#">7</td>
+                                                <td data-label="Expediente de fiscalización">DFZ-2016-6903-VI-NE-EI</td>
+                                                <td data-label="Año actividad">2016</td>
+                                                
+                                                <td data-label="Detalle">
+                                                    <span></span>
+                                                    <a href="/Fiscalizacion/Ficha/2027318"><i class="fa fa-plus-circle"></i> Ver detalle</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-contador" data-label="#">8</td>
+                                                <td data-label="Expediente de fiscalización">DFZ-2020-967-VI-NE</td>
+                                                <td data-label="Año actividad">2020</td>
+                                                
+                                                <td data-label="Detalle">
+                                                    <span></span>
+                                                    <a href="/Fiscalizacion/Ficha/1046214"><i class="fa fa-plus-circle"></i> Ver detalle</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-contador" data-label="#">9</td>
+                                                <td data-label="Expediente de fiscalización">DFZ-2015-7380-VI-NE-EI</td>
+                                                <td data-label="Año actividad">2015</td>
+                                                
+                                                <td data-label="Detalle">
+                                                    <span></span>
+                                                    <a href="/Fiscalizacion/Ficha/2020947"><i class="fa fa-plus-circle"></i> Ver detalle</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-contador" data-label="#">10</td>
+                                                <td data-label="Expediente de fiscalización">DFZ-2013-5075-VI-NE-EI</td>
+                                                <td data-label="Año actividad">2013</td>
+                                                
+                                                <td data-label="Detalle">
+                                                    <span></span>
+                                                    <a href="/Fiscalizacion/Ficha/2015021"><i class="fa fa-plus-circle"></i> Ver detalle</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-contador" data-label="#">11</td>
+                                                <td data-label="Expediente de fiscalización">DFZ-2017-5340-VI-NE-EI</td>
+                                                <td data-label="Año actividad">2016</td>
+                                                
+                                                <td data-label="Detalle">
+                                                    <span></span>
+                                                    <a href="/Fiscalizacion/Ficha/2024387"><i class="fa fa-plus-circle"></i> Ver detalle</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-contador" data-label="#">12</td>
+                                                <td data-label="Expediente de fiscalización">DFZ-2013-5038-VI-NE-EI</td>
+                                                <td data-label="Año actividad">2013</td>
+                                                
+                                                <td data-label="Detalle">
+                                                    <span></span>
+                                                    <a href="/Fiscalizacion/Ficha/2031895"><i class="fa fa-plus-circle"></i> Ver detalle</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div id="medidas-provisionales-asociadas" class="tab-pane fade in">
+                                    <div class="alert alert-info" role="alert">
+                                        No se registran medidas provisionales asociadas.
+                                    </div>
+                            </div>
+                            <div id="sanciones" class="tab-pane fade in">
+                                    <div class="alert alert-info" role="alert">
+                                        No se registran sanciones.
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--CAMBIO LFI-->
+        </div>
+        <!--FIN CAMBIO LFI-->
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function() {
+        setTimeout(function() {
+            $modal.modal('hide');
+            menuActivo("dos");
+        }, 1000);
+    });
+</script>
+    </div> <!--termina container principal-->
+
+   
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 datos-pie">
+                    <img src="/images/logo-pie.png" alt="" class="logo-pie" />
+                    <div class="info-pie">
+                        <span>Superintendencia del Medio Ambiente Gobierno de Chile</span>
+                        <p>
+                            Teatinos 280, pisos 7, 8 y 9, Santiago, Chile<br />
+                            Tel: +56 2 2617 1800
+                        </p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-6 nav_footer hidden-mobile">
+                    <ul>
+                        <li>
+                            <a href="https://transparencia.sma.gob.cl/doc/ssi/PoliticaGeneraldeSeguridadInformacion.pdf" target="_blank">
+                                <i class="fa fa-lock fa-2x hidden-xs"></i>
+                                Política de seguridad de la información
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="https://portal.sma.gob.cl" class="ir-sma" target="_blank">
+                                <i class="fa fa-home fa-2x hidden-xs"></i>
+                                Portal SMA
+                            </a>
+                        </li>
+                        <li>
+                            
+                            <a href="/Home/Novedades">
+                                <i class="fa fa-info-circle fa-2x hidden-xs"></i>
+                                Últimas novedades SNIFA
+                            </a>
+                        </li>
+                        <li>
+                            
+                            <a href="/Home/PreguntasFrecuentes">
+                                <i class="fa fa-question-circle fa-2x hidden-xs"></i>
+                                Preguntas frecuentes
+                            </a>
+                        </li>
+                    </ul>
+
+                        
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-12 hidden-desktop">
+                    <a href="http://www.sma.gob.cl" class="ir-sma" target="_blank">
+                        <i class="fa fa-home fa-2x"></i> Ir al sitio SMA
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </footer>
+    <script type="text/javascript">
+        (function ($) {
+            fakewaffle.responsiveTabs(['md', 'sm', 'xs']);
+        })(jQuery);
+    </script>
+
+</body>
+</html>
