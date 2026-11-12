@@ -1,0 +1,16 @@
+name: Corpus de PdC
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm ci --ignore-scripts
+      - run: node tools/sma/pdc.mjs ../out
+      - run: |
+          cd ../out && git init -q -b corpus-pdc && git config user.name vigia && git config user.email vigia@users.noreply.github.com
+          git add -A && git commit -qm "PdC públicos de SNIFA (texto)" && git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" corpus-pdc
