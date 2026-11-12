@@ -18,6 +18,8 @@ export function TeamSection() {
   const [inviteErr, setInviteErr] = useState<string>();
   const [sending, setSending] = useState(false);
   const [confirmRemove, setConfirmRemove] = useState<string>();
+  // Enlace de acceso para compartir a mano (WhatsApp, chat): no depende de que llegue el correo.
+  const [share, setShare] = useState<{ name: string; link: string; mailed?: boolean }>();
 
   useEffect(() => { source.team().then(setTeam).catch((e) => s.say((e as Error).message)); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -35,9 +37,15 @@ export function TeamSection() {
       const m = await source.invite(email, name);
       setTeam((t) => [...(t ?? []), m]);
       setEmail(''); setName('');
-      s.say(m.mailed === false && !s.demo ? `Agregada, pero no se pudo enviar el correo` : `Invitación enviada a ${m.email}`);
+      if (m.link) setShare({ name: m.name, link: m.link, mailed: m.mailed });
+      else s.say(`Invitación enviada a ${m.email}`);
     } catch (err) { setInviteErr((err as Error).message); }
     finally { setSending(false); }
+  };
+
+  const getLink = async (m: TeamMember) => {
+    try { const r = await source.accessLink(m.id); setShare({ name: m.name, link: r.link }); }
+    catch (err) { s.say((err as Error).message); }
   };
 
   const remove = async (m: TeamMember) => {
@@ -67,14 +75,17 @@ export function TeamSection() {
             <span className="avatar" aria-hidden="true">{initials(m.name)}</span>
             <span className="row-main">
               <span className="row-title">{m.name}{m.you ? ' (tú)' : ''}</span>
-              <span className="row-meta"><span>{m.email}</span><span>{m.role === 'owner' ? 'Administra la cuenta' : 'Equipo'}</span></span>
+              <span className="row-meta"><span>{m.email}</span><span>{m.role === 'owner' ? 'Administra la cuenta' : m.pending ? 'Aún no entra' : 'Equipo'}</span></span>
             </span>
+            {owner && m.pending && !m.you && <button className="link-btn" style={{ flexShrink: 0 }} onClick={() => getLink(m)}>Enlace de acceso</button>}
             {owner && !m.you && (confirmRemove === m.id
               ? <span className="doc-actions" style={{ width: 'auto' }}><button className="btn small danger" onClick={() => remove(m)}>Quitar</button><button className="btn small plain" onClick={() => setConfirmRemove(undefined)}>No</button></span>
               : <button className="icon-btn" aria-label={`Quitar a ${m.name}`} onClick={() => setConfirmRemove(m.id)}><IconClose size={16} /></button>)}
           </div>
         ))}
       </div>
+
+      {share && <ShareLink {...share} onClose={() => setShare(undefined)} />}
 
       {owner ? (
         <form className="group form-card" onSubmit={invite} noValidate>
@@ -97,6 +108,45 @@ export function TeamSection() {
   );
 }
 
+function ShareLink({ name, link, mailed, onClose }: { name: string; link: string; mailed?: boolean; onClose: () => void }) {
+  const [copied, setCopied] = useState(false);
+  const text = `Hola ${name.split(' ')[0]}, te invité a Vigía para llevar los compromisos ambientales. Entra con este enlace, elige tu contraseña y quedas adentro: ${link}`;
+  const copy = async () => {
+    try { await navigator.clipboard.writeText(link); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch { /* el enlace igual queda visible para copiarlo a mano */ }
+  };
+  return (
+    <div className="group form-card" role="status">
+      <p><strong>Comparte este enlace con {name}.</strong> Al abrirlo elige su contraseña y entra directo. Vence en 7 días.</p>
+      {mailed === false && <p className="muted" style={{ fontSize: 'var(--t-meta)' }}>El correo de invitación no se pudo enviar, así que mándaselo tú.</p>}
+      {mailed && <p className="muted" style={{ fontSize: 'var(--t-meta)' }}>También se lo mandamos por correo, por si acaso.</p>}
+      <input className="input" readOnly value={link} onFocus={(e) => e.target.select()} aria-label="Enlace de acceso" />
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        <button className="btn small" onClick={copy}>{copied ? 'Copiado' : 'Copiar enlace'}</button>
+        <a className="btn small secondary" href={`https://wa.me/?text=${encodeURIComponent(text)}`} target="_blank" rel="noopener">Enviar por WhatsApp</a>
+        <button className="btn small plain" onClick={onClose}>Listo</button>
+      </div>
+    </div>
+  );
+}
+
+/** Prueba si los avisos por correo llegan, y si no, muestra la respuesta exacta del servicio de correo. */
+function MailTest() {
+  const [state, setState] = useState<{ busy?: boolean; ok?: boolean; text?: string }>({});
+  const run = async () => {
+    setState({ busy: true });
+    try {
+      const r = await source.mailTest();
+      setState(r.ok ? { ok: true, text: 'Enviado. Revisa tu bandeja (y Spam): si llegó, los avisos te van a llegar.' } : { ok: false, text: `El correo no salió. Respuesta del servicio (${r.provider}): ${r.detail || 'sin detalle'}` });
+    } catch (e) { setState({ ok: false, text: (e as Error).message }); }
+  };
+  return (
+    <div style={{ display: 'grid', gap: 6 }}>
+      <button className="btn small secondary" style={{ justifySelf: 'start' }} onClick={run} disabled={state.busy}>{state.busy ? 'Enviando…' : 'Probar que me lleguen los correos'}</button>
+      {state.text && <p className={state.ok ? 'muted' : 'field-error'} role="status" style={{ fontSize: 'var(--t-meta)', wordBreak: 'break-word' }}>{state.text}</p>}
+    </div>
+  );
+}
+
 /** Cerrar sesión y eliminar la cuenta de la empresa (derecho a supresión, Ley 21.719). */
 export function AccountSection() {
   const s = useStore();
@@ -116,6 +166,7 @@ export function AccountSection() {
       <div className="section-head"><h2>Cuenta</h2></div>
       <div className="group form-card">
         <p className="muted" style={{ fontSize: 'var(--t-meta)' }}>Entraste como {s.snap!.user.email}.</p>
+        <MailTest />
         <div className="actions two">
           {!s.demo && <button className="btn plain" onClick={s.logout}>Cerrar sesión</button>}
           {owner && <button className="btn danger" onClick={() => setOpen((v) => !v)}>Eliminar la cuenta de la empresa</button>}

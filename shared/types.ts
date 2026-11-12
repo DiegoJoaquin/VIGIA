@@ -145,6 +145,8 @@ export interface DocumentRef {
 
 export interface TeamMember {
   id: string;
+  /** Invitada que todavía no crea su contraseña. */
+  pending?: boolean;
   name: string;
   email: string;
   role: 'owner' | 'member';

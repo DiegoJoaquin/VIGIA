@@ -66,6 +66,9 @@ app.post('/api/auth/signup', async (c) => {
   return c.json({ ok: true });
 });
 
+// Desde aquí Vigía entra con contraseña (UTC). Las cuentas anteriores la crean en su primer ingreso.
+const PASSWORDS_SINCE = '2026-11-04 13:30:00';
+
 app.post('/api/auth/login', async (c) => {
   const b = await c.req.json<{ email?: string; password?: string }>().catch(() => ({} as Record<string, undefined>));
   const email = cleanEmail(b.email);
@@ -77,12 +80,20 @@ app.post('/api/auth/login', async (c) => {
     const min = Math.ceil((t.locked_until - Date.now()) / 60_000);
     return c.json({ error: `Demasiados intentos. Espera ${min} minuto${min === 1 ? '' : 's'} o recupera tu contraseña.` }, 429);
   }
-  const u = await c.env.DB.prepare('SELECT u.id, k.hash FROM users u LEFT JOIN credentials k ON k.user_id = u.id WHERE u.email = ?')
-    .bind(email).first<{ id: string; hash: string | null }>();
+  const u = await c.env.DB.prepare('SELECT u.id, u.created_at, k.hash FROM users u LEFT JOIN credentials k ON k.user_id = u.id WHERE u.email = ?')
+    .bind(email).first<{ id: string; created_at: string; hash: string | null }>();
   if (u && !u.hash) {
-    // Cuenta invitada o antigua sin contraseña: le mandamos el enlace para crearla.
-    await sendMail(c.env, passwordMail(c.env, email, passwordLink(c.env, await issueToken(c.env, email, 60 * 60_000)), false));
-    return c.json({ error: 'Tu cuenta aún no tiene contraseña. Te enviamos un correo para crearla.', noPassword: true }, 409);
+    // Cuentas creadas cuando Vigía entraba solo con enlaces por correo (antes del 4 nov 2026): la contraseña
+    // que escriben ahora queda como su contraseña y entran directo, sin depender de un correo.
+    if (u.created_at < PASSWORDS_SINCE) {
+      const weak = weakPassword(b.password);
+      if (weak) return c.json({ error: `Es tu primera vez con contraseña: elige una nueva. ${weak}`, field: 'password', firstPassword: true }, 400);
+      await c.env.DB.prepare('INSERT INTO credentials (user_id, hash) VALUES (?, ?) ON CONFLICT(user_id) DO NOTHING').bind(u.id, await hashPassword(b.password)).run();
+      await startSession(c, u.id);
+      return c.json({ ok: true, firstPassword: true });
+    }
+    // Invitada que aún no activa su acceso: entra con el enlace que le compartió quien la invitó.
+    return c.json({ error: 'Tu acceso aún no está activo. Abre el enlace de invitación que te compartieron (pídeselo a quien te invitó) o usa «¿Olvidaste tu contraseña?».', invited: true }, 409);
   }
   if (!u || !(await verifyPassword(b.password, u.hash!))) {
     const fails = (t?.fails ?? 0) + 1;
@@ -359,8 +370,9 @@ const isOwner = (c: { get: (k: 'user') => SessionUser }) => c.get('user').role =
 
 app.get('/api/team', async (c) => {
   const me = c.get('user');
-  const r = await c.env.DB.prepare('SELECT id, name, email, role FROM users WHERE org_id = ? ORDER BY created_at').bind(me.orgId).all<{ id: string; name: string; email: string; role: string }>();
-  return c.json(r.results.map((u) => ({ ...u, you: u.id === me.id })));
+  const r = await c.env.DB.prepare('SELECT u.id, u.name, u.email, u.role, k.user_id IS NULL AS pending FROM users u LEFT JOIN credentials k ON k.user_id = u.id WHERE u.org_id = ? ORDER BY u.created_at')
+    .bind(me.orgId).all<{ id: string; name: string; email: string; role: string; pending: number }>();
+  return c.json(r.results.map((u) => ({ ...u, pending: !!u.pending, you: u.id === me.id })));
 });
 
 app.post('/api/team/invite', async (c) => {
@@ -379,8 +391,28 @@ app.post('/api/team/invite', async (c) => {
     c.env.DB.prepare('INSERT INTO settings (user_id, notify, calendar_token) VALUES (?, ?, ?)').bind(id, JSON.stringify(DEFAULT_NOTIFY), randomId(16)),
   ]);
   const org = await c.env.DB.prepare('SELECT name FROM orgs WHERE id = ?').bind(me.orgId).first<{ name: string }>();
-  const res = await sendMail(c.env, inviteMail(c.env, email, passwordLink(c.env, await issueToken(c.env, email, 7 * 86_400_000)), me.name || me.email, org?.name ?? 'tu empresa'));
-  return c.json({ id, name, email, role: 'member', mailed: res.ok, detail: res.ok ? undefined : res.detail });
+  // El enlace vuelve a quien invita para que lo comparta por donde quiera (WhatsApp, chat): no depende del correo.
+  const link = passwordLink(c.env, await issueToken(c.env, email, 7 * 86_400_000));
+  const res = await sendMail(c.env, inviteMail(c.env, email, link, me.name || me.email, org?.name ?? 'tu empresa'));
+  return c.json({ id, name, email, role: 'member', pending: true, link, mailed: res.ok, detail: res.ok ? undefined : res.detail });
+});
+
+// Prueba del envío de correos: manda uno a quien la pide y devuelve la respuesta real del proveedor.
+app.post('/api/mail/test', async (c) => {
+  const me = c.get('user');
+  const r = await sendMail(c.env, { to: me.email, subject: 'Prueba de correo de Vigía', text: 'Si lees esto, los avisos de Vigía te van a llegar.', html: '<p>Si lees esto, los avisos de Vigía te van a llegar.</p>' });
+  return c.json({ ok: r.ok, provider: c.env.MAIL_PROVIDER ?? 'consola', detail: r.detail });
+});
+
+// Nuevo enlace de acceso para alguien del equipo que todavía no crea su contraseña.
+app.post('/api/team/:id/link', async (c) => {
+  if (!isOwner(c)) return c.json({ error: 'Solo quien creó la cuenta puede generar enlaces de acceso.' }, 403);
+  const me = c.get('user');
+  const u = await c.env.DB.prepare('SELECT u.email, k.hash FROM users u LEFT JOIN credentials k ON k.user_id = u.id WHERE u.id = ? AND u.org_id = ?')
+    .bind(c.req.param('id'), me.orgId).first<{ email: string; hash: string | null }>();
+  if (!u) return c.json({ error: 'Persona no encontrada.' }, 404);
+  if (u.hash) return c.json({ error: 'Esa persona ya tiene contraseña. Si la olvidó, puede recuperarla desde la pantalla de entrada.' }, 409);
+  return c.json({ link: passwordLink(c.env, await issueToken(c.env, u.email, 7 * 86_400_000)) });
 });
 
 app.delete('/api/team/:id', async (c) => {

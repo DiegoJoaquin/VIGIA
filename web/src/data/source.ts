@@ -50,7 +50,9 @@ export interface DataSource {
   deleteDocument(id: string): Promise<void>;
   extractDocument(id: string): Promise<ImportDraft>;
   team(): Promise<TeamMember[]>;
-  invite(email: string, name: string): Promise<TeamMember & { mailed?: boolean }>;
+  invite(email: string, name: string): Promise<TeamMember & { mailed?: boolean; link?: string }>;
+  accessLink(id: string): Promise<{ link: string }>;
+  mailTest(): Promise<{ ok: boolean; provider: string; detail: string }>;
   removeMember(id: string): Promise<void>;
   renameOrg(name: string): Promise<void>;
   deleteOrg(confirm: string): Promise<void>;
@@ -220,10 +222,14 @@ export class DemoSource implements DataSource {
     const m: TeamMember = { id: `u-${uid()}`, name: name.trim() || clean.split('@')[0], email: clean, role: 'member' };
     this.s.team = [...this.s.team, m];
     this.save();
-    return { ...m, mailed: false };
+    return { ...m, pending: true, mailed: false, link: `${location.origin}/?clave=demo` };
   }
 
   async removeMember(id: string) { this.s.team = this.s.team.filter((m) => m.id !== id || m.you); this.save(); }
+
+  async accessLink(_id: string) { return { link: `${location.origin}/?clave=demo` }; }
+
+  async mailTest() { return { ok: true, provider: 'demo', detail: 'En la demo no se envían correos.' }; }
 
   async renameOrg(name: string) {
     if (name.trim().length < 2) throw Object.assign(new Error('Escribe el nombre de la empresa.'), { field: 'name' });
@@ -327,10 +333,11 @@ async function api<T>(path: string, init?: RequestInit & { timeoutMs?: number })
     if ((e as Error).name === 'TimeoutError') throw new Error('La lectura tardó demasiado. Intenta de nuevo; si se repite, sube el PDF en partes más chicas.');
     throw new Error('No hay conexión con Vigía. Revisa tu internet e intenta de nuevo.');
   }
-  if (res.status === 401) throw Object.assign(new Error('Necesitas iniciar sesión'), { auth: true });
+  // En /auth/* un 401 es "contraseña incorrecta" y trae su propio mensaje; en el resto, la sesión venció.
+  if (res.status === 401 && !path.startsWith('/auth/')) throw Object.assign(new Error('Necesitas iniciar sesión'), { auth: true });
   if (!res.ok) {
     const body = await res.json().catch(() => ({ error: res.statusText }));
-    throw Object.assign(new Error(body.error ?? 'Error del servidor'), { field: body.field, exists: body.exists, noPassword: body.noPassword, expired: body.expired });
+    throw Object.assign(new Error(body.error ?? 'Error del servidor'), { field: body.field, exists: body.exists, noPassword: body.noPassword, invited: body.invited, expired: body.expired });
   }
   return res.json() as Promise<T>;
 }
@@ -376,7 +383,9 @@ export class ApiSource implements DataSource {
   async deleteDocument(id: string) { await api(`/documents/${id}`, { method: 'DELETE' }); }
   extractDocument(id: string) { return api<ImportDraft>(`/documents/${id}/extract`, { method: 'POST', timeoutMs: 240_000 }); }
   team() { return api<TeamMember[]>('/team'); }
-  invite(email: string, name: string) { return api<TeamMember & { mailed?: boolean }>('/team/invite', { method: 'POST', body: JSON.stringify({ email, name }) }); }
+  invite(email: string, name: string) { return api<TeamMember & { mailed?: boolean; link?: string }>('/team/invite', { method: 'POST', body: JSON.stringify({ email, name }) }); }
+  accessLink(id: string) { return api<{ link: string }>(`/team/${id}/link`, { method: 'POST' }); }
+  mailTest() { return api<{ ok: boolean; provider: string; detail: string }>('/mail/test', { method: 'POST' }); }
   async removeMember(id: string) { await api(`/team/${id}`, { method: 'DELETE' }); }
   async renameOrg(name: string) { await api('/org', { method: 'PUT', body: JSON.stringify({ name }) }); }
   async deleteOrg(confirm: string) { await api('/org', { method: 'DELETE', body: JSON.stringify({ confirm }) }); }
@@ -393,7 +402,7 @@ export class ApiSource implements DataSource {
     await api('/push/subscribe', { method: 'POST', body: JSON.stringify(sub.toJSON()) });
   }
   signup(b: { email: string; password: string; name: string; company: string }) { return api<{ ok: true }>('/auth/signup', { method: 'POST', body: JSON.stringify(b) }); }
-  login(b: { email: string; password: string }) { return api<{ ok: true }>('/auth/login', { method: 'POST', body: JSON.stringify(b) }); }
+  login(b: { email: string; password: string }) { return api<{ ok: true; firstPassword?: boolean }>('/auth/login', { method: 'POST', body: JSON.stringify(b) }); }
   forgot(email: string) { return api<{ ok: true }>('/auth/forgot', { method: 'POST', body: JSON.stringify({ email }) }); }
   reset(token: string, password: string) { return api<{ ok: true; email: string }>('/auth/reset', { method: 'POST', body: JSON.stringify({ token, password }) }); }
   sendTestEmail() { return api<{ ok: boolean; message: string }>('/settings/test-email', { method: 'POST' }); }

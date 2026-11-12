@@ -36,7 +36,11 @@ export async function sendMail(env: Env, m: Mail): Promise<{ ok: boolean; detail
         body: JSON.stringify({ token: env.GAS_TOKEN, to: m.to, subject: m.subject, html: m.html, text: m.text, name: env.MAIL_FROM_NAME }),
       });
       const body = await r.text();
-      return { ok: r.ok && body.includes('"ok":true'), detail: body.slice(0, 200) };
+      if (r.ok && body.includes('"ok":true')) return { ok: true, detail: 'enviado' };
+      // Las fallas típicas de Apps Script, explicadas para quien lo configuró.
+      if (/^\s*</.test(body)) return { ok: false, detail: `Apps Script respondió con una página web (HTTP ${r.status}) y no con el resultado del envío. Revisa que GAS_URL termine en /exec y que la implementación esté publicada con acceso "Cualquier persona".` };
+      if (/token/i.test(body)) return { ok: false, detail: `Apps Script rechazó el token: GAS_TOKEN en Cloudflare no coincide con el TOKEN del script. (${body.slice(0, 120)})` };
+      return { ok: false, detail: `Apps Script (HTTP ${r.status}): ${body.slice(0, 200)}` };
     }
     console.log(`[mail] ${m.to} · ${m.subject}\n${m.text}`);
     return { ok: true, detail: 'registrado en consola' };

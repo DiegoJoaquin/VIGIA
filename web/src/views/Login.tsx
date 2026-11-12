@@ -60,8 +60,6 @@ export function Login({ mark, demo = false }: { mark: React.ReactNode; demo?: bo
     } catch (err) {
       const x = err as Error & { field?: Field; exists?: boolean; expired?: boolean; noPassword?: boolean };
       setBusy(false);
-      // Cuenta creada antes de las contraseñas: se le explicó y ya se le mandó el correo para crearla.
-      if (x.noPassword) { setMode('setup'); setPassword(''); setSent(true); return; }
       fail({ field: x.field, text: x.message, exists: x.exists, expired: x.expired });
     }
   };
