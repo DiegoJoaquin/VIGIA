@@ -1,15 +1,96 @@
-{ "doc": "sanvicente-aridos", "tipo": "DIA 2019, tabla de normas + compromisos con título",
-  "items": [
-  { "num": ["7.9"], "kind": "event", "que": "Aviso de contingencias e incidentes a la SMA en 24 h (Res. 856)" },
-  { "num": ["9.1", "7.10"], "kind": "semiannual", "que": "Monitoreo de ruido marzo y noviembre, informe a la SMA" },
-  { "num": ["7.24"], "kind": "continuous", "que": "Humectación de caminos 3 veces al día con registro" },
-  { "num": ["7.25"], "kind": "annual", "que": "Autorización anual de extracción (Municipalidad y DOH)" },
-  { "num": ["7.28", "7.29"], "kind": "event", "que": "Hallazgo arqueológico: registro e informe" },
-  { "num": ["9.5", "7.30"], "kind": "semiannual", "que": "Registro fotográfico semestral de la zona de conservación" },
-  { "num": ["9.5"], "kind": "continuous", "que": "Mantener zona de conservación y señalética" },
-  { "num": ["8.1"], "kind": "once", "que": "Informe paleontológico a la SMA con copia al CMN" },
-  { "num": ["9.2"], "kind": "monthly", "que": "Monitoreo de calidad de agua del río (dic–mar), informe a la SMA en 7 días" },
-  { "num": ["9.3", "7.31", "7.32"], "kind": "annual", "que": "Monitoreo de fauna íctica al término de cada año (5 años)" },
-  { "num": ["9.4"], "kind": "semiannual", "que": "Monitoreo del efluente de lavado, informe a la SMA en 30 días" },
-  { "num": ["9.6"], "kind": "event", "que": "Charlas de inducción al inicio de cada frente, informe a la SMA en 15 días hábiles" }
-]}
+{
+ "doc": "sanvicente-aridos",
+ "tipo": "DIA 2019, tabla de normas + compromisos con título",
+ "set": "ajuste",
+ "items": [
+  {
+   "num": [
+    "7.9"
+   ],
+   "kind": "event",
+   "que": "Aviso de contingencias e incidentes a la SMA en 24 h (Res. 856)"
+  },
+  {
+   "num": [
+    "9.1",
+    "7.10"
+   ],
+   "kind": "semiannual",
+   "que": "Monitoreo de ruido marzo y noviembre, informe a la SMA"
+  },
+  {
+   "num": [
+    "7.24"
+   ],
+   "kind": "continuous",
+   "que": "Humectación de caminos 3 veces al día con registro"
+  },
+  {
+   "num": [
+    "7.25"
+   ],
+   "kind": "annual",
+   "que": "Autorización anual de extracción (Municipalidad y DOH)"
+  },
+  {
+   "num": [
+    "7.28",
+    "7.29"
+   ],
+   "kind": "event",
+   "que": "Hallazgo arqueológico: registro e informe"
+  },
+  {
+   "num": [
+    "9.5",
+    "7.30"
+   ],
+   "kind": "semiannual",
+   "que": "Registro fotográfico semestral de la zona de conservación"
+  },
+  {
+   "num": [
+    "9.5"
+   ],
+   "kind": "continuous",
+   "que": "Mantener zona de conservación y señalética"
+  },
+  {
+   "num": [
+    "8.1"
+   ],
+   "kind": "once",
+   "que": "Informe paleontológico a la SMA con copia al CMN"
+  },
+  {
+   "num": [
+    "9.2"
+   ],
+   "kind": "monthly",
+   "que": "Monitoreo de calidad de agua del río (dic–mar), informe a la SMA en 7 días"
+  },
+  {
+   "num": [
+    "9.3",
+    "7.31",
+    "7.32"
+   ],
+   "kind": "annual",
+   "que": "Monitoreo de fauna íctica al término de cada año (5 años)"
+  },
+  {
+   "num": [
+    "9.4"
+   ],
+   "kind": "semiannual",
+   "que": "Monitoreo del efluente de lavado, informe a la SMA en 30 días"
+  },
+  {
+   "num": [
+    "9.6"
+   ],
+   "kind": "event",
+   "que": "Charlas de inducción al inicio de cada frente, informe a la SMA en 15 días hábiles"
+  }
+ ]
+}

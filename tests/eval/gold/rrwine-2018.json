@@ -1,0 +1,16 @@
+{ "doc": "rrwine-2018", "tipo": "DIA 2018 viña con RILes", "set": "prueba",
+  "items": [
+  { "num": ["7.8"], "kind": "semiannual", "que": "Retiro de residuos peligrosos cada 6 meses con comprobante" },
+  { "num": ["7.12"], "kind": "event", "que": "Hallazgo arqueológico: informar al CMN" },
+  { "num": ["8.1"], "kind": "monthly", "que": "Muestreo mensual del RIL por laboratorio ETFA, resultados a la SMA" },
+  { "num": ["9.1"], "kind": "bimonthly", "que": "Medición de ruido bimensual en construcción" },
+  { "num": ["9.1"], "kind": "semiannual", "que": "Envío de resultados de ruido a la SMA cada 6 meses" },
+  { "num": ["9.2"], "kind": "semiannual", "que": "Reporte semestral de acciones en la planta de RILes" },
+  { "num": ["9.2"], "kind": "annual", "que": "Envío anual a la SMA" },
+  { "num": ["9.3"], "kind": "annual", "que": "Informe con fotos de días de lluvia a la SMA cada diciembre" },
+  { "num": ["9.4"], "kind": "annual", "que": "Informe de cortina vegetal a la SMA cada diciembre" },
+  { "num": ["9.5"], "kind": "once", "que": "Presentar proyecto de acceso a Vialidad en 60 días" },
+  { "num": ["9.6"], "kind": "once", "que": "Informe de barrera acústica instalada a la SMA" },
+  { "num": ["9.6"], "kind": "weekly", "que": "Revisión semanal de la barrera acústica" },
+  { "num": ["9.7"], "kind": "annual", "que": "Registro de casa desocupada (jun–ago) informado 1 vez al año a la SMA" }
+]}

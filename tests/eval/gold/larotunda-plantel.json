@@ -1,20 +1,130 @@
-{ "doc": "larotunda-plantel", "tipo": "DIA 2026 plantel lechero, normas + condiciones + compromisos",
-  "items": [
-  { "num": ["7.2", "7.3", "7.6"], "kind": "annual", "que": "Capacitación anual de manejo de residuos" },
-  { "num": ["7.2", "7.3", "7.6"], "kind": "weekly", "que": "Inspección semanal de la bodega RESPEL (checklist)" },
-  { "num": ["7.12"], "kind": "semiannual", "que": "Comprobante semestral de carga en el Sistema de Seguimiento" },
-  { "num": ["7.1"], "kind": "event", "que": "Hallazgo: paralizar y avisar a la SMA y CMN" },
-  { "num": ["8.1"], "kind": "continuous", "que": "Control operacional de galpones y bodega de alimentos (PGO)" },
-  { "num": ["8.2"], "kind": "once", "que": "Estación meteorológica operativa antes del Galpón N°2" },
-  { "num": ["8.3"], "kind": "once", "que": "Complementar el PGO antes del Galpón N°2" },
-  { "num": ["9.1"], "kind": "weekly", "que": "Revisión semanal de dietas" },
-  { "num": ["9.2"], "kind": "continuous", "que": "Humectación para control de polvo en construcción" },
-  { "num": ["9.3"], "kind": "annual", "que": "Capacitación anual de fauna" },
-  { "num": ["9.3"], "kind": "event", "que": "Inspección de fauna antes de cada faena" },
-  { "num": ["9.4"], "kind": "event", "que": "Gestión de cada reclamo (acuse en 48–72 h)" },
-  { "num": ["9.4"], "kind": "annual", "que": "Informe anual de reclamos a la SMA (90 días hábiles)" },
-  { "num": ["9.5"], "kind": "monthly", "que": "Revisión estructural mensual de galpones" },
-  { "num": ["9.5"], "kind": "semiannual", "que": "Capacitación semestral del PGO" },
-  { "num": ["9.5"], "kind": "annual", "que": "Informe anual del PGO a la SMA" },
-  { "num": ["9.5"], "kind": "continuous", "que": "Supervisión diaria de hileras de compostaje" }
-]}
+{
+ "doc": "larotunda-plantel",
+ "tipo": "DIA 2026 plantel lechero, normas + condiciones + compromisos",
+ "set": "ajuste",
+ "items": [
+  {
+   "num": [
+    "7.2",
+    "7.3",
+    "7.6"
+   ],
+   "kind": "annual",
+   "que": "Capacitación anual de manejo de residuos"
+  },
+  {
+   "num": [
+    "7.2",
+    "7.3",
+    "7.6"
+   ],
+   "kind": "weekly",
+   "que": "Inspección semanal de la bodega RESPEL (checklist)"
+  },
+  {
+   "num": [
+    "7.12"
+   ],
+   "kind": "semiannual",
+   "que": "Comprobante semestral de carga en el Sistema de Seguimiento"
+  },
+  {
+   "num": [
+    "7.1"
+   ],
+   "kind": "event",
+   "que": "Hallazgo: paralizar y avisar a la SMA y CMN"
+  },
+  {
+   "num": [
+    "8.1"
+   ],
+   "kind": "continuous",
+   "que": "Control operacional de galpones y bodega de alimentos (PGO)"
+  },
+  {
+   "num": [
+    "8.2"
+   ],
+   "kind": "once",
+   "que": "Estación meteorológica operativa antes del Galpón N°2"
+  },
+  {
+   "num": [
+    "8.3"
+   ],
+   "kind": "once",
+   "que": "Complementar el PGO antes del Galpón N°2"
+  },
+  {
+   "num": [
+    "9.1"
+   ],
+   "kind": "weekly",
+   "que": "Revisión semanal de dietas"
+  },
+  {
+   "num": [
+    "9.2"
+   ],
+   "kind": "continuous",
+   "que": "Humectación para control de polvo en construcción"
+  },
+  {
+   "num": [
+    "9.3"
+   ],
+   "kind": "annual",
+   "que": "Capacitación anual de fauna"
+  },
+  {
+   "num": [
+    "9.3"
+   ],
+   "kind": "event",
+   "que": "Inspección de fauna antes de cada faena"
+  },
+  {
+   "num": [
+    "9.4"
+   ],
+   "kind": "event",
+   "que": "Gestión de cada reclamo (acuse en 48–72 h)"
+  },
+  {
+   "num": [
+    "9.4"
+   ],
+   "kind": "annual",
+   "que": "Informe anual de reclamos a la SMA (90 días hábiles)"
+  },
+  {
+   "num": [
+    "9.5"
+   ],
+   "kind": "monthly",
+   "que": "Revisión estructural mensual de galpones"
+  },
+  {
+   "num": [
+    "9.5"
+   ],
+   "kind": "semiannual",
+   "que": "Capacitación semestral del PGO"
+  },
+  {
+   "num": [
+    "9.5"
+   ],
+   "kind": "annual",
+   "que": "Informe anual del PGO a la SMA"
+  },
+  {
+   "num": [
+    "9.5"
+   ],
+   "kind": "continuous",
+   "que": "Supervisión diaria de hileras de compostaje"
+  }
+ ]
+}

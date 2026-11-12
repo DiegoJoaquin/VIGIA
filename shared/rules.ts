@@ -29,16 +29,17 @@ const TO_AUTHORITY = /\b(a|al|ante)\s+(la\s+)?(SMA|Superintendencia|CMN|Consejo\
 const MONITOR = /monitoreo|medici[oó]n|muestreo|registro|informe|reporte|declaraci[oó]n|declarar|frecuencia|inspecci[oó]n|campa[nñ]a|charla|capacitaci[oó]n|an[aá]lisis|caracterizaci[oó]n|auditor[ií]a|autorizaci[oó]n|permiso|tramit|humectaci[oó]n|aviso|avis(ar|o)|inform(en|ar)/i;
 const REPORT = /\bremiti(r|do|da|dos|das|rse|r[aá]n?)(?![a-záéíóúñ\d])|\binforme(s)?(?![a-záéíóúñ\d])|\breporte(s)?(?![a-záéíóúñ\d])|\binformar(se|[aá]n?)?(?![a-záéíóúñ\d])|\benviar(se|[aá]n?)?(?![a-záéíóúñ\d])|\bentregar(se|[aá]n?)?(?![a-záéíóúñ\d])/i;
 
+const PERIODIC = new Set<string>(['weekly', 'monthly', 'bimonthly', 'quarterly', 'semiannual', 'annual']);
 const FREQ: { kind: FrequencyKind; re: RegExp; adj: string }[] = [
-  { kind: 'monthly', re: /mensual|cada\s+mes(?![a-záéíóúñ\d])|una\s+vez\s+al\s+mes|d[ií]as\s+h[aá]biles\s+(luego|despu[eé]s)\s+de\s+terminado\s+el\s+mes/i, adj: 'mensual' },
+  { kind: 'monthly', re: /(?<![a-záéíóúñ])mensual|cada\s+mes(?![a-záéíóúñ\d])|\bpor\s+mes(?![a-záéíóúñ\d])|una\s+vez\s+al\s+mes|d[ií]as\s+h[aá]biles\s+(luego|despu[eé]s)\s+de\s+terminado\s+el\s+mes/i, adj: 'mensual' },
   { kind: 'bimonthly', re: /bimestral|bimensual|cada\s+(dos|2)\s+meses|periodicidad\s+de\s+(dos|2)\s+meses/i, adj: 'bimestral' },
-  { kind: 'quarterly', re: /trimestral|cada\s+tres\s+meses/i, adj: 'trimestral' },
-  { kind: 'semiannual', re: /semestral|cada\s+seis\s+meses/i, adj: 'semestral' },
-  { kind: 'annual', re: /\banual(mente)?(?![a-záéíóúñ\d])|cada\s+a[nñ]o(?![a-záéíóúñ\d])|una\s+vez\s+al\s+a[nñ]o|cada\s+uno\s+de\s+los\s+\d+\s+a[nñ]os|(la|cada)\s+(temporada|[eé]poca)\s+estival/i, adj: 'anual' },
+  { kind: 'quarterly', re: /trimestral|cada\s+(tres|3)\s+meses|\bestacional(es)?(?![a-záéíóúñ\d])|(cuatro|4)\s+(veces\s+al\s+a[nñ]o|(muestreos|campa[nñ]as|monitoreos|mediciones)\s+anuales)/i, adj: 'trimestral' },
+  { kind: 'semiannual', re: /semestral|cada\s+(seis|6|cinco|5)\s+meses|(dos|2)\s+veces\s+(al|por)\s+a[nñ]o|(dos|2)\s+(censos|campa[nñ]as|muestreos|monitoreos|mediciones)\s+anuales|\bbianual(es)?(?![a-záéíóúñ\d])/i, adj: 'semestral' },
+  { kind: 'annual', re: /\banual(mente)?(?![a-záéíóúñ\d])|cada\s+a[nñ]o(?![a-záéíóúñ\d])|una\s+vez\s+al\s+a[nñ]o|(1|una)\s+vez\s+(al|por)\s+a[nñ]o|cada\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)|de\s+cada\s+a[nñ]o|cada\s+uno\s+de\s+los\s+\d+\s+a[nñ]os|(la|cada)\s+(temporada|[eé]poca)\s+estival/i, adj: 'anual' },
   { kind: 'weekly', re: /semanal(mente)?|cada\s+semana/i, adj: 'semanal' },
-  { kind: 'event', re: /cada\s+vez\s+que|en\s+caso\s+de|previo\s+al\s+inicio\s+de\s+cada|se\s+incorpore\s+personal|ante\s+(la|el|un|una)\s+(ocurrencia|hallazgo|reclamo)|frente\s+a\s+(un|una)\s+hallazgo|(desde|de)\s+(la\s+)?ocurr(encia|ido)\s+(de\s+)?(un|el)\s+evento|antes\s+de\s+iniciar\s+cualquier|previo\s+a\s+(cada|cualquier)\s/i, adj: 'cada vez' },
+  { kind: 'event', re: /cada\s+vez\s+que|en\s+caso\s+de|previo\s+al\s+inicio\s+de\s+cada|se\s+incorpore\s+personal|ante\s+(la|el|un|una)\s+(ocurrencia|hallazgo|reclamo)|frente\s+a\s+(un|una)\s+hallazgo|(desde|de)\s+(la\s+)?ocurr(encia|ido)\s+(de\s+)?(un|el)\s+evento|antes\s+de\s+iniciar\s+cualquier|previo\s+a\s+(cada|cualquier)\s|(ante|frente\s+a|por|tras|recibid[oa])\s+((un|una|el|la|cada|cualquier|alg[uú]n|alguna|eventuales?)\s+)?(derrame|contingencia|incidente|queja|reclamo|denuncia|crecida)s?(?![a-záéíóúñ\d])|eventos?\s+de\s+(crecida|lluvia)/i, adj: 'cada vez' },
   { kind: 'continuous', re: /permanente(mente)?|\(diario\)|diariamente|\bdiari[oa]s?(?![a-záéíóúñ\d])|todos\s+los\s+d[ií]as|en\s+todo\s+momento|durante\s+toda\s+la\s+(fase|etapa)|una\s+vez\s+al\s+d[ií]a|\d+\s+veces\s+al\s+d[ií]a|\bkm\/h(?![a-záéíóúñ\d])|en\s+buen\s+estado/i, adj: 'permanente' },
-  { kind: 'once', re: /una\s+(sola\s+)?vez(?!\s+(al\s+(mes|a[nñ]o|d[ií]a|semestre|trimestre|semana)|que|[a-záéíóúñ]+(ad|id)[oa]s?(?![a-záéíóúñ])))|al\s+(t[eé]rmino|finalizar|final\s+de)|informe\s+final|previo\s+al\s+inicio\s+de\s+(las?\s+)?(obras|operaci[oó]n|construcci[oó]n|faenas)|antes\s+del\s+inicio|posterior\s+a\s+la\s+(obtenci[oó]n\s+de\s+la\s+)?RCA|luego\s+del\s+despeje|una\s+vez\s+(obtenida|aprobada|notificada|otorgada)\s+(la\s+)?(RCA|resoluci)|\buna\s+(\(1\)\s+)?(campa[nñ]a|medici[oó]n|muestra)\b(?!\s+(anual|semestral|mensual|trimestral))/i, adj: 'una vez' },
+  { kind: 'once', re: /una\s+(sola\s+)?vez(?!\s+(al\s+(mes|a[nñ]o|d[ií]a|semestre|trimestre|semana)|que|[a-záéíóúñ]+(ad|id)[oa]s?(?![a-záéíóúñ])))|al\s+(t[eé]rmino|finalizar|final\s+de)|informe\s+final|previo\s+al\s+inicio\s+de\s+(las?\s+)?(obras|operaci[oó]n|construcci[oó]n|faenas)|antes\s+del\s+inicio|posterior\s+a\s+la\s+(obtenci[oó]n\s+de\s+la\s+)?RCA|luego\s+del\s+despeje|una\s+vez\s+(obtenida|aprobada|notificada|otorgada)\s+(la\s+)?(RCA|resoluci)|\buna\s+(\(1\)\s+)?(campa[nñ]a|medici[oó]n|muestra)\b(?!\s+(anual|semestral|mensual|trimestral))|por\s+[uú]nica\s+vez|en\s+un\s+plazo\s+(m[aá]ximo\s+)?de\s+\d+\s+d[ií]as\s+(h[aá]biles\s+)?(desde|contados)|con\s+al\s+menos\s+\d+\s+meses\s+de\s+antelaci[oó]n/i, adj: 'una vez' },
 ];
 
 const RECIPIENTS: [RegExp, Recipient][] = [
@@ -67,7 +68,7 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 const cut = (s: string, n: number) => (s.length <= n ? s : `${s.slice(0, s.lastIndexOf(' ', n - 1) > n * 0.6 ? s.lastIndexOf(' ', n - 1) : n - 1)}…`);
 
 type BlockKind = 'condicion' | 'compromiso' | 'medida' | 'seguimiento' | 'norma';
-interface Block { num: string; title: string; kind: BlockKind; body: string }
+interface Block { num: string; title: string; kind: BlockKind; body: string; numbered?: boolean }
 
 // "7°. Que,", "10. Que,", "12.- Que,"
 const CONSIDERANDO = /^\s*(\d{1,2})\s*[°º]?\s*\.?-?\s*Que\b/;
@@ -75,7 +76,7 @@ const RELEVANT = /normativa|condiciones|exigencias|compromisos?\s+(ambiental(es)
 const SKIP = /contingencias|emergencias|participaci[oó]n\s+ciudadana|observaciones\s+ciudadanas|permisos\s+ambientales\s+sectoriales|pronunciamiento/i;
 // Una tabla de norma empieza con el nombre de la norma y, pocas líneas después, uno de estos rótulos.
 const TABLE_LABEL = /Relaci[oó]n\s+con\s+el\s+proyecto|Componente\s*\/\s*materia|^\s*Materia\b|Fase\s+del\s+Proyecto|Parte,?\s+obra|Impacto\s+asociado|Forma\s+de\s+cumplimiento|Objetivo/i;
-const NORM_PREFIX = /^\s*(Tabla\s*(N[°º]?\s*[\d.]+)?\s*[:.\-–]\s*|\d{1,2}(\.\d{1,2}){2,3}\.?\s+)/i;
+const NORM_PREFIX = /^\s*(Tabla\s*(N[°º]?\s*[\d.]+)?\s*[:.\-–]\s*|\d{1,2}(\.\d{1,2}){1,3}\.?\s+)/i;
 const NORM_TITLE = /^\s*(Constituci[oó]n|D\.?\s?S\.?|D\.?\s?F\.?\s?L\.?|Decreto|Ley\b|Resoluci[oó]n\s+(Exenta|N|Sanitaria)|NCh|Norma\s+Chilena|C[oó]digo|Ordenanza|Reglamento)/i;
 const CAV_LINE = /^\s*(Tabla[^\n]{0,40}?)?(Compromiso\s+ambiental\s+voluntario|CAV)\s*(N[°º]?\s*)?\d*\s*[:\-–.]?\s*(?<name>[^\n]{0,120})$/i;
 
@@ -170,9 +171,13 @@ export function findBlocks(text: string): Block[] {
     }
     const normLine = line.replace(NORM_PREFIX, '');
     if (NORM_TITLE.test(normLine) && line.length < 220 && TABLE_LABEL.test(near) && (!cur || cur.kind === 'norma' || NORM_PREFIX.test(line))) {
+      // Con número propio ("7.13. Decreto N°1/2013") se usa ese numeral; "Tabla: Decreto…" hereda el del título que la precede.
+      const own = /^\s*(\d{1,2}(?:\.\d{1,2}){1,3})\.?\s/.exec(line)?.[1];
+      const prev: Block | null = cur;
+      if (prev && prev.kind === 'norma' && ((own && prev.num === own) || (!own && !prev.body.trim() && /^\d/.test(prev.num) && prev.numbered))) continue; // mismo cuadro: sigue en otra página o repite el título
       push();
-      unnamed++;
-      cur = { num: `${considerando}.${unnamed}`, title: clean(normLine).replace(/\.$/, ''), kind: 'norma', body: '' };
+      if (!own) unnamed++;
+      cur = { num: own && own.startsWith(`${considerando}.`) ? own : `${considerando}.${unnamed}`, title: clean(normLine).replace(/\.$/, ''), kind: 'norma', body: '', numbered: !!own };
       continue;
     }
     if (cur) cur.body += `${line}\n`;
@@ -231,6 +236,11 @@ function frequencyOf(s: string): { kind: FrequencyKind; adj: string } | undefine
 }
 
 /** Todas las frecuencias de una frase ("diario… informes mensuales" = permanente + mensual). */
+/** ¿El texto nombra por sí mismo esa frecuencia? ("mensual" para monthly, "cada vez que" para event…) */
+export function saysKind(text: string, kind: FrequencyKind): boolean {
+  return FREQ.some((f) => f.kind === kind && f.re.test(text));
+}
+
 const MONTHS = /enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre/gi;
 function kindsOf(s: string) {
   s = s.replace(/\(\s*\d+\s+anuales\s*\)/gi, '');
@@ -270,7 +280,8 @@ function shortNorm(t: string): string {
 
 const SECTION_NAME: Record<BlockKind, string> = { condicion: 'Condición de la RCA', compromiso: 'Compromiso voluntario', medida: 'Medida', seguimiento: 'Plan de seguimiento', norma: 'Norma aplicable' };
 
-export function ruleObligations(text: string, projectId: string): Obligation[] {
+/** Lectura por reglas, sin el modelo de confianza (se usa para entrenarlo y medirlo). */
+export function ruleObligationsRaw(text: string, projectId: string): Obligation[] {
   const out: Obligation[] = [];
   for (const b of findBlocks(text)) {
     const all = sentences(b.body);
@@ -293,8 +304,8 @@ export function ruleObligations(text: string, projectId: string): Obligation[] {
     const norma = b.kind === 'norma';
     const duties = all
       // En una tabla de norma solo cuenta lo que tiene frecuencia y es un control concreto ("monitoreo semestral").
-      .filter((s) => norma ? (frequencyOf(s) && MONITOR.test(s) && (frequencyOf(s)!.kind !== 'continuous' || /\d+\s+veces\s+al\s+d[ií]a|diariamente/i.test(s))) : (DUTY.test(s) || (REPORT.test(s) && (frequencyOf(s) || TO_AUTHORITY.test(s))) || ((b.kind === 'seguimiento' || b.kind === 'medida') && frequencyOf(s))))
-      .filter((s) => !/^(Objetivo:|Oportunidad:)/i.test(s))
+      .filter((s) => norma ? (frequencyOf(s) && MONITOR.test(s) && (frequencyOf(s)!.kind !== 'continuous' || /\d+\s+veces\s+al\s+d[ií]a|diariamente/i.test(s))) : (DUTY.test(s) || (REPORT.test(s) && (frequencyOf(s) || TO_AUTHORITY.test(s))) || ((b.kind === 'seguimiento' || b.kind === 'medida') && frequencyOf(s)) || (PERIODIC.has(frequencyOf(s)?.kind ?? '') && !/^(Objetivo|Justificaci[oó]n)\s*:/i.test(s))))
+      .filter((s) => !/^(Objetivo:|Oportunidad:)/i.test(s) || (/^Oportunidad:/i.test(s) && PERIODIC.has(frequencyOf(s)?.kind ?? '')))
       // Los ítems de una lista de contenidos ("a) Superficie prospectada…") describen el informe, no son tareas.
       .filter((s) => norma || !/^([a-h]\)|[-•])/.test(s) || /\bdeber[aá]n?\b/i.test(s) || (REPORT.test(s) && /remitid|Superintendencia|SMA\b|CMN\b|SEREMI/.test(s)))
       .map((s) => ({ s, kinds: kindsOf(s), report: REPORT.test(s) && /remit|SMA|Superintendencia|CMN|Consejo|SEREMI/i.test(s) }));
@@ -319,6 +330,14 @@ export function ruleObligations(text: string, projectId: string): Obligation[] {
     if (titleKind && !groups.has(titleKind.kind)) {
       const d = duties.find((x) => !x.report) ?? duties[0];
       if (d) groups.set(titleKind.kind, [{ s: d.s, report: false }]);
+    }
+    // Con una frecuencia periódica clara, un "una vez obtenida la RCA" es desde cuándo rige (no una entrega única),
+    // y un "durante toda la fase" es por cuánto tiempo (no una obligación permanente aparte).
+    if ([...groups.keys()].some((k) => PERIODIC.has(k))) {
+      const strongOnce = /informe\s+final|por\s+[uú]nica\s+vez|\bplazo\b|antelaci[oó]n|previo\s+al\s+inicio|antes\s+del\s+inicio|al\s+(t[eé]rmino|finalizar)|una\s+sola\s+vez|al\s+(comienzo|inicio)\s+de/i;
+      const strongCont = /permanente|diari[oa]|todos\s+los\s+d[ií]as|en\s+todo\s+momento|veces\s+al\s+d[ií]a/i;
+      if (groups.get('once')?.every((d) => !strongOnce.test(d.s))) groups.delete('once');
+      if (groups.get('continuous')?.every((d) => !strongCont.test(d.s)) && !strongCont.test(b.title)) groups.delete('continuous');
     }
     // Un compromiso sin frecuencia escrita es una condición que se cumple mientras dure la fase.
     if (norma && !groups.size) continue;
@@ -385,4 +404,9 @@ function dedupeRules(list: Obligation[]): Obligation[] {
   return list.filter((o, i) => !list.some((x, j) => j !== i && x.frequency.kind === o.frequency.kind && (
     (key(x) === key(o) && j < i) || (key(x).startsWith(key(o)) && key(x).length > key(o).length)
   )));
+}
+
+/** Lectura por reglas. */
+export function ruleObligations(text: string, projectId: string): Obligation[] {
+  return ruleObligationsRaw(text, projectId);
 }

@@ -1,0 +1,826 @@
+1
+EN LO PRINCIPAL: Presenta Programa de Cumplimiento. PRIMER OTROSÍ: Da respuesta a
+Requerimiento de Información. SEGUNDO OTROSÍ: Acompaña Documentos. TERCER
+OTROSÍ: Solicita reserva. CUARTO OTROSÍ: Acredita personería.
+SUPERINTENDENCIA DEL MEDIO AMBIENTE
+SEBASTIÁN ANDRÉS REYES JIMÉNEZ, cédula nacional de identidad número 15.641.817-K,
+en representación, según se acreditará, de ALIMENTOS Y FRUTOS S.A. (en adelante, el
+“Titular”), rol único tributario número 96.557.910-9, todos domiciliados para estos efectos
+en Lo Echevers N° 250, comuna de Quilicura, Región Metropolitana, en expediente
+sancionatorio Rol D-017-2025, a la Fiscal Instructora de la Superintendencia del Medio
+Ambiente, respetuosamente digo:
+Que, por este acto, y de conformidad con lo dispuesto en el artículo 42 de la Ley Orgánica
+de la Superintendencia del Medio Ambiente (en adelante, “LOSMA”), vengo, dentro de
+plazo, a presentar un programa de cumplimiento respecto de los cargos formulados a mi
+representada mediante Res. Ex. N°1/Rol D-017-2025, de fecha 24 de enero de 2025, en el
+marco del procedimiento administrativo sancionatorio Rol D-017-2025 seguido en contra
+de mi representada, por los eventuales incumplimientos al D.S 38/2011, del Ministerio del
+Medio Ambiente, que establece la Norma de Emisión de Ruidos, (en adelante, “D.S
+38/2011”), en relación al establecimiento denominado “Minuto Verde Planta Rengo”
+ubicado en Juan Egenau Poniente N° 1661, provincia del Cachapoal, comuna de Rengo,
+Región del Libertador General Bernardo O’Higgins (en adelante, el “Proyecto”).
+El Programa de Cumplimiento se presenta sobre la base de lo señalado en el artículo 42 de
+la LOSMA, los artículos 6 y siguientes del Reglamento sobre Programas de Cumplimiento,
+Autodenuncia y Planes de Reparación, aprobado por el Decreto Supremo N°30/2012, del
+Ministerio del Medio Ambiente (en adelante, el “Reglamento”), así como lo expresado en
+la Guía para la presentación de un Programa de Cumplimiento por Infracciones a la Norma
+de Emisión de Ruido, aprobada mediante Resolución Exenta N°1270, de fecha 3 de
+septiembre de 2019, (en adelante, “Guía”) y en los términos que se exponen a continuación:
+I.
+ANTECEDENTES GENERALES DEL PROYECTO
+El proyecto “Minuto Verde Planta Rengo” consiste en una planta que se dedica
+principalmente al envasado, almacenaje y distribución de verduras, frutas y hortalizas
+
+2
+congeladas para luego ser comercializadas. Los procesos productivos desarrollados
+corresponden a secuencias lineares, las cuales se diferencian levemente de acuerdo con la
+naturaleza del producto. El establecimiento se ubica en la comuna de Rengo, Región del
+Libertador General Bernardo O’Higgins.
+En la siguiente figura es posible apreciar su ubicación:
+Figura N° 1: Ubicación del Proyecto
+Fuente: IFA DFZ-2024-2342-VI-NE
+Las distintas áreas del establecimiento, operan en los horarios que se indican a
+continuación:
+Tabla 1: Horarios de funcionamiento
+Área Días de la semana Horario
+Área Administrativa Lunes a viernes 08:00 a 17:30 horas
+Área de Producción Lunes a viernes 07:00 a 16:30 horas
+16:00 a 01:30 horas
+Área de servicio de aseo Lunes a sábado 22:00 a 07:30 horas
+Área mantención envasado Lunes a sábado
+08:00 a 16:00 horas
+16:00 a 00:00 horas
+08:00 a 13:00 horas
+Sala de máquinas
+(SADEMA) Lunes a domingo
+07:30 a 17:00 horas
+08:00 a 17:30 horas
+13:30 a 23:00 horas
+22:30 a 08:00 horas
+Fuente: Elaboración propia
+
+3
+II.
+MEDIDAS DE CONTROL DE RUIDO ADOPTADAS EN EL PROYECTO.
+En el establecimiento “Minuto Verde Planta Rengo”, las actividades susceptibles de generar
+emisión de ruidos molestos de consideración se encuentran relacionadas con las siguientes
+actividades y maquinarias:
+Tabla N° 2: Equipos y maquinarias generadoras de ruido
+Ubicación Maquinaria Cantidad Días de la semana Horario
+Sala de
+Máquinas 1
+(SADEMA 1)
+Compresores 5 Lunes a domingo 24 horas al día
+Ductos de aire 2 Solo en caso de
+emergencia N/A
+Condensadores 2 Lunes a domingo 24 horas al día
+Sala de
+máquinas 2
+(SADEMA 2)
+Compresores 4 Lunes a domingo 24 horas al día
+Condensadores 2 Lunes a domingo 24 horas al día
+Ductos de aire 2 Solo en caso de
+emergencia N/A
+Zona
+montacarga
+Montacarga 1 1 Lunes a viernes De 08:00 a 18:00 horas
+Montacarga 2 1 Lunes a viernes De 08:00 a 18:00 horas
+Grupo
+electrógeno de
+respaldo
+Generador 1
+Solo uso de
+emergencia y
+respaldo en horario
+de invierno en
+periodo de
+restricción
+17:30 a 23:30 horas
+Fuente: Elaboración propia
+A continuación, le informamos el conjunto medidas de control de ruidos que se han
+implementado en el establecimiento:
+- Procedimiento operacional para la mitigación ruido zona poniente planta Rengo.
+- Cambio de portón de ingreso al área de SADEMA 1, cuya materialidad permite
+disminuir la emisión de ruido hacia el exterior de la SADEMA.
+Los antecedentes que dan cuenta de la implementación de las medidas descritas se
+encuentran disponibles en el Anexo 5, de la carpeta Requerimiento de información.
+
+4
+III.
+ANTECEDENTES DEL PROCEDIMIENTO SANCIONATORIO
+1. El presente procedimiento sancionatorio se inició a raíz de nueve denuncias
+ciudadanas, en las cuales se reportaron ruidos molestos en horario diurno y
+nocturno generados por las actividades desarrolladas en el establecimiento "Minuto
+Verde Planta Rengo". Estas denuncias fueron efectuadas en enero de 2024.
+2. A raíz de estas denuncias, la SMA solicitó antecedentes a mi representada mediante
+la Resolución Exenta LGBO N° 001/2024, de fecha 4 de enero de 2024 y en repuesta
+a dicho requerimiento, se presentó – entre otros documentos- un informe de
+medición de ruido elaborado por la ETFA A&M Fiscalización Ambiental Ltda., el cual
+evaluó los niveles de emisión sonora en tres receptores durante el 25 de enero de
+2024, tanto en horario diurno como nocturno. Los resultados del informe
+evidenciaron que la operación de la Unidad Fiscalizable excedía los límites
+normativos para Zona Rural en condiciones externas, registrándose una superación
+de 1 dBA en el Receptor 2 durante el periodo diurno y de 12 dBA en el periodo
+nocturno.
+3. Lo anterior, dio origen al Informe de Fiscalización emitido por la Superintendencia
+del Medio Ambiente (en adelante, “SMA”) DFZ-2024-2342-VI-NE, de agosto de
+2024, que contiene el informe de medición de ruido N° P276.MR, realizado por la
+ETFA A&M Fiscalización Ambiental Ltda., en los cuales se constató la excedencia de
+1 dBA y de 12 dBa, recién indicada.
+4. A continuación, con fecha 24 de enero del presente año, la Fiscal Instructora doña
+Claudia Arancibia Cortés, procedió a dictar la Resolución Exenta N° 1/Rol D-017-
+2025, que formula cargos por este único hecho infraccional, que fue calificado como
+Leve, a “Alimentos y Frutos S.A.” por la faena constructiva del proyecto “Minuto
+Verde Planta Rengo”.
+5. Dicha resolución fue notificada por carta certificada con fecha 11 de febrero de
+2025, otorgando un plazo de 10 días hábiles para la presentación de un Programa
+de Cumplimiento, que fue ampliado de oficio en 5 días hábiles, por lo que el plazo
+final para su presentación vence el 04 de marzo de 2025.
+
+5
+IV.
+ANTECEDENTES SOBRE EL CUMPLIMIENTO DE LOS REQUISITOS PARA LA
+PRESENTACIÓN DE UN PROGRAMA DE CUMPLIMIENTO.
+A. Programa de Cumplimiento.
+1. El Programa de Cumplimiento constituye un instrumento de incentivo al
+cumplimiento, regulado en el artículo 42 de la LOSMA, y complementando por el
+articulo 6 y siguientes del Reglamento.
+2. Se encuentra definido en el artículo 42 de la LOSMA que indica: “Se entenderá como
+programa de cumplimiento, el plan de acciones y metas presentado por el infractor,
+para que, dentro de un plazo fijado por la Superintendencia, los responsables cumplan
+satisfactoriamente con la normativa ambiental que se indique”.
+3. El Programa de Cumplimiento, debe cumplir con una serie de requisitos de
+oportunidad y de contenido, entre los que se encuentran:
+(i) Deberá ser presentado dentro de plazo.
+(ii) No se deben tener impedimentos para realizar su presentación.
+(iii) Contener la información requerida.
+4. A continuación, señalaremos el cumplimiento de cada uno de los requisitos
+anteriormente indicados.
+B. El Programa de Cumplimiento cumple con los requisitos señalados en la Ley y en la
+Guía.
+1. El presente Programa de Cumplimiento se presenta dentro del plazo establecido en
+el artículo 42 de la LOSMA, en consideración al término original de 10 días hábiles,
+ampliado de oficio en 5 días hábiles contados del plazo original, de acuerdo a la Res.
+Ex. N°1/ Rol D-017-2025. Cabe señalar que la carta certificada destinada a notificar
+la formulación de cargos, fue entregada el 11 de febrero de 2025, según consta en
+seguimiento N° 1179281010363, de Correos de Chile.
+
+6
+A partir de lo expuesto, el plazo para presentar el presente Programa de
+Cumplimiento vence el día 04 de marzo de 2025.
+2. Por otro lado, mi representada, no se encuentra afecta a las limitaciones contenidas
+en el artículo 42 de la LOSMA y artículo 6 del Reglamento, dado que:
+(i) No se ha sometido a un programa de gradualidad de la normativa ambiental
+respecto de las infracciones imputadas.
+(ii) No ha sido objeto con anterioridad de la aplicación de una sanción gravísima
+por parte de la SMA.
+(iii) No ha presentado con anterioridad un Programa de Cumplimiento respecto de
+esta unidad fiscalizable.
+3. Los antecedentes presentados buscan dar cumplimiento a los criterios de aprobación
+del Programa de Cumplimiento referido en el artículo 9 del Reglamento, esto es,
+integridad, eficacia y verificabilidad.
+(i) Integridad: Las acciones y metas deben hacerse cargo de todas y cada una de
+las infracciones en que se ha incurrido y de sus efectos.
+(ii) Eficacia: Las acciones y metas del programa deben asegurar el cumplimiento
+de la normativa infringida, así como contener y reducir o eliminar los efectos
+de los hechos que constituyen la infracción.
+(iii) Verificabilidad: Las acciones y metas del programa de cumplimiento deben
+contemplar mecanismos que permitan acreditar su cumplimiento.
+Estos criterios se cumplen cabalmente con el conjunto de todas las medidas
+ya ejecutadas en la planta de Rengo con las medidas adicionales que se
+propone implementar en este Programa de Cumplimiento.
+4. Asimismo, el presente Programa de Cumplimiento, se realiza en el formato
+establecido por la SMA en la “Guía para la presentación de un Programa de
+Cumplimiento. Infracciones a la Norma de Emisión de Ruidos”, de agosto de 2019.
+
+7
+5. En el improbable caso que se rechace el presente Programa de Cumplimiento, se deja
+constancia que mi representada se reserva el derecho a presentar Descargos respecto
+de los hechos que se estiman constitutivos de infracción, de acuerdo a los plazos
+legales.
+6. Se hace presente, para este efecto, que como ha reconocido la jurisprudencia, la
+presentación de un Programa de Cumplimiento no constituye un reconocimiento de
+responsabilidad por parte del titular.
+7. A continuación, se detalla el Programa de Cumplimiento de conformidad al formato
+establecido en la Guía.
+PROGRAMA DE CUMPLIMIENTO SIMPLIFICADO PARA INFRACCIONES A
+LA NORMA DE EMISIÓN DE RUIDO D.S. N° 38/2011
+1. IDENTIFICACIÓN:
+▪ Nombre empresa o persona natural: ALIMENTOS Y FRUTOS S.A.
+▪ Rut empresa o persona natural: 96.557.910-9
+▪ Nombre representante legal: SEBASTIÁN ANDRÉS REYES JIMÉNEZ
+▪ Domicilio representante legal: Lo Echevers N° 250, comuna de Quilicura, Región Metropolitana
+▪ Rol Procedimiento Sancionatorio: ROL D-017-2025
+▪ Identifique el equipo, máquina o actividad
+que genera ruido. Acompañe un plano
+simple, indicando las dimensiones del
+establecimiento, y señalando la ubicación
+de el/los emisores de ruidos.
+Se identifican los siguientes equipos, maquinarias y actividades
+generadoras de ruido:
+1. Evaporadores
+2. Condensadores
+3. Camión retiro ampliroll desechos
+4. Montacarga 1
+5. Montacarga 2
+6. Compresores de aire
+7. Carga y descarga de camiones
+8. Funcionamiento de un grupo electrógeno.
+Los antecedentes asociados a la implementación de medidas
+orientadas a hacer frente a la emisión de ruidos molestos y sus costos,
+se encuentran disponibles en el Anexo 5, de la carpeta digital
+Requerimiento de Información, adjunto al presente escrito.
+9. Indique si desea ser notificado en el
+presente procedimiento sancionatorio
+mediante correo electrónico:
+Deseo ser
+notificado
+mediante correo
+electrónico a la
+siguiente dirección:
+rcarrasco@minutoverde.cl
+rbenitez@scyb.cl
+ihenriquez@scyb.cl
+saros@scyb.cl
+Tenga presente que los
+Actos Administrativos se
+entenderán notificados al
+día hábil siguiente de su
+remisión mediante correo
+electrónico desde la
+
+8
+En caso afirmativo, favor proponga una dirección de
+correo electrónico a la cual se debiesen enviar los
+actos administrativos que correspondan.
+No deseo ser
+notificado
+mediante correo
+electrónico:
+XX
+dirección
+notificaciones@sma.gob.cl
+2. HECHO QUE CONSTITUYE LA INFRACCIÓN:
+Copie acá el texto de la infracción, que está en la formulación de cargos.
+La obtención, con fecha 25 de enero de 2024, de Niveles de Presión Sonora Corregido (NPC) de 61 dB(A) y 62 dB(A), la
+primera medición efectuada en horario diurno, y la segunda en horario nocturno respectivamente, ambas en condición
+externa y en un receptor sensible ubicado en Zona Rural.
+3. EFECTOS NEGATIVOS:
+Se indican acá los efectos que ha producido la infracción.
+Se han generado, al menos, molestias en la población circundante por el ruido generado por motivo de la infracción.
+4. ACCIONES COMPROMETIDAS:
+N° Identificador 1
+Acciones
+Marque una de las siguientes medida(s) a
+implementar para reducir el ruido. Si desea
+marcar más de una, realizar en tabla
+siguiente.
+☐ Barrera acústica: Consiste en una barrera con un material cuya densidad debe ser
+superior a los 10 Kg/m2, la cual se debe instalar lo más cerca posible de la fuente para
+ser efectiva.
+☐ Encierros acústicos: Considera la elaboración de una construcción que encierre la
+fuente, con murallas tipo sándwich con acero de 2 mm en ambas caras, material
+anticorrosivo alquídico, y núcleo de lana de vidrio de 50 mm de espesor y 32 Kg/m3 de
+densidad superficial. El panel de acero interior debe ser perforado en un 60%.
+☐ Puerta acústica: Se basa en la construcción de una puerta acústica tipo sándwich, de
+características similares al encierro acústico. Esto es, ambas caras de acero de 2 mm,
+con núcleo de 50 mm de espesor y densidad superficial de 32 Kg/m3. Esta debe tener
+un marco perimetral estructural y pomeles que soporten el peso de esta.
+☐ Celosía acústica: Corresponden a un conjunto de celosías acústicas para la parte
+inferior de la puerta, construida con acero galvanizado.
+☐ Silenciador tipo Splitter: Los silenciadores tipo Splitter se utilizan a la salida de ductos
+de aire, y similares, para evitar la propagación del ruido emitidos por esos.
+☐ Termopanel: Corresponden, en la generalidad, a vidrios dobles que proveen una
+reducción sonora de Rw = 26 dB. Se destaca el hecho que estos deben contar con un
+montaje que permita un cierre hermético de la habitación.
+☐ Limitador acústico: Son equipos electrónicos que se incluyen dentro de la cadena
+electroacústica, que permiten limitar el nivel de potencia acústica que genera el
+sistema en su totalidad.
+☐ Recubrimiento con material de absorción de paredes, piso o techumbre: El
+recubrimiento con material aislante de ruido es una medida que está orientada en
+evitar que existan reflexiones de las ondas de sonido. Esta medida debe ser instalada
+en sectores donde no exista riesgo de deterioro y debe pasar por un tratamiento contra
+incendios. La atenuación máxima que se espera por medio de esta medida es de 2 dBA.
+Los materiales más utilizados son las espumas acústicas de poliestireno y la lana
+mineral.
+
+9
+☐ Reubicación de equipos o maquinaria generadora de ruido: Realizar la reubicación
+de los equipos o maquinaria, desplazando el instrumento emisor de ruido a un sector
+donde no genere superaciones al D.S. N°38/2011 en receptores cercanos.
+☐ Cambio en la actividad: Realizar el cambio de la actividad productiva, por otra que
+no genere emisión de ruidos molestos.
+☐ Traslado o cierre de la unidad fiscalizable: Realizar el cambio de ubicación de la
+actividad o el cierre definitivo del establecimiento actividades en el sector.
+☒ Otras medidas (indicar todas las otras medidas que usted considere necesarias y
+que se implementarán antes de la medición final de presión sonora): Implementación
+de un Procedimiento operacional de mitigación ruido zona poniente planta Rengo.
+Costo Estimado Neto ($)
+Indique los costos asociados a la acción
+seleccionada para su implementación
+(compra de materiales, implementación,
+prestaciones de servicio, etc).
+Sin costo
+Medios de Verificación Marque
+una o varias de las siguientes opciones que
+permitirán acreditar la efectiva ejecución
+de la acción.
+☐ Boletas y/o facturas de compra de materiales (obligatorio).
+☐ Boletas y/o facturas de pago de prestación de servicios.
+☐ Fotografías fechadas y georreferenciadas ilustrativas del antes y después de la
+ejecución de la acción (obligatorio).
+☒ Fichas o informes técnicos (en caso de marcar “Otra” este medio de verificación
+es obligatorio).
+Comentarios
+Indique acá cualquier otro aspecto que sea
+relevante de considerar. Además,
+referencie acá los anexos presentados
+junto al Programa de Cumplimiento.
+Acción Ejecutada.
+Se implementó un procedimiento con un conjunto de medidas destinadas a controlar
+las emisiones de ruido. Las medidas incluyen acciones en SADEMA y sala de
+compresores, Manejo de Tolvas y Ampliroll, Operación de montacargas, entre otras.
+La Medida se encuentra implementada desde febrero de 2024.
+Los antecedentes asociados a la implementación de esta medida se adjuntan en el
+Anexo 1 “Procedimiento mitigación ruido zona poniente planta Rengo”, de la carpeta
+digital Acciones del PdC.
+N° Identificador 2
+Acciones
+Marque una de las siguientes medida(s) a
+implementar para reducir el ruido. Si desea
+marcar más de una, realizar en tabla
+siguiente.
+☐ Barrera acústica: Consiste en una barrera con un material cuya densidad debe ser
+superior a los 10 Kg/m2, la cual se debe instalar lo más cerca posible de la fuente para
+ser efectiva.
+☐ Encierros acústicos: Considera la elaboración de una construcción que encierre la
+fuente, con murallas tipo sándwich con acero de 2 mm en ambas caras, material
+anticorrosivo alquídico, y núcleo de lana de vidrio de 50 mm de espesor y 32 Kg/m3 de
+densidad superficial. El panel de acero interior debe ser perforado en un 60%.
+☐ Puerta acústica: Se basa en la construcción de una puerta acústica tipo sándwich, de
+características similares al encierro acústico. Esto es, ambas caras de acero de 2 mm,
+con núcleo de 50 mm de espesor y densidad superficial de 32 Kg/m3. Esta debe tener
+un marco perimetral estructural y pomeles que soporten el peso de esta.
+☐ Celosía acústica: Corresponden a un conjunto de celosías acústicas para la parte
+inferior de la puerta, construida con acero galvanizado.
+
+10
+☐ Silenciador tipo Splitter: Los silenciadores tipo Splitter se utilizan a la salida de ductos
+de aire, y similares, para evitar la propagación del ruido emitidos por esos.
+☐ Termopanel: Corresponden, en la generalidad, a vidrios dobles que proveen una
+reducción sonora de Rw = 26 dB. Se destaca el hecho que estos deben contar con un
+montaje que permita un cierre hermético de la habitación.
+☐ Limitador acústico: Son equipos electrónicos que se incluyen dentro de la cadena
+electroacústica, y que, valga la redundancia, permiten limitar el nivel de potencia
+acústica que genera el sistema en su totalidad.
+☐ Recubrimiento con material de absorción de paredes, piso o techumbre: El
+recubrimiento con material aislante de ruido es una medida que está orientada en
+evitar que existan reflexiones de las ondas de sonido. Esta medida debe ser instalada
+en sectores donde no exista riesgo de deterioro y Debe pasar por un tratamiento contra
+incendios. La atenuación máxima que se espera por medio de esta medida es de 2 dBA.
+Los materiales más utilizados son las espumas acústicas de poliestireno y la lana
+mineral.
+☐ Reubicación de equipos o maquinaria generadora de ruido: Realizar la reubicación
+de los equipos o maquinaria, desplazando el instrumento emisor de ruido a un sector
+donde no genere superaciones al D.S. N°38/2011 en receptores cercanos.
+☐ Cambio en la actividad: Realizar el cambio de la actividad productiva, por otra que
+no genere emisión de ruidos molestos.
+☐ Traslado o cierre de la unidad fiscalizable: Realizar el cambio de ubicación de la
+actividad o el cierre definitivo del establecimiento actividades en el sector.
+☒ Otras medidas (indicar todas las otras medidas que usted considere necesarias y
+que se implementarán antes de la medición final de presión sonora): Cambio de
+portón de ingreso del sector SADEMA 1.
+Costo Estimado Neto ($)
+Indique los costos asociados a la acción
+seleccionada para su implementación
+(compra de materiales, implementación,
+prestaciones de servicio, etc).
+$470.050.-
+Medios de Verificación Marque
+una o varias de las siguientes opciones que
+permitirán acreditar la efectiva ejecución
+de la acción.
+☒ Boletas y/o facturas de compra de materiales (obligatorio).
+☐ Boletas y/o facturas de pago de prestación de servicios.
+☒ Fotografías fechadas y georreferenciadas ilustrativas del antes y después de la
+ejecución de la acción (obligatorio).
+☒ Fichas o informes técnicos (en caso de marcar “Otra” este medio de verificación es
+obligatorio).
+Comentarios
+Indique acá cualquier otro aspecto que sea
+relevante de considerar. Además,
+referencie acá los anexos presentados junto
+al Programa de Cumplimiento.
+Acción Ejecutada.
+Se realizó el cambio del portón de ingreso al sector Sadema 1.
+La nueva instalación consta de un panel Aisapol de 100 mm, de 2 metros de ancho por
+2 metros de alto.
+Esta medida fue implementada en noviembre de 2024.
+En el Anexo 2 “cambio de portón de entrada a SADEMA 1” de la carpeta digital
+Acciones del PdC, se adjunta una orden de compra y una fotografía que acreditan la
+ejecución de esta medida.
+N° Identificador 3
+
+11
+Acciones
+Marque una de las siguientes medida(s) a
+implementar para reducir el ruido. Si desea
+marcar más de una, realizar en tabla
+siguiente.
+☐ Barrera acústica: Consiste en una barrera con un material cuya densidad debe ser
+superior a los 10 Kg/m2, la cual se debe instalar lo más cerca posible de la fuente para
+ser efectiva.
+☒ Encierros acústicos: Considera la elaboración de una construcción que encierre la
+fuente, con murallas tipo sándwich con acero de 2 mm en ambas caras, material
+anticorrosivo alquídico, y núcleo de lana de vidrio de 50 mm de espesor y 32 Kg/m3
+de densidad superficial. El panel de acero interior debe ser perforado en un 60%.
+☐ Puerta acústica: Se basa en la construcción de una puerta acústica tipo sándwich, de
+características similares al encierro acústico. Esto es, ambas caras de acero de 2 mm,
+con núcleo de 50 mm de espesor y densidad superficial de 32 Kg/m3. Esta debe tener
+un marco perimetral estructural y pomeles que soporten el peso de esta.
+☐ Celosía acústica: Corresponden a un conjunto de celosías acústicas para la parte
+inferior de la puerta, construida con acero galvanizado.
+☐ Silenciador tipo Splitter: Los silenciadores tipo Splitter se utilizan a la salida de ductos
+de aire, y similares, para evitar la propagación del ruido emitidos por esos.
+☐ Termopanel: Corresponden, en la generalidad, a vidrios dobles que proveen una
+reducción sonora de Rw = 26 dB. Se destaca el hecho que estos deben contar con un
+montaje que permita un cierre hermético de la habitación.
+☐ Limitador acústico: Son equipos electrónicos que se incluyen dentro de la cadena
+electroacústica, que permiten limitar el nivel de potencia acústica que genera el
+sistema en su totalidad.
+☐ Recubrimiento con material de absorción de paredes, piso o techumbre: El
+recubrimiento con material aislante de ruido es una medida que está orientada en
+evitar que existan reflexiones de las ondas de sonido. Esta medida debe ser instalada
+en sectores donde no exista riesgo de deterioro y debe pasar por un tratamiento contra
+incendios. La atenuación máxima que se espera por medio de esta medida es de 2 dBA.
+Los materiales más utilizados son las espumas acústicas de poliestireno y la lana
+mineral.
+☐ Reubicación de equipos o maquinaria generadora de ruido: Realizar la reubicación
+de los equipos o maquinaria, desplazando el instrumento emisor de ruido a un sector
+donde no genere superaciones al D.S. N°38/2011 en receptores cercanos.
+☐ Cambio en la actividad: Realizar el cambio de la actividad productiva, por otra que
+no genere emisión de ruidos molestos.
+☐ Traslado o cierre de la unidad fiscalizable: Realizar el cambio de ubicación de la
+actividad o el cierre definitivo del establecimiento actividades en el sector.
+☐ Otras medidas (indicar todas las otras medidas que usted considere necesarias y
+que se implementarán antes de la medición final de presión sonora):
+Costo Estimado Neto ($)
+Indique los costos asociados a la acción
+seleccionada para su implementación
+(compra de materiales, implementación,
+prestaciones de servicio, etc).
+$40.913.390.-
+Medios de Verificación Marque
+una o varias de las siguientes opciones que
+permitirán acreditar la efectiva ejecución
+de la acción.
+☒ Boletas y/o facturas de compra de materiales (obligatorio).
+☐ Boletas y/o facturas de pago de prestación de servicios.
+☐ Fotografías fechadas y georreferenciadas ilustrativas del antes y después de la
+ejecución de la acción (obligatorio).
+
+12
+☐ Fichas o informes técnicos (en caso de marcar “Otra” este medio de verificación es
+obligatorio).
+Comentarios
+Indique acá cualquier otro aspecto que sea
+relevante de considerar. Además,
+referencie acá los anexos presentados
+junto al Programa de Cumplimiento.
+Acción por Ejecutar.
+Se instalará un tipo de encierro acústico para el sector SADEMA 1, de 15 metros de
+largo, 6 metros de altura y 0,5 metros de cumbrera.
+El encierro será fabricado en panel lana de roca de 100 mm de espesor, estructura
+metálica, pilares IPE 120, placas de anclaje sobre radier existente, canal superior en
+inferior, ángulo de atraques laterales.
+El plazo para la implementación de esta medida será de tres meses desde la aprobación
+del PdC.
+En el Anexo 3 “Encierro acústico SADEMA 1” de la carpeta digital Acciones del PdC, se
+adjunta una cotización emitida por la empresa CIBEL, que acredita los costos asociados
+a la ejecución de esta medida.
+N° Identificador 4
+Acciones
+Marque una de las siguientes medida(s) a
+implementar para reducir el ruido. Si desea
+marcar más de una, realizar en tabla
+siguiente.
+☐ Barrera acústica: Consiste en una barrera con un material cuya densidad debe ser
+superior a los 10 Kg/m2, la cual se debe instalar lo más cerca posible de la fuente para
+ser efectiva.
+☒ Encierros acústicos: Considera la elaboración de una construcción que encierre la
+fuente, con murallas tipo sándwich con acero de 2 mm en ambas caras, material
+anticorrosivo alquídico, y núcleo de lana de vidrio de 50 mm de espesor y 32 Kg/m3
+de densidad superficial. El panel de acero interior debe ser perforado en un 60%.
+☐ Puerta acústica: Se basa en la construcción de una puerta acústica tipo sándwich, de
+características similares al encierro acústico. Esto es, ambas caras de acero de 2 mm,
+con núcleo de 50 mm de espesor y densidad superficial de 32 Kg/m3. Esta debe tener
+un marco perimetral estructural y pomeles que soporten el peso de esta.
+☐ Celosía acústica: Corresponden a un conjunto de celosías acústicas para la parte
+inferior de la puerta, construida con acero galvanizado.
+☐ Silenciador tipo Splitter: Los silenciadores tipo Splitter se utilizan a la salida de ductos
+de aire, y similares, para evitar la propagación del ruido emitidos por esos.
+☐ Termopanel: Corresponden, en la generalidad, a vidrios dobles que proveen una
+reducción sonora de Rw = 26 dB. Se destaca el hecho que estos deben contar con un
+montaje que permita un cierre hermético de la habitación.
+☐ Limitador acústico: Son equipos electrónicos que se incluyen dentro de la cadena
+electroacústica, que permiten limitar el nivel de potencia acústica que genera el
+sistema en su totalidad.
+☐ Recubrimiento con material de absorción de paredes, piso o techumbre: El
+recubrimiento con material aislante de ruido es una medida que está orientada en
+evitar que existan reflexiones de las ondas de sonido. Esta medida debe ser instalada
+en sectores donde no exista riesgo de deterioro y debe pasar por un tratamiento contra
+incendios. La atenuación máxima que se espera por medio de esta medida es de 2 dBA.
+Los materiales más utilizados son las espumas acústicas de poliestireno y la lana
+mineral.
+
+13
+☐ Reubicación de equipos o maquinaria generadora de ruido: Realizar la reubicación
+de los equipos o maquinaria, desplazando el instrumento emisor de ruido a un sector
+donde no genere superaciones al D.S. N°38/2011 en receptores cercanos.
+☐ Cambio en la actividad: Realizar el cambio de la actividad productiva, por otra que
+no genere emisión de ruidos molestos.
+☐ Traslado o cierre de la unidad fiscalizable: Realizar el cambio de ubicación de la
+actividad o el cierre definitivo del establecimiento actividades en el sector.
+☐ Otras medidas (indicar todas las otras medidas que usted considere necesarias y
+que se implementarán antes de la medición final de presión sonora):
+Costo Estimado Neto ($)
+Indique los costos asociados a la acción
+seleccionada para su implementación
+(compra de materiales, implementación,
+prestaciones de servicio, etc).
+$26.193.019.-
+Medios de Verificación Marque
+una o varias de las siguientes opciones que
+permitirán acreditar la efectiva ejecución
+de la acción.
+☒ Boletas y/o facturas de compra de materiales (obligatorio).
+☐ Boletas y/o facturas de pago de prestación de servicios.
+☐ Fotografías fechadas y georreferenciadas ilustrativas del antes y después de la
+ejecución de la acción (obligatorio).
+☐ Fichas o informes técnicos (en caso de marcar “Otra” este medio de verificación es
+obligatorio).
+Comentarios
+Indique acá cualquier otro aspecto que sea
+relevante de considerar. Además,
+referencie acá los anexos presentados
+junto al Programa de Cumplimiento.
+Acción por Ejecutar.
+Se instalará un tipo de encierro acústico para los compresores del establecimiento, de
+25 metros de largo, 3,5 metros de altura y 0,5 metros de cumbrera.
+El encierro será fabricado en panel lana de roca de 100 mm de espesor, estructura
+metálica, pilares IPE 120, placas de anclaje sobre radier existente, canal superior en
+inferior, ángulo de atraque laterales.
+El plazo para la implementación de esta medida será de tres meses desde la aprobación
+del PdC.
+En el Anexo 4 “Encierro acústico Compresores”, de la carpeta Acciones, se adjunta una
+cotización emitida por la empresa CIBEL, que acredita los costos asociados a la
+ejecución de esta medida.
+N° Identificador 5
+Acción y descripción de la
+Acción (Acción obligatoria).
+Una vez ejecutadas todas las acciones de mitigación de ruido, se realizará una medición
+de ruido con el objetivo de acreditar el cumplimiento del D.S. N° 38/2011 del MMA.
+La medición de ruidos deberá realizarse por una Entidad Técnica de Fiscalización
+Ambiental (ETFA), debidamente autorizada por la Superintendencia, conforme a la
+metodología establecida en el D.S. N°38/2011 del MMA, desde el domicilio de los
+receptores sensibles de acuerdo a la formulación de cargos, en el mismo horario en que
+constó la infracción y mismas condiciones. En caso de no ser posible acceder a la
+ubicación de dichos receptores, la empresa ETFA realizará la medición en un punto
+equivalente a la ubicación del receptor, de acuerdo a los criterios establecidos en el D.S.
+N°38/2011 del MMA.
+Se realizarán mediciones de ruido en el receptor por la ETFA A&M Fiscalización
+Ambiental Ltda.
+
+14
+Plazo de Ejecución de la
+acción
+Marque una de las siguientes acciones.
+☐ 1 mes a partir de la aprobación del Programa de Cumplimiento
+☐ 2 meses a partir de la aprobación del Programa de Cumplimiento
+☒ 3 meses a partir de la aprobación del Programa de Cumplimiento
+Costo Estimado Neto ($)
+Indique los asociados a la implementación
+de la acción (compra de materiales,
+implementación, prestaciones de servicio,
+etc).
+20,00 UF+IVA ($773.860+iva)
+*Se considera para el cálculo del Costo Estimado Neto el valor de la UF al 03 de marzo de 2025,
+esto es, $38.693.- Se hace presente que dicho valor puede verse incrementado atendido a que
+constituye un instrumento indexado a la inflación.
+Medios de Verificación.
+El reporte final contempla el respectivo Informe de medición de presión sonora,
+órdenes o boletas de prestación y servicio o trabajo, boletas y/o facturas que acrediten
+el costo asociado a la acción.
+Comentarios.
+En el Anexo 5 “Medición ETFA”, de la carpeta Acciones, se adjunta una cotización
+emitida por la ETFA A&M Fiscalización Ambiental Ltda., asociada a la ejecución de esta
+medida.
+En caso de que ninguna ETFA pudiera ejecutar dicha medición por falta de capacidad,
+se podrá realizar con alguna empresa acreditada por el Instituto Nacional de
+Normalización (INN) y/o autorizada por algún organismo de la administración del
+Estado (Res. Ex. N°1024/2017 de la SMA). Dicho impedimento deberá ser evidenciado
+e informado a la Superintendencia, mediante la respuesta escrita de las ETFA respecto
+de su falta de capacidad para prestar el servicio requerido (Res. Ex. N° 127/2019 de la
+SMA, o aquella que la reemplace).
+Más aún, si para realizar la mencionada medición no es posible contar con una ETFA o
+alguna empresa acreditada por el INN y/o autorizada por algún Organismo de la
+Administración del Estado, se deberá realizar la medición con una empresa con
+experiencia en la realización de dicha actividad, siempre y cuando dicha circunstancia
+sea acreditada e informada a la Superintendencia.
+N° Identificador 6
+Acción y descripción de la
+Acción (Acción obligatoria).
+Cargar en el SPDC el Programa de Cumplimiento aprobado por la Superintendencia del
+Medio Ambiente. Para dar cumplimiento a dicha carga, se entregará la clave para
+acceder al sistema en la misma resolución que aprueba dicho programa. Debiendo
+cargar el programa en el plazo de 5 días hábiles contados desde la notificación de la
+resolución que apruebe el Programa de Cumplimiento, de conformidad a lo establecido
+en la Resolución Exenta N° 116/2018 de la SMA.
+Plazo de Ejecución de la
+acción.
+5 días hábiles contados desde la notificación de la resolución que aprueba el Programa
+de Cumplimiento.
+Costo Estimado Neto ($). Sin costo.
+Medios de Verificación.
+Esta acción no requiere un reporte o medio de verificación específico, ya que, una vez
+ingresado el reporte final, se conservará el comprobante electrónico generado por el
+sistema digital del SPDC.
+Comentarios.
+En relación a los indicadores de cumplimiento y medios de verificación asociados a esta
+nueva acción, por su naturaleza, no requiere un reporte o medio de verificación
+específico.
+Por otra parte, como Impedimentos eventuales, se contemplarán aquellos problemas
+exclusivamente técnicos que pudieren afectar el funcionamiento del sistema digital en
+el que se implemente el SPDC, y que impidan la correcta y oportuna carga de la
+
+15
+POR TANTO, en consideración a lo expuesto en esta presentación, y en conformidad a lo
+establecido en los artículos 42 y 49 de la LOSMA y los artículos 6 y siguientes del
+Reglamento, y sin perjuicio de reiterar la disposición de mi representada a aclarar o
+complementar cualquier aspecto de la presente propuesta del Programa de Cumplimiento.
+SOLICITO A UD., tener por presentado y aprobar el Programa de Cumplimiento, decretando
+la suspensión del presente procedimiento de sanción, y, en definitiva, tras su ejecución
+satisfactoria, poner término al mismo.
+información. Por tanto, en caso de ocurrencia, se dará aviso inmediato a la SMA, vía
+correo electrónico, especificando los motivos técnicos por los cuales no fue posible
+cargar el Programa de Cumplimiento en el portal SPDC, remitiendo comprobante de
+error o cualquier otro medio de prueba que acredite dicha situación. La entrega del
+Programa de Cumplimiento se realizará a más tardar al día siguiente hábil al
+vencimiento del plazo correspondiente, en la Oficina de Partes de la Superintendencia
+del Medio Ambiente.
+N° Identificador 7
+Acción y descripción de la
+Acción (Acción obligatoria).
+Cargar en el portal SPDC de la Superintendencia del Medio Ambiente, en un único
+reporte final, todos los medios de verificación comprometidos para acreditar la
+ejecución de las acciones comprendidas en el PdC, de conformidad a lo establecido en
+la Resolución Exenta N° 116/2018 de la SMA.
+Plazo de Ejecución de la
+acción. 10 días hábiles contados desde la fecha de ejecución de la medición final obligatoria.
+Costo Estimado Neto ($). Sin costo.
+Medios de Verificación.
+Esta acción no requiere un reporte o medio de verificación específico, ya que una vez
+ingresado el reporte final, se conservará el comprobante electrónico generado por el
+sistema digital del SPDC.
+Comentarios.
+(i) Impedimentos: se considerarán como tales, los problemas exclusivamente técnicos
+que pudieren afectar el funcionamiento del sistema digital en el que se implemente el
+SPDC, y que impidan la correcta y oportuna entrega de los documentos
+correspondientes;
+(ii) Acción y plazo de aviso en caso de ocurrencia, se dará aviso inmediato a la SMA,
+vía correo electrónico, señalando los motivos técnicos por los cuales no fue posible
+cargar los documentos en el sistema digital en el que se implemente el SPDC,
+remitiendo comprobante de error o cualquier otro medio de prueba que acredite dicha
+situación; y
+(iii) Acción alternativa: en caso de impedimentos, la entrega de los reportes y medios
+de verificación será a través de Oficina de Partes de la Superintendencia del Medio
+Ambiente.
+
+16
+PRIMER OTROSÍ: Respecto del requerimiento de información realizado en el Resuelvo
+octavo de la Resolución Exenta N°1/ROL D-017-2025, se remiten por esta vía y dentro de
+plazo, los antecedentes orientados a dar respuesta a su solicitud:
+1. En cuanto a la identidad y personería con que actúa el representante legal del titular, se
+adjunta en el Anexo 1, de la carpeta requerimiento de información, copia de escritura
+pública del Acta de Directorio N° 363, de “Alimentos y Frutas S.A.” con poder otorgado a
+Sebastián Andrés Reyes Jiménez y copia de la cédula de identidad del Representante
+Legal.
+2. En relación al requerimiento consistente en presentar los estados financieros de la
+empresa o el balance tributario del último año, le informamos que se adjunta en el
+Anexo 2, de la carpeta requerimiento de información, los estados financieros de
+“Alimentos y Frutas S.A.”
+3. Respecto a la solicitud consistente en identificar las maquinarias, equipos y/o
+herramientas generadoras de ruido dentro de la unidad fiscalizable, se adjunta en el
+Anexo 3, de la carpeta requerimiento de información, listado con las maquinarias y
+herramientas generadoras de ruido, con indicación del número de salidas de ductos de
+aire y las dimensiones especiales de cada uno de estos, incorporando fotografías de las
+salidas de ductos de aire.
+4. En lo relativo a su solicitud consistente en enviar un plano simple que ilustre la ubicación
+de las de las maquinarias, equipos y/o herramientas generadoras de ruido, indicando la
+orientación y referencia con los puntos de medición de ruidos individualizados en la ficha
+de medición de ruidos incorporada en el informe DFZ-2024-2342-VI-NE, además de
+indicar las dimensiones del lugar, se adjunta en Anexo 4, de la carpeta requerimiento de
+información.
+5. En cuanto al requerimiento consistente en indicar el horario y frecuencia de
+funcionamiento del establecimiento, indicando expresamente el horario de inicio y
+término de su funcionamiento, así como los días de la semana en los que funciona, le
+informamos que, las distintas áreas del establecimiento operan en los horarios que se
+indican a continuación:
+Tabla N° 3: Horarios de funcionamiento
+Área Días de la semana Horario
+Área Administrativa Lunes a viernes 08:00 a 17:30 horas
+Área de Producción Lunes a viernes 07:00 a 16:30 horas
+
+17
+16:00 a 01:30 horas
+Área de servicio de aseo Lunes a sábado 22:00 a 07:30 horas
+Área mantención envasado Lunes a sábado
+08:00 a 16:00 horas
+16:00 a 00:00 horas
+08:00 a 13:00 horas
+Sala de máquinas (SADEMA) Lunes a domingo
+07:30 a 17:00 horas
+08:00 a 17:30 horas
+13:30 a 23:00 horas
+22:30 a 08:00 horas
+Fuente: Elaboración propia
+6. Respecto a su requerimiento consistente en indicar el horario y frecuencia de
+funcionamiento de las maquinarias, equipos y/o herramientas generadoras de ruido,
+indicando expresamente el horario de inicio y término de su funcionamiento, así como
+los días de la semana en los que funciona, le informamos que, actualmente en el
+establecimiento, existen las siguientes maquinarias y herramientas, las que funcionan
+en los horarios indicados:
+Tabla N° 4: Equipos y maquinarias generadoras de ruido
+Maquinaria Cantidad Días de la semana Horario
+Compresores 5 Lunes a domingo 24 horas al día
+Ductos de aire 2 Solo en caso de emergencia N/A
+Condensadores 2 Lunes a domingo 24 horas al día
+Compresores 4 Lunes a domingo 24 horas al día
+Condensadores 2 Lunes a domingo 24 horas al día
+Ductos de aire 2 Solo en caso de emergencia N/A
+Montacarga 1 1 Lunes a viernes De 08:00 a 18:00 horas
+Montacarga 2 1 Lunes a viernes De 08:00 a 1:00 horas
+Generador 1
+Solo uso de emergencia y
+respaldo en horario de
+invierno en periodo de
+restricción
+17:30 a 23:30 horas
+Fuente: Elaboración propia
+7. Respecto a las medidas correctivas orientadas a la reducción o mitigación de la emisión
+de ruidos, informamos que en el Anexo 5, de la carpeta requerimiento de información,
+
+18
+se presentan los antecedentes que acreditan la implementación de las siguientes
+medidas:
+- Procedimiento mitigación ruido zona poniente planta Rengo.
+- Cambio del portón de entrada al sector SADEMA 1.
+SEGUNDO OTROSÍ: Solicito a Ud. tenga por acompañados a esta presentación los
+siguientes antecedentes:
+Carpeta Acciones del PdC:
+- Anexo 1: Procedimiento mitigación ruido zona poniente planta Rengo.
+- Anexo 2: Cambio de portón de entrada SADEMA 1.
+- Anexo 3: Encierro Acústico SADEMA 1.
+- Anexo 4: Encierro Acústico Compresores.
+- Anexo 5: Medición ETFA.
+Carpeta Requerimiento de Información:
+- Anexo 1: Antecedentes legales.
+- Anexo 2: Estados financieros.
+- Anexo 3: Listado de maquinarias y herramientas.
+- Anexo 4: Plano simple.
+- Anexo 5: Medidas correctivas.
+Los Anexos señalados se encuentran disponibles en el siguiente enlace de Google Drive:
+https://drive.google.com/drive/folders/1WO_ScPpO95EcMJ1hQp2LAXZCPLRPitIF?q=own
+er:ihenriquez%40scyb.cl%20parent:1WO_ScPpO95EcMJ1hQp2LAXZCPLRPitIF
+TERCER OTROSÍ: Que, conforme a lo establecido en el artículo 6 de la LOSMA, en relación
+con el artículo 21 N°2 de la Ley N° 20.285, sobre acceso a la información pública, solicitamos
+a Usted, guardar reserva de la información financiera y comercial entregada, en concreto
+en el Anexos 2, de la carpeta requerimiento de información.
+La referida reserva se encuentra amparada constitucional y legalmente, pues el propio
+artículo 8 de la Constitución Política de la República permite decretar la reserva o secreto
+fundando en causales consagradas en ley de quórum calificado.
+En este marco, la Ley N°20.285, sobre acceso a la información pública, consagra las causales
+de reserva o secreto en el artículo 21, cuyo numeral 2 incorpora el secreto empresarial
+
+19
+como límite al ejercicio del deber de transparencia, y al correlativo derecho de acceso a la
+información, al consagrar como causal de reserva: “[…] cuando su publicidad, comunicación
+o conocimiento afecte los derechos de las personas, particularmente tratándose de su
+seguridad, su salud, la esfera de su vida privada o derechos de carácter comercial o
+económico”.
+En el presente caso, la información individualizada corresponde a antecedentes sensibles
+y estratégicos de nuestra representada, cuya divulgación puede afectar las condiciones de
+contratación con proveedores y con otras empresas subcontratistas o competidoras, por
+lo que, se solicita estricta reserva de la información contenida en dichos antecedentes, con
+el objeto que sea utilizada estrictamente para los fines del presente procedimiento de
+sanción.
+POR TANTO, solicitamos a Ud. acceder a la reserva de información antes indicada.
+CUARTO OTROSÍ: Sírvase tener por acompañada copia de escritura pública del Acta de
+Directorio N° 363, de “Alimentos y Frutas S.A.” otorgado ante la Quinta Notaría Pública de
+Santiago de don Patricio Raby Benavente por el cual se acredita mi poder otorgado para
+representar a Alimentos y Frutos S.A. y certificado de vigencia del mismo poder.
+Sin otro particular, saluda atentamente,
+_______________________________
+Sebastián Andrés Reyes Jiménez
+pp. Alimentos y Frutas S.A.
+

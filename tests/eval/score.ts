@@ -13,10 +13,13 @@ import { join } from 'node:path';
 import { ruleObligations } from '../../shared/rules';
 import type { FrequencyKind, Obligation } from '../../shared/types';
 
-export interface GoldItem { num: string[]; kind: FrequencyKind; que: string }
-export interface Gold { doc: string; tipo: string; items: GoldItem[] }
+/** `kind` puede listar alternativas cuando la RCA admite dos lecturas razonables. */
+export interface GoldItem { num: string[]; kind: FrequencyKind | FrequencyKind[]; que: string }
+/** set: 'ajuste' = usada para afinar el lector; 'prueba' = el lector nunca se ajustó mirándola (medición honesta). */
+export interface Gold { doc: string; tipo: string; set?: 'ajuste' | 'prueba'; items: GoldItem[] }
+const kindOk = (g: GoldItem, k: FrequencyKind) => (Array.isArray(g.kind) ? g.kind.includes(k) : g.kind === k);
 export interface DocScore {
-  doc: string; tipo: string; gold: number; found: number; proposed: number; matched: number;
+  doc: string; tipo: string; set: 'ajuste' | 'prueba'; gold: number; found: number; proposed: number; matched: number;
   recall: number; precision: number; missed: GoldItem[]; extra: Obligation[];
 }
 
@@ -26,11 +29,11 @@ const numOf = (o: Obligation) => (o.section ?? '').split(' ')[0];
 export function scoreDoc(gold: Gold, found: Obligation[]): DocScore {
   const annotated = new Set(gold.items.flatMap((g) => g.num));
   const inScope = found.filter((o) => annotated.has(numOf(o)));
-  const hits = gold.items.map((g) => inScope.some((o) => g.num.includes(numOf(o)) && o.frequency.kind === g.kind));
-  const good = inScope.filter((o) => gold.items.some((g) => g.num.includes(numOf(o)) && g.kind === o.frequency.kind));
+  const hits = gold.items.map((g) => inScope.some((o) => g.num.includes(numOf(o)) && kindOk(g, o.frequency.kind)));
+  const good = inScope.filter((o) => gold.items.some((g) => g.num.includes(numOf(o)) && kindOk(g, o.frequency.kind)));
   const foundN = hits.filter(Boolean).length;
   return {
-    doc: gold.doc, tipo: gold.tipo, gold: gold.items.length, found: foundN, proposed: inScope.length, matched: good.length,
+    doc: gold.doc, tipo: gold.tipo, set: gold.set ?? 'ajuste', gold: gold.items.length, found: foundN, proposed: inScope.length, matched: good.length,
     recall: foundN / gold.items.length, precision: inScope.length ? good.length / inScope.length : 1,
     missed: gold.items.filter((_, i) => !hits[i]), extra: inScope.filter((o) => !good.includes(o)),
   };
@@ -49,13 +52,18 @@ export function scoreAll(corpusDir: string): DocScore[] {
     .map((g) => scoreDoc(g, ruleObligations(readFileSync(pathOf(g.doc)!, 'utf8'), 'p')));
 }
 
+export const totals = (list: DocScore[]) => list.reduce((a, s) => ({ gold: a.gold + s.gold, found: a.found + s.found, proposed: a.proposed + s.proposed, matched: a.matched + s.matched }), { gold: 0, found: 0, proposed: 0, matched: 0 });
+
 export function report(scores: DocScore[]): string {
   const pct = (x: number) => `${Math.round(x * 100)}%`.padStart(5);
-  const tot = scores.reduce((a, s) => ({ gold: a.gold + s.gold, found: a.found + s.found, proposed: a.proposed + s.proposed, matched: a.matched + s.matched }), { gold: 0, found: 0, proposed: 0, matched: 0 });
   const lines = scores.map((s) => `${s.doc.padEnd(26)} cobertura ${pct(s.recall)} (${s.found}/${s.gold})  precisión ${pct(s.precision)} (${s.matched}/${s.proposed})`);
-  lines.push(`${'TOTAL'.padEnd(26)} cobertura ${pct(tot.found / tot.gold)} (${tot.found}/${tot.gold})  precisión ${pct(tot.matched / (tot.proposed || 1))} (${tot.matched}/${tot.proposed})`);
+  for (const [label, list] of [['AJUSTE', scores.filter((s) => s.set === 'ajuste')], ['PRUEBA (no vistas)', scores.filter((s) => s.set === 'prueba')], ['TOTAL', scores]] as const) {
+    if (!list.length) continue;
+    const t = totals(list);
+    lines.push(`${label.padEnd(26)} cobertura ${pct(t.found / t.gold)} (${t.found}/${t.gold})  precisión ${pct(t.matched / (t.proposed || 1))} (${t.matched}/${t.proposed})`);
+  }
   for (const s of scores) {
-    for (const m of s.missed) lines.push(`  falta  ${s.doc} ${m.num[0]} ${m.kind}: ${m.que}`);
+    for (const m of s.missed) lines.push(`  falta  ${s.doc} ${m.num[0]} ${[m.kind].flat().join('/')}: ${m.que}`);
     for (const e of s.extra) lines.push(`  sobra  ${s.doc} ${numOf(e)} ${e.frequency.kind}: ${e.title}`);
   }
   return lines.join('\n');

@@ -12,7 +12,8 @@
     "build": "npm --workspace web run build",
     "build:demo": "npm --workspace web run build:demo",
     "worker:dev": "npm --workspace worker run dev",
-    "eval": "vitest run tests/eval"
+    "eval": "vitest run tests/eval",
+    "train": "TRAIN=1 vitest run tests/eval/train.test.ts"
   },
   "devDependencies": {
     "typescript": "5.6.3",

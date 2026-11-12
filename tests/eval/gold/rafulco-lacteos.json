@@ -1,0 +1,17 @@
+{ "doc": "rafulco-lacteos", "tipo": "DIA 2025 planta de lácteos con riego de RILes", "set": "prueba",
+  "items": [
+  { "num": ["7.5", "7.2.6", "7.6"], "kind": "monthly", "que": "Declaración mensual en SINADER" },
+  { "num": ["7.5", "7.2.6", "7.6"], "kind": "annual", "que": "Declaración jurada anual / SINADER anual" },
+  { "num": ["7.8"], "kind": "event", "que": "Hallazgo arqueológico: informar de inmediato" },
+  { "num": ["9.1"], "kind": "continuous", "que": "Canal de comunicación permanente con la comunidad (ruido)" },
+  { "num": ["9.2"], "kind": ["event", "continuous"], "que": "Gestión de cada queja por olores" },
+  { "num": ["9.3"], "kind": "continuous", "que": "Control de polvo en operación con registro" },
+  { "num": ["9.4"], "kind": "continuous", "que": "Control de polvo en construcción con registro" },
+  { "num": ["9.5"], "kind": "annual", "que": "Informe anual de calidad de agua de escorrentía" },
+  { "num": ["9.5"], "kind": "quarterly", "que": "Muestreo estacional (4 al año)" },
+  { "num": ["9.6"], "kind": "annual", "que": "Informe anual de aguas subterráneas" },
+  { "num": ["9.6"], "kind": "semiannual", "que": "Monitoreo de pozos antes y después del riego (2 al año)" },
+  { "num": ["9.7"], "kind": ["event", "once"], "que": "Charla de inducción arqueológica con informe al CMN" },
+  { "num": ["9.8"], "kind": "event", "que": "Ante derrame: muestreo ETFA y resultados a SMA y DGA" },
+  { "num": ["9.9"], "kind": "annual", "que": "Seguimiento anual del suelo regado con informe al SSA" }
+]}

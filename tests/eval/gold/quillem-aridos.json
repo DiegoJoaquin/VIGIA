@@ -1,0 +1,17 @@
+{ "doc": "quillem-aridos", "tipo": "DIA 2025 áridos con plan de seguimiento", "set": "prueba",
+  "items": [
+  { "num": ["7.4", "7.8"], "kind": ["semiannual", "monthly"], "que": "Planilla de vehículos actualizada semestral (mensual en cierre)" },
+  { "num": ["7.19", "7.20"], "kind": "event", "que": "Charla arqueológica/paleontológica al incorporar personal; hallazgos" },
+  { "num": ["9.1"], "kind": "bimonthly", "que": "Ruido bimestral los primeros 2 años, informe a la SMA" },
+  { "num": ["9.2"], "kind": "continuous", "que": "Revisión diaria de pronósticos y niveles" },
+  { "num": ["9.2"], "kind": "event", "que": "Informe ante crecidas o alertas" },
+  { "num": ["9.3"], "kind": "weekly", "que": "Inspección semanal del acopio" },
+  { "num": ["9.3"], "kind": "quarterly", "que": "Informe trimestral de estabilidad" },
+  { "num": ["9.4"], "kind": "semiannual", "que": "Dos censos de aves al año con informe" },
+  { "num": ["10.1"], "kind": "semiannual", "que": "Informe semestral de emisiones a la SMA" },
+  { "num": ["10.1"], "kind": "monthly", "que": "Supervisión mensual en terreno" },
+  { "num": ["10.2"], "kind": "once", "que": "Microruteo arqueológico con informe al CMN y SMA 2 meses antes de obras" },
+  { "num": ["10.4"], "kind": "semiannual", "que": "Evaluación de vegetación cada 5 meses" },
+  { "num": ["10.5"], "kind": "semiannual", "que": "Inspección de cortinas vegetales cada 5 meses" },
+  { "num": ["10.6"], "kind": "semiannual", "que": "Reuniones con comunidades cada seis meses" }
+]}

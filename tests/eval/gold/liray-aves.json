@@ -1,0 +1,16 @@
+{ "doc": "liray-aves", "tipo": "DIA 2025 plantel de aves, formato desordenado", "set": "prueba",
+  "items": [
+  { "num": ["7.4", "7.6"], "kind": "annual", "que": "Reporte anual RETC" },
+  { "num": ["7.5"], "kind": "event", "que": "Hallazgo arqueológico: paralizar e informar al CMN" },
+  { "num": ["8.1", "8.2", "8.3", "8.4"], "kind": "monthly", "que": "Monitoreo mensual del punto de captación de agua por 2 años (DGA)" },
+  { "num": ["9.1"], "kind": "annual", "que": "Estudio anual de olores, informe en abril a la SMA" },
+  { "num": ["9.2"], "kind": "annual", "que": "Reunión informativa anual con vecinos" },
+  { "num": ["9.3"], "kind": "annual", "que": "Supervisión anual de plaza y tranque" },
+  { "num": ["9.4"], "kind": "once", "que": "Informe a la SMA al comenzar y al concluir la plantación" },
+  { "num": ["9.8"], "kind": "annual", "que": "Talleres anuales para la comunidad" },
+  { "num": ["9.9"], "kind": "continuous", "que": "Monitoreo arqueológico permanente" },
+  { "num": ["9.9"], "kind": "monthly", "que": "Informe mensual de monitoreo arqueológico a la SMA" },
+  { "num": ["9.9"], "kind": "once", "que": "Informe final de monitoreo arqueológico" },
+  { "num": ["9.9"], "kind": "event", "que": "Charlas de inducción arqueológica a los trabajadores" },
+  { "num": ["9.10"], "kind": "semiannual", "que": "Informe semestral de calidad de agua a la SMA" }
+]}

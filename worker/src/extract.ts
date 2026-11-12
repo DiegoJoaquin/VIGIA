@@ -3,6 +3,7 @@
 import { getDocumentProxy } from 'unpdf';
 import { EXTRACTION_PROMPT, dedupeObligations, dropUnquoted, mergeBySection, guessProjectMeta, normalizeObligations, parseModelJson, pickChunks, standardObligations } from '../../shared/extraction';
 import { ruleObligations } from '../../shared/rules';
+import { looksLikePdc, readPdc } from '../../shared/pdc';
 import { applyMemory, quoteKey, summarize, type FeedbackItem, type Memory } from '../../shared/learning';
 import type { Obligation, Project } from '../../shared/types';
 import type { Env } from './env';
@@ -57,9 +58,14 @@ export async function extractFromPdf(env: Env, bytes: ArrayBuffer, sourceUrl: st
   const hint = KIND_HINT[opts.kind ?? 'rca'] ?? KIND_HINT.rca;
   // 1) RCA con la plantilla actual del SEA: los compromisos se leen con reglas, sin IA. Es exacto, gratis e
   //    instantáneo, y cada uno sale con su cita textual.
-  const byRules = ruleObligations(text, projectId);
+  // Un programa de cumplimiento tiene otra estructura: lo lee su propio lector (plazos desde la notificación).
+  const pdc = opts.kind === 'programa' || looksLikePdc(text) ? readPdc(text, projectId, new Date().toISOString().slice(0, 10)) : undefined;
+  const byRules = pdc?.obligations.length ? pdc.obligations : ruleObligations(text, projectId);
   let found: Obligation[];
-  if (byRules.length >= 3) {
+  if (pdc?.obligations.length) {
+    found = byRules;
+    console.log('[lectura]', JSON.stringify({ chars: text.length, metodo: 'pdc', formato: pdc.format, found: found.length }));
+  } else if (byRules.length >= 3) {
     found = byRules;
     console.log('[lectura]', JSON.stringify({ chars: text.length, metodo: 'reglas', found: found.length }));
   } else {
@@ -100,7 +106,7 @@ export async function extractFromPdf(env: Env, bytes: ArrayBuffer, sourceUrl: st
   // 3) Lo aprendido de revisiones anteriores (de cualquier empresa, sobre frases públicas de RCA).
   found = applyMemory(found, await loadMemories(env, found), text, projectId);
   const batch = randomId(4); // los ids no chocan con compromisos ya cargados en el proyecto
-  const std = standardObligations(text, projectId).filter((s) => !found.some((f) => f.quote && s.quote && f.quote.slice(0, 40) === s.quote.slice(0, 40)));
+  const std = pdc?.obligations.length ? [] : standardObligations(text, projectId).filter((s) => !found.some((f) => f.quote && s.quote && f.quote.slice(0, 40) === s.quote.slice(0, 40)));
   const obligations = [...found, ...std].map((o) => (opts.project ? { ...o, id: `${o.id}-${batch}` } : o));
   if (opts.project) return { project: opts.project, obligations };
   const meta = guessProjectMeta(text);
