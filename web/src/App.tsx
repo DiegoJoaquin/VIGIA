@@ -77,6 +77,12 @@ export function App() {
         <div className="side-foot">
           <span>{s.snap!.projects.length} proyectos · {s.snap!.obligations.filter((o) => o.confirmed).length} compromisos</span>
           {s.demo && <span>Demo con RCA públicas del SEIA</span>}
+          {!s.demo && (
+            <span className="side-account">
+              <span className="side-email" title={s.snap!.user.email}>{s.snap!.user.email}</span>
+              <button className="link-btn" onClick={s.logout}>Cerrar sesión</button>
+            </span>
+          )}
         </div>
       </nav>
 
@@ -84,6 +90,12 @@ export function App() {
         {s.demo && (
           <div className="demo-ribbon">
             <span>Demo con datos reales de RCA públicas.</span>
+          </div>
+        )}
+        {!s.demo && (
+          <div className="mobile-account">
+            <span className="side-email">{s.snap!.user.email}</span>
+            <button className="link-btn" onClick={s.logout}>Cerrar sesión</button>
           </div>
         )}
         {view}

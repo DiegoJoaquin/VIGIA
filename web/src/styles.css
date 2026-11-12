@@ -121,9 +121,15 @@ h1, h2, h3, p { margin: 0; }
 .badge { position: absolute; top: -4px; right: -9px; min-width: 17px; height: 17px; padding: 0 5px; border-radius: 9px; background: var(--danger); color: #fff; font-size: 11px; font-weight: 700; line-height: 17px; text-align: center; }
 
 .sidebar { display: none; }
+/* Cuenta y cerrar sesión: arriba en el celular, al pie de la barra lateral en pantallas grandes. */
+.mobile-account { display: flex; justify-content: flex-end; align-items: center; gap: 12px; min-width: 0; max-width: 760px; margin-inline: auto; padding: max(10px, env(safe-area-inset-top)) var(--gutter-r) 0 var(--gutter-l); font-size: var(--t-meta); color: var(--ink-3); }
+.side-account { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; margin-top: 8px; padding-top: 10px; border-top: 1px solid var(--line); }
+.side-email { min-width: 0; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.side-account .link-btn, .mobile-account .link-btn { padding: 4px 0; font-size: var(--t-meta); }
 @media (min-width: 960px) {
   .app { display: grid; grid-template-columns: 252px minmax(0, 1fr); }
   .tabbar { display: none; }
+  .mobile-account { display: none; }
   .main { padding-bottom: 64px; }
   .page { padding-block: 40px 0; }
   .sidebar {
@@ -411,7 +417,7 @@ h1, h2, h3, p { margin: 0; }
 /* ——— Impresión: la carpeta de fiscalización sale limpia en PDF ——— */
 @media print {
   :root { --bg: #fff; --surface: #fff; }
-  .sidebar, .tabbar, .seg, .demo-ribbon, .banner, .toast, .no-print, .link-btn, .page-head .icon-btn { display: none !important; }
+  .sidebar, .tabbar, .mobile-account, .seg, .demo-ribbon, .banner, .toast, .no-print, .link-btn, .page-head .icon-btn { display: none !important; }
   .app { display: block; }
   .main { padding: 0; }
   .page { max-width: none; padding: 0; gap: 16px; }
