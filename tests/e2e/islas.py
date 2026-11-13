@@ -151,13 +151,52 @@ check(b.req('DELETE', f'/api/team/{carla_id}')[0] == 404, 'Áridos B no puede qu
 check(a.req('DELETE', f'/api/team/{carla_id}')[0] == 200, 'Ana quita a Carla')
 check(carla.req('GET', '/api/snapshot')[0] == 401, 'Carla pierde el acceso al instante')
 
+print('Seguridad')
+html = b'<html><script>alert(1)</script></html>'
+code, ev = a.req('POST', '/api/evidence', form={'obligationId': ob_a, 'due': '2026-11-30', 'obligationId2': 'x', 'file': ('truco.html', html, 'text/html')})
+check(code == 200, 'Ana sube una evidencia (aunque sea un archivo raro)')
+import urllib.request as _u
+def raw_get(client, path, headers=None):
+    r = _u.Request(BASE + path, headers=headers or {})
+    try: res = client.op.open(r); return res.status, dict((k.lower(), v) for k, v in res.headers.items()), res.read()
+    except _u.HTTPError as e: return e.code, dict((k.lower(), v) for k, v in e.headers.items()), e.read()
+code, h, body = raw_get(a, ev['url'])
+check(h.get('content-type') == 'application/octet-stream' and h.get('content-disposition', '').startswith('attachment') and h.get('x-content-type-options') == 'nosniff',
+      'un archivo HTML subido se descarga, nunca se ejecuta en el sitio')
+code, h, body = raw_get(a, '/api/snapshot')
+check('frame-ancestors' in h.get('content-security-policy', '') and h.get('x-frame-options') == 'DENY' and h.get('x-content-type-options') == 'nosniff', 'las respuestas salen con política de contenido y sin poder embeberse')
+code, r = a.req('POST', '/api/evidence', form={'obligationId': ob_a, 'due': 'mañana', 'file': ('x.png', b'x', 'image/png')})
+check(code == 400, 'una fecha inválida en la evidencia se rechaza')
+o = dict(sa['obligations'][0]); o['projectId'] = pid_b
+check(a.req('PUT', '/api/obligations/' + o['id'], o)[0] == 404, 'Ana no puede mover un compromiso a un proyecto ajeno')
+o = dict(sa['obligations'][0]); o['frequency'] = {'kind': 'cada rato'}
+check(a.req('PUT', '/api/obligations/' + o['id'], o)[0] == 404, 'una frecuencia inventada se rechaza')
+o = dict(sa['obligations'][0]); o['title'] = 'Editado'; o['extra'] = 'x' * 5000
+check(a.req('PUT', '/api/obligations/' + o['id'], o)[0] == 200, 'una edición válida se guarda')
+_, s2 = a.req('GET', '/api/snapshot')
+check('extra' not in [x for x in s2['obligations'] if x['id'] == o['id']][0], 'los campos que no son del modelo no se guardan')
+d = draft('rca-xss'); d['project']['sourceUrl'] = 'javascript:alert(1)'
+a.req('POST', '/api/import/save', {'draft': d, 'keep': ['o0']})
+_, s2 = a.req('GET', '/api/snapshot')
+check([p['sourceUrl'] for p in s2['projects'] if p['id'] == 'rca-xss'] == [''], 'un enlace javascript: en el proyecto se descarta')
+check(a.req('POST', '/api/import/save', {'draft': {'project': {'id': 'x'}, 'obligations': []}})[0] == 400, 'un borrador sin forma de proyecto se rechaza')
+check(a.req('POST', '/api/push/subscribe', {'endpoint': 'https://interno.example/x', 'keys': {'p256dh': 'a', 'auth': 'b'}})[0] == 400, 'las notificaciones solo van a los servicios de los navegadores')
+r = _u.Request(BASE + '/api/org', data=json.dumps({'name': 'Hackeada'}).encode(), method='PUT', headers={'content-type': 'application/json', 'origin': 'https://sitio-malo.example'})
+try: code = a.op.open(r).status
+except _u.HTTPError as e: code = e.code
+check(code == 403, 'una escritura que viene de otro sitio se rechaza')
+check(a.req('POST', '/api/auth/login', None)[0] == 400, 'un cuerpo vacío no rompe el servidor')
+for i in range(4): a.req('POST', '/api/auth/forgot', {'email': 'rapido@vina-a.cl'})
+code, r = a.req('POST', '/api/auth/forgot', {'email': 'rapido@vina-a.cl'})
+check(code == 200 and r == {'ok': True}, 'pedir muchos enlaces seguidos no avisa nada distinto (y no llena la bandeja)')
+
 print('Eliminar cuenta')
 check(b.req('DELETE', '/api/org', {'confirm': 'otra cosa'})[0] == 400, 'eliminar pide escribir el nombre exacto')
 check(b.req('DELETE', '/api/org', {'confirm': 'Áridos B'})[0] == 200, 'Áridos B elimina su cuenta')
 code, r = b.req('POST', '/api/auth/login', {'email': 'bob@aridos-b.cl', 'password': 'pozo lastrero 2026'})
 check(code == 401, 'Bob ya no puede entrar')
 _, sa = a.req('GET', '/api/snapshot')
-check(len(sa['projects']) == 1 and len(sa['documents']) == 1, 'Viña A no se ve afectada')
+check(len(sa['projects']) == 2 and len(sa['documents']) == 1, 'Viña A no se ve afectada')
 
 print('Páginas públicas')
 for path, needle in [('/privacidad', 'Política de privacidad'), ('/terminos', 'Términos de uso'), ('/robots.txt', 'Sitemap:'), ('/sitemap.xml', '<urlset')]:

@@ -126,7 +126,7 @@ function RcaQuote({ ob, url }: { ob: Obligation; url: string }) {
         : <p className="no-quote">{ob.source === 'ventanilla' ? 'Obligación general de la Ventanilla Única, no viene de la RCA.' : 'Sin cita textual. Revisa la sección indicada en el documento.'}</p>}
       <div className="cite">
         <span>{ob.section}</span>
-        {ob.source === 'rca' && <a href={url} target="_blank" rel="noreferrer" style={{ display: 'inline-flex', gap: 5, alignItems: 'center' }}><IconLink size={14} />Abrir la RCA en el SEA</a>}
+        {ob.source === 'rca' && /^https:\/\//i.test(url) && <a href={url} target="_blank" rel="noreferrer" style={{ display: 'inline-flex', gap: 5, alignItems: 'center' }}><IconLink size={14} />Abrir la RCA en el SEA</a>}
       </div>
     </section>
   );

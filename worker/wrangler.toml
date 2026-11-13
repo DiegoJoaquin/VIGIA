@@ -9,7 +9,8 @@ compatibility_flags = ["nodejs_compat"]
 directory = "../web/dist"
 binding = "ASSETS"
 not_found_handling = "single-page-application"
-run_worker_first = false
+# El Worker atiende todas las páginas para ponerles las cabeceras de seguridad (el plan gratuito permite 100.000 pedidos al día).
+run_worker_first = true
 
 [[d1_databases]]
 binding = "DB"

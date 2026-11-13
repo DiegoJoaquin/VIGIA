@@ -30,11 +30,18 @@ export async function pdfText(bytes: ArrayBuffer): Promise<string> {
   return out;
 }
 
-export async function fetchRca(url: string): Promise<ArrayBuffer> {
+export async function fetchRca(url: string, hops = 0): Promise<ArrayBuffer> {
+  if (hops > 3) throw new Error('El enlace del SEA redirige demasiadas veces.');
   const u = new URL(url);
-  if (!ALLOWED_HOSTS.includes(u.hostname)) throw new Error('El enlace debe ser un documento del SEA (firma.sea.gob.cl).');
-  const r = await fetch(u.toString(), { headers: { 'user-agent': 'Mozilla/5.0 Vigia' }, signal: AbortSignal.timeout(25_000) })
+  if (u.protocol !== 'https:' || !ALLOWED_HOSTS.includes(u.hostname)) throw new Error('El enlace debe ser un documento del SEA (firma.sea.gob.cl).');
+  const r = await fetch(u.toString(), { headers: { 'user-agent': 'Mozilla/5.0 Vigia' }, signal: AbortSignal.timeout(25_000), redirect: 'manual' })
     .catch(() => { throw new Error('El SEA no respondió a tiempo. Descarga el PDF de la RCA y usa "Subir PDF".'); });
+  // Una redirección a otro sitio no se sigue: solo se aceptan documentos que el SEA entrega directamente.
+  if (r.status >= 300 && r.status < 400) {
+    const to = new URL(r.headers.get('location') ?? '', u);
+    if (to.protocol !== 'https:' || !ALLOWED_HOSTS.includes(to.hostname)) throw new Error('El enlace redirige fuera del SEA. Descarga el PDF y usa "Subir PDF".');
+    return fetchRca(to.toString(), hops + 1);
+  }
   if (!r.ok) throw new Error(`El SEA respondió ${r.status} al descargar la RCA.`);
   const buf = await r.arrayBuffer();
   if (buf.byteLength > 25_000_000) throw new Error('La RCA pesa más de 25 MB. Usa el extractor local.');

@@ -11,6 +11,8 @@ import { digestMail, inviteMail, passwordMail, sendMail, welcomeMail } from './m
 import { DEFAULT_NOTIFY, planNotifications, pushToUser, runDailyAlerts, type NotifySettings } from './notify';
 import { loadOrg, obligationOrg, putObligation, putProject } from './repo';
 import { hashPassword, isEmail, randomId, sha256, verifyPassword, weakPassword } from './util';
+import { allow, bearerOk, clientIp, crossSiteWrite, fileResponse, publicError, pushEndpointOk, withSecurityHeaders } from './security';
+import { cleanObligation, cleanProject } from '../../shared/validate';
 
 type App = { Bindings: Env; Variables: { user: SessionUser } };
 const app = new Hono<App>();
@@ -19,8 +21,25 @@ const MAX_EVIDENCE = 1_500_000;
 
 app.onError((err, c) => {
   console.error(err);
-  return c.json({ error: err.message || 'Error inesperado' }, 500);
+  const e = publicError(err);
+  return c.json({ error: e.message }, e.status);
 });
+
+// Cabeceras de seguridad en todo, y las escrituras solo aceptan pedidos que vienen de la propia app.
+app.use('*', async (c, next) => {
+  if (crossSiteWrite(c)) return withSecurityHeaders(c.json({ error: 'Pedido de otro sitio rechazado.' }, 403));
+  await next();
+  c.res = withSecurityHeaders(c.res);
+});
+
+const TOO_MANY = (c: Context<App>, msg = 'Demasiados intentos seguidos. Espera un rato y vuelve a probar.') => c.json({ error: msg }, 429);
+// Cada lectura con IA gasta la cuota gratuita de todos: se limita por empresa.
+const AI_PER_HOUR = 30;
+const STORAGE_QUOTA = 100_000_000; // por empresa: la base gratuita de Cloudflare tiene 500 MB en total
+async function usedStorage(env: Env, orgId: string): Promise<number> {
+  const r = await env.DB.prepare('SELECT (SELECT COALESCE(SUM(size),0) FROM evidence WHERE org_id = ?1) + (SELECT COALESCE(SUM(size),0) FROM documents WHERE org_id = ?1) AS n').bind(orgId).first<{ n: number }>();
+  return r?.n ?? 0;
+}
 
 // —————————— Sesión por enlace mágico (sin contraseñas) ——————————
 
@@ -45,6 +64,7 @@ const cleanEmail = (e: unknown) => (typeof e === 'string' ? e.trim().toLowerCase
 // Crear cuenta: la empresa nace con esta persona como administradora y queda adentro de inmediato.
 app.post('/api/auth/signup', async (c) => {
   const b = await c.req.json<{ email?: string; password?: string; name?: string; company?: string }>().catch(() => ({} as Record<string, undefined>));
+  if (!(await allow(c.env, `signup:${clientIp(c)}`, 6, 3_600_000))) return TOO_MANY(c, 'Se crearon varias cuentas desde esta conexión. Espera una hora e inténtalo otra vez.');
   const company = (b.company ?? '').trim().slice(0, 120), name = (b.name ?? '').trim().slice(0, 80), email = cleanEmail(b.email);
   if (company.length < 2) return c.json({ error: 'Escribe el nombre de la empresa.', field: 'company' }, 400);
   if (name.length < 2) return c.json({ error: 'Escribe tu nombre.', field: 'name' }, 400);
@@ -74,6 +94,7 @@ app.post('/api/auth/login', async (c) => {
   const email = cleanEmail(b.email);
   if (!isEmail(email)) return c.json({ error: 'Escribe un correo válido.', field: 'email' }, 400);
   if (!b.password) return c.json({ error: 'Escribe tu contraseña.', field: 'password' }, 400);
+  if (!(await allow(c.env, `login-ip:${clientIp(c)}`, 40, 900_000))) return TOO_MANY(c);
   const key = `login:${email}`;
   const t = await c.env.DB.prepare('SELECT fails, locked_until FROM auth_throttle WHERE key = ?').bind(key).first<{ fails: number; locked_until: number }>();
   if (t && t.locked_until > Date.now()) {
@@ -95,6 +116,8 @@ app.post('/api/auth/login', async (c) => {
     // Invitada que aún no activa su acceso: entra con el enlace que le compartió quien la invitó.
     return c.json({ error: 'Tu acceso aún no está activo. Abre el enlace de invitación que te compartieron (pídeselo a quien te invitó) o usa «¿Olvidaste tu contraseña?».', invited: true }, 409);
   }
+  // Con cuenta o sin ella se hace el mismo trabajo, para que el tiempo de respuesta no delate qué correos existen.
+  if (!u) await verifyPassword(b.password, 'pbkdf2$100000$00000000000000000000000000000000$' + '0'.repeat(64));
   if (!u || !(await verifyPassword(b.password, u.hash!))) {
     const fails = (t?.fails ?? 0) + 1;
     await c.env.DB.prepare('INSERT INTO auth_throttle (key, fails, locked_until) VALUES (?, ?, ?) ON CONFLICT(key) DO UPDATE SET fails = excluded.fails, locked_until = excluded.locked_until')
@@ -111,6 +134,8 @@ app.post('/api/auth/forgot', async (c) => {
   const b = await c.req.json<{ email?: string }>().catch(() => ({} as Record<string, undefined>));
   const email = cleanEmail(b.email);
   if (!isEmail(email)) return c.json({ error: 'Escribe un correo válido.', field: 'email' }, 400);
+  // Pocas solicitudes por correo y por conexión: protege la bandeja de la persona y la cuota de envío. La respuesta es siempre la misma.
+  if (!(await allow(c.env, `forgot:${email}`, 3, 3_600_000)) || !(await allow(c.env, `forgot-ip:${clientIp(c)}`, 10, 3_600_000))) return c.json({ ok: true });
   if (await c.env.DB.prepare('SELECT 1 FROM users WHERE email = ?').bind(email).first()) {
     const r = await sendMail(c.env, passwordMail(c.env, email, passwordLink(c.env, await issueToken(c.env, email, 60 * 60_000)), true));
     if (!r.ok) return c.json({ error: `No pudimos enviar el correo: ${r.detail}` }, 502);
@@ -121,6 +146,7 @@ app.post('/api/auth/forgot', async (c) => {
 // Crear o cambiar la contraseña con el enlace del correo, y entrar.
 app.post('/api/auth/reset', async (c) => {
   const b = await c.req.json<{ token?: string; password?: string }>().catch(() => ({} as Record<string, undefined>));
+  if (!(await allow(c.env, `reset-ip:${clientIp(c)}`, 20, 3_600_000))) return TOO_MANY(c);
   const weak = weakPassword(b.password);
   if (weak) return c.json({ error: weak, field: 'password' }, 400);
   const hash = await sha256(b.token ?? '');
@@ -185,6 +211,7 @@ app.get('/api/snapshot', async (c) => {
 
 app.post('/api/completions', async (c) => {
   const b = await c.req.json<{ obligationId: string; due: string; note?: string }>();
+  b.note = typeof b.note === 'string' ? b.note.slice(0, 1000) : undefined;
   if (!/^\d{4}-\d{2}-\d{2}$/.test(b.due ?? '') || !(await canTouch(c, b.obligationId))) return c.json({ error: 'Compromiso no encontrado.' }, 404);
   const user = c.get('user');
   const now = new Date().toISOString();
@@ -209,7 +236,9 @@ app.post('/api/evidence', async (c) => {
   const obligationId = String(form.get('obligationId') ?? ''), due = String(form.get('due') ?? '');
   if (!file || typeof file === 'string') return c.json({ error: 'Falta el archivo.' }, 400);
   if (file.size > MAX_EVIDENCE) return c.json({ error: 'El archivo pesa más de 1,5 MB. Las fotos se comprimen solas; para PDF grandes, súbelos reducidos.' }, 413);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(due)) return c.json({ error: 'Fecha inválida.' }, 400);
   if (!(await canTouch(c, obligationId))) return c.json({ error: 'Compromiso no encontrado.' }, 404);
+  if ((await usedStorage(c.env, c.get('user').orgId)) + file.size > STORAGE_QUOTA) return c.json({ error: 'Tu empresa llegó al límite de almacenamiento (100 MB). Borra documentos o evidencias que ya no necesites.' }, 413);
   const id = randomId(12);
   await c.env.DB.prepare('INSERT INTO evidence (id, org_id, obligation_id, due, name, mime, size, bytes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)')
     .bind(id, c.get('user').orgId, obligationId, due, file.name.slice(0, 160), file.type || 'application/octet-stream', file.size, new Uint8Array(await file.arrayBuffer())).run();
@@ -221,13 +250,12 @@ app.get('/api/evidence/:id', async (c) => {
   const r = await c.env.DB.prepare('SELECT name, mime, bytes FROM evidence WHERE id = ? AND org_id = ?')
     .bind(c.req.param('id'), c.get('user').orgId).first<{ name: string; mime: string; bytes: ArrayBuffer }>();
   if (!r) return c.json({ error: 'Archivo no encontrado.' }, 404);
-  return new Response(new Uint8Array(r.bytes as ArrayBuffer), {
-    headers: { 'content-type': r.mime, 'content-disposition': `inline; filename="${encodeURIComponent(r.name)}"`, 'cache-control': 'private, max-age=86400' },
-  });
+  return fileResponse(new Uint8Array(r.bytes as ArrayBuffer), r.name, r.mime);
 });
 
 app.post('/api/events', async (c) => {
   const b = await c.req.json<{ obligationId: string; note?: string }>();
+  b.note = typeof b.note === 'string' ? b.note.slice(0, 1000) : undefined;
   if (!(await canTouch(c, b.obligationId))) return c.json({ error: 'Compromiso no encontrado.' }, 404);
   const ev = { id: randomId(10), obligationId: b.obligationId, occurredAt: new Date().toISOString(), note: b.note };
   await c.env.DB.prepare('INSERT INTO events (id, org_id, obligation_id, occurred_at, note) VALUES (?, ?, ?, ?, ?)')
@@ -239,6 +267,7 @@ app.post('/api/events', async (c) => {
 
 app.post('/api/obligations/confirm', async (c) => {
   const { ids } = await c.req.json<{ ids: string[] }>();
+  if (!Array.isArray(ids) || ids.length > 2000) return c.json({ error: 'Lista inválida.' }, 400);
   const orgId = c.get('user').orgId;
   const data = await loadOrg(c.env, orgId);
   const targets = data.obligations.filter((o) => ids.includes(o.id));
@@ -247,8 +276,9 @@ app.post('/api/obligations/confirm', async (c) => {
 });
 
 app.put('/api/obligations/:id', async (c) => {
-  const o = await c.req.json<Obligation>();
-  if (o.id !== c.req.param('id') || !(await canTouch(c, o.id))) return c.json({ error: 'Compromiso no encontrado.' }, 404);
+  const o = cleanObligation(await c.req.json());
+  if (!o || o.id !== c.req.param('id') || !(await canTouch(c, o.id))) return c.json({ error: 'Compromiso no encontrado o con datos inválidos.' }, 404);
+  if (!(await ownsProject(c.env, c.get('user').orgId, o.projectId))) return c.json({ error: 'Proyecto no encontrado.' }, 404);
   await putObligation(c.env, c.get('user').orgId, o).run();
   return c.json({ ok: true });
 });
@@ -268,6 +298,7 @@ app.put('/api/projects/:id/ventanilla', async (c) => {
 
 app.post('/api/import/extract', async (c) => {
   const { url } = await c.req.json<{ url: string }>();
+  if (!(await allow(c.env, `ai:${c.get('user').orgId}`, AI_PER_HOUR, 3_600_000))) return TOO_MANY(c, 'Leíste muchos documentos en poco tiempo. Espera un rato para seguir.');
   const draft = await extractFromPdf(c.env, await fetchRca(url), url);
   return c.json(draft);
 });
@@ -277,14 +308,18 @@ app.post('/api/import/extract-file', async (c) => {
   const file = form.get('file') as unknown as File | string | null;
   if (!file || typeof file === 'string') return c.json({ error: 'Falta el PDF.' }, 400);
   if (file.size > 25_000_000) return c.json({ error: 'La RCA pesa más de 25 MB. Usa el extractor local.' }, 413);
+  if (!(await allow(c.env, `ai:${c.get('user').orgId}`, AI_PER_HOUR, 3_600_000))) return TOO_MANY(c, 'Leíste muchos documentos en poco tiempo. Espera un rato para seguir.');
   return c.json(await extractFromPdf(c.env, await file.arrayBuffer(), `archivo:${file.name}`));
 });
 
 app.post('/api/import/save', async (c) => {
   const { draft, keep, documentId, feedback } = await c.req.json<{ draft: { project: Project; obligations: Obligation[] }; keep: string[]; documentId?: string; feedback?: FeedbackItem[] }>();
   const orgId = c.get('user').orgId;
-  draft.obligations = draft.obligations.map(({ learned: _l, ...o }) => o);
-  const r = await saveDraft(c.env, orgId, draft, keep, true);
+  const project = cleanProject(draft?.project);
+  if (!project || !Array.isArray(draft.obligations) || draft.obligations.length > 500) return c.json({ error: 'El borrador no tiene el formato esperado.' }, 400);
+  const clean = draft.obligations.map(cleanObligation);
+  if (clean.some((o) => !o)) return c.json({ error: 'Hay compromisos con datos inválidos. Vuelve a leer el documento.' }, 400);
+  const r = await saveDraft(c.env, orgId, { project, obligations: clean as Obligation[] }, Array.isArray(keep) ? keep : null, true);
   // Lo que la persona corrigió en la revisión enseña a la próxima lectura (ver shared/learning.ts).
   if (Array.isArray(feedback) && feedback.length) {
     const ok = (x: FeedbackItem) => ['kept', 'removed', 'edited', 'added'].includes(x.action) && typeof x.quoteKey === 'string' && x.quoteKey.length >= 20;
@@ -320,7 +355,7 @@ async function saveDraft(env: Env, orgId: string, draft: { project: Project; obl
 
 // Correcciones acumuladas, para sumar casos al set de referencia (tests/eval/gold). Solo con el token del operador.
 app.get('/api/extractor/feedback', async (c) => {
-  if (!c.env.EXTRACTOR_TOKEN || c.req.header('authorization') !== `Bearer ${c.env.EXTRACTOR_TOKEN}`) return c.json({ error: 'Token inválido.' }, 401);
+  if (!bearerOk(c.req.header('authorization'), c.env.EXTRACTOR_TOKEN)) return c.json({ error: 'Token inválido.' }, 401);
   const { results } = await c.env.DB.prepare(
     `SELECT action, quote_key, quote, section, before_json, after_json, created_at FROM reading_feedback WHERE action != 'kept' ORDER BY created_at DESC LIMIT 1000`,
   ).all();
@@ -329,11 +364,14 @@ app.get('/api/extractor/feedback', async (c) => {
 
 // El extractor local (tu servidor con Ollama) sube RCA ya leídas con un token propio.
 app.post('/api/extractor/upload', async (c) => {
-  if (!c.env.EXTRACTOR_TOKEN || c.req.header('authorization') !== `Bearer ${c.env.EXTRACTOR_TOKEN}`) return c.json({ error: 'Token inválido.' }, 401);
+  if (!bearerOk(c.req.header('authorization'), c.env.EXTRACTOR_TOKEN)) return c.json({ error: 'Token inválido.' }, 401);
   const { email, draft } = await c.req.json<{ email: string; draft: { project: Project; obligations: Obligation[] } }>();
-  const u = await c.env.DB.prepare('SELECT org_id FROM users WHERE email = ?').bind(email?.toLowerCase()).first<{ org_id: string }>();
+  const u = await c.env.DB.prepare('SELECT org_id FROM users WHERE email = ?').bind(cleanEmail(email)).first<{ org_id: string }>();
   if (!u) return c.json({ error: 'Ese correo no tiene cuenta en Vigía.' }, 404);
-  const r = await saveDraft(c.env, u.org_id, draft, null, false); // quedan "por revisar"
+  const project = cleanProject(draft?.project);
+  const obligations = (Array.isArray(draft?.obligations) ? draft.obligations.slice(0, 500) : []).map(cleanObligation).filter((o): o is Obligation => !!o);
+  if (!project) return c.json({ error: 'El borrador no tiene el formato esperado.' }, 400);
+  const r = await saveDraft(c.env, u.org_id, { project, obligations }, null, false); // quedan "por revisar"
   return c.json({ ok: true, ...r });
 });
 
@@ -346,6 +384,7 @@ app.put('/api/settings/notify', async (c) => {
 
 app.post('/api/settings/test-email', async (c) => {
   const user = c.get('user');
+  if (!(await allow(c.env, `mail-test:${user.id}`, 5, 3_600_000))) return TOO_MANY(c, 'Ya enviaste varias pruebas. Espera una hora para otra.');
   const data = await loadOrg(c.env, user.orgId);
   const plan = planNotifications(data, todayInChile(), { ...DEFAULT_NOTIFY, weeklyDigest: true }, user.id, new Set());
   const mail = plan
@@ -357,7 +396,7 @@ app.post('/api/settings/test-email', async (c) => {
 
 app.post('/api/push/subscribe', async (c) => {
   const sub = await c.req.json<{ endpoint: string; keys: { p256dh: string; auth: string } }>();
-  if (!sub?.endpoint?.startsWith('https://') || !sub.keys?.p256dh) return c.json({ error: 'Suscripción inválida.' }, 400);
+  if (!pushEndpointOk(sub?.endpoint) || typeof sub.keys?.p256dh !== 'string' || typeof sub.keys?.auth !== 'string' || sub.endpoint.length > 600) return c.json({ error: 'Suscripción inválida.' }, 400);
   await c.env.DB.prepare('INSERT INTO push_subs (endpoint, user_id, keys) VALUES (?, ?, ?) ON CONFLICT(endpoint) DO UPDATE SET user_id = excluded.user_id, keys = excluded.keys')
     .bind(sub.endpoint, c.get('user').id, JSON.stringify(sub.keys)).run();
   const sent = await pushToUser(c.env, c.get('user').id, 'Notificaciones activadas', 'Aquí te avisaremos de cada vencimiento.');
@@ -378,6 +417,7 @@ app.get('/api/team', async (c) => {
 app.post('/api/team/invite', async (c) => {
   if (!isOwner(c)) return c.json({ error: 'Solo quien creó la cuenta puede invitar.' }, 403);
   const me = c.get('user');
+  if (!(await allow(c.env, `invite:${me.orgId}`, 20, 86_400_000))) return TOO_MANY(c, 'Hoy ya enviaste muchas invitaciones. Vuelve a intentarlo mañana.');
   const b = await c.req.json<{ email?: string; name?: string }>().catch(() => ({} as Record<string, undefined>));
   if (!isEmail(b.email)) return c.json({ error: 'Escribe un correo válido.', field: 'email' }, 400);
   const email = b.email.trim().toLowerCase();
@@ -400,6 +440,7 @@ app.post('/api/team/invite', async (c) => {
 // Prueba del envío de correos: manda uno a quien la pide y devuelve la respuesta real del proveedor.
 app.post('/api/mail/test', async (c) => {
   const me = c.get('user');
+  if (!(await allow(c.env, `mail-test:${me.id}`, 5, 3_600_000))) return TOO_MANY(c, 'Ya enviaste varias pruebas. Espera una hora para otra.');
   const r = await sendMail(c.env, { to: me.email, subject: 'Prueba de correo de Vigía', text: 'Si lees esto, los avisos de Vigía te van a llegar.', html: '<p>Si lees esto, los avisos de Vigía te van a llegar.</p>' });
   return c.json({ ok: r.ok, provider: c.env.MAIL_PROVIDER ?? 'consola', detail: r.detail });
 });
@@ -490,6 +531,7 @@ app.post('/api/documents', async (c) => {
   if (file.size > MAX_DOC) return c.json({ error: 'El archivo pesa más de 25 MB. Comprímelo o divídelo en partes.', field: 'file' }, 413);
   if (!DOC_KINDS.includes(kind)) return c.json({ error: 'Elige el tipo de documento.', field: 'kind' }, 400);
   if (!(await ownsProject(c.env, me.orgId, projectId))) return c.json({ error: 'Proyecto no encontrado.' }, 404);
+  if ((await usedStorage(c.env, me.orgId)) + file.size > STORAGE_QUOTA) return c.json({ error: 'Tu empresa llegó al límite de almacenamiento (100 MB). Borra documentos o evidencias que ya no necesites.', field: 'file' }, 413);
   const bytes = new Uint8Array(await file.arrayBuffer());
   const id = `d-${randomId(12)}`, chunks = Math.max(1, Math.ceil(bytes.length / CHUNK));
   const name = file.name.slice(0, 160), mime = file.type || 'application/octet-stream';
@@ -513,7 +555,7 @@ app.post('/api/documents', async (c) => {
 app.get('/api/documents/:id', async (c) => {
   const d = await documentBytes(c.env, c.get('user').orgId, c.req.param('id'));
   if (!d) return c.json({ error: 'Documento no encontrado.' }, 404);
-  return new Response(d.bytes, { headers: { 'content-type': d.mime, 'content-disposition': `inline; filename="${encodeURIComponent(d.name)}"`, 'cache-control': 'private, max-age=86400' } });
+  return fileResponse(d.bytes, d.name, d.mime);
 });
 
 app.delete('/api/documents/:id', async (c) => {
@@ -530,6 +572,7 @@ app.delete('/api/documents/:id', async (c) => {
 // Lee un documento guardado y propone compromisos para su proyecto. Se revisan antes de guardarlos.
 app.post('/api/documents/:id/extract', async (c) => {
   const orgId = c.get('user').orgId;
+  if (!(await allow(c.env, `ai:${orgId}`, AI_PER_HOUR, 3_600_000))) return TOO_MANY(c, 'Leíste muchos documentos en poco tiempo. Espera un rato para seguir.');
   const d = await documentBytes(c.env, orgId, c.req.param('id'));
   if (!d) return c.json({ error: 'Documento no encontrado.' }, 404);
   if (d.mime !== 'application/pdf') return c.json({ error: 'Solo se pueden leer documentos PDF.' }, 400);
@@ -545,7 +588,7 @@ app.get('/cal/:file', async (c) => {
   const row = await c.env.DB.prepare('SELECT u.org_id FROM settings s JOIN users u ON u.id = s.user_id WHERE s.calendar_token = ?').bind(token).first<{ org_id: string }>();
   if (!row) return c.text('Calendario no encontrado', 404);
   const ics = buildIcs(await loadOrg(c.env, row.org_id), todayInChile(), c.env.APP_URL, c.env.APP_NAME);
-  return new Response(ics, { headers: { 'content-type': 'text/calendar; charset=utf-8', 'cache-control': 'public, max-age=3600' } });
+  return new Response(ics, { headers: { 'content-type': 'text/calendar; charset=utf-8', 'cache-control': 'private, max-age=3600', 'x-robots-tag': 'noindex' } });
 });
 
 app.get('/api/*', (c) => c.json({ error: 'Ruta no encontrada.' }, 404));
@@ -557,5 +600,12 @@ export default {
   fetch: app.fetch,
   async scheduled(_event: ScheduledEvent, env: Env, ctx: ExecutionContext) {
     ctx.waitUntil(runDailyAlerts(env, todayInChile()).then((r) => console.log('[alertas]', JSON.stringify(r))));
+    // Limpieza diaria de sesiones, enlaces y contadores vencidos.
+    const now = Date.now();
+    ctx.waitUntil(env.DB.batch([
+      env.DB.prepare('DELETE FROM sessions WHERE expires_at < ?').bind(now),
+      env.DB.prepare('DELETE FROM login_tokens WHERE expires_at < ?').bind(now),
+      env.DB.prepare('DELETE FROM auth_throttle WHERE locked_until > 0 AND locked_until < ?').bind(now),
+    ]).catch((e) => console.log('[limpieza]', String(e))));
   },
 };

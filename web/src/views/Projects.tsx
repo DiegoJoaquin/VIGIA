@@ -75,7 +75,7 @@ export function ProjectDetail({ id }: { id: string }) {
           <span>{p.titular}</span>
           <span><IconPin size={14} />{p.comuna}, {p.region}</span>
           <span>Fase de {p.phase.toLowerCase()}{p.operationEnd ? ` hasta ${shortDate(p.operationEnd, s.today)}` : ''}</span>
-          <a href={p.sourceUrl} target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}><IconLink size={14} />{p.rcaLabel}</a>
+          {/^https:\/\//i.test(p.sourceUrl) ? <a href={p.sourceUrl} target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}><IconLink size={14} />{p.rcaLabel}</a> : <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}><IconLink size={14} />{p.rcaLabel}</span>}
         </div>
       </header>
 

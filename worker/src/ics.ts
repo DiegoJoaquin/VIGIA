@@ -2,7 +2,7 @@
 import { addDays, buildOccurrences, frequencyLabel } from '../../shared/recurrence';
 import type { OrgData } from './repo';
 
-const esc = (s: string) => s.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
+const esc = (s: string) => s.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n|\r/g, '\\n');
 
 // Las líneas de un .ics no deben superar 75 octetos: se pliegan con un espacio al inicio.
 function fold(line: string): string {
