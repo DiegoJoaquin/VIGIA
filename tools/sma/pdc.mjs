@@ -10,8 +10,19 @@ const UA = { 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKi
 const CASES = { 2299: 'guerrico', 3156: 'lapostolle', 4025: 'lenadura', 4070: 'masisa-mapal', 4516: 'sanlorenzo', 4427: 'rioteno', 4322: 'bosch', 4283: 'tuniche', 4255: 'felixmolina', 4179: 'palmilla', 4057: 'pe-sanantonio', 4003: 'minutoverde', 4296: 'prolesur', 4155: 'cotelsa' };
 const strip = (s) => s.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
 
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+// SNIFA limita las descargas seguidas (HTTP 429): se espera y se reintenta con pausas cada vez más largas.
+async function get(url, tries = 5) {
+  for (let k = 0; k < tries; k++) {
+    const r = await fetch(url, { headers: UA, signal: AbortSignal.timeout(120_000) });
+    if (r.status !== 429 && r.status < 500) return r;
+    await wait(15_000 * (k + 1));
+  }
+  throw new Error('HTTP 429 tras reintentos');
+}
+
 async function pdfText(url) {
-  const r = await fetch(url, { headers: UA, signal: AbortSignal.timeout(120_000) });
+  const r = await get(url);
   if (!r.ok) throw new Error(`HTTP ${r.status}`);
   const buf = new Uint8Array(await r.arrayBuffer());
   if (buf[0] !== 0x25 || buf[1] !== 0x50) throw new Error(`no es PDF (${r.headers.get('content-type')}, ${buf.length} bytes)`);
@@ -28,7 +39,7 @@ async function pdfText(url) {
 const report = [];
 for (const [id, name] of Object.entries(CASES)) {
   try {
-    const html = await (await fetch(`https://snifa.sma.gob.cl/Sancionatorio/Ficha/${id}`, { headers: UA })).text();
+    const html = await (await get(`https://snifa.sma.gob.cl/Sancionatorio/Ficha/${id}`)).text();
     const docs = [...html.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)].map((m) => {
       const cells = [...m[1].matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)].map((c) => strip(c[1]));
       const link = /href="(\/General\/Descargar\/\d+)"/.exec(m[1])?.[1];
@@ -45,7 +56,7 @@ for (const [id, name] of Object.entries(CASES)) {
         writeFileSync(`${out}/${name}.${kind}.txt`, t.text);
         report.push(`${name}\t${kind}\t${d.date}\t${t.pages} pág\t${t.text.length} car\t${d.name}`);
       } catch (e) { report.push(`${name}\t${kind}\tERROR ${e.message}\t${d.name}`); }
-      await new Promise((r) => setTimeout(r, 800));
+      await wait(8_000);
     }
   } catch (e) { report.push(`${name}\tERROR ficha ${e.message}`); }
 }

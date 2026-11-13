@@ -48,7 +48,8 @@ export interface DataSource {
   saveImport(draft: ImportDraft, keep: string[], documentId?: string, feedback?: FeedbackItem[]): Promise<{ projectId: string }>;
   uploadDocument(projectId: string, kind: DocumentKind, file: File): Promise<DocumentRef>;
   deleteDocument(id: string): Promise<void>;
-  extractDocument(id: string): Promise<ImportDraft>;
+  /** `notified`: fecha en que notificaron la aprobación de un programa de cumplimiento (desde ahí corren sus plazos). */
+  extractDocument(id: string, notified?: string): Promise<ImportDraft>;
   team(): Promise<TeamMember[]>;
   invite(email: string, name: string): Promise<TeamMember & { mailed?: boolean; link?: string }>;
   accessLink(id: string): Promise<{ link: string }>;
@@ -202,7 +203,7 @@ export class DemoSource implements DataSource {
     this.save();
   }
 
-  async extractDocument(id: string): Promise<ImportDraft> {
+  async extractDocument(id: string, _notified?: string): Promise<ImportDraft> {
     const doc = this.s.documents.find((d) => d.id === id);
     const project = this.s.projects.find((p) => p.id === doc?.projectId);
     if (!doc || !project) throw new Error('Documento no encontrado.');
@@ -381,7 +382,7 @@ export class ApiSource implements DataSource {
     return api<DocumentRef>('/documents', { method: 'POST', body: fd });
   }
   async deleteDocument(id: string) { await api(`/documents/${id}`, { method: 'DELETE' }); }
-  extractDocument(id: string) { return api<ImportDraft>(`/documents/${id}/extract`, { method: 'POST', timeoutMs: 240_000 }); }
+  extractDocument(id: string, notified?: string) { return api<ImportDraft>(`/documents/${id}/extract`, { method: 'POST', body: JSON.stringify({ notified }), timeoutMs: 240_000 }); }
   team() { return api<TeamMember[]>('/team'); }
   invite(email: string, name: string) { return api<TeamMember & { mailed?: boolean; link?: string }>('/team/invite', { method: 'POST', body: JSON.stringify({ email, name }) }); }
   accessLink(id: string) { return api<{ link: string }>(`/team/${id}/link`, { method: 'POST' }); }

@@ -58,7 +58,7 @@ const KIND_HINT: Record<string, string> = {
  * Lee un PDF y propone compromisos. Si se pasa un proyecto existente, los compromisos se agregan a ese
  * proyecto (por ejemplo, una resolución que modifica la RCA); si no, se arma un proyecto nuevo.
  */
-export async function extractFromPdf(env: Env, bytes: ArrayBuffer, sourceUrl: string, opts: { project?: Project; kind?: string } = {}) {
+export async function extractFromPdf(env: Env, bytes: ArrayBuffer, sourceUrl: string, opts: { project?: Project; kind?: string; notified?: string } = {}) {
   const text = await pdfText(bytes);
   if (text.replace(/\s/g, '').length < 2000) throw new Error('Este PDF es una imagen escaneada, sin texto que leer. Descarga desde el SEIA la versión firmada digitalmente de la resolución (firma.sea.gob.cl) y vuelve a intentarlo.');
   const projectId = opts.project?.id ?? `p-${randomId(6)}`;
@@ -66,7 +66,7 @@ export async function extractFromPdf(env: Env, bytes: ArrayBuffer, sourceUrl: st
   // 1) RCA con la plantilla actual del SEA: los compromisos se leen con reglas, sin IA. Es exacto, gratis e
   //    instantáneo, y cada uno sale con su cita textual.
   // Un programa de cumplimiento tiene otra estructura: lo lee su propio lector (plazos desde la notificación).
-  const pdc = opts.kind === 'programa' || looksLikePdc(text) ? readPdc(text, projectId, new Date().toISOString().slice(0, 10)) : undefined;
+  const pdc = opts.kind === 'programa' || looksLikePdc(text) ? readPdc(text, projectId, opts.notified ?? new Date().toISOString().slice(0, 10), !!opts.notified) : undefined;
   const byRules = pdc?.obligations.length ? pdc.obligations : ruleObligations(text, projectId);
   let found: Obligation[];
   if (pdc?.obligations.length) {

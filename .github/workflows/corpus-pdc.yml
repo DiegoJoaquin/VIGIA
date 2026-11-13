@@ -1,9 +1,11 @@
 name: Corpus de PdC
 on: workflow_dispatch
+
 permissions:
   contents: write
 jobs:
   fetch:
+    timeout-minutes: 90
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

@@ -253,6 +253,7 @@ function Documents({ project, onAdded }: { project: Project; onAdded: () => void
   const [error, setError] = useState<{ field?: string; text: string }>();
   const [reading, setReading] = useState<{ doc: DocumentRef; draft?: ImportDraft; error?: string }>();
   const [confirmDel, setConfirmDel] = useState<string>();
+  const [ask, setAsk] = useState<{ doc: DocumentRef; date: string; error?: string }>();
   const { step, elapsed, done, start, finish, stop } = useReadingSteps(READ_STEPS.length);
 
   const upload = async (e: React.FormEvent) => {
@@ -265,15 +266,22 @@ function Documents({ project, onAdded }: { project: Project; onAdded: () => void
       const doc = await s.uploadDocument(project.id, kind, file);
       setFile(undefined); setKind('');
       (document.getElementById('doc-file') as HTMLInputElement | null)?.form?.reset();
-      if (DOCUMENT_KINDS.find((k) => k.kind === doc.kind)?.readable && /\.pdf$/i.test(doc.name)) read(doc);
+      if (DOCUMENT_KINDS.find((k) => k.kind === doc.kind)?.readable && /\.pdf$/i.test(doc.name)) begin(doc);
     } catch (err) {
       setError({ field: (err as { field?: string }).field ?? 'file', text: (err as Error).message });
     } finally { setBusy(false); }
   };
 
-  const read = async (doc: DocumentRef) => {
+  // Un programa de cumplimiento cuenta sus plazos desde que notificaron su aprobación: se pregunta antes de leerlo.
+  const begin = (doc: DocumentRef) => (doc.kind === 'programa' ? setAsk({ doc, date: '' }) : read(doc));
+  const confirmDate = () => {
+    if (!ask) return;
+    if (ask.date && (ask.date < '2018-01-01' || ask.date > s.today.slice(0, 4) + '-12-31')) return setAsk({ ...ask, error: 'Revisa la fecha: debe ser la de la notificación de la resolución que aprobó el programa.' });
+    const { doc, date } = ask; setAsk(undefined); read(doc, date || undefined);
+  };
+  const read = async (doc: DocumentRef, notified?: string) => {
     setReading({ doc }); start();
-    try { setReading({ doc, draft: await s.extractDocument(doc.id) }); finish(); }
+    try { setReading({ doc, draft: await s.extractDocument(doc.id, notified) }); finish(); }
     catch (err) { setReading({ doc, error: (err as Error).message }); stop(); }
   };
 
@@ -318,6 +326,20 @@ function Documents({ project, onAdded }: { project: Project; onAdded: () => void
 
       <section className="section">
         <div className="section-head"><h2>Documentos del proyecto</h2><span className="count">{docs.length}</span></div>
+        {ask && (
+          <div className="group" style={{ display: 'grid', gap: 10, padding: 16 }}>
+            <div className="field">
+              <label htmlFor="pdc-date">¿Cuándo te notificaron la aprobación del programa?</label>
+              <input id="pdc-date" type="date" className="input" value={ask.date} max={s.today} onChange={(e) => setAsk({ ...ask, date: e.target.value, error: undefined })} aria-invalid={!!ask.error || undefined} />
+              {ask.error && <p className="field-error" role="alert">{ask.error}</p>}
+              <p className="faint" style={{ fontSize: 'var(--t-meta)' }}>Los plazos de las acciones y de los reportes corren desde esa fecha (está en la resolución de la SMA o en el correo del SPDC). Si no la tienes ahora, sigue sin ella: los plazos se calculan desde hoy y los puedes corregir en la revisión.</p>
+            </div>
+            <div className="actions two">
+              <button className="btn plain" type="button" onClick={() => setAsk(undefined)}>Cancelar</button>
+              <button className="btn" type="button" onClick={confirmDate}>{ask.date ? 'Leer el programa' : 'Leer sin fecha'}</button>
+            </div>
+          </div>
+        )}
         {docs.length === 0 ? <div className="group empty"><p>Aún no hay documentos. Sube la RCA para tenerla siempre a mano.</p></div> : (
           <div className="group">
             {docs.map((d) => {
@@ -331,7 +353,7 @@ function Documents({ project, onAdded }: { project: Project; onAdded: () => void
                       {d.readAt && <span style={{ color: 'var(--accent)', fontWeight: 600 }}>Compromisos leídos</span>}</span>
                   </span>
                   <span className="doc-actions">
-                    {readable && !reading && <button className="btn small secondary" onClick={() => read(d)}><IconSpark size={15} />{d.readAt ? 'Leer de nuevo' : 'Leer compromisos'}</button>}
+                    {readable && !reading && <button className="btn small secondary" onClick={() => begin(d)}><IconSpark size={15} />{d.readAt ? 'Leer de nuevo' : 'Leer compromisos'}</button>}
                     {confirmDel === d.id
                       ? <><button className="btn small danger" onClick={() => { setConfirmDel(undefined); s.deleteDocument(d); }}>Eliminar</button><button className="btn small plain" onClick={() => setConfirmDel(undefined)}>No</button></>
                       : <button className="icon-btn" aria-label={`Eliminar ${d.name}`} onClick={() => setConfirmDel(d.id)}><IconClose size={16} /></button>}

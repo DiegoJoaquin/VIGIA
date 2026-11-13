@@ -1,6 +1,6 @@
 import { Hono, type Context } from 'hono';
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie';
-import { todayInChile } from '../../shared/recurrence';
+import { addDays, todayInChile } from '../../shared/recurrence';
 import type { Obligation, Project } from '../../shared/types';
 import { ventanillaObligations, type VentanillaAnswers } from '../../shared/ventanilla';
 import type { Env, SessionUser } from './env';
@@ -578,7 +578,11 @@ app.post('/api/documents/:id/extract', async (c) => {
   if (d.mime !== 'application/pdf') return c.json({ error: 'Solo se pueden leer documentos PDF.' }, 400);
   const p = await c.env.DB.prepare('SELECT data FROM projects WHERE id = ? AND org_id = ?').bind(d.project_id, orgId).first<{ data: string }>();
   if (!p) return c.json({ error: 'Proyecto no encontrado.' }, 404);
-  return c.json(await extractFromPdf(c.env, d.bytes.buffer, `documento:${d.name}`, { project: JSON.parse(p.data), kind: d.kind }));
+  // Programa de cumplimiento: los plazos corren desde la fecha en que notificaron la aprobación.
+  const body = await c.req.json<{ notified?: string }>().catch(() => ({} as { notified?: string }));
+  const n = body.notified, today = todayInChile();
+  const notified = typeof n === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(n) && n >= '2018-01-01' && n <= addDays(today, 30) ? n : undefined;
+  return c.json(await extractFromPdf(c.env, d.bytes.buffer, `documento:${d.name}`, { project: JSON.parse(p.data), kind: d.kind, notified }));
 });
 
 // —————————— Calendario público por token ——————————
