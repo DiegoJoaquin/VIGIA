@@ -3,7 +3,7 @@
 import { getDocumentProxy } from 'unpdf';
 import { EXTRACTION_PROMPT, dedupeObligations, dropUnquoted, mergeBySection, guessProjectMeta, normalizeObligations, parseModelJson, pickChunks, standardObligations } from '../../shared/extraction';
 import { ruleObligations } from '../../shared/rules';
-import { looksLikePdc, readPdc } from '../../shared/pdc';
+import { looksLikeApproval, looksLikePdc, readApproval, readPdc } from '../../shared/pdc';
 import { applyMemory, quoteKey, summarize, type FeedbackItem, type Memory } from '../../shared/learning';
 import type { Obligation, Project } from '../../shared/types';
 import type { Env } from './env';
@@ -66,7 +66,9 @@ export async function extractFromPdf(env: Env, bytes: ArrayBuffer, sourceUrl: st
   // 1) RCA con la plantilla actual del SEA: los compromisos se leen con reglas, sin IA. Es exacto, gratis e
   //    instantáneo, y cada uno sale con su cita textual.
   // Un programa de cumplimiento tiene otra estructura: lo lee su propio lector (plazos desde la notificación).
-  const pdc = opts.kind === 'programa' || looksLikePdc(text) ? readPdc(text, projectId, opts.notified ?? new Date().toISOString().slice(0, 10), !!opts.notified) : undefined;
+  const today = new Date().toISOString().slice(0, 10);
+  const pdc = looksLikeApproval(text) ? readApproval(text, projectId, opts.notified ?? today, !!opts.notified)
+    : opts.kind === 'programa' || looksLikePdc(text) ? readPdc(text, projectId, opts.notified ?? today, !!opts.notified) : undefined;
   const byRules = pdc?.obligations.length ? pdc.obligations : ruleObligations(text, projectId);
   let found: Obligation[];
   if (pdc?.obligations.length) {

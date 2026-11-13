@@ -20,6 +20,19 @@ const cut = (s: string, n: number) => (s.length <= n ? s : `${s.slice(0, s.lastI
 
 const NUM_WORDS: Record<string, number> = { un: 1, uno: 1, una: 1, dos: 2, tres: 3, cuatro: 4, cinco: 5, seis: 6, siete: 7, ocho: 8, nueve: 9, diez: 10, once: 11, doce: 12, quince: 15, dieciocho: 18, diecinueve: 19, veinte: 20, veinticuatro: 24, treinta: 30 };
 const MONTH_N: Record<string, number> = { enero: 1, febrero: 2, marzo: 3, abril: 4, mayo: 5, junio: 6, julio: 7, agosto: 8, septiembre: 9, setiembre: 9, octubre: 10, noviembre: 11, diciembre: 12 };
+const TENS: Record<string, number> = { treinta: 30, cuarenta: 40, cincuenta: 50, sesenta: 60 };
+const UNITS_ES: Record<string, number> = { un: 1, uno: 1, una: 1, dos: 2, tres: 3, cuatro: 4, cinco: 5, seis: 6, siete: 7, ocho: 8, nueve: 9 };
+/** "diecinueve" → 19, "veintiséis" → 26, "treinta y cuatro" → 34, "19" → 19, "diez (10)" → 10. */
+export function esNumber(raw: string): number | undefined {
+  const w = raw.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\(\s*\d+\s*\)/g, '').trim();
+  if (/^\d{1,3}$/.test(w)) return Number(w);
+  const direct = Object.entries(NUM_WORDS).find(([k]) => k === w);
+  if (direct) return direct[1];
+  const v = w.match(/^veinti(\w+)$/); if (v && UNITS_ES[v[1].replace(/^s(?=e)/, '')] !== undefined) return 20 + UNITS_ES[v[1]];
+  if (v && UNITS_ES[v[1]]) return 20 + UNITS_ES[v[1]];
+  const t = w.match(/^(\w+)\s+y\s+(\w+)$/); if (t && TENS[t[1]] && UNITS_ES[t[2]]) return TENS[t[1]] + UNITS_ES[t[2]];
+  return TENS[w];
+}
 const NUM = String.raw`(?:(\d{1,3})|(${Object.keys(NUM_WORDS).join('|')})(?:\s*\(\d+\))?)`;
 const UNIT = String.raw`(d[ií]as?\s+h[aá]biles|d[ií]as?(?:\s+corridos)?|semanas?|mes(?:es)?)`;
 /** "15 días hábiles contados desde la fecha de notificación…", "3 meses a partir de la aprobación…". */
@@ -227,3 +240,41 @@ export function readPdc(text: string, projectId: string, base: string, baseKnown
 }
 
 export const pdcObligations = (text: string, projectId: string, base: string, baseKnown = false) => readPdc(text, projectId, base, baseKnown).obligations;
+
+const WORDNUM = String.raw`((?:\d{1,3})|(?:[a-záéíóúñ]+(?:\s+y\s+[a-záéíóúñ]+)?)(?:\s*\(\d+\))?)`;
+
+/** ¿Es la resolución de la SMA que aprueba un programa de cumplimiento? Fija el plazo total y cuándo se reporta. */
+export function looksLikeApproval(text: string): boolean {
+  return /RESUELVO/.test(text) && /plazo\s+total\s+fijado/i.test(text) && /programa\s+de\s+cumplimiento/i.test(text);
+}
+
+/**
+ * Lee la resolución que aprueba el programa: de ahí salen el plazo total, la carga en el SPDC y el reporte final.
+ * Todo corre desde la notificación de esa resolución (`base`).
+ */
+export function readApproval(text: string, projectId: string, base: string, baseKnown = false): PdcReading {
+  const part = text.slice(Math.max(0, text.search(/RESUELVO/)));
+  const note = baseKnown ? '' : ' La fecha se calculó desde hoy: ajústala a la fecha en que te notificaron la resolución.';
+  const out: Obligation[] = [];
+  let n = 0;
+  const push = (title: string, plain: string, date: string, quote: string, section: string) =>
+    out.push({ id: `${projectId}-ap${++n}`, projectId, title, plain, component: 'Administrativo', recipient: 'SMA', frequency: { kind: 'once', date }, quote: cut(clean(quote), 400), section, evidence: 'Comprobante de carga en el SPDC', confirmed: false, source: 'rca' });
+
+  const load = part.match(new RegExp(String.raw`cargar\s+el\s+programa[\s\S]{0,500}?\bSPDC\b[\s\S]{0,200}?plazo\s+de\s+${WORDNUM}\s+d[ií]as\s+h[aá]biles\s+contados\s+desde\s+la\s+notificaci[oó]n`, 'i'));
+  const loadDays = load && esNumber(load[1]);
+  if (load && loadDays) push('Cargar el programa de cumplimiento aprobado en el SPDC', `Plazo: ${loadDays} días hábiles desde la notificación de la resolución que lo aprueba.${note}`, addTerm(base, { n: loadDays, unit: 'habiles' }), load[0], 'Resolución que aprueba el PdC');
+
+  const tot = part.match(new RegExp(String.raw`plazo\s+total\s+fijado[\s\S]{0,200}?(?:es\s+de|corresponde\s+a)\s+${WORDNUM}\s+meses[^.]*\.`, 'i'));
+  const months = tot && esNumber(tot[1]);
+  let totalMonths: number | undefined;
+  if (tot && months) {
+    totalMonths = months;
+    const end = addTerm(base, { n: months, unit: 'meses' });
+    const fin = part.match(new RegExp(String.raw`[^.]*(?:plazo\s+de\s+${WORDNUM}\s+d[ií]as\s+h[aá]biles\s+desde\s+la\s+finalizaci[oó]n|dentro\s+de\s+un\s+mes\s+contado\s+desde\s+el\s+cumplimiento)[^.]*\.`, 'i'));
+    const days = fin && fin[1] ? esNumber(fin[1]) : undefined;
+    push('Terminan las acciones del programa de cumplimiento', `Plazo total fijado por la SMA: ${months} meses desde la notificación de la resolución.${note}`, end, tot[0], 'Resolución que aprueba el PdC');
+    if (fin) push('Reporte final del programa de cumplimiento', days ? `Cargar el reporte final en el SPDC ${days} días hábiles después de terminar la acción más larga.${note}` : `Cargar el reporte final en el SPDC dentro de un mes desde que vence el plazo total.${note}`,
+      days ? addTerm(end, { n: days, unit: 'habiles' }) : addTerm(end, { n: 1, unit: 'meses' }), fin[0], 'Resolución que aprueba el PdC');
+  }
+  return { obligations: out, format: out.length ? 'guia' : 'ninguno', actions: out.length, totalMonths };
+}

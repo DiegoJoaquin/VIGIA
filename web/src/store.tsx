@@ -57,7 +57,7 @@ interface Store {
   saveImport: (d: ImportDraft, keep: string[], documentId?: string, feedback?: FeedbackItem[]) => Promise<string>;
   uploadDocument: (projectId: string, kind: DocumentKind, file: File) => Promise<DocumentRef>;
   deleteDocument: (d: DocumentRef) => Promise<void>;
-  extractDocument: (id: string) => Promise<ImportDraft>;
+  extractDocument: (id: string, notified?: string) => Promise<ImportDraft>;
   logout: () => Promise<void>;
   setVentanilla: (projectId: string, a: VentanillaAnswers) => Promise<void>;
   setNotify: (n: NotifySettings) => Promise<void>;
@@ -175,7 +175,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       try { await source.deleteDocument(d.id); say('Documento eliminado'); }
       catch (e) { setSnap((s) => (s ? { ...s, documents: [d, ...s.documents] } : s)); say((e as Error).message); }
     },
-    extractDocument: (id) => source.extractDocument(id),
+    extractDocument: (id, notified) => source.extractDocument(id, notified),
     logout: async () => { await source.logout(); location.href = '/'; },
     setVentanilla: async (id, a) => {
       const next = await source.setVentanilla(id, a);

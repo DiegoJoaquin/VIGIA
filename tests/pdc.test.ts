@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { addTerm, looksLikePdc, readPdc } from '../shared/pdc';
+import { addTerm, esNumber, looksLikeApproval, looksLikePdc, readApproval, readPdc } from '../shared/pdc';
 
 const txt = (n: string) => readFileSync(`${__dirname}/eval/texts/${n}.txt`, 'utf8');
 const BASE = '2026-01-05'; // lunes
@@ -45,5 +45,38 @@ describe('lector de programas de cumplimiento', () => {
     const r = readPdc('Resolución de calificación ambiental favorable. El titular deberá informar.', 'p', BASE);
     expect(r.obligations).toEqual([]);
     expect(looksLikePdc('hola')).toBe(false);
+  });
+});
+
+describe('números en palabras', () => {
+  it('entiende los plazos que escribe la SMA', () => {
+    expect(esNumber('veintiséis')).toBe(26);
+    expect(esNumber('diecinueve')).toBe(19);
+    expect(esNumber('treinta y cuatro')).toBe(34);
+    expect(esNumber('diez (10)')).toBe(10);
+    expect(esNumber('20')).toBe(20);
+    expect(esNumber('veintiuno')).toBe(21);
+    expect(esNumber('hola')).toBeUndefined();
+  });
+});
+
+describe('resolución que aprueba el programa', () => {
+  it('Leñadura: 19 meses, carga en 10 días hábiles y reporte final 20 días hábiles después', () => {
+    const t = txt('pdc-aprueba-lenadura');
+    expect(looksLikeApproval(t)).toBe(true);
+    const r = readApproval(t, 'p', BASE, true);
+    expect(r.totalMonths).toBe(19);
+    const by = (re: RegExp) => r.obligations.find((o) => re.test(o.title))!;
+    expect(by(/Cargar/).frequency.date).toBe('2026-01-19');
+    expect(by(/Terminan/).frequency.date).toBe('2027-08-05');
+    expect(by(/Reporte final/).frequency.date).toBe(addTerm('2027-08-05', { n: 20, unit: 'habiles' }));
+  });
+  it('Guerrico: veintiséis meses y reporte final dentro de un mes', () => {
+    const r = readApproval(txt('pdc-aprueba-guerrico'), 'p', BASE, true);
+    expect(r.totalMonths).toBe(26);
+    expect(r.obligations.find((o) => /Reporte final/.test(o.title))!.frequency.date).toBe('2028-04-05');
+  });
+  it('un programa o una RCA no se confunden con la resolución', () => {
+    expect(looksLikeApproval(txt('pdc-lenadura'))).toBe(false);
   });
 });
