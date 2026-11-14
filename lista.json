@@ -1,0 +1,21 @@
+[
+ {
+  "empresa": "ENGIE AUSTRAL S.A.",
+  "proyecto": "HyEx - Producción de Hidrógeno Verde",
+  "tipo": "DIA",
+  "fecha": "23/08/2021",
+  "comuna": "Tocopilla",
+  "domicilio": "Av. Isidora Goyenechea 2800, Piso 16, Las Condes",
+  "correos": [
+   "pablo.espinosa@engie.com"
+  ],
+  "telefono": "+56 222900400",
+  "consultora": "Jaime Illanes y Asoc.",
+  "consultoraCorreos": [
+   "d_rios@jaimeillanes.cl"
+  ],
+  "consultoraTelefono": "25508900",
+  "otrosProyectos": [],
+  "ficha": "https://seia.sea.gob.cl/expediente/expediente.php?id_expediente=2152970568&modo=ficha"
+ }
+]
