@@ -158,7 +158,7 @@ export function findBlocks(text: string): Block[] {
       const t = hk === 'compromiso' ? (h[3].replace(/^compromisos?\s+(ambiental(es)?\s+)?voluntarios?\s*(n[°º]?\s*)?\d*\s*[-–:.]?\s*/i, '') || h[3]) : h[3];
       // "8.1. COMPONENTE/MATERIA: …" lleva el nombre de la norma en la línea "Norma …" que sigue.
       const normaLine = hk === 'norma' ? lines.slice(i + 1, i + 4).find((l) => /^\s*Norma\s+\S/.test(l)) : undefined;
-      cur = { num: `${h[1]}.${h[2]}`, title: normaLine ? clean(normaLine.replace(/^\s*Norma\s+/, '')) : titleOf(t, lines[i + 1]), kind: hk, body: '' };
+      cur = { num: `${h[1]}.${h[2]}`, title: normaLine ? clean(normaLine.replace(/^\s*Norma\s+/, '')) : titleOf(t.replace(/^COMPONENTE\s*\/\s*MATERIA\s*:\s*/i, ''), lines[i + 1]), kind: hk, body: '' };
       continue;
     }
     const near = lines.slice(i + 1, i + 6).join('\n');
@@ -275,7 +275,9 @@ function shortNorm(t: string): string {
     .replace(/N\s*[°º]\s*/g, 'N° ').replace(/(\d+)\s*,?\s+de\s+(\d{4})/, '$1/$2');
   const m = /^.*?\d+(\.\d{3})*(\s*\/\s*\d{2,4})?/.exec(x);
   if (m && m[0].length <= 40) x = m[0];
-  return cut(x.replace(/[,.]\s*$/, ''), 40);
+  // Un nombre de materia ("Patrimonio arqueológico, paleontológico y cultural") se queda con su primera parte.
+  else if (!/\d/.test(x)) x = x.split(/[,;:(]/)[0];
+  return cut(x.replace(/[,.]\s*$/, ''), 34);
 }
 
 const SECTION_NAME: Record<BlockKind, string> = { condicion: 'Condición de la RCA', compromiso: 'Compromiso voluntario', medida: 'Medida', seguimiento: 'Plan de seguimiento', norma: 'Norma aplicable' };
@@ -364,10 +366,11 @@ export function ruleObligationsRaw(text: string, projectId: string): Obligation[
       const adj = FREQ.find((f) => f.kind === kind)!.adj;
       const periodic = !['event', 'continuous', 'once'].includes(kind);
       const hallazgo = kind === 'event' && /hallazgo|restos\s+arqueol|materiales\s+arqueol|identificaci[oó]n\s+y\s+recuperaci[oó]n/i.test(lead.s) && !/charla/i.test(base);
-      const title = cut(
+      const withAdj = (t: string) => (norma && periodic && !t.toLowerCase().includes(adj) ? `${t} ${adj}` : t);
+      const title = cut(withAdj(
         periodic && lead.report ? `${base}: informe ${adj}` :
         hallazgo ? `${base}: si hay hallazgos` :
-        kind === 'once' ? `${base}: ${/informe\s+final|final\s+del\s+proyecto|t[eé]rmino\s+de\s+(la\s+)?(obra|construcci)/i.test(lead.s) ? 'informe final' : lead.report ? 'informe' : 'una vez'}` : base, 60);
+        kind === 'once' ? `${base}: ${/informe\s+final|final\s+del\s+proyecto|t[eé]rmino\s+de\s+(la\s+)?(obra|construcci)/i.test(lead.s) ? 'informe final' : lead.report ? 'informe' : 'una vez'}` : base).replace(/:\s*:/g, ':'), 72);
 
       const frequency: Frequency = { kind };
       if (kind === 'event') frequency.hoursAfterEvent = 24;
