@@ -186,7 +186,7 @@ export function findBlocks(text: string): Block[] {
     const near = lines.slice(i + 1, i + 6).join('\n');
     // "Tabla 8.1.2. Plan de Coordinación con bomberos": tabla de compromiso sin la sigla CAV.
     const tabC = sectionKind === 'compromiso' ? /^\s*Tabla\s+(\d{1,2}(?:\.\d{1,2}){2})\.?\s+(\S.{3,})$/i.exec(line) : null;
-    const cav = CAV_LINE.exec(line) ?? (tabC && TABLE_LABEL.test(near) && !(cur && cur.num === tabC[1]) ? ({ groups: { name: tabC[2] } } as unknown as RegExpExecArray) : null);
+    const cav: RegExpExecArray | null = CAV_LINE.exec(line) ?? (tabC && TABLE_LABEL.test(near) && !(cur && cur.num === tabC[1]) ? ({ groups: { name: tabC[2] } } as unknown as RegExpExecArray) : null);
     if (cav && line.length < 160 && (TABLE_LABEL.test(near) || /^\s*Tabla/i.test(line))) {
       push();
       unnamed++;
