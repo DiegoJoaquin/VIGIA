@@ -115,6 +115,21 @@ El proyecto aparece en la cuenta de ese correo con todos los compromisos "por re
 
 Alternativa sin servidor: el botón "Importar RCA" de la app usa Workers AI (capa gratuita de Cloudflare). Sirve para RCA cortas; para RCA largas y mejor calidad, usa el extractor local.
 
+## Servicio concierge (RCA revisada a mano)
+
+Con pocos clientes, lo más seguro es revisar la RCA a mano antes de entregarla. Se lee la RCA completa, se corrige y se guarda como `borrador.json` (`{ "project": {…}, "obligations": […] }`). Luego:
+
+```bash
+VIGIA_API=https://vigia.<tu-subdominio>.workers.dev EXTRACTOR_TOKEN=TU_TOKEN \
+  node tools/concierge/subir.mjs borrador.json cliente@empresa.cl
+```
+
+Llega a la cuenta de ese correo ya confirmada (sin el aviso "por revisar"). Con `--por-revisar` llega como lectura automática.
+
+Si el cliente ya subió la RCA por su cuenta, agrega `--reemplazar`: se borra la lectura automática que nadie ha usado (sin cumplimientos, eventos ni pruebas adjuntas) y se pone la lista verificada. Lo que el cliente ya trabajó se conserva. El proyecto se busca por id o por nombre. `EXTRACTOR_TOKEN` debe tener al menos 16 caracteres.
+
+Cada RCA revisada se agrega a `tests/eval/gold` para que la lectura automática mejore.
+
 ## Capas gratuitas que usa
 
 | Servicio | Límite gratis | Uso típico de Vigía |
