@@ -1,0 +1,19 @@
+name: SEIA lista
+on:
+  workflow_dispatch:
+    inputs:
+      cantidad: { description: 'Cantidad de proyectos', default: '100' }
+permissions:
+  contents: write
+jobs:
+  lista:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: node tools/seia/lista.mjs ../out ${{ inputs.cantidad }}
+      - run: |
+          cd ../out && git init -q -b seia-lista && git config user.name vigia && git config user.email vigia@users.noreply.github.com
+          git add -A && git commit -qm lista && git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" seia-lista
