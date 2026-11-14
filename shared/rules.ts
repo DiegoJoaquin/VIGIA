@@ -36,10 +36,10 @@ const FREQ: { kind: FrequencyKind; re: RegExp; adj: string }[] = [
   { kind: 'quarterly', re: /trimestral|cada\s+(tres|3)\s+meses|\bestacional(es)?(?![a-záéíóúñ\d])|(cuatro|4)\s+(veces\s+al\s+a[nñ]o|(muestreos|campa[nñ]as|monitoreos|mediciones)\s+anuales)/i, adj: 'trimestral' },
   { kind: 'semiannual', re: /semestral|cada\s+(seis|6|cinco|5)\s+meses|(dos|2)\s+veces\s+(al|por)\s+a[nñ]o|(dos|2)\s+(censos|campa[nñ]as|muestreos|monitoreos|mediciones)\s+anuales|\bbianual(es)?(?![a-záéíóúñ\d])/i, adj: 'semestral' },
   { kind: 'annual', re: /\banual(mente)?(?![a-záéíóúñ\d])|cada\s+a[nñ]o(?![a-záéíóúñ\d])|una\s+vez\s+al\s+a[nñ]o|(1|una)\s+vez\s+(al|por)\s+a[nñ]o|cada\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)|de\s+cada\s+a[nñ]o|cada\s+uno\s+de\s+los\s+\d+\s+a[nñ]os|(la|cada)\s+(temporada|[eé]poca)\s+estival/i, adj: 'anual' },
-  { kind: 'weekly', re: /semanal(mente)?|cada\s+semana/i, adj: 'semanal' },
+  { kind: 'weekly', re: /semanal(mente)?|cada\s+semana|veces\s+(a|por)\s+la\s+semana|una\s+vez\s+(a|por)\s+la\s+semana/i, adj: 'semanal' },
   { kind: 'event', re: /cada\s+vez\s+que|en\s+caso\s+de|previo\s+al\s+inicio\s+de\s+cada|se\s+incorpore\s+personal|ante\s+(la|el|un|una)\s+(ocurrencia|hallazgo|reclamo)|frente\s+a\s+(un|una)\s+hallazgo|(desde|de)\s+(la\s+)?ocurr(encia|ido)\s+(de\s+)?(un|el)\s+evento|antes\s+de\s+iniciar\s+cualquier|previo\s+a\s+(cada|cualquier)\s|(ante|frente\s+a|por|tras|recibid[oa])\s+((un|una|el|la|cada|cualquier|alg[uú]n|alguna|eventuales?)\s+)?(derrame|contingencia|incidente|queja|reclamo|denuncia|crecida)s?(?![a-záéíóúñ\d])|eventos?\s+de\s+(crecida|lluvia)/i, adj: 'cada vez' },
   { kind: 'continuous', re: /permanente(mente)?|\(diario\)|diariamente|\bdiari[oa]s?(?![a-záéíóúñ\d])|todos\s+los\s+d[ií]as|en\s+todo\s+momento|durante\s+toda\s+la\s+(fase|etapa)|una\s+vez\s+al\s+d[ií]a|\d+\s+veces\s+al\s+d[ií]a|\bkm\/h(?![a-záéíóúñ\d])|en\s+buen\s+estado/i, adj: 'permanente' },
-  { kind: 'once', re: /una\s+(sola\s+)?vez(?!\s+(al\s+(mes|a[nñ]o|d[ií]a|semestre|trimestre|semana)|que|[a-záéíóúñ]+(ad|id)[oa]s?(?![a-záéíóúñ])))|al\s+(t[eé]rmino|finalizar|final\s+de)|informe\s+final|previo\s+al\s+inicio\s+de\s+(las?\s+)?(obras|operaci[oó]n|construcci[oó]n|faenas)|antes\s+del\s+inicio|posterior\s+a\s+la\s+(obtenci[oó]n\s+de\s+la\s+)?RCA|luego\s+del\s+despeje|una\s+vez\s+(obtenida|aprobada|notificada|otorgada)\s+(la\s+)?(RCA|resoluci)|\buna\s+(\(1\)\s+)?(campa[nñ]a|medici[oó]n|muestra)\b(?!\s+(anual|semestral|mensual|trimestral))|por\s+[uú]nica\s+vez|en\s+un\s+plazo\s+(m[aá]ximo\s+)?de\s+\d+\s+d[ií]as\s+(h[aá]biles\s+)?(desde|contados)|con\s+al\s+menos\s+\d+\s+meses\s+de\s+antelaci[oó]n/i, adj: 'una vez' },
+  { kind: 'once', re: /una\s+(sola\s+)?vez(?!\s+(al\s+(mes|a[nñ]o|d[ií]a|semestre|trimestre|semana)|que|[a-záéíóúñ]+(ad|id)[oa]s?(?![a-záéíóúñ])))|al\s+(t[eé]rmino|finalizar|final\s+de)|informe\s+final|previo\s+al\s+inicio\s+de\s+(las?\s+)?(obras|operaci[oó]n|construcci[oó]n|faenas)|antes\s+del\s+inicio|(?:previo|preliminar(?:mente)?|antes)\s+(?:de\s+manera\s+preliminar\s+)?al\s+inicio\s+de\s+la\s+fase\s+de\s+(?:construcci|operaci|cierre)|de\s+manera\s+preliminar\s+al\s+inicio|posterior\s+a\s+la\s+(obtenci[oó]n\s+de\s+la\s+)?RCA|luego\s+del\s+despeje|una\s+vez\s+(obtenida|aprobada|notificada|otorgada)\s+(la\s+)?(RCA|resoluci)|\buna\s+(\(1\)\s+)?(campa[nñ]a|medici[oó]n|muestra)\b(?!\s+(anual|semestral|mensual|trimestral))|por\s+[uú]nica\s+vez|en\s+un\s+plazo\s+(m[aá]ximo\s+)?de\s+\d+\s+d[ií]as\s+(h[aá]biles\s+)?(desde|contados)|con\s+al\s+menos\s+\d+\s+meses\s+de\s+antelaci[oó]n/i, adj: 'una vez' },
 ];
 
 const RECIPIENTS: [RegExp, Recipient][] = [
@@ -72,7 +72,7 @@ interface Block { num: string; title: string; kind: BlockKind; body: string; num
 
 // "7°. Que,", "10. Que,", "12.- Que,"
 const CONSIDERANDO = /^\s*(\d{1,2})\s*[°º]?\s*\.?-?\s*Que\b/;
-const RELEVANT = /normativa|condiciones|exigencias|compromisos?\s+(ambiental(es)?|voluntarios?)|medidas\s+de\s+(mitigaci|reparaci|compensaci)|plan(es)?\s+de\s+seguimiento|seguimiento\s+de\s+las\s+variables/i;
+const RELEVANT = /normativa|condici(ón|on|ones)\b|exigencias?|compromisos?\s+(ambiental(es)?|voluntarios?)|medidas\s+de\s+(mitigaci|reparaci|compensaci)|plan(es)?\s+de\s+seguimiento|seguimiento\s+de\s+las\s+variables/i;
 const SKIP = /contingencias|emergencias|participaci[oó]n\s+ciudadana|observaciones\s+ciudadanas|permisos\s+ambientales\s+sectoriales|pronunciamiento/i;
 // Una tabla de norma empieza con el nombre de la norma y, pocas líneas después, uno de estos rótulos.
 const TABLE_LABEL = /Relaci[oó]n\s+con\s+el\s+proyecto|Componente\s*\/\s*materia|^\s*Materia\b|Fase\s+del\s+Proyecto|Parte,?\s+obra|Impacto\s+asociado|Forma\s+de\s+cumplimiento|Objetivo/i;
@@ -133,7 +133,7 @@ export function findBlocks(text: string): Block[] {
       sectionKind = /compromisos?\s+(ambiental(es)?\s+)?voluntarios?/i.test(head) ? 'compromiso'
         : /medidas\s+de\s+(mitigaci|reparaci|compensaci)/i.test(head) ? 'medida'
         : /plan(es)?\s+de\s+seguimiento|seguimiento\s+de\s+las\s+variables/i.test(head) ? 'seguimiento'
-        : /condiciones|exigencias/i.test(head) && !/normativa/i.test(head) ? 'condicion' : undefined;
+        : /condici(ón|on|ones)\b|exigencias?/i.test(head) && !/normativa/i.test(head) ? 'condicion' : undefined;
       if (/^\s*RESUELVO/.test(line)) inRegion = false;
       continue;
     }

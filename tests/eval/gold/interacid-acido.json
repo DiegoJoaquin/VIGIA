@@ -1,0 +1,19 @@
+{
+  "doc": "interacid-acido", "tipo": "DIA", "set": "ajuste",
+  "items": [
+    { "num": ["8.8"], "kind": "weekly", "que": "Retiro de residuos domiciliarios al menos 3 veces a la semana" },
+    { "num": ["8.12"], "kind": "event", "que": "Aviso al CMN ante hallazgo arqueológico o paleontológico" },
+    { "num": ["8.12"], "kind": "monthly", "que": "Informe mensual de monitoreo paleontológico a SMA y CMN" },
+    { "num": ["8.12"], "kind": "semiannual", "que": "Informe semestral paleontológico" },
+    { "num": ["8.12"], "kind": ["monthly", "continuous"], "que": "Monitoreo paleontológico permanente" },
+    { "num": ["8.12"], "kind": "monthly", "que": "Registro de charlas de inducción remitido a SMA y CMN en los primeros 30 días del mes siguiente" },
+    { "num": ["8.12"], "kind": "event", "que": "Rescate de restos ante hallazgo" },
+    { "num": ["8.14"], "kind": "event", "que": "Informe de hallazgo directo de fauna a SMA y SAG" },
+    { "num": ["8.15"], "kind": "event", "que": "Informe de hallazgo de golondrinas de mar a SMA y SAG" },
+    { "num": ["9.1"], "kind": "once", "que": "Carta de compromiso de depósito paleontológico al CMN antes de la construcción" },
+    { "num": ["10.1"], "kind": "monthly", "que": "Registro mensual de trabajadores y servicios locales" },
+    { "num": ["10.2"], "kind": ["event", "once"], "que": "Capacitaciones al inicio de construcción y cierre" },
+    { "num": ["10.3"], "kind": "event", "que": "Reposición de insumos a bomberos tras una emergencia" },
+    { "num": ["10.4"], "kind": "once", "que": "Monitoreo del gaviotín chico previo a las obras e informe a la SMA" }
+  ]
+}
