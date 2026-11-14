@@ -365,13 +365,14 @@ app.get('/api/extractor/feedback', async (c) => {
 // El extractor local (tu servidor con Ollama) sube RCA ya leídas con un token propio.
 app.post('/api/extractor/upload', async (c) => {
   if (!bearerOk(c.req.header('authorization'), c.env.EXTRACTOR_TOKEN)) return c.json({ error: 'Token inválido.' }, 401);
-  const { email, draft } = await c.req.json<{ email: string; draft: { project: Project; obligations: Obligation[] } }>();
+  const { email, draft, verified } = await c.req.json<{ email: string; draft: { project: Project; obligations: Obligation[] }; verified?: boolean }>();
   const u = await c.env.DB.prepare('SELECT org_id FROM users WHERE email = ?').bind(cleanEmail(email)).first<{ org_id: string }>();
   if (!u) return c.json({ error: 'Ese correo no tiene cuenta en Vigía.' }, 404);
   const project = cleanProject(draft?.project);
   const obligations = (Array.isArray(draft?.obligations) ? draft.obligations.slice(0, 500) : []).map(cleanObligation).filter((o): o is Obligation => !!o);
   if (!project) return c.json({ error: 'El borrador no tiene el formato esperado.' }, 400);
-  const r = await saveDraft(c.env, u.org_id, { project, obligations }, null, false); // quedan "por revisar"
+  // Una lista revisada a mano por el operador (verified) llega confirmada; una lectura automática queda "por revisar".
+  const r = await saveDraft(c.env, u.org_id, { project, obligations }, null, verified === true);
   return c.json({ ok: true, ...r });
 });
 
