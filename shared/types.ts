@@ -77,6 +77,8 @@ export interface Project {
   operationEnd?: string;
   /** Primera fecha desde la que se generan ocurrencias. */
   trackingStart: string;
+  /** Fecha en que el equipo de Vigía revisó la lista de compromisos contra la RCA. */
+  reviewedAt?: string;
 }
 
 export interface Completion {

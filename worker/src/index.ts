@@ -372,6 +372,7 @@ app.post('/api/extractor/upload', async (c) => {
   const obligations = (Array.isArray(draft?.obligations) ? draft.obligations.slice(0, 500) : []).map(cleanObligation).filter((o): o is Obligation => !!o);
   if (!project) return c.json({ error: 'El borrador no tiene el formato esperado.' }, 400);
   let removed = 0;
+  if (verified === true) project.reviewedAt = todayInChile();
   if (replace) {
     // Reemplaza la lectura automática de un proyecto que el cliente ya subió: el proyecto se busca por id o por nombre.
     const mine = await c.env.DB.prepare('SELECT data FROM projects WHERE org_id = ?').bind(u.org_id).all<{ data: string }>();
@@ -379,6 +380,7 @@ app.post('/api/extractor/upload', async (c) => {
       ?? (mine.results ?? []).map((r) => JSON.parse(r.data) as Project).find((p) => p.name.trim().toLowerCase() === project.name.trim().toLowerCase());
     if (!target) return c.json({ error: 'No hay un proyecto con ese id o nombre en esa cuenta. Quita "replace" para crearlo.' }, 404);
     project.id = target.id;
+    if (verified === true) await putProject(c.env, u.org_id, { ...target, reviewedAt: project.reviewedAt }).run();
     // Se borra solo lo que nadie ha usado: sin cumplimientos, sin eventos y sin pruebas adjuntas (lo ya trabajado se conserva).
     const del = await c.env.DB.prepare(
       `DELETE FROM obligations WHERE org_id = ?1 AND project_id = ?2

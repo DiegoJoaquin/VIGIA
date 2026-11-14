@@ -222,6 +222,7 @@ _, sa = a.req('GET', '/api/snapshot')
 obs = [o for o in sa['obligations'] if o['projectId'] == 'rca-1']
 check(len(obs) == 6 and sum(1 for o in obs if o['id'].startswith('rca-1:v')) == 5, 'quedan 5 verificados más el que ya estaba cumplido')
 check(first['id'] in [o['id'] for o in obs], 'el compromiso con un cumplimiento registrado sigue ahí')
+check(re.match(r'\d{4}-\d{2}-\d{2}$', next(p for p in sa['projects'] if p['id'] == 'rca-1').get('reviewedAt', '')), 'el proyecto queda marcado como revisado, con la fecha')
 
 print('Páginas públicas')
 for path, needle in [('/privacidad', 'Política de privacidad'), ('/terminos', 'Términos de uso'), ('/robots.txt', 'Sitemap:'), ('/sitemap.xml', '<urlset')]:

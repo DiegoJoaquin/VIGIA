@@ -82,5 +82,6 @@ export function cleanProject(p: unknown): Project | null {
     ...(isoDate(x.operationStart) ? { operationStart: isoDate(x.operationStart) } : {}),
     ...(isoDate(x.operationEnd) ? { operationEnd: isoDate(x.operationEnd) } : {}),
     trackingStart,
+    ...(isoDate(x.reviewedAt) ? { reviewedAt: isoDate(x.reviewedAt) } : {}),
   };
 }

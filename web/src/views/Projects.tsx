@@ -10,7 +10,7 @@ import { downloadText } from '../data/sheet';
 import { toCsv } from '../../../shared/standard';
 import { MiniRing, ObligationRow, OccurrenceRow, Ring, Segmented } from '../components';
 import { fileSize, longDate, relative, shortDate } from '../format';
-import { IconAlert, IconBack, IconBolt, IconChevron, IconClose, IconDoc, IconLink, IconPin, IconPlus, IconSpark, IconUpload } from '../icons';
+import { IconAlert, IconBack, IconCheck, IconBolt, IconChevron, IconClose, IconDoc, IconLink, IconPin, IconPlus, IconSpark, IconUpload } from '../icons';
 import { useStore } from '../store';
 
 export function Projects() {
@@ -72,6 +72,7 @@ export function ProjectDetail({ id }: { id: string }) {
         <h1 className="large-title">{p.shortName}</h1>
         <p className="muted">{p.name}</p>
         <div className="meta-line">
+          {p.reviewedAt && <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, color: 'var(--ok, var(--accent))', fontWeight: 600 }}><IconCheck size={14} />Lista revisada por Vigía · {shortDate(p.reviewedAt, s.today)}</span>}
           <span>{p.titular}</span>
           <span><IconPin size={14} />{p.comuna}, {p.region}</span>
           <span>Fase de {p.phase.toLowerCase()}{p.operationEnd ? ` hasta ${shortDate(p.operationEnd, s.today)}` : ''}</span>
