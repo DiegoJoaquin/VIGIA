@@ -1,0 +1,18 @@
+# Baja el PDF original de algunas RCA públicas del SEIA, para probar la app con documentos auténticos.
+name: RCA originales
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          mkdir -p out && cd out
+          get() { curl -sSL -A "Mozilla/5.0" --retry 3 -o "$1" "$2"; printf '%s\t%s\t%s\n' "$1" "$(stat -c %s "$1")" "$(head -c 5 "$1" | tr -d '\n\0')" >> _report.tsv; }
+          get RCA_Lacteos_Rafulco_original.pdf "https://seia.sea.gob.cl/archivos/2024/10/01/RCA_N_20241001187__Lacteos_Rafulco__FIRMADA.pdf"
+          get RCA_Aridos_San_Vicente_original.pdf "https://seia.sea.gob.cl/archivos/2022/04/29/RCA_Aridos_San_Vicente.pdf"
+          get RCA_Aridos_Quillen_original.pdf "https://seia.sea.gob.cl/archivos/2025/07/25/RCA_Ampliacion_Pozo_Extraccion_de_Aridos_Cantera_Quillen.pdf"
+          cat _report.tsv
+          git init -q -b rca-originales && git config user.name vigia && git config user.email vigia@users.noreply.github.com
+          git add -A && git commit -qm "RCA originales (SEIA)" && git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" rca-originales
