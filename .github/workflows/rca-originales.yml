@@ -7,12 +7,31 @@ jobs:
   fetch:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
       - run: |
           mkdir -p out && cd out
-          get() { curl -sSL -A "Mozilla/5.0" --retry 3 -o "$1" "$2"; printf '%s\t%s\t%s\n' "$1" "$(stat -c %s "$1")" "$(head -c 5 "$1" | tr -d '\n\0')" >> _report.tsv; }
-          get RCA_Lacteos_Rafulco_original.pdf "https://seia.sea.gob.cl/archivos/2024/10/01/RCA_N_20241001187__Lacteos_Rafulco__FIRMADA.pdf"
-          get RCA_Aridos_San_Vicente_original.pdf "https://seia.sea.gob.cl/archivos/2022/04/29/RCA_Aridos_San_Vicente.pdf"
-          get RCA_Aridos_Quillen_original.pdf "https://seia.sea.gob.cl/archivos/2025/07/25/RCA_Ampliacion_Pozo_Extraccion_de_Aridos_Cantera_Quillen.pdf"
-          cat _report.tsv
+          cat > ../get.mjs <<'JS'
+          import { writeFileSync, appendFileSync } from 'node:fs';
+          const L = [
+            ['RCA_Lacteos_Rafulco_original.pdf', 'https://seia.sea.gob.cl/archivos/2024/10/01/RCA_N_20241001187__Lacteos_Rafulco__FIRMADA.pdf'],
+            ['RCA_Aridos_San_Vicente_original.pdf', 'https://seia.sea.gob.cl/archivos/2022/04/29/RCA_Aridos_San_Vicente.pdf'],
+            ['RCA_Aridos_Quillen_original.pdf', 'https://seia.sea.gob.cl/archivos/2025/07/25/RCA_Ampliacion_Pozo_Extraccion_de_Aridos_Cantera_Quillen.pdf'],
+          ];
+          for (const [n, u] of L) {
+            let line = n + '\tERROR';
+            for (let k = 0; k < 4; k++) {
+              try {
+                const r = await fetch(u, { headers: { 'user-agent': 'Mozilla/5.0 Vigia' }, signal: AbortSignal.timeout(120000) });
+                const b = Buffer.from(await r.arrayBuffer());
+                line = `${n}\t${r.status}\t${b.length}\t${b.subarray(0, 5).toString('latin1')}`;
+                if (r.ok && b.subarray(0, 4).toString() === '%PDF') { writeFileSync(n, b); break; }
+              } catch (e) { line = `${n}\t${e.message}`; }
+              await new Promise((r) => setTimeout(r, 3000));
+            }
+            appendFileSync('_report.tsv', line + '\n');
+          }
+          JS
+          node ../get.mjs; cat _report.tsv; ls -la
           git init -q -b rca-originales && git config user.name vigia && git config user.email vigia@users.noreply.github.com
           git add -A && git commit -qm "RCA originales (SEIA)" && git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" rca-originales
