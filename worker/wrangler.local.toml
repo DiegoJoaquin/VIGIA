@@ -37,4 +37,4 @@ MAIL_FROM_NAME = "Vigía"
 #   VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VAPID_SUBJECT   (notificaciones en el celular)
 #   EXTRACTOR_TOKEN                                       (para que tu servidor suba RCA leídas con Ollama)
 
-EXTRACTOR_TOKEN = "test-token"
+EXTRACTOR_TOKEN = "test-token-solo-para-pruebas-locales"

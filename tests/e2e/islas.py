@@ -198,6 +198,31 @@ check(code == 401, 'Bob ya no puede entrar')
 _, sa = a.req('GET', '/api/snapshot')
 check(len(sa['projects']) == 2 and len(sa['documents']) == 1, 'Viña A no se ve afectada')
 
+print('Servicio concierge: reemplazar la lectura automática por una lista verificada')
+def operator_upload(body, token='test-token-solo-para-pruebas-locales'):
+    rq = urllib.request.Request(BASE + '/api/extractor/upload', data=json.dumps(body).encode(), method='POST',
+                                headers={'content-type': 'application/json', 'authorization': f'Bearer {token}'})
+    try:
+        with urllib.request.urlopen(rq) as resp: return resp.status, json.loads(resp.read())
+    except urllib.error.HTTPError as e: return e.code, json.loads(e.read() or b'{}')
+_, sa = a.req('GET', '/api/snapshot')
+proj = next(p for p in sa['projects'] if p['id'] == 'rca-1')
+before = [o for o in sa['obligations'] if o['projectId'] == 'rca-1']
+first = before[0]
+a.req('POST', '/api/completions', {'obligationId': first['id'], 'due': '2026-11-30'})
+verified = draft('rca-1', 5)
+for i, o in enumerate(verified['obligations']): o['id'] = f'v{i}'
+code, r = operator_upload({'email': 'ana@vina-a.cl', 'draft': verified, 'verified': True, 'replace': True}, token='mala')
+check(code == 401, 'sin el token del operador no se puede reemplazar nada')
+code, r = operator_upload({'email': 'ana@vina-a.cl', 'draft': {**verified, 'project': {**verified['project'], 'id': 'otro', 'name': 'No existe'}}, 'verified': True, 'replace': True})
+check(code == 404, 'reemplazar un proyecto que la cuenta no tiene responde 404 y no crea nada')
+code, r = operator_upload({'email': 'ana@vina-a.cl', 'draft': verified, 'verified': True, 'replace': True})
+check(code == 200 and r['removed'] == len(before) - 1, f'reemplaza todo lo que nadie usó y conserva el compromiso ya cumplido {r}')
+_, sa = a.req('GET', '/api/snapshot')
+obs = [o for o in sa['obligations'] if o['projectId'] == 'rca-1']
+check(len(obs) == 6 and sum(1 for o in obs if o['id'].startswith('rca-1:v')) == 5, 'quedan 5 verificados más el que ya estaba cumplido')
+check(first['id'] in [o['id'] for o in obs], 'el compromiso con un cumplimiento registrado sigue ahí')
+
 print('Páginas públicas')
 for path, needle in [('/privacidad', 'Política de privacidad'), ('/terminos', 'Términos de uso'), ('/robots.txt', 'Sitemap:'), ('/sitemap.xml', '<urlset')]:
     code, body = a.req('GET', path, raw=True)

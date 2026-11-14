@@ -365,15 +365,32 @@ app.get('/api/extractor/feedback', async (c) => {
 // El extractor local (tu servidor con Ollama) sube RCA ya leídas con un token propio.
 app.post('/api/extractor/upload', async (c) => {
   if (!bearerOk(c.req.header('authorization'), c.env.EXTRACTOR_TOKEN)) return c.json({ error: 'Token inválido.' }, 401);
-  const { email, draft, verified } = await c.req.json<{ email: string; draft: { project: Project; obligations: Obligation[] }; verified?: boolean }>();
+  const { email, draft, verified, replace } = await c.req.json<{ email: string; draft: { project: Project; obligations: Obligation[] }; verified?: boolean; replace?: boolean }>();
   const u = await c.env.DB.prepare('SELECT org_id FROM users WHERE email = ?').bind(cleanEmail(email)).first<{ org_id: string }>();
   if (!u) return c.json({ error: 'Ese correo no tiene cuenta en Vigía.' }, 404);
   const project = cleanProject(draft?.project);
   const obligations = (Array.isArray(draft?.obligations) ? draft.obligations.slice(0, 500) : []).map(cleanObligation).filter((o): o is Obligation => !!o);
   if (!project) return c.json({ error: 'El borrador no tiene el formato esperado.' }, 400);
+  let removed = 0;
+  if (replace) {
+    // Reemplaza la lectura automática de un proyecto que el cliente ya subió: el proyecto se busca por id o por nombre.
+    const mine = await c.env.DB.prepare('SELECT data FROM projects WHERE org_id = ?').bind(u.org_id).all<{ data: string }>();
+    const target = (mine.results ?? []).map((r) => JSON.parse(r.data) as Project).find((p) => p.id === project.id)
+      ?? (mine.results ?? []).map((r) => JSON.parse(r.data) as Project).find((p) => p.name.trim().toLowerCase() === project.name.trim().toLowerCase());
+    if (!target) return c.json({ error: 'No hay un proyecto con ese id o nombre en esa cuenta. Quita "replace" para crearlo.' }, 404);
+    project.id = target.id;
+    // Se borra solo lo que nadie ha usado: sin cumplimientos, sin eventos y sin pruebas adjuntas (lo ya trabajado se conserva).
+    const del = await c.env.DB.prepare(
+      `DELETE FROM obligations WHERE org_id = ?1 AND project_id = ?2
+         AND id NOT IN (SELECT obligation_id FROM completions WHERE org_id = ?1)
+         AND id NOT IN (SELECT obligation_id FROM events WHERE org_id = ?1)
+         AND id NOT IN (SELECT obligation_id FROM evidence WHERE org_id = ?1)`,
+    ).bind(u.org_id, target.id).run();
+    removed = del.meta?.changes ?? 0;
+  }
   // Una lista revisada a mano por el operador (verified) llega confirmada; una lectura automática queda "por revisar".
   const r = await saveDraft(c.env, u.org_id, { project, obligations }, null, verified === true);
-  return c.json({ ok: true, ...r });
+  return c.json({ ok: true, removed, ...r });
 });
 
 app.put('/api/settings/notify', async (c) => {
