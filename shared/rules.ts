@@ -35,11 +35,11 @@ const FREQ: { kind: FrequencyKind; re: RegExp; adj: string }[] = [
   { kind: 'bimonthly', re: /bimestral|bimensual|cada\s+(dos|2)\s+meses|periodicidad\s+de\s+(dos|2)\s+meses/i, adj: 'bimestral' },
   { kind: 'quarterly', re: /trimestral|cada\s+(tres|3)\s+meses|\bestacional(es)?(?![a-záéíóúñ\d])|(cuatro|4)\s+(veces\s+al\s+a[nñ]o|(muestreos|campa[nñ]as|monitoreos|mediciones)\s+anuales)/i, adj: 'trimestral' },
   { kind: 'semiannual', re: /semestral|cada\s+(seis|6|cinco|5)\s+meses|(dos|2)\s+veces\s+(al|por)\s+a[nñ]o|(dos|2)\s+(censos|campa[nñ]as|muestreos|monitoreos|mediciones)\s+anuales|\bbianual(es)?(?![a-záéíóúñ\d])/i, adj: 'semestral' },
-  { kind: 'annual', re: /\banual(mente)?(?![a-záéíóúñ\d])|cada\s+a[nñ]o(?![a-záéíóúñ\d])|una\s+vez\s+al\s+a[nñ]o|(1|una)\s+vez\s+(al|por)\s+a[nñ]o|cada\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)|de\s+cada\s+a[nñ]o|cada\s+uno\s+de\s+los\s+\d+\s+a[nñ]os|(la|cada)\s+(temporada|[eé]poca)\s+estival/i, adj: 'anual' },
+  { kind: 'annual', re: /\banual(es|mente)?(?![a-záéíóúñ\d])|cada\s+a[nñ]o(?![a-záéíóúñ\d])|una\s+vez\s+al\s+a[nñ]o|(1|una)\s+vez\s+(al|por)\s+a[nñ]o|cada\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)|de\s+cada\s+a[nñ]o|cada\s+uno\s+de\s+los\s+\d+\s+a[nñ]os|(la|cada)\s+(temporada|[eé]poca)\s+estival/i, adj: 'anual' },
   { kind: 'weekly', re: /semanal(mente)?|cada\s+semana|veces\s+(a|por)\s+la\s+semana|una\s+vez\s+(a|por)\s+la\s+semana/i, adj: 'semanal' },
   { kind: 'event', re: /cada\s+vez\s+que|en\s+caso\s+de|previo\s+al\s+inicio\s+de\s+cada|se\s+incorpore\s+personal|ante\s+(la|el|un|una)\s+(ocurrencia|hallazgo|reclamo)|frente\s+a\s+(un|una)\s+hallazgo|(desde|de)\s+(la\s+)?ocurr(encia|ido)\s+(de\s+)?(un|el)\s+evento|antes\s+de\s+iniciar\s+cualquier|previo\s+a\s+(cada|cualquier)\s|(ante|frente\s+a|por|tras|recibid[oa])\s+((un|una|el|la|cada|cualquier|alg[uú]n|alguna|eventuales?)\s+)?(derrame|contingencia|incidente|queja|reclamo|denuncia|crecida)s?(?![a-záéíóúñ\d])|eventos?\s+de\s+(crecida|lluvia)/i, adj: 'cada vez' },
   { kind: 'continuous', re: /permanente(mente)?|\(diario\)|diariamente|\bdiari[oa]s?(?![a-záéíóúñ\d])|todos\s+los\s+d[ií]as|en\s+todo\s+momento|durante\s+toda\s+la\s+(fase|etapa)|una\s+vez\s+al\s+d[ií]a|\d+\s+veces\s+al\s+d[ií]a|\bkm\/h(?![a-záéíóúñ\d])|en\s+buen\s+estado/i, adj: 'permanente' },
-  { kind: 'once', re: /una\s+(sola\s+)?vez(?!\s+(al\s+(mes|a[nñ]o|d[ií]a|semestre|trimestre|semana)|que|[a-záéíóúñ]+(ad|id)[oa]s?(?![a-záéíóúñ])))|al\s+(t[eé]rmino|finalizar|final\s+de)|informe\s+final|previo\s+al\s+inicio\s+de\s+(las?\s+)?(obras|operaci[oó]n|construcci[oó]n|faenas)|antes\s+del\s+inicio|(?:previo|preliminar(?:mente)?|antes)\s+(?:de\s+manera\s+preliminar\s+)?al\s+inicio\s+de\s+la\s+fase\s+de\s+(?:construcci|operaci|cierre)|de\s+manera\s+preliminar\s+al\s+inicio|posterior\s+a\s+la\s+(obtenci[oó]n\s+de\s+la\s+)?RCA|luego\s+del\s+despeje|una\s+vez\s+(obtenida|aprobada|notificada|otorgada)\s+(la\s+)?(RCA|resoluci)|\buna\s+(\(1\)\s+)?(campa[nñ]a|medici[oó]n|muestra)\b(?!\s+(anual|semestral|mensual|trimestral))|por\s+[uú]nica\s+vez|en\s+un\s+plazo\s+(m[aá]ximo\s+)?de\s+\d+\s+d[ií]as\s+(h[aá]biles\s+)?(desde|contados)|con\s+al\s+menos\s+\d+\s+meses\s+de\s+antelaci[oó]n/i, adj: 'una vez' },
+  { kind: 'once', re: /una\s+(sola\s+)?vez(?!\s+(al\s+(mes|a[nñ]o|d[ií]a|semestre|trimestre|semana)|que|[a-záéíóúñ]+(ad|id)[oa]s?(?![a-záéíóúñ])))|al\s+(t[eé]rmino|finalizar|final\s+de)|informe\s+final|previo\s+al\s+inicio\s+de\s+(las?\s+)?(obras|operaci[oó]n|construcci[oó]n|faenas)|antes\s+del\s+inicio|(?:previo|preliminar(?:mente)?|antes)\s+(?:de\s+manera\s+preliminar\s+)?al\s+inicio\s+de\s+la\s+fase\s+de\s+(?:construcci|operaci|cierre)|de\s+manera\s+preliminar\s+al\s+inicio|antes\s+del\s+inicio\s+de\s+(?:las\s+)?(?:operaciones|obras|construcci[oó]n)|posterior\s+a\s+la\s+(obtenci[oó]n\s+de\s+la\s+)?RCA|luego\s+del\s+despeje|una\s+vez\s+(obtenida|aprobada|notificada|otorgada)\s+(la\s+)?(RCA|resoluci)|\buna\s+(\(1\)\s+)?(campa[nñ]a|medici[oó]n|muestra)\b(?!\s+(anual|semestral|mensual|trimestral))|por\s+[uú]nica\s+vez|en\s+un\s+plazo\s+(m[aá]ximo\s+)?de\s+\d+\s+d[ií]as\s+(h[aá]biles\s+)?(desde|contados)|con\s+al\s+menos\s+\d+\s+meses\s+de\s+antelaci[oó]n/i, adj: 'una vez' },
 ];
 
 const RECIPIENTS: [RegExp, Recipient][] = [
@@ -67,11 +67,14 @@ const clean = (s: string) => s.replace(/\s+/g, ' ').trim();
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 const cut = (s: string, n: number) => (s.length <= n ? s : `${s.slice(0, s.lastIndexOf(' ', n - 1) > n * 0.6 ? s.lastIndexOf(' ', n - 1) : n - 1)}…`);
 
-type BlockKind = 'condicion' | 'compromiso' | 'medida' | 'seguimiento' | 'norma';
+type BlockKind = 'condicion' | 'compromiso' | 'medida' | 'seguimiento' | 'norma' | 'contingencia';
 interface Block { num: string; title: string; kind: BlockKind; body: string; numbered?: boolean }
 
 // "7°. Que,", "10. Que,", "12.- Que,"
 const CONSIDERANDO = /^\s*(\d{1,2})\s*[°º]?\s*\.?-?\s*Que\b/;
+// Algunas resoluciones numeran sin "Que": "8°. El proyecto contará con los siguientes compromisos…" (solo después de CONSIDERANDO).
+const CONSIDERANDO_FREE = /^\s*(\d{1,2})\s*°\s*\.-?\s+\S/;
+const CONT_HEAD = /^\s*(?:Tabla\s+)?(10\.\d{1,2}\.\d{1,2})\.?\s+(\S.{3,})$/i;
 const RELEVANT = /normativa|condici(ón|on|ones)\b|exigencias?|compromisos?\s+(ambiental(es)?|voluntarios?)|medidas\s+de\s+(mitigaci|reparaci|compensaci)|plan(es)?\s+de\s+seguimiento|seguimiento\s+de\s+las\s+variables/i;
 const SKIP = /contingencias|emergencias|participaci[oó]n\s+ciudadana|observaciones\s+ciudadanas|permisos\s+ambientales\s+sectoriales|pronunciamiento/i;
 // Una tabla de norma empieza con el nombre de la norma y, pocas líneas después, uno de estos rótulos.
@@ -118,21 +121,30 @@ export function findBlocks(text: string): Block[] {
   let considerando = '';
   let sectionKind: BlockKind | undefined;
   let unnamed = 0;
-  const push = () => { if (cur && cur.body.trim()) blocks.push(cur); cur = null; };
+  let afterCons = false;
+  // Todas las tablas del plan de emergencias dicen lo mismo ("se comunicará a la SMA en 24 horas"): una sola obligación.
+  let emergency = false;
+  let em: Block | null = null;
+  const push = () => { if (cur && cur !== em && cur.body.trim()) blocks.push(cur); cur = null; };
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    const c = CONSIDERANDO.exec(line);
+    if (/^\s*CONSIDERANDO\s*:/.test(line)) afterCons = true;
+    const free = afterCons && !CONSIDERANDO.test(line) ? CONSIDERANDO_FREE.exec(line) : null;
+    // Sin "Que" solo vale el considerando que sigue en la numeración.
+    const c = CONSIDERANDO.exec(line) ?? (free && Number(free[1]) === Number(considerando) + 1 ? free : null);
     if (c) {
       const head = lines.slice(i, i + 3).join(' ');
       push();
       considerando = c[1];
       unnamed = 0;
-      inRegion = !anyRelevant || (RELEVANT.test(head) && !SKIP.test(head));
+      const contingency = /plan(es)?\s+de\s+(prevenci[oó]n\s+de\s+contingencias|emergencias)|contingencias\s+y\s+(de\s+)?emergencias/i.test(head);
+      inRegion = !anyRelevant || contingency || (RELEVANT.test(head) && !SKIP.test(head));
       // Lo que se numere dentro de este considerando es de su tipo: "12. Que, … propuso los siguientes compromisos voluntarios".
       sectionKind = /compromisos?\s+(ambiental(es)?\s+)?voluntarios?/i.test(head) ? 'compromiso'
         : /medidas\s+de\s+(mitigaci|reparaci|compensaci)/i.test(head) ? 'medida'
         : /plan(es)?\s+de\s+seguimiento|seguimiento\s+de\s+las\s+variables/i.test(head) ? 'seguimiento'
+        : contingency ? 'contingencia'
         : /condici(ón|on|ones)\b|exigencias?/i.test(head) && !/normativa/i.test(head) ? 'condicion' : undefined;
       if (/^\s*RESUELVO/.test(line)) inRegion = false;
       continue;
@@ -142,6 +154,16 @@ export function findBlocks(text: string): Block[] {
     if (/^\s*RESUELVO\s*:?/.test(line)) { push(); inRegion = false; continue; }
     if (!inRegion) continue;
 
+    // Plan de contingencias y de emergencias: una tabla por riesgo ("Tabla 10.1.3 Ante remoción en masa").
+    if (sectionKind === 'contingencia' && /^\s*10\.2\.?\s+PLAN\s+DE\s+EMERGENCIAS/i.test(line)) { push(); emergency = true; continue; }
+    const ch = sectionKind === 'contingencia' ? CONT_HEAD.exec(line) : null;
+    if (ch && line.length < 170) {
+      push();
+      if (emergency) { em ??= { num: `${considerando}.E`, title: 'Plan de emergencias', kind: 'contingencia', body: '' }; cur = em; continue; }
+      unnamed++;
+      cur = { num: ch[1], title: titleOf(ch[2], lines[i + 1]), kind: 'contingencia', body: '' };
+      continue;
+    }
     const h = BLOCK_HEAD.exec(line);
     // "7.1.1. Recuperación de suelo": una medida dentro de "7.1. FASE DE OPERACIÓN".
     const h3 = /^\s*(\d{1,2})\.(\d{1,2})\.(\d{1,2})\.?\s+(\S.{3,})$/.exec(line);
@@ -162,11 +184,13 @@ export function findBlocks(text: string): Block[] {
       continue;
     }
     const near = lines.slice(i + 1, i + 6).join('\n');
-    const cav = CAV_LINE.exec(line);
+    // "Tabla 8.1.2. Plan de Coordinación con bomberos": tabla de compromiso sin la sigla CAV.
+    const tabC = sectionKind === 'compromiso' ? /^\s*Tabla\s+(\d{1,2}(?:\.\d{1,2}){2})\.?\s+(\S.{3,})$/i.exec(line) : null;
+    const cav = CAV_LINE.exec(line) ?? (tabC && TABLE_LABEL.test(near) && !(cur && cur.num === tabC[1]) ? ({ groups: { name: tabC[2] } } as unknown as RegExpExecArray) : null);
     if (cav && line.length < 160 && (TABLE_LABEL.test(near) || /^\s*Tabla/i.test(line))) {
       push();
       unnamed++;
-      cur = { num: `${considerando}.${unnamed}`, title: titleOf((cav.groups?.name || 'Compromiso voluntario').replace(/^[“"]|[”"]$/g, ''), lines[i + 1]), kind: 'compromiso', body: '' };
+      cur = { num: /Tabla\s+(\d{1,2}(?:\.\d{1,2}){1,2})/i.exec(line)?.[1] ?? `${considerando}.${unnamed}`, title: titleOf((cav.groups?.name || 'Compromiso voluntario').replace(/^[“"]|[”"]$/g, ''), lines[i + 1]), kind: 'compromiso', body: '' };
       continue;
     }
     const normLine = line.replace(NORM_PREFIX, '');
@@ -183,6 +207,7 @@ export function findBlocks(text: string): Block[] {
     if (cur) cur.body += `${line}\n`;
   }
   push();
+  if (em && (em as Block).body.trim()) blocks.push(em);
   return blocks;
 }
 
@@ -280,7 +305,7 @@ function shortNorm(t: string): string {
   return cut(x.replace(/[,.]\s*$/, ''), 34);
 }
 
-const SECTION_NAME: Record<BlockKind, string> = { condicion: 'Condición de la RCA', compromiso: 'Compromiso voluntario', medida: 'Medida', seguimiento: 'Plan de seguimiento', norma: 'Norma aplicable' };
+const SECTION_NAME: Record<BlockKind, string> = { condicion: 'Condición de la RCA', compromiso: 'Compromiso voluntario', medida: 'Medida', seguimiento: 'Plan de seguimiento', contingencia: 'Plan de contingencias', norma: 'Norma aplicable' };
 
 /** Lectura por reglas, sin el modelo de confianza (se usa para entrenarlo y medirlo). */
 export function ruleObligationsRaw(text: string, projectId: string): Obligation[] {
@@ -303,10 +328,10 @@ export function ruleObligationsRaw(text: string, projectId: string): Obligation[
     const inherited = oportunidad ? kindsOf(oportunidad)[0] : undefined;
 
     // Frases que obligan a algo, con su frecuencia.
-    const norma = b.kind === 'norma';
+    const norma = b.kind === 'norma' || b.kind === 'contingencia';
     const duties = all
       // En una tabla de norma solo cuenta lo que tiene frecuencia y es un control concreto ("monitoreo semestral").
-      .filter((s) => norma ? (frequencyOf(s) && MONITOR.test(s) && (frequencyOf(s)!.kind !== 'continuous' || /\d+\s+veces\s+al\s+d[ií]a|diariamente/i.test(s))) : (DUTY.test(s) || (REPORT.test(s) && (frequencyOf(s) || TO_AUTHORITY.test(s))) || ((b.kind === 'seguimiento' || b.kind === 'medida') && frequencyOf(s)) || (PERIODIC.has(frequencyOf(s)?.kind ?? '') && !/^(Objetivo|Justificaci[oó]n)\s*:/i.test(s))))
+      .filter((s) => norma ? (frequencyOf(s) && (MONITOR.test(s) || /comunic|mantenci[oó]n|simulacro|limpieza|retiro|revisi[oó]n/i.test(s)) && ((frequencyOf(s)!.kind !== 'continuous' && (b.kind !== 'contingencia' || frequencyOf(s)!.kind !== 'event' || /\d+\s*horas|\bplazo\b/i.test(s))) || /\d+\s+veces\s+al\s+d[ií]a|diariamente/i.test(s))) : (DUTY.test(s) || (REPORT.test(s) && (frequencyOf(s) || TO_AUTHORITY.test(s))) || ((b.kind === 'seguimiento' || b.kind === 'medida') && frequencyOf(s)) || (PERIODIC.has(frequencyOf(s)?.kind ?? '') && !/^(Objetivo|Justificaci[oó]n)\s*:/i.test(s))))
       .filter((s) => !/^(Objetivo:|Oportunidad:)/i.test(s) || (/^Oportunidad:/i.test(s) && PERIODIC.has(frequencyOf(s)?.kind ?? '')))
       // Los ítems de una lista de contenidos ("a) Superficie prospectada…") describen el informe, no son tareas.
       .filter((s) => norma || !/^([a-h]\)|[-•])/.test(s) || /\bdeber[aá]n?\b/i.test(s) || (REPORT.test(s) && /remitid|Superintendencia|SMA\b|CMN\b|SEREMI/.test(s)))
@@ -359,7 +384,7 @@ export function ruleObligationsRaw(text: string, projectId: string): Obligation[
       const leadSubject = subject(quoteOf(lead.s, lead.re ?? REPORT)) ?? subject(lead.s);
       // En un compromiso manda su nombre, salvo que la frase hable de otra cosa (una charla dentro del monitoreo).
       const sameThing = leadSubject && b.title.toLowerCase().startsWith(leadSubject.split(' ')[0].toLowerCase().replace(/s$/, ''));
-      const normName = norma ? shortNorm(b.title) : '';
+      const normName = b.kind === 'contingencia' ? cut(cap(b.title.replace(/^(en\s+caso\s+de\s+)?(riesgo|contingencia)\s+(de\s+|en\s+|ante\s+)?(caso\s+de\s+)?(ocurrencia\s+de\s+)?/i, '').replace(/^(un|una)\s+/i, '')), 44) : norma ? shortNorm(b.title) : '';
       const normWhat = leadSubject ?? cap((/monitoreo|medici[oó]n|muestreo|registro|informe|reporte|declaraci[oó]n|inspecci[oó]n|campa[nñ]a|charla|capacitaci[oó]n|an[aá]lisis|caracterizaci[oó]n|auditor[ií]a/i.exec(lead.s)?.[0] ?? 'control').toLowerCase());
       const base = norma ? `${normName}: ${normWhat}` : b.kind === 'compromiso' && b.title.length <= 48 && (!leadSubject || sameThing || kind !== 'event') ? cap(b.title)
         : (leadSubject ?? subject(b.title) ?? cap(b.title));
@@ -370,7 +395,7 @@ export function ruleObligationsRaw(text: string, projectId: string): Obligation[
       const title = cut(withAdj(
         periodic && lead.report ? `${base}: informe ${adj}` :
         hallazgo ? `${base}: si hay hallazgos` :
-        kind === 'once' ? `${base}: ${/informe\s+final|final\s+del\s+proyecto|t[eé]rmino\s+de\s+(la\s+)?(obra|construcci)/i.test(lead.s) ? 'informe final' : lead.report ? 'informe' : 'una vez'}` : base).replace(/:\s*:/g, ':'), 72);
+        kind === 'once' ? `${base}: ${/informe\s+final|final\s+del\s+proyecto|t[eé]rmino\s+de\s+(la\s+)?(obra|construcci)/i.test(lead.s) ? 'informe final' : lead.report ? 'informe' : 'una vez'}` : base).replace(/:\s*:/g, ':').replace(/\b(Inspecci|Mantenci|Capacitaci|Declaraci|Medici|Verificaci)on\b/g, '$1ón'), 80);
 
       const frequency: Frequency = { kind };
       if (kind === 'event') frequency.hoursAfterEvent = 24;
@@ -401,7 +426,7 @@ export function ruleObligationsRaw(text: string, projectId: string): Obligation[
 function dedupeRules(list: Obligation[]): Obligation[] {
   const key = (o: Obligation) => o.title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   // La misma declaración anual aparece bajo varias normas: basta una.
-  const tail = (o: Obligation) => o.section?.includes('Norma aplicable') ? `${o.frequency.kind}|${key(o).split(': ').slice(1).join(': ')}` : '';
+  const tail = (o: Obligation) => o.section?.includes('Norma aplicable') && /declaraci|sinader|retc|sidrep|ventanilla/.test(key(o)) ? `${o.frequency.kind}|${key(o).split(': ').slice(1).join(': ')}` : '';
   const seen = new Set<string>();
   list = list.filter((o) => { const t = tail(o); if (!t || t.endsWith('|')) return true; if (seen.has(t)) return false; seen.add(t); return true; });
   return list.filter((o, i) => !list.some((x, j) => j !== i && x.frequency.kind === o.frequency.kind && (
