@@ -25,12 +25,23 @@ async function search(q) {
   return [];
 }
 
-const clean = (h = '') => h.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+const lines = (h = '') => h.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, '\n').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').split('\n').map((l) => l.replace(/\s+/g, ' ').trim()).filter(Boolean);
 const EMAIL = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g;
-const PHONE = /(?:\+?56\s?)?(?:9\s?\d{4}\s?\d{4}|\(?\d{1,2}\)?[\s-]?\d{3,4}[\s-]?\d{3,4}|\d{8,9})/g;
+// "Titular", "Representante Legal" y "Empresa Consultora Ambiental" son bloques de la ficha con Nombre / Domicilio / Ciudad / Teléfono / Fax / E-mail.
+function block(ls, head) {
+  const i = ls.findIndex((l) => l.toLowerCase().startsWith(head));
+  if (i < 0) return {};
+  const end = ls.findIndex((l, k) => k > i && /^(representante legal|empresa consultora|cerrar|titular)/i.test(l));
+  const part = ls.slice(i + 1, end > 0 ? end : i + 30);
+  const get = (label) => { const k = part.findIndex((l) => l.toLowerCase().startsWith(label)); return k >= 0 ? (part[k + 1] ?? '') : ''; };
+  const mails = [...new Set((part.join(' ').match(EMAIL) ?? []).map((e) => e.toLowerCase()))];
+  const tel = get('tel');
+  return { nombre: get('nombre'), domicilio: get('domicilio'), ciudad: get('ciudad'), telefono: /\d/.test(tel) ? tel : '', correos: mails };
+}
 
 const seen = new Set();
 const rows = [];
+const empresas = new Map();
 let saved = 0;
 for (const term of TERMS) {
   if (rows.length >= LIMIT) break;
@@ -49,15 +60,20 @@ for (const term of TERMS) {
     } catch { continue; }
     await wait(700);
     if (saved < 4) { writeFileSync(`${out}/fichas/${d.EXPEDIENTE_ID}.html`, html); saved++; }
-    const text = clean(html);
-    // Contacto público del titular: se toma lo que está junto a "Titular" / "Representante legal" en la ficha.
-    const i = text.search(/Titular|Representante\s+Legal/i);
-    const near = i >= 0 ? text.slice(i, i + 1800) : text;
-    const emails = [...new Set((near.match(EMAIL) ?? []).filter((e) => !/sea\.gob\.cl|sma\.gob\.cl/i.test(e)).map((e) => e.toLowerCase()))];
-    const phones = [...new Set((near.match(PHONE) ?? []).map((p) => p.trim()))].slice(0, 2);
-    rows.push({ proyecto: d.EXPEDIENTE_NOMBRE, titular, tipo: d.WORKFLOW_DESCRIPCION, comuna: d.COMUNA_NOMBRE, region: d.REGION_NOMBRE ?? '', fecha: d.FECHA_PRESENTACION_FORMAT, correos: emails, telefonos: phones, ficha: d.EXPEDIENTE_URL_FICHA, id: d.EXPEDIENTE_ID });
-    console.log(rows.length, titular, '|', emails.join(','), '|', phones.join(','));
+    const ls = lines(html);
+    const t = block(ls, 'titular');
+    const c = block(ls, 'empresa consultora');
+    // Se lista una vez cada empresa (aunque tenga varios proyectos): un solo correo por empresa.
+    if (!t.correos?.length && !t.telefono) continue;
+    const key = titular.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+    if (empresas.has(key)) { empresas.get(key).otrosProyectos.push(d.EXPEDIENTE_NOMBRE); continue; }
+    const row = { empresa: titular, proyecto: d.EXPEDIENTE_NOMBRE, tipo: d.WORKFLOW_DESCRIPCION, fecha: d.FECHA_PRESENTACION_FORMAT, comuna: d.COMUNA_NOMBRE, domicilio: [t.domicilio, t.ciudad].filter(Boolean).join(', '),
+      correos: t.correos ?? [], telefono: t.telefono, consultora: c.nombre ?? '', consultoraCorreos: c.correos ?? [], consultoraTelefono: c.telefono ?? '', otrosProyectos: [], ficha: d.EXPEDIENTE_URL_FICHA };
+    empresas.set(key, row); rows.push(row);
+    console.log(rows.length, titular, '|', row.correos.join(','), '|', row.telefono);
   }
 }
 writeFileSync(`${out}/lista.json`, JSON.stringify(rows, null, 1));
+const q = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
+writeFileSync(`${out}/lista.csv`, '\ufeff' + ['empresa,proyecto,tipo,fecha,comuna,domicilio,correos,telefono,consultora,correos_consultora,telefono_consultora,otros_proyectos,ficha', ...rows.map((r) => [r.empresa, r.proyecto, r.tipo, r.fecha, r.comuna, r.domicilio, r.correos.join('; '), r.telefono, r.consultora, r.consultoraCorreos.join('; '), r.consultoraTelefono, r.otrosProyectos.join(' | '), r.ficha].map(q).join(','))].join('\n'));
 console.log('total', rows.length, 'con correo', rows.filter((r) => r.correos.length).length);
