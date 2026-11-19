@@ -1,3 +1,4 @@
+import { projectColor } from './projectColors';
 import { useEffect, useRef, useState } from 'react';
 import type { Obligation, Occurrence } from '../../shared/types';
 import { frequencyLabel } from '../../shared/recurrence';
@@ -47,7 +48,8 @@ function shortRelative(o: Occurrence): string {
 }
 
 export function OccurrenceRow({ o, showProject = true }: { o: Occurrence; showProject?: boolean }) {
-  const { complete, undo, open, today } = useStore();
+  const { complete, undo, open, today, snap } = useStore();
+  const color = projectColor(snap?.projects.map((p) => p.id) ?? [], o.project.id);
   const done = o.status === 'done';
   return (
     <div className="row">
@@ -62,7 +64,7 @@ export function OccurrenceRow({ o, showProject = true }: { o: Occurrence; showPr
         <span className="row-title">{o.obligation.title}</span>
         <span className="row-meta">
           <span className="num">{shortDate(o.due, today)}</span>
-          {showProject ? <span>{o.project.shortName}</span> : <span>{frequencyLabel(o.obligation.frequency)}</span>}
+          {showProject ? <span className="proj-tag"><i className="pdot" style={{ background: color }} />{o.project.shortName}</span> : <span>{frequencyLabel(o.obligation.frequency)}</span>}
           {o.obligation.recipient !== 'Interno' && <span>A {o.obligation.recipient}</span>}
           {o.completion && o.completion.evidence.length > 0 && <span>{o.completion.evidence.length} evidencia{o.completion.evidence.length > 1 ? 's' : ''}</span>}
         </span>
