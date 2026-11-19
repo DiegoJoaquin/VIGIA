@@ -1,9 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { longDate, relative, shortDate } from '../format';
 import { IconBell, IconCalendar, IconMail, IconPhone, IconRefresh } from '../icons';
 import { useStore } from '../store';
 import type { NotifySettings } from '../data/source';
-import { needsIosInstall } from '../update';
+import { INSTALL_EVENT, canInstall, installApp, needsIosInstall } from '../update';
 import { AccountSection, TeamSection } from './Team';
 
 function Switch({ id, checked, onChange, label }: { id: string; checked: boolean; onChange: (v: boolean) => void; label: string }) {
@@ -16,6 +16,12 @@ export function Settings() {
   const [preview, setPreview] = useState(false);
   const [msg, setMsg] = useState<string>();
   const [copied, setCopied] = useState(false);
+  const [installable, setInstallable] = useState(canInstall());
+  useEffect(() => {
+    const on = () => setInstallable(canInstall());
+    addEventListener(INSTALL_EVENT, on);
+    return () => removeEventListener(INSTALL_EVENT, on);
+  }, []);
   const set = (k: keyof NotifySettings) => (v: boolean) => s.setNotify({ ...n, [k]: v });
 
   const copy = async () => {
@@ -50,6 +56,9 @@ export function Settings() {
         <div className="group">
           <div className="setting"><span className="setting-icon"><IconPhone size={17} /></span><div className="setting-main"><span>Notificaciones en el celular</span><small>Llegan como cualquier app. En iPhone, primero agrega Vigía a tu pantalla de inicio.</small></div><Switch id="n-push" checked={n.push} onChange={set('push')} label="Notificaciones en el celular" /></div>
         </div>
+        {installable && (
+          <div className="banner is-info"><IconPhone size={18} /><div><p><strong>Instala Vigía en este equipo.</strong> Se abre como una app, sin barra del navegador, y puede avisarte de los vencimientos.</p><button className="btn small" onClick={installApp}>Instalar Vigía</button></div></div>
+        )}
         {needsIosInstall() && (
           <div className="banner is-info"><IconPhone size={18} /><p><strong>Estás viendo Vigía en Safari.</strong> Toca el botón Compartir (el cuadrado con la flecha hacia arriba), baja y elige "Agregar a inicio". Así se abre como app y puedes recibir notificaciones.</p></div>
         )}
