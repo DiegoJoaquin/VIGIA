@@ -1,9 +1,10 @@
 import type { FeedbackItem } from '../../shared/learning';
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import type { Completion, DocumentKind, DocumentRef, EvidenceRef, Obligation, Occurrence } from '../../shared/types';
 import { addDays, buildOccurrences, todayInChile } from '../../shared/recurrence';
 import type { VentanillaAnswers } from '../../shared/ventanilla';
 import { source, ApiSource, DemoSource, type ImportDraft, type NotifySettings, type Snapshot } from './data/source';
+import { UPDATE_EVENT, checkForUpdate, hardRefresh } from './update';
 
 export type Route =
   | { name: 'hoy' }
@@ -37,6 +38,14 @@ interface Store {
   error?: string;
   demo: boolean;
   today: string;
+  /** Vuelve a pedir los datos al servidor (compromisos nuevos, cambios de otra persona). */
+  refresh: () => Promise<void>;
+  refreshing: boolean;
+  /** Hay una versión nueva de la app lista; recargar la aplica. */
+  updateReady: boolean;
+  applyUpdate: () => void;
+  /** Borra la copia guardada de la app y la vuelve a descargar. */
+  reinstall: () => Promise<void>;
   snap?: Snapshot;
   occurrences: Occurrence[];
   route: Route;
@@ -75,10 +84,14 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [openKey, setOpenKey] = useState<string>();
   const [openObligation, setOpenObligation] = useState<string>();
   const [toast, setToast] = useState<Toast>();
+  const [refreshing, setRefreshing] = useState(false);
+  const [updateReady, setUpdateReady] = useState(false);
+  const busy = useRef(false);
+  const lastLoad = useRef(Date.now());
   const today = todayInChile();
 
   const reload = useCallback(async () => {
-    try { setSnap(await source.load()); } catch (e) {
+    try { setSnap(await source.load()); lastLoad.current = Date.now(); } catch (e) {
       if ((e as { auth?: boolean }).auth) setNeedLogin(true); else setError((e as Error).message);
     }
   }, []);
@@ -104,6 +117,44 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     const id = Date.now();
     setToast({ id, text, undo });
     setTimeout(() => setToast((t) => (t?.id === id ? undefined : t)), 4200);
+  }, []);
+
+  // Botón "Actualizar": vuelve a pedir los datos sin recargar la página ni perder la pantalla en que estás.
+  const refresh = useCallback(async (quiet = false) => {
+    if (busy.current) return;
+    busy.current = true;
+    setRefreshing(true);
+    try {
+      const next = await source.load();
+      setSnap(next);
+      setNeedLogin(false);
+      lastLoad.current = Date.now();
+      checkForUpdate();
+      if (!quiet) say('Actualizado');
+    } catch (e) {
+      if ((e as { auth?: boolean }).auth) setNeedLogin(true);
+      else if (!quiet) say('No se pudo actualizar. Revisa tu conexión.');
+    } finally {
+      busy.current = false;
+      setRefreshing(false);
+    }
+  }, [say]);
+
+  // Al volver a la app (desbloquear el celular, cambiar de pestaña) se actualiza sola si pasó más de un minuto.
+  useEffect(() => {
+    if (source.demo) return;
+    const back = () => {
+      if (document.visibilityState === 'visible' && Date.now() - lastLoad.current > 60_000) refresh(true);
+    };
+    document.addEventListener('visibilitychange', back);
+    addEventListener('online', back);
+    return () => { document.removeEventListener('visibilitychange', back); removeEventListener('online', back); };
+  }, [refresh]);
+
+  useEffect(() => {
+    const on = () => setUpdateReady(true);
+    addEventListener(UPDATE_EVENT, on);
+    return () => removeEventListener(UPDATE_EVENT, on);
   }, []);
 
   const patchCompletions = (fn: (c: Completion[]) => Completion[]) =>
@@ -142,6 +193,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const store: Store = {
     needLogin, ready: !!snap, error, demo: source.demo, today, snap, occurrences, route,
+    refresh: () => refresh(false), refreshing, updateReady,
+    applyUpdate: () => location.reload(), reinstall: hardRefresh,
     go: (r) => { location.hash = routeHash(r); },
     openKey, open: (k) => { setOpenKey(k); setOpenObligation(undefined); },
     openObligation, showObligation: (id) => { setOpenObligation(id); setOpenKey(undefined); },

@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { longDate, relative, shortDate } from '../format';
-import { IconBell, IconCalendar, IconMail, IconPhone } from '../icons';
+import { IconBell, IconCalendar, IconMail, IconPhone, IconRefresh } from '../icons';
 import { useStore } from '../store';
 import type { NotifySettings } from '../data/source';
+import { INSTALL_EVENT, canInstall, installApp, needsIosInstall } from '../update';
 import { AccountSection, TeamSection } from './Team';
 
 function Switch({ id, checked, onChange, label }: { id: string; checked: boolean; onChange: (v: boolean) => void; label: string }) {
@@ -15,6 +16,12 @@ export function Settings() {
   const [preview, setPreview] = useState(false);
   const [msg, setMsg] = useState<string>();
   const [copied, setCopied] = useState(false);
+  const [installable, setInstallable] = useState(canInstall());
+  useEffect(() => {
+    const on = () => setInstallable(canInstall());
+    addEventListener(INSTALL_EVENT, on);
+    return () => removeEventListener(INSTALL_EVENT, on);
+  }, []);
   const set = (k: keyof NotifySettings) => (v: boolean) => s.setNotify({ ...n, [k]: v });
 
   const copy = async () => {
@@ -49,6 +56,12 @@ export function Settings() {
         <div className="group">
           <div className="setting"><span className="setting-icon"><IconPhone size={17} /></span><div className="setting-main"><span>Notificaciones en el celular</span><small>Llegan como cualquier app. En iPhone, primero agrega Vigía a tu pantalla de inicio.</small></div><Switch id="n-push" checked={n.push} onChange={set('push')} label="Notificaciones en el celular" /></div>
         </div>
+        {installable && (
+          <div className="banner is-info"><IconPhone size={18} /><div><p><strong>Instala Vigía en este equipo.</strong> Se abre como una app, sin barra del navegador, y puede avisarte de los vencimientos.</p><button className="btn small" onClick={installApp}>Instalar Vigía</button></div></div>
+        )}
+        {needsIosInstall() && (
+          <div className="banner is-info"><IconPhone size={18} /><p><strong>Estás viendo Vigía en Safari.</strong> Toca el botón Compartir (el cuadrado con la flecha hacia arriba), baja y elige "Agregar a inicio". Así se abre como app y puedes recibir notificaciones.</p></div>
+        )}
         <p className="faint" style={{ fontSize: 'var(--t-meta)', paddingInline: 4 }}>Para instalar: en Safari toca Compartir y luego "Agregar a inicio". En Android, Chrome ofrece "Instalar app".</p>
       </section>
 
@@ -62,6 +75,20 @@ export function Settings() {
           <div className="copy-field"><code id="cal-url">{s.snap!.calendarUrl}</code><button className="btn small" onClick={copy}>{copied ? 'Copiado' : 'Copiar'}</button></div>
         </div>
       </section>
+
+      {!s.demo && (
+        <section className="section">
+          <div className="section-head"><h2>Actualizar la app</h2></div>
+          <div className="group form-card">
+            <p className="muted" style={{ fontSize: 'var(--t-meta)' }}>Si falta un compromiso que agregaron o la app se ve rara, actualiza. No cierra tu sesión ni borra nada.</p>
+            <div className="actions two">
+              <button className="btn secondary" onClick={s.refresh} disabled={s.refreshing}><IconRefresh size={18} className={s.refreshing ? 'spin' : undefined} />Actualizar los datos</button>
+              <button className="btn plain" onClick={s.reinstall}>Descargar la app de nuevo</button>
+            </div>
+            <p className="faint" style={{ fontSize: 'var(--t-meta)' }}>"Descargar la app de nuevo" borra la copia guardada en este equipo y trae la última versión. Úsalo si "Actualizar los datos" no arregla el problema.</p>
+          </div>
+        </section>
+      )}
 
       <AccountSection />
 
