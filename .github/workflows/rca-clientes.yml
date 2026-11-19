@@ -1,0 +1,39 @@
+# Baja los PDF públicos de las RCA de clientes interesados (SEIA) y los deja en la rama rca-clientes-out.
+name: RCA clientes
+on:
+  push:
+    branches: [rca-clientes-run]
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: |
+          mkdir -p out && cd out
+          cat > ../get.mjs <<'JS'
+          import { writeFileSync, appendFileSync } from 'node:fs';
+          const L = [
+            ['maltexco.pdf', 'https://seia.sea.gob.cl/archivos/2024/05/27/RCA202_1.PDF'],
+            ['fiume.pdf', 'https://firma.sea.gob.cl/publicaciones/79/e4/2151597087'],
+            ['jucosol.pdf', 'https://firma.sea.gob.cl/publicaciones/2023/07/31/1690831471_2159738575'],
+          ];
+          for (const [n, u] of L) {
+            let line = n + '\tERROR';
+            for (let k = 0; k < 4; k++) {
+              try {
+                const r = await fetch(u, { headers: { 'user-agent': 'Mozilla/5.0 Vigia' }, signal: AbortSignal.timeout(120000) });
+                const b = Buffer.from(await r.arrayBuffer());
+                line = `${n}\t${r.status}\t${b.length}\t${b.subarray(0, 5).toString('latin1')}`;
+                if (r.ok && b.subarray(0, 4).toString() === '%PDF') { writeFileSync(n, b); break; }
+              } catch (e) { line = `${n}\t${e.message}`; }
+              await new Promise((r) => setTimeout(r, 3000));
+            }
+            appendFileSync('_report.tsv', line + '\n');
+          }
+          JS
+          node ../get.mjs; cat _report.tsv; ls -la
+          git init -q -b rca-clientes-out && git config user.name vigia && git config user.email vigia@users.noreply.github.com
+          git add -A && git commit -qm "RCA clientes (SEIA)" && git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" rca-clientes-out
