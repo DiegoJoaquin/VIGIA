@@ -15,6 +15,24 @@ jobs:
         with: { node-version: 20, cache: npm }
       - run: npm ci
       - run: npm run build
+      # Primera vez: crea las llaves de las notificaciones del celular y las guarda como secretos de Cloudflare.
+      # Las llaves nunca salen de aquí ni se muestran; si ya existen, no se tocan.
+      - name: Activar notificaciones en el celular
+        working-directory: worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if npx wrangler secret list 2>/dev/null | grep -q VAPID_PRIVATE_KEY; then
+            echo "Las notificaciones ya estaban activadas."
+          else
+            node -e "const c=require('crypto');const j=c.generateKeyPairSync('ec',{namedCurve:'prime256v1'}).privateKey.export({format:'jwk'});const b=(x)=>Buffer.from(x,'base64url');require('fs').writeFileSync('.vapid-pub',Buffer.concat([Buffer.from([4]),b(j.x),b(j.y)]).toString('base64url'));require('fs').writeFileSync('.vapid-priv',j.d)"
+            npx wrangler secret put VAPID_PUBLIC_KEY < .vapid-pub
+            npx wrangler secret put VAPID_PRIVATE_KEY < .vapid-priv
+            echo -n "mailto:diazdiego011@gmail.com" | npx wrangler secret put VAPID_SUBJECT
+            rm -f .vapid-pub .vapid-priv
+            echo "Notificaciones activadas."
+          fi
       - run: npx wrangler deploy
         working-directory: worker
         env:

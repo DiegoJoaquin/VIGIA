@@ -72,6 +72,11 @@ export function Settings() {
             <span className="setting-icon"><IconCalendar size={17} /></span>
             <p className="muted" style={{ fontSize: 'var(--t-meta)' }}>Suscríbete una vez y cada vencimiento aparece en el calendario del iPhone, Google o Outlook, con su propio recordatorio. Se actualiza solo.</p>
           </div>
+          <div className="actions two">
+            <a className="btn" href={s.snap!.calendarUrl.replace(/^https?:\/\//, 'webcal://')}><IconCalendar size={16} />Agregar al calendario del iPhone</a>
+            <a className="btn secondary" href={`https://calendar.google.com/calendar/r?cid=${encodeURIComponent(s.snap!.calendarUrl.replace(/^https?:\/\//, 'webcal://'))}`} target="_blank" rel="noopener noreferrer">Agregar a Google Calendar (Android y Samsung)</a>
+          </div>
+          <p className="faint" style={{ fontSize: 'var(--t-meta)' }}>iPhone: toca el primer botón y luego "Suscribirse". Android y Samsung: toca el segundo y confirma; el calendario de Samsung muestra lo que está en tu cuenta de Google. Outlook: usa la dirección de abajo en "Agregar calendario desde Internet".</p>
           <div className="copy-field"><code id="cal-url">{s.snap!.calendarUrl}</code><button className="btn small" onClick={copy}>{copied ? 'Copiado' : 'Copiar'}</button></div>
         </div>
       </section>
