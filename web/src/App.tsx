@@ -1,5 +1,5 @@
 import { Sheet, Toast } from './components';
-import { IconCalendar, IconProjects, IconSettings, IconToday } from './icons';
+import { IconCalendar, IconProjects, IconRefresh, IconSettings, IconToday } from './icons';
 import { routeHash, useStore, type Route } from './store';
 import { Calendar } from './views/Calendar';
 import { Import } from './views/Import';
@@ -45,6 +45,16 @@ function useTitle(s: ReturnType<typeof useStore>) {
   useEffect(() => { document.title = `${label} · Vigía`; }, [label]);
 }
 
+/** Botón para traer lo último del servidor: sirve si algo se ve raro o si alguien agregó un compromiso desde otro equipo. */
+function RefreshButton({ label }: { label?: string }) {
+  const { refresh, refreshing } = useStore();
+  return (
+    <button className={label ? 'link-btn refresh-link' : 'icon-btn refresh-btn'} onClick={refresh} disabled={refreshing} aria-label="Actualizar" title="Actualizar" aria-busy={refreshing}>
+      <IconRefresh size={label ? 16 : 18} className={refreshing ? 'spin' : undefined} />{label}
+    </button>
+  );
+}
+
 export function App() {
   const s = useStore();
   useTitle(s);
@@ -80,7 +90,7 @@ export function App() {
           {!s.demo && (
             <span className="side-account">
               <span className="side-email" title={s.snap!.user.email}>{s.snap!.user.email}</span>
-              <button className="link-btn" onClick={s.logout}>Cerrar sesión</button>
+              <span className="side-actions"><RefreshButton label="Actualizar" /><button className="link-btn" onClick={s.logout}>Cerrar sesión</button></span>
             </span>
           )}
         </div>
@@ -95,7 +105,14 @@ export function App() {
         {!s.demo && (
           <div className="mobile-account">
             <span className="side-email">{s.snap!.user.email}</span>
+            <RefreshButton />
             <button className="link-btn" onClick={s.logout}>Cerrar sesión</button>
+          </div>
+        )}
+        {s.updateReady && (
+          <div className="update-banner" role="status">
+            <span>Hay una versión nueva de Vigía.</span>
+            <button className="link-btn" onClick={s.applyUpdate}>Actualizar</button>
           </div>
         )}
         {view}
