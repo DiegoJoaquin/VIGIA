@@ -33,6 +33,22 @@ jobs:
             rm -f .vapid-pub .vapid-priv
             echo "Notificaciones activadas."
           fi
+      # Correos: si en GitHub (Settings > Secrets) existen GAS_URL y GAS_TOKEN, se copian a Cloudflare.
+      - name: Activar envío de correos
+        working-directory: worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          GAS_URL: ${{ secrets.GAS_URL }}
+          GAS_TOKEN: ${{ secrets.GAS_TOKEN }}
+        run: |
+          if [ -n "$GAS_URL" ] && [ -n "$GAS_TOKEN" ]; then
+            printf '%s' "$GAS_URL" | npx wrangler secret put GAS_URL
+            printf '%s' "$GAS_TOKEN" | npx wrangler secret put GAS_TOKEN
+            echo "Correos activados."
+          else
+            echo "Faltan los secretos GAS_URL y GAS_TOKEN en GitHub; correos sin cambios."
+          fi
       - run: npx wrangler deploy
         working-directory: worker
         env:
