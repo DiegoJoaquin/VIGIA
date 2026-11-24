@@ -145,6 +145,7 @@ export function Sheet() {
   const scrimRef = useRef<HTMLDivElement>(null);
   const drag = useRef<{ id: number; y0: number; hist: { y: number; t: number }[]; dy: number } | null>(null);
   const [closing, setClosing] = useState(false);
+  const [confirmDel, setConfirmDel] = useState(false);
   const occ = s.openKey ? s.occurrences.find((o) => o.key === s.openKey) : undefined;
   const ob = occ?.obligation ?? s.snap?.obligations.find((o) => o.id === s.openObligation);
   const project = ob && s.snap?.projects.find((p) => p.id === ob.projectId);
@@ -164,6 +165,7 @@ export function Sheet() {
     addEventListener('keydown', onKey);
     return () => removeEventListener('keydown', onKey);
   });
+  useEffect(() => { setConfirmDel(false); }, [ob?.id]);
   useEffect(() => { if (ob) ref.current?.focus({ preventScroll: true }); }, [ob?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Arrastrar la hoja hacia abajo para cerrarla (celular). Sigue al dedo 1:1 y respeta la inercia al soltar.
@@ -271,6 +273,18 @@ export function Sheet() {
               </div>
             </div>
           )}
+
+          <div className="actions" style={{ marginTop: 8 }}>
+            {confirmDel
+              ? (
+                <>
+                  <p className="faint" style={{ fontSize: 'var(--t-meta)' }}>Se borrará este compromiso con su historial y sus pruebas adjuntas. No se puede deshacer.</p>
+                  <button className="btn small danger" onClick={() => s.deleteObligation(ob)}>Sí, eliminar</button>
+                  <button className="btn small plain" onClick={() => setConfirmDel(false)}>Cancelar</button>
+                </>
+              )
+              : <button className="btn small plain" onClick={() => setConfirmDel(true)}>Eliminar compromiso</button>}
+          </div>
 
           {history.length > 0 && (
             <section className="section">

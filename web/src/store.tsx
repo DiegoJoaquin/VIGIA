@@ -61,6 +61,8 @@ interface Store {
   attach: (o: Occurrence, files: FileList) => Promise<void>;
   logEvent: (ob: Obligation) => Promise<void>;
   confirm: (ids: string[]) => Promise<void>;
+  addObligation: (o: Obligation) => Promise<void>;
+  deleteObligation: (o: Obligation) => Promise<void>;
   extract: (url: string) => Promise<ImportDraft>;
   extractFile: (file: File) => Promise<ImportDraft>;
   saveImport: (d: ImportDraft, keep: string[], documentId?: string, feedback?: FeedbackItem[]) => Promise<string>;
@@ -208,6 +210,21 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       await source.confirm(ids);
       setSnap((s) => (s ? { ...s, obligations: s.obligations.map((o) => (ids.includes(o.id) ? { ...o, confirmed: true } : o)) } : s));
       say(ids.length === 1 ? 'Compromiso confirmado' : `${ids.length} compromisos confirmados`);
+    },
+    addObligation: async (o) => {
+      try {
+        await source.addObligation(o);
+        setSnap((s) => (s ? { ...s, obligations: [...s.obligations, { ...o, confirmed: true }] } : s));
+        say('Compromiso agregado');
+      } catch (e) { say((e as Error).message); }
+    },
+    deleteObligation: async (o) => {
+      try {
+        await source.deleteObligation(o.id);
+        setSnap((s) => (s ? { ...s, obligations: s.obligations.filter((x) => x.id !== o.id), completions: s.completions.filter((x) => x.obligationId !== o.id), events: s.events.filter((x) => x.obligationId !== o.id) } : s));
+        setOpenObligation(undefined);
+        say('Compromiso eliminado');
+      } catch (e) { say((e as Error).message); }
     },
     extract: (url) => source.extract(url),
     extractFile: (file) => source.extractFile(file),

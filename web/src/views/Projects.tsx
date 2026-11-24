@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { DOCUMENT_KINDS, type Component, type DocumentKind, type DocumentRef, type Obligation, type Project } from '../../../shared/types';
 import type { ImportDraft } from '../data/source';
 import { ReadingSteps, useReadingSteps } from './Import';
-import { ReviewDraft } from './Review';
+import { AddForm, ReviewDraft } from './Review';
 import { NotFound } from './NotFound';
 import { onTimeRate } from '../../../shared/recurrence';
 import { VENTANILLA_QUESTIONS, type VentanillaAnswers } from '../../../shared/ventanilla';
@@ -131,6 +131,7 @@ function Upcoming({ id }: { id: string }) {
 
 function Commitments({ project, obs }: { project: Project; obs: Obligation[] }) {
   const s = useStore();
+  const [adding, setAdding] = useState(false);
   const dated = obs.filter((o) => !['continuous', 'event'].includes(o.frequency.kind) && o.source === 'rca');
   const permanent = obs.filter((o) => o.frequency.kind === 'continuous');
   const events = obs.filter((o) => o.frequency.kind === 'event');
@@ -143,8 +144,10 @@ function Commitments({ project, obs }: { project: Project; obs: Obligation[] }) 
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <button className="btn small secondary" style={{ marginRight: 8 }} onClick={() => setAdding((v) => !v)}>{adding ? 'Cancelar' : 'Agregar compromiso'}</button>
         <button className="btn small secondary" onClick={exportSheet}>Descargar matriz (Excel)</button>
       </div>
+      {adding && <AddForm projectId={project.id} onCancel={() => setAdding(false)} onAdd={async (o) => { await s.addObligation(o); setAdding(false); }} />}
       {groups.map(({ c, list }) => (
         <section className="section" key={c}>
           <div className="section-head"><h2>{c}</h2><span className="count">{list.length}</span></div>

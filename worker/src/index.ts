@@ -275,6 +275,30 @@ app.post('/api/obligations/confirm', async (c) => {
   return c.json({ ok: true, count: targets.length });
 });
 
+// Agregar un compromiso a mano a un proyecto ya cargado.
+app.post('/api/obligations', async (c) => {
+  const o = cleanObligation(await c.req.json().catch(() => null));
+  const orgId = c.get('user').orgId;
+  if (!o || !(await ownsProject(c.env, orgId, o.projectId))) return c.json({ error: 'Compromiso con datos inválidos o proyecto no encontrado.' }, 404);
+  if (await obligationOrg(c.env, o.id)) return c.json({ error: 'Ese compromiso ya existe.' }, 409);
+  await putObligation(c.env, orgId, { ...o, confirmed: true }).run();
+  return c.json({ ok: true });
+});
+
+// Eliminar un compromiso, con su historial, eventos y pruebas adjuntas.
+app.delete('/api/obligations/:id', async (c) => {
+  const id = c.req.param('id');
+  if (!(await canTouch(c, id))) return c.json({ error: 'Compromiso no encontrado.' }, 404);
+  const orgId = c.get('user').orgId;
+  await c.env.DB.batch([
+    c.env.DB.prepare('DELETE FROM evidence WHERE org_id = ? AND obligation_id = ?').bind(orgId, id),
+    c.env.DB.prepare('DELETE FROM completions WHERE org_id = ? AND obligation_id = ?').bind(orgId, id),
+    c.env.DB.prepare('DELETE FROM events WHERE org_id = ? AND obligation_id = ?').bind(orgId, id),
+    c.env.DB.prepare('DELETE FROM obligations WHERE org_id = ? AND id = ?').bind(orgId, id),
+  ]);
+  return c.json({ ok: true });
+});
+
 app.put('/api/obligations/:id', async (c) => {
   const o = cleanObligation(await c.req.json());
   if (!o || o.id !== c.req.param('id') || !(await canTouch(c, o.id))) return c.json({ error: 'Compromiso no encontrado o con datos inválidos.' }, 404);
