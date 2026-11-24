@@ -43,6 +43,8 @@ export interface DataSource {
   logEvent(obligationId: string, note?: string): Promise<EventLog>;
   confirm(obligationIds: string[]): Promise<void>;
   updateObligation(o: Obligation): Promise<void>;
+  addObligation(o: Obligation): Promise<void>;
+  deleteObligation(id: string): Promise<void>;
   extract(url: string): Promise<ImportDraft>;
   extractFile(file: File): Promise<ImportDraft>;
   saveImport(draft: ImportDraft, keep: string[], documentId?: string, feedback?: FeedbackItem[]): Promise<{ projectId: string }>;
@@ -168,6 +170,16 @@ export class DemoSource implements DataSource {
 
   async updateObligation(o: Obligation) {
     this.s.obligations = this.s.obligations.map((x) => (x.id === o.id ? o : x));
+    this.save();
+  }
+
+  async addObligation(o: Obligation) {
+    this.s.obligations = [...this.s.obligations, { ...o, confirmed: true }];
+    this.save();
+  }
+
+  async deleteObligation(id: string) {
+    this.s.obligations = this.s.obligations.filter((o) => o.id !== id);
     this.save();
   }
 
@@ -367,6 +379,8 @@ export class ApiSource implements DataSource {
   }
   async confirm(ids: string[]) { await api('/obligations/confirm', { method: 'POST', body: JSON.stringify({ ids }) }); }
   async updateObligation(o: Obligation) { await api(`/obligations/${o.id}`, { method: 'PUT', body: JSON.stringify(o) }); }
+  async addObligation(o: Obligation) { await api('/obligations', { method: 'POST', body: JSON.stringify(o) }); }
+  async deleteObligation(id: string) { await api(`/obligations/${id}`, { method: 'DELETE' }); }
   extract(url: string) { return api<ImportDraft>('/import/extract', { method: 'POST', body: JSON.stringify({ url }), timeoutMs: 240_000 }); }
   extractFile(file: File) {
     const fd = new FormData();

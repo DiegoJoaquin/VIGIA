@@ -118,7 +118,7 @@ function Editor({ o, onChange }: { o: Obligation; onChange: (p: Partial<Obligati
   );
 }
 
-function AddForm({ projectId, onAdd, onCancel }: { projectId: string; onAdd: (o: Obligation) => void; onCancel: () => void }) {
+export function AddForm({ projectId, onAdd, onCancel }: { projectId: string; onAdd: (o: Obligation) => void; onCancel: () => void }) {
   const [title, setTitle] = useState('');
   const [kind, setKind] = useState<FrequencyKind>('monthly');
   const [recipient, setRecipient] = useState<Recipient>('SMA');
