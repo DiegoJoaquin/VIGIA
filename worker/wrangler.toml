@@ -5,6 +5,13 @@ main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]
 
+# Dominio propio (la zona vigiambiental.cl está en esta misma cuenta de Cloudflare).
+# La dirección vigia.diazdiego011.workers.dev sigue funcionando.
+routes = [
+  { pattern = "vigiambiental.cl", custom_domain = true },
+  { pattern = "www.vigiambiental.cl", custom_domain = true },
+]
+
 [assets]
 directory = "../web/dist"
 binding = "ASSETS"
@@ -31,7 +38,7 @@ enabled = true
 crons = ["0 11 * * *"]
 
 [vars]
-APP_URL = "https://vigia.diazdiego011.workers.dev"
+APP_URL = "https://vigiambiental.cl"
 APP_NAME = "Vigía"
 # brevo | resend | gas (Google Apps Script) | log (solo imprime en consola)
 MAIL_PROVIDER = "gas"
