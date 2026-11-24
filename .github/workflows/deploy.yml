@@ -42,7 +42,9 @@ jobs:
           GAS_URL: ${{ secrets.GAS_URL }}
           GAS_TOKEN: ${{ secrets.GAS_TOKEN }}
         run: |
-          if [ -n "$GAS_URL" ] && [ -n "$GAS_TOKEN" ]; then
+          if npx wrangler secret list 2>/dev/null | grep -q GAS_URL && npx wrangler secret list 2>/dev/null | grep -q GAS_TOKEN; then
+            echo "El envío de correos ya estaba activado."
+          elif [ -n "$GAS_URL" ] && [ -n "$GAS_TOKEN" ]; then
             printf '%s' "$GAS_URL" | npx wrangler secret put GAS_URL
             printf '%s' "$GAS_TOKEN" | npx wrangler secret put GAS_TOKEN
             echo "Correos activados."
