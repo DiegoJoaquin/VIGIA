@@ -1,0 +1,701 @@
+<!--Comparador de proyectos-->
+<!--html para crear la lista flotante de expediente y el pop up de confirmacion -->
+<link rel="stylesheet" href="/expediente/comparador/comparador.css?v=20261120a" />
+
+<div id="comparador-widget" class="comparador-widget collapsed hidden">
+    <button type="button" class="comparador-header" onclick="toggleComparadorWidget()">
+        <span>Comparador de Proyectos <small id="comparador-count" class="ms-1">(0)</small></span>
+        <i class="fa fa-chevron-up"></i>
+    </button>
+    <div class="comparador-body">
+        <p id="comparador-empty" class="comparador-empty">Aún no seleccionas proyectos.</p>
+        <ul id="comparador-list"></ul>
+        <div class="comparador-actions">
+            <button type="button" class="btn btn-outline-secondary btn-sm"
+                    onclick="limpiarComparador()" id="comparador-clear" disabled>
+                Limpiar
+            </button>
+            <button type="button" class="btn btn-primary btn-sm" id="comparador-send" disabled>
+                Enviar selección
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="comparadorModal" tabindex="-1"
+     aria-labelledby="comparadorModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="comparadorModalLabel">Solicitar análisis comparativo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+
+      	
+      <div class="modal-body">
+        <div id="comparador-form">
+          <div class="mb-3">
+            <label for="comparadorNombre" class="form-label small text-secondary mb-1">Nombre completo</label>
+            <input type="text" class="form-control" id="comparadorNombre" placeholder="Ingresa tu nombre" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="comparadorCorreo" class="form-label small text-secondary mb-1">Correo electr&oacute;nico</label>
+            <input type="email" class="form-control" id="comparadorCorreo" placeholder="nombre@ejemplo.com" required>
+          </div>
+
+          <div class="mb-3">
+            <span class="form-label small text-secondary mb-1 d-block">Capítulos ICE a comparar</span>
+              <p class="text-muted small mb-2 mb-lg-2 ">Selecciona al menos 1 capítulo.</p>
+
+            <div class="form-check d-flex align-items-center gap-2 mb-2">
+              <input class="form-check-input m-0" type="checkbox" value="1" id="comparadorCap1">
+              <label class="form-check-label small mb-0" for="comparadorCap1">
+                1.- Contingencias
+              </label>
+            </div>
+
+            <div class="form-check d-flex align-items-center gap-2 mb-2">
+              <input class="form-check-input m-0" type="checkbox" value="2" id="comparadorCap2">
+              <label class="form-check-label small mb-0" for="comparadorCap2">
+                2.- Normativa
+              </label>
+            </div>
+
+            <div class="form-check d-flex align-items-center gap-2 mb-2">
+              <input class="form-check-input m-0" type="checkbox" value="3" id="comparadorCap3">
+              <label class="form-check-label small mb-0" for="comparadorCap3">
+                3.- Antecedentes del titular
+              </label>
+            </div>
+
+            <div class="form-check d-flex align-items-center gap-2 mb-2">
+              <input class="form-check-input m-0" type="checkbox" value="4" id="comparadorCap4">
+              <label class="form-check-label small mb-0" for="comparadorCap4">
+                4.- Impactos 
+              </label>
+            </div>
+
+            <div class="form-check d-flex align-items-center gap-2 mb-2">
+              <input class="form-check-input m-0" type="checkbox" value="5" id="comparadorCap5">
+              <label class="form-check-label small mb-0" for="comparadorCap5">
+                5.- PAS 
+              </label>
+            </div>
+
+            <div class="form-check d-flex align-items-center gap-2 mb-2">
+              <input class="form-check-input m-0" type="checkbox" value="6" id="comparadorCap6">
+              <label class="form-check-label small mb-0" for="comparadorCap6">
+                6.- Planes seguimiento 
+              </label>
+            </div>
+
+            <div class="form-check d-flex align-items-center gap-2 mb-2">
+              <input class="form-check-input m-0" type="checkbox" value="7" id="comparadorCap7">
+              <label class="form-check-label small mb-0" for="comparadorCap7">
+                7.- Articulo11
+              </label>
+            </div>
+
+            <div class="form-check d-flex align-items-center gap-2 mb-2">
+              <input class="form-check-input m-0" type="checkbox" value="8" id="comparadorCap8">
+              <label class="form-check-label small mb-0" for="comparadorCap8">
+                8.- Descripción
+              </label>
+            </div>
+
+            <div class="form-check d-flex align-items-center gap-2 mb-2">
+              <input class="form-check-input m-0" type="checkbox" value="9" id="comparadorCap9">
+              <label class="form-check-label small mb-0" for="comparadorCap9">
+                9.- Otras consideraciones
+              </label>
+            </div>
+
+            <div class="form-check d-flex align-items-center gap-2 mb-2">
+              <input class="form-check-input m-0" type="checkbox" value="10" id="comparadorCap10">
+              <label class="form-check-label small mb-0" for="comparadorCap10">
+                10.- Antecedentes no EIA
+              </label>
+            </div>
+
+            <div class="form-check d-flex align-items-center gap-2 mb-2">
+              <input class="form-check-input m-0" type="checkbox" value="11" id="comparadorCap11">
+              <label class="form-check-label small mb-0" for="comparadorCap11">
+                11.- Mitigación
+              </label>
+            </div>
+
+            <div class="form-check d-flex align-items-center gap-2 mb-2">
+              <input class="form-check-input m-0" type="checkbox" value="12" id="comparadorCap12">
+              <label class="form-check-label small mb-0" for="comparadorCap12">
+                12.- CAV
+              </label>
+            </div>
+
+          </div>
+
+          <p class="text-muted mb-0">
+            Recibir&aacute;s el an&aacute;lisis comparativo en el correo que ingresaste.
+          </p>
+        </div>
+
+        <div id="comparador-success" class="d-none">
+          <p class="text-success fw-semibold mb-2 fs-6">Solicitud enviada correctamente.</p>
+          <p class="text-muted mb-0">Pronto recibir&aacute;s el an&aacute;lisis en tu correo electr&oacute;nico.</p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" id="comparadorModalCancelar" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="comparadorModalEnviar">Enviar solicitud</button>
+        <button type="button" class="btn btn-primary d-none" id="comparadorModalCerrar">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TKGRC8V');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-88214148-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-88214148-2');
+</script>
+<title>Ficha del Proyecto: HyEx - Producción de Hidrógeno Verde</title>
+
+
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="/template/default/gob/css/main.css">
+		<link rel="stylesheet" href="/template/default/gob/css/extras.css">
+		<link rel="stylesheet" href="/template/default/gob/css/zecovery.css">
+		<link rel="stylesheet" href="/template/default/gob/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/template/default/gob/css/menu-responsive.css">
+		<script src="/template/default/gob/js/prefixfree.min.js"></script>
+		<script src="/template/default/gob/js/modernizr.min.js"></script>
+		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script> 
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"  />
+	<link href="/template/default/gob/css/bootstrap.min.css" rel="stylesheet" > 
+		 
+  
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="DESCRIPTION" content="Sistema de Evaluación de Impacto Ambiental e-seia" />
+<meta name="DC.Title" content="Sistema de Evaluación de Impacto Ambiental e-seia" />
+<meta name="DC.Author" content="Comisión Nacional del Medio Ambiente" />
+<meta name="DC.Creator.CorporateName" content="Exec Ltda." />
+<meta name="DC.Creator.CorporateName.Address" content="info@exec.cl" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="e-seia" />
+
+<script type="text/javascript" src="/js/js.php?f=yui/yahoo/yahoo-min.js,yui/dom/dom-min.js,yui/event/event-min.js&amp;v=20261120a"></script>
+
+<link rel="stylesheet" href="/js/yui/menu/assets/menu.css?v=20261120a" type="text/css" />
+<link rel="stylesheet" href="/js/yui/button/assets/button.css?v=20261120a" type="text/css" />
+<link rel="stylesheet" href="/js/yui/container/assets/container.css?v=20261120a" type="text/css" />
+<link rel="stylesheet" href="/js/yui/tabview/assets/tabview.css?v=20261120a" type="text/css" />
+<link rel="stylesheet" href="/mantenedor/mantenedor.css?v=20261120a" type="text/css" />
+<link rel="stylesheet" href="/css/buscador_pac.css?v=20261120a" type="text/css" />
+<link rel="stylesheet" href="/css/fontawesome.css?v=20261120a" type="text/css" />
+<script type="text/javascript" src="/js/js.php?f=yui/animation/animation-min.js,yui/dragdrop/dragdrop-min.js&amp;v=20261120a"></script>
+<script type="text/javascript" src="/js/js.php?f=yui/container/container-min.js,yui/connection/connection-min.js&amp;v=20261120a"></script>
+<script type="text/javascript" src="/js/js.php?f=yui/menu/menu-min.js&amp;v=20261120a"></script>
+<script type="text/javascript" src="/js/js.php?f=yui/element/element-beta-min.js,yui/button/button-beta-min.js,yui/datasource/datasource-beta-min.js&amp;v=20261120a"></script>
+<script type="text/javascript" src="/js/js.php?f=yui/datatable/datatable-beta-min.js,yui/tabview/tabview-min.js&amp;v=20261120a"></script>
+<script type="text/javascript" src="/js/js.php?f=utiles.js,validaciones.js,custom.js,cssQuery/cssQuery-p.js,form_autofecha-min.js,form_autonumero-min.js,form_autorut-min.js,form_autocomplete-min.js&amp;v=20261120a"></script>
+<script type="text/javascript" src='/mantenedor/mantenedor.js?v=20261120a'></script>
+<script type="text/javascript" src="/js/locale.php?idioma=&amp;v=20261120a"></script>
+
+   <!-- Proyecto Modernización -->
+ 
+   <link rel="stylesheet" href="/template/default/gob/css/mediaqueries.less">
+   <link rel="stylesheet" href="/template/default/gob/css/normalize.less">
+
+   <!-- <link rel="stylesheet" href="/css/dataTables.dataTables.min.css" /> -->
+   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css" />
+
+   <link rel="stylesheet" href="/template/default/gob/css/modernizacion.css">
+   <link href="/css/tom-select.css" rel="stylesheet">
+   <link href="/css/gijgo.css" rel="stylesheet" type="text/css" />
+
+
+   <script src="/js/bootstrap.bundle.min.js"></script>
+   <script type="text/javascript" href="/template/default/gob/js/utiles.js"></script>
+   <!-- <script src="/js/dataTables.js"></script> -->
+   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+
+
+
+   <script src="/js/gijgo.min.js" type="text/javascript"></script>
+   <script src="/js/gijgo-messages.es-es.js" type="text/javascript"></script>
+   <!-- Tom Select JS -->
+   <script src="/js/tom-select.complete.min.js"></script>
+   
+	<!-- moment.js -->
+	<script src="/js/moment.js" type="text/javascript"  ></script>
+	<script src="/js/datatableconfig.js" type="text/javascript"  ></script>
+
+
+   <!-- FIN *****************  -->
+</head> 
+
+
+<body  id="ventana_popup">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TKGRC8V"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div id="main">
+
+
+
+<h3 class="title" id="{id_titulo}"><h2 class="sg-title text-title text-primary">Ficha del Proyecto: HyEx - Producción de Hidrógeno Verde</h2></h3>
+
+<div class="sg-file-wrapper mb-4">
+<script>
+    window.comparadorConfig = { expedienteActual: {"id":"2152970568","nombre":null} };
+</script>
+<script src="/expediente/comparador/comparador.js?v=20261120a"></script>
+ 
+
+          <div class="container-fluid gx-0">
+                  
+
+         <div class=" sg-file">
+
+            <div class="sg-file-data row gx-0 py-4 text-end">
+                <div class="col-md-12">
+                     <button id="btn_ubicaci_n" class="btn btn-primary-2 btn-lg sg-btnForm nbot_70px" type="button" onclick="document.location='/mapa/visualizacion/PuntoRepresentativo/index.php?idExpediente=2152970568'">Ubicaci&oacute;n</button><button id="btn_plazos" class="btn btn-primary-2 btn-lg sg-btnForm nbot_70px" type="button" onclick="document.location='/expediente/newPlazos.php?modo=ficha&id_expediente=2152970568'">Plazos</button>
+                </div>
+            </div>
+           
+            
+          <div class="sg-file-wrapper mb-4"> 
+           <ul class='nav nav-tabs nav-fill' id='fileProject-tab' role='tablist'>  <li class='nav-item'>
+                   <a class='nav-link active' id='fileProject-tab-0' data-toggle='tab' href='#fileProject-0' role='tab' aria-controls='fileProject-0' aria-selected='true'>Antecedentes Generales</a>
+                   </li><li class='nav-item'>
+                   <a class='nav-link' id='fileProject-tab-1' data-toggle='tab' href='/expediente/expedientesEvaluacion.php?modo=ficha&id_expediente=2152970568' role='tab' aria-controls='fileProject-1' aria-selected='true'>Expediente de Evaluación de Impacto Ambiental</a>
+                   </li></ul>
+                      <div class="tab-content pt-4" id="fileProject-content"> 
+             <div class="tab-pane fade show active" id="fileProject-tab-1-pane" role="tabpanel" aria-labelledby="fileProject-tab-1" tabindex="0">
+                      
+         <div class="row">
+            <div class="col-md-12">
+               <h2 class="sg-subtitle text-body text-primary-2 mb-0">Forma de Presentación: Declaración de Impacto Ambiental</h2>
+            </div>
+         </div>
+               
+         <div class="row gx-0 sg-row-file-data ">
+            <div class="col-md-3 col-sm-12"><span>Proyecto</span></div>
+            <div class="col-md-9 col-sm-12"><h6>HyEx - Producción de Hidrógeno Verde</h6></div>
+         </div>
+
+         <div class="row gx-0 sg-row-file-data">
+            <div class="col-md-3 col-sm-12"><span>Región del Proyecto</span></div>
+            <div class="col-md-9 col-sm-12"><h6 class="text-justify">Región de Antofagasta</h6></div>
+         </div>
+               
+                  <div class="row gx-0 sg-row-file-data">
+            <div class="col-md-3 col-sm-12"><span>Tipo de Proyecto</span></div>
+            <div class="col-md-9 col-sm-12"><h6 class="text-justify">Gasoductos</h6></div>
+         </div>
+
+         
+
+         <div class="row gx-0 sg-row-file-data">
+            <div class="col-md-3 col-sm-12"><span>Monto de Inversión</span></div>
+            <div class="col-md-9 col-sm-12"><h6>47,0000 Millones de Dólares</h6></div>
+         </div>
+
+         <div class="row gx-0 sg-row-file-data">
+            <div class="col-md-3 col-sm-12"><span>Estado Actual</span></div>
+            <div class="col-md-9 col-sm-12"><span>Aprobado</span></div>
+         </div>
+                
+          <div class="row gx-0 sg-row-file-data">
+            <div class="col-md-3 col-sm-12"><span>Encargado/a</span></div>
+            <div class="col-md-9 col-sm-12"><h6 class="fw-bold">       <!-- <tr>
+         <td>Encargado/a</td> -->
+         <!-- <td> -->
+            <span notitle="Teléfono: 977183597"> <a class='color-primary' href="mailto:jfrias@sea.gob.cl">Jenny Edith Frías Miranda</a></span>
+         <!-- </td>
+      </tr> --></h6></div>
+ </div>
+               
+          <div class="row gx-0 sg-row-file-data">
+            <div class="col-md-12 col-sm-12"><span>Registro de Estados del Proyecto</span></div>
+      <div class="col-md-12 col-sm-12">
+            <div class="table-responsive">
+                  <div class="sg-table-wrapper">
+                     
+<table id="detallelistado" class="compact cell-border" style="width:100%;">
+                           <thead>
+                              <tr>
+                                 <th>Estado</th>
+                                 <th>Documento</th>
+                                 <th>Número</th>
+                                 <th>Fecha</th>
+                                 <th>Autor</th>
+                                 <th>Acciones</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                          
+              <tr>
+                <td>En Calificación</td>               <td class='td-primary'><a href='https://seia.sea.gob.cl/documentos/documento.php?idDocumento=2153005083' target='_blank' >Resolución de Admisibilidad</a><img src='/images/certd.gif' align=absmiddle title='Firmado con certificado digital acreditado'></td>
+               <td class="text-center">0316/2021</td>
+               <td class="dt-type-numeric">23/08/2021</td>
+               <td>Servicio Evaluación Ambiental, II Región de Antofagasta</td>
+               <td>
+                     <div class="sg-action-button d-flex justify-content-center align-items-center">
+                        <button class="btn btn-primary-2 sg-btn-table" 
+                        data-bs-toggle="tooltip" 
+                        data-bs-placement="top" 
+                        data-bs-title="Ver Documento"
+                        onclick="window.open('https://seia.sea.gob.cl/documentos/documento.php?idDocumento=2153005083','_blank').focus();"
+                        ><img class="sg-icon" src="/img/icons/go_to_project.svg"></button>
+                        
+                  </div>
+               </td>
+            </tr>            <tr>
+                <td>Aprobado</td>               <td class='td-primary'><a href='https://firma.sea.gob.cl/publicaciones/32/00/2155740057' target='_blank' >Resolución de Calificación Ambiental (RCA)</a><img src='/images/certd.gif' align=absmiddle title='Firmado con certificado digital acreditado'></td>
+               <td class="text-center">202202001118</td>
+               <td class="dt-type-numeric">27/04/2022</td>
+               <td>Servicio Evaluación Ambiental, II Región de Antofagasta</td>
+               <td>
+                     <div class="sg-action-button d-flex justify-content-center align-items-center">
+                        <button class="btn btn-primary-2 sg-btn-table" 
+                        data-bs-toggle="tooltip" 
+                        data-bs-placement="top" 
+                        data-bs-title="Ver Documento"
+                        onclick="window.open('https://firma.sea.gob.cl/publicaciones/32/00/2155740057','_blank').focus();"
+                        ><img class="sg-icon" src="/img/icons/go_to_project.svg"></button>
+                        
+                  </div>
+               </td>
+            </tr>   </tbody></table> 
+                  </div>
+            </div>
+      </div>
+  </div>
+  
+
+               <script>
+                  new DataTable('#detallelistado', {
+                     searching: false,
+                     pageLength: false,
+                     info: false,
+                     paging: false,
+                     ordering: false,
+                     columnDefs: [{
+                     target: 2,
+                     type: 'string'
+                     }]
+                  });
+               </script>    <div class="row gx-0 sg-row-file-data">
+                  <div class="col-md-12 col-sm-12"><span>Permisos Ambientales Sectoriales</span></div>
+                  <div class="col-md-12 col-sm-12">
+                     
+                     <div class="sg-table-wrapper">
+                       
+                             	<table id="example2" class="cell-border" style="width:100%;">
+										<thead>
+											<tr>
+												<th>N° de artículo</th>
+												<th>Descripción</th>
+												<th>Tipo</th>
+                                    <th>Certificado</th>
+											</tr>
+										</thead>
+										<tbody>            <tr>
+                  <td>138</td>
+                  <td class="text-justify">Permiso para la construcción, reparación, modificación y ampliación de cualquier obra pública o particular destinada a la evacuación, tratamiento o disposición final de desagües, aguas servidas de cualquier naturaleza.</td>
+                  <td>Mixto</td>
+                  <td>No procede certificado</td>
+            </tr>            <tr>
+                  <td>139</td>
+                  <td class="text-justify">Permiso para la construcción, reparación, modificación y ampliación de cualquier obra pública o particular destinada a la evacuación, tratamiento o disposición final de residuos industriales o mineros.</td>
+                  <td>Mixto</td>
+                  <td>No procede certificado</td>
+            </tr>            <tr>
+                  <td>140</td>
+                  <td class="text-justify">Permiso para la construcción, reparación, modificación y ampliación de cualquier planta de tratamiento de basuras y desperdicios de cualquier clase o para la instalación de todo lugar destinado a la acumulación, selección, industrialización, comercio o disposición final de basuras y desperdicios de cualquier clase.</td>
+                  <td>Mixto</td>
+                  <td>No procede certificado</td>
+            </tr>            <tr>
+                  <td>142</td>
+                  <td class="text-justify">Permiso para todo sitio destinado al almacenamiento de residuos peligrosos.</td>
+                  <td>Mixto</td>
+                  <td>No procede certificado</td>
+            </tr>            <tr>
+                  <td>160</td>
+                  <td class="text-justify">Permiso para subdividir y urbanizar terrenos rurales o para construcciones fuera de los límites urbanos.</td>
+                  <td>Mixto</td>
+                  <td>No procede certificado</td>
+            </tr></tbody></table></td></tr>
+
+                        <script>
+                           new DataTable('#example2', {
+                              
+                              searching: false,
+                              pageLength: false,
+                              info: false,
+                              paging: false,
+                              ordering: false,
+                              columnDefs: [{
+                                 target:1,className:"wrap-text"
+                              }]
+                              
+                           });
+                        </script>
+                        
+                     </div><!-- /.sg-table-wrapper -->
+                     
+                  </div>
+               </div>
+               <div class="row gx-0 sg-row-file-data">
+                  <div class="col-md-12 col-sm-12 mb-4"><span>Descripción del Proyecto</span></div>
+                  <div class="col-md-12 col-sm-12">
+                     
+                     <div class="sg-description-file overflow-y-auto overflow-x-hidden mb-3 text-justify"><h6 style="line-height: 1.2 !important;">
+                         <p class="MsoNormal" style="text-align: justify;"><span lang="ES"><span style="font-family: Arial;"><span style="font-size: 12px;">El Proyecto, corresponde a una planta de producci&oacute;n de Hidr&oacute;geno Verde ubicada a 25 km aproximadamente de la ciudad de Tocopilla. El suministro el&eacute;ctrico para alimentar el Proyecto provendr&aacute; de una conexi&oacute;n con la subestaci&oacute;n Tamaya (110/33 kV), mediante una zanja con cableado soterrado; mientras que el abastecimiento de agua desmineralizada provendr&aacute; de la Central T&eacute;rmica Tocopilla (CTT).</span></span><o:p></o:p></span></p>
+<p class="MsoNormal" style="text-align: justify;"><span style="font-family: Arial;"><span style="font-size: 12px;"><span lang="ES">La planta de electr&oacute;lisis contar&aacute; con un arreglo de electrolizadores con una potencia instalada total de aproximadamente 26 MW, alimentados por la subestaci&oacute;n antes mencionada. Con el fin de producir y suministrar H<sub>2</sub> las 24 horas del d&iacute;a, el Proyecto considera un sistema de compresi&oacute;n y almacenamiento de H<sub>2</sub>, el cual permitir&aacute; suministrar H<sub>2</sub> durante todo el d&iacute;a, sin que necesariamente la operaci&oacute;n del proceso de electr&oacute;lisis sea continua.</span></span></span><span lang="ES"><o:p></o:p></span></p>
+<p class="MsoNormal" style="text-align: justify;"><span style="font-family: Arial;"><span style="font-size: 12px;"><span lang="ES">El H<sub>2</sub> producido por la electr&oacute;lisis alimentar&aacute; la planta de producci&oacute;n de Amon&iacute;aco Verde propiedad de ENAEX, la que se ubicar&aacute; en un terreno adyacente al Proyecto.</span></span></span><span lang="ES"><o:p></o:p></span></p><br /><b>Objetivo</b><br /><p style="text-align: justify;"><span style="font-family: Arial;"><span style="font-size: 12px;">El objetivo del Proyecto corresponde a la construcci&oacute;n y operaci&oacute;n de una planta de producci&oacute;n de Hidrogeno Verde, que alimentar&aacute; la operaci&oacute;n de una planta de Amon&iacute;aco Verde, con el prop&oacute;sito de apalancar la transici&oacute;n energ&eacute;tica y la meta del estado chileno en alcanzar la carbono neutralidad para el a&ntilde;o 2050, acorde a los lineamientos pactados en la COP21 (&quot;Conference of the Parties&quot;) 2015.</span></span></p></h6>
+                        </div>
+                     
+                  </div>
+               </div>
+               
+                
+<div class="row gx-0 sg-row-file-data ">
+							<div class="col-md-12 col-sm-12 mb-4">
+                        <span>Información de Contacto </span></div>
+							<div class="col-md-12 col-sm-12">
+								
+								<div class="accordion" id="accordionContact">
+                           
+    <div class="accordion-item">
+									<h2 class="accordion-header">
+									  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+										Titular 
+									  </button>
+									</h2>
+									<div id="collapseOne" class="accordion-collapse collapse show"> <!-- data-bs-parent="#accordionContact" -->
+									  <div class="accordion-body">
+										
+										<div class="row sg-row-file-description">
+											<div class="col-md-3 col-sm-12"><span>Nombre</span></div>
+											<div class="col-md-9 col-sm-12"><h6>ENGIE AUSTRAL S.A.</h6></div>
+										</div>
+										
+										<div class="row sg-row-file-description">
+											<div class="col-md-3 col-sm-12"><span>Domicilio</span></div>
+											<div class="col-md-9 col-sm-12"><h6>Av. Isidora Goyenechea 2800, Piso 16</h6></div>
+										</div>
+										
+										<div class="row sg-row-file-description">
+											<div class="col-md-3 col-sm-12"><span>Ciudad</span></div>
+											<div class="col-md-9 col-sm-12"><h6>Las Condes</h6></div>
+										</div>
+										
+										<div class="row sg-row-file-description">
+											<div class="col-md-3 col-sm-12"><span>Teléfono</span></div>
+											<div class="col-md-9 col-sm-12" style="font-family: 'Roboto', sans-serif !important; font-size: .875rem !important;">+56 222900400</div>
+										</div>
+										
+										<div class="row sg-row-file-description">
+											<div class="col-md-3 col-sm-12" ><span>Fax</span></div>
+											<div class="col-md-9 col-sm-12" style="font-family: 'Roboto', sans-serif !important; font-size: .875rem !important;">+56 222900400</div>
+										</div>
+										
+										<div class="row sg-row-file-description">
+											<div class="col-md-3 col-sm-12" >
+                                    <span>E-mail</span>
+                                 </div>
+
+											<div class="col-md-9 col-sm-12">
+                                 <h6 >
+                                    <a class="color-primary" style="color: #4282E0 !important;" href="mailto:pablo.espinosa@engie.com" >
+                                       pablo.espinosa@engie.com
+                                    </a>
+                                 </h6>
+                                 </div>
+
+										</div>
+									
+									  </div>
+									</div>
+				  </div>
+			 
+       <div class="accordion-item">
+									<h2 class="accordion-header">
+									  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                           Representante Legal  
+									  </button> 
+									</h2>
+									<div id="collapseTwo" class="accordion-collapse collapse">  
+									  <div class="accordion-body">	
+
+
+                                        <div class="row sg-row-file-description">
+											<div class="col-md-3 col-sm-12"><span>Nombre</span></div>
+											<div class="col-md-9 col-sm-12"><h6>Pablo Rodolfo Espinosa Aguirre</h6></div>
+										</div>
+										
+										<div class="row sg-row-file-description">
+											<div class="col-md-3 col-sm-12"><span>Domicilio</span></div>
+											<div class="col-md-9 col-sm-12"><h6>Avenida Isidora Goyenechea 2800, Of. 1601</h6></div>
+										</div>
+										
+									<!--	<div class="row sg-row-file-description">
+											<div class="col-md-3 col-sm-12"><span>Ciudad</span></div>
+											<div class="col-md-9 col-sm-12"><h6></h6></div>
+										</div> -->
+										
+										<div class="row sg-row-file-description">
+											<div class="col-md-3 col-sm-12"><span>Teléfono</span></div>
+											<div class="col-md-9 col-sm-12"><h6>966569002</h6></div>
+										</div>
+										
+										<div class="row sg-row-file-description">
+											<div class="col-md-3 col-sm-12"><span>Fax</span></div>
+											<div class="col-md-9 col-sm-12" style="font-family: 'Roboto', sans-serif !important; font-size: .875rem !important;"></div>
+										</div>
+										
+										<div class="row sg-row-file-description">
+											<div class="col-md-3 col-sm-12"><span>E-mail</span></div>
+											<div class="col-md-9 col-sm-12">
+                                    <h6>
+                                       <a class="color-primary" style="color: #4282E0 !important;" href="mailto:pablo.espinosa@engie.com">
+                                          pablo.espinosa@engie.com
+                                       </a>
+                                    </h6>
+                                 </div>
+										</div>
+
+									  </div> 
+									</div>
+								  </div>
+      
+            <div class="accordion-item">
+									<h2 class="accordion-header">
+									  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                             Empresa Consultora Ambiental
+									  </button>
+									</h2>
+									<div id="collapseThree" class="accordion-collapse collapse"> <!-- data-bs-parent="#accordionContact" -->
+									  <div class="accordion-body">
+
+                                      <div class="row sg-row-file-description">
+											<div class="col-md-3 col-sm-12"><span>Nombre</span></div>
+											<div class="col-md-9 col-sm-12"><h6>Jaime Illanes y Asoc.</h6></div>
+										</div>
+										
+										<div class="row sg-row-file-description">
+											<div class="col-md-3 col-sm-12"><span>Domicilio</span></div>
+											<div class="col-md-9 col-sm-12"><h6>Antonio Bellet 444 piso 9</h6></div>
+										</div>
+										
+										<div class="row sg-row-file-description">
+											<div class="col-md-3 col-sm-12"><span>Ciudad</span></div>
+											<div class="col-md-9 col-sm-12"><h6>Santiago</h6></div>
+										</div>
+										
+										<div class="row sg-row-file-description">
+											<div class="col-md-3 col-sm-12"><span>Teléfono</span></div>
+											<div class="col-md-9 col-sm-12"><h6>25508900</h6></div>
+										</div>
+										
+										<div class="row sg-row-file-description">
+											<div class="col-md-3 col-sm-12"><span>Fax</span></div>
+											<div class="col-md-9 col-sm-12" style="font-family: 'Roboto', sans-serif !important; font-size: .875rem !important;">25508900</div>
+										</div>
+										
+										<div class="row sg-row-file-description">
+											<div class="col-md-3 col-sm-12"><span>E-mail</span></div>
+											<div class="col-md-9 col-sm-12">
+                                    <h6>
+                                       <a class="color-primary" style="color: #4282E0 !important;" href="mailto:d_rios@jaimeillanes.cl">
+                                          d_rios@jaimeillanes.cl
+                                       </a>
+                                    </h6>
+                                 </div>
+										</div>
+
+									  </div>
+									</div>
+								  </div>
+          <div class="accordion-item">
+									  <h2 class="accordion-header">
+										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+										  Consultor/a
+										</button>
+									  </h2>
+									  <div id="collapseFour" class="accordion-collapse collapse"> <!-- data-bs-parent="#accordionContact" -->
+										<div class="accordion-body">
+
+                                            <div class="row sg-row-file-description">
+                                                <div class="col-md-3 col-sm-12"><span>Nombre</span></div>
+                                                <div class="col-md-9 col-sm-12"><h6>Marcelo Valenzuela</h6></div>
+                                            </div> 
+                                            
+                                            <div class="row sg-row-file-description">
+                                                <div class="col-md-3 col-sm-12"><span>E-mail</span></div>
+                                                <div class="col-md-9 col-sm-12">
+                                                   <h6>
+                                                      <a class="color-primary" style="color: #4282E0 !important;" href="mailto:d_rios@jaimeillanes.cl">d_rios@jaimeillanes.cl</a></h6></div>
+                                            </div>
+										  
+										</div>
+									  </div>
+									</div>
+ 
+                        </div>
+                        </div>
+</div>
+
+  
+                   
+               
+
+               
+       </div><!-- /.fileProject-tab-1-pane -->
+
+       
+ 
+           <script>
+      document.addEventListener('DOMContentLoaded', function () {
+      
+
+      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+         new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+   });
+
+   </script>
+
+            </div>
+       
+            </div>
+            </div>
+            </div>
+        
+<div align=center><button onclick="javascript:window.close();" onfocus="blur();" id="bot_cerrar" title="Cerrar Ventana"  >Cerrar</button></div>
+</div>
+
+</div>
+</body>
+</html>
